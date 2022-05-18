@@ -33,7 +33,7 @@ export const RecentPostCard = styled.div`
       border-right: 2px solid #fb673e;
       border-bottom: 2px solid #fb673e;
       margin-right: 10px;
-      transition: 0.4s ease;
+      transition: 0.2s ease;
       transform: translateY(-50%) rotate(-45deg);
       opacity: 0;
     }
