@@ -1,7 +1,8 @@
 const navLinks: { title: string; path: string; link: string }[] = [
-  { title: 'Blog', path: '/blog', link: '/blog' },
-  { title: 'Project', path: '/Project', link: '/Project' },
-  { title: 'About', path: '/About', link: '/About' },
+  { title: 'blog', path: '/blog', link: '/blog' },
+  { title: 'project', path: '/project', link: '/project' },
+  { title: 'note', path: '/note', link: '/note' },
+  { title: 'about', path: '/about', link: '/about' },
 ];
 
 export default navLinks;
