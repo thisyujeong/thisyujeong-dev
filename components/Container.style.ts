@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-export const LayoutContainer = styled.div`
+export const ContainerContainer = styled.div`
   height: auto;
   .contents {
     width: 100%;

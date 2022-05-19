@@ -1,7 +1,7 @@
 import { SideNavContainer } from './SideNav.style';
 import Link from 'next/link';
 import React from 'react';
-import navLinks from '../../data/navLinks';
+import navLinks from '../data/navLinks';
 import { useRouter } from 'next/router';
 
 const Links = () => {
