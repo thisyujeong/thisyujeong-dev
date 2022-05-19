@@ -3,12 +3,9 @@ import { ContainerContainer, Main } from './Container.style';
 import Head from 'next/head';
 import SideNav from './SideNav';
 import TopBar from './TopBar';
+import { Children } from 'lib/types';
 
-type Props = {
-  children: JSX.Element;
-};
-
-const Container = ({ children }: Props) => {
+const Container = ({ children }: Children) => {
   return (
     <ContainerContainer>
       <Head>

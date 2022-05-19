@@ -15,4 +15,9 @@ export const MDXPostDate = styled.span`
   margin-bottom: 20px;
   font-size: 14px;
   word-break: keep-all;
+  opacity: 0.5;
+`;
+
+export const MDXPostContent = styled.div`
+  margin-top: 36px;
 `;

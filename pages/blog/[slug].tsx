@@ -1,7 +1,9 @@
 import { allBlogs } from 'contentlayer/generated';
+import { PostProps } from 'lib/types';
+import { GetStaticProps } from 'next';
 import BlogLayout from '../../layouts/blog';
 
-const PostPage = ({ post }) => {
+const PostPage = ({ post }: PostProps) => {
   return <BlogLayout post={post} />;
 };
 
@@ -12,7 +14,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = allBlogs.find((post) => post.slug === params.slug);
   return {
     props: {

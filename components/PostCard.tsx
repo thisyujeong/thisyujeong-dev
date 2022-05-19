@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import { PostCardProps } from 'lib/types';
 import { PostCardContainer } from './PostCard.style';
 
-const PostCard = ({ post, slug }) => {
+const PostCard = ({ post, slug }: PostCardProps) => {
   return (
     <Link href={`/blog/${slug}`} passHref>
       <PostCardContainer>

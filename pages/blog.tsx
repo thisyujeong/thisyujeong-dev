@@ -4,8 +4,9 @@ import Container from '../components/Container';
 import metadata from 'data/metadata';
 import PostCard from '../components/PostCard';
 import Title from 'components/Title';
+import { PostProps } from 'lib/types';
 
-const Blog = ({ posts }) => {
+const Blog = ({ posts }: { posts: PostProps[] }) => {
   return (
     <Container>
       <NextSeo

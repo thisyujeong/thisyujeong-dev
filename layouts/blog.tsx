@@ -1,12 +1,14 @@
+import type { Blog } from 'contentlayer/generated';
+import { PostProps } from 'lib/types';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';
 import Container from '../components/Container';
 import MDXPost from '../components/MDXPost';
 import metadata from '../data/metadata';
 
-const BlogLayout = ({ post }) => {
+const BlogLayout = ({ post }: PostProps) => {
   const MDXComponent = useMDXComponent(post.body.code);
-  console.log(post.tags);
+
   return (
     <Container>
       <NextSeo
