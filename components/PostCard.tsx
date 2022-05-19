@@ -6,8 +6,8 @@ const PostCard = ({ post, slug }) => {
     <Link href={`/blog/${slug}`} passHref>
       <PostCardContainer>
         <h1>{post.title}</h1>
-        <div>{post.description}</div>
-        <div>{post.date}</div>
+        <p>{post.description}</p>
+        <span>{post.date}</span>
       </PostCardContainer>
     </Link>
   );

@@ -57,7 +57,7 @@ export const RecentPostCard = styled.div`
   }
 
   &:hover {
-    opacity: 0.6;
+    opacity: 0.7;
 
     .post-title {
       color: #fb673e;

@@ -3,6 +3,7 @@ import { allBlogs } from 'contentlayer/generated';
 import Container from '../components/Container';
 import metadata from 'data/metadata';
 import PostCard from '../components/PostCard';
+import Title from 'components/Title';
 
 const Blog = ({ posts }) => {
   return (
@@ -13,7 +14,8 @@ const Blog = ({ posts }) => {
         canonical={`${metadata.meta.url}/blog`}
         openGraph={{ url: `${metadata.meta.url}/blog` }}
       />
-      <h1>Blog 입니다.</h1>
+
+      <Title title={'blog .'} description="지식과 기술들을 공유 및 정리합니다." />
       {posts.map((post, idx) => (
         <PostCard post={post} key={idx} slug={post.slug} />
       ))}
