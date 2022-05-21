@@ -6,6 +6,7 @@ import {
 } from './MDXPost.style';
 import type { PropsWithChildren } from 'react';
 import { MDXPostProps } from 'lib/types';
+import convertDateUs from 'lib/convertDateUs';
 
 const MDXPost = ({ title, date, children }: PropsWithChildren<MDXPostProps>) => {
   const convertDate = () => {
@@ -18,7 +19,7 @@ const MDXPost = ({ title, date, children }: PropsWithChildren<MDXPostProps>) => 
   return (
     <MDXPostContainer>
       <MDXPostTitle>{title}</MDXPostTitle>
-      <MDXPostDate>{convertDate()}</MDXPostDate>
+      <MDXPostDate>{convertDateUs(date)}</MDXPostDate>
       <MDXPostContent>{children}</MDXPostContent>
     </MDXPostContainer>
   );

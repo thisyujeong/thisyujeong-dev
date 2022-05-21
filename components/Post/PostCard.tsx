@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { PostCardProps } from 'lib/types';
 import { PostCardContainer } from './PostCard.style';
+import convertDateUs from 'lib/convertDateUs';
 
 const PostCard = ({ post, slug }: PostCardProps) => {
   return (
@@ -8,7 +9,7 @@ const PostCard = ({ post, slug }: PostCardProps) => {
       <PostCardContainer>
         <h1>{post.title}</h1>
         <p>{post.description}</p>
-        <span>{post.date}</span>
+        <span>{convertDateUs(post.date)}</span>
       </PostCardContainer>
     </Link>
   );
