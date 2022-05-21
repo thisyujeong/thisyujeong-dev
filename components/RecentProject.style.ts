@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 
 export const RecentProjectContaner = styled.div`
   display: flex;
-  width: 100%;
   flex-wrap: wrap;
   a {
     flex: 1;
-    display: block;
   }
   a + a {
     margin-left: 10px;
@@ -32,22 +30,39 @@ export const ProjectCard = styled.div`
 
 export const ProjectCardImg = styled.div`
   position: relative;
-  width: 180px;
+  flex: 1;
+
+  &:before {
+    content: '';
+    position: relative;
+    display: block;
+    padding-bottom: 64%;
+  }
+
   img {
     position: absolute;
-    height: 100%;
+    height: 100% !important;
   }
 `;
 export const ProjectCardCopy = styled.div`
+  flex: 2;
   margin-left: 12px;
   margin-top: 4px;
 `;
+
 export const ProjectCardTitle = styled.h3`
   font-size: 16px;
   transition: all 0.2s ease;
 `;
+
 export const ProjectCardDesc = styled.p`
   margin-top: 8px;
-  font-size: 14px;
+  height: 3.14em;
   opacity: 0.5;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
