@@ -2,7 +2,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import TopBar from '../components/TopBar';
 import Layout from '../components/Container';
-import RecentPost from '../components/RecentPost';
+import RecentPost from '../components/RecentPosts';
 import { allBlogs } from 'contentlayer/generated';
 import { InferGetStaticPropsType } from 'next';
 

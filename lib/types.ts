@@ -1,5 +1,6 @@
 import type { Blog } from 'contentlayer/generated';
 
+/* Blog */
 export type Children = {
   children: React.ReactNode;
 };
@@ -17,4 +18,12 @@ export type PostCardProps = {
 export type MDXPostProps = {
   title: string;
   date: string;
+};
+
+/* Project */
+export type Project = {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
 };

@@ -29,7 +29,6 @@ export const SideNavContainer = styled.div`
     }
 
     &:hover:not([data-selected='true']) {
-      background: #fffafa;
       background: #ececf3;
     }
   }

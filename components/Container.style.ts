@@ -7,7 +7,7 @@ export const ContainerContainer = styled.div`
     margin: 0 auto;
     padding: 40px 22px 0;
     display: grid;
-    grid-template-columns: 260px auto;
+    grid-template-columns: 240px auto;
   }
 `;
 

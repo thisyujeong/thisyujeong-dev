@@ -8,7 +8,7 @@ import {
   PostCard,
   PostTitle,
   PostDesc,
-} from './RecentPost.style';
+} from './RecentPosts.style';
 
 const RecentPost = ({ posts }: { posts: Blog[] }) => {
   return (
