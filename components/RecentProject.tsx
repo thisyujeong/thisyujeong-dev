@@ -14,7 +14,7 @@ const RecentProject = ({ projects }: { projects: Project[] }) => {
   console.log('recent projects', projects);
   return (
     <>
-      <RecentTitle title="project" path="/blog" />
+      <RecentTitle title="project" path="/project" />
       <RecentProjectContaner>
         {projects.map((p) => (
           <a href={p.url} key={p.title} target="_blank" rel="noreferrer">
