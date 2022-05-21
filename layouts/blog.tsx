@@ -15,20 +15,20 @@ const BlogLayout = ({ post }: { post: Blog }) => {
         description={post.description}
         canonical={`${metadata.meta.url}/blog/${post.slug}`}
         openGraph={{
-          type: 'website',
+          type: 'article',
           url: `${metadata.meta.url}/blog/${post.slug}`,
           article: {
             publishedTime: new Date(post.date).toISOString(),
             tags: [...post.tags, 'frontend', 'develop'],
           },
-          // images: [
-          // 	{
-          // 		url: '',
-          // 		width: 800,
-          // 		height: 400,
-          //    alt: post.title,
-          // 	},
-          // ],
+          images: [
+            {
+              url: `${metadata.meta.url}${post.thumbnailUrl}`,
+              width: 850,
+              height: 650,
+              alt: post.title,
+            },
+          ],
         }}
       />
       <MDXPost title={post.title} date={post.date}>
