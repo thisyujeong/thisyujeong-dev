@@ -12,27 +12,25 @@ export const SideNavContainer = styled.div`
   }
 
   li {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   a {
     display: block;
-    padding: 6px 12px;
+    padding: 4px 12px;
     color: #7a7c85;
     font-size: 18px;
     font-weight: 500;
-    border-radius: 8px;
     border: 1px solid transparent;
-    transition: all 0.2s ease;
 
-    &.selected {
+    &[data-selected='true'] {
       color: #fb673e;
-      border-color: #ffd6ca;
-      background: #fffafa;
+      background: #fff1f1;
     }
-    &:hover {
-      color: #fb673e;
+
+    &:hover:not([data-selected='true']) {
       background: #fffafa;
+      background: #ececf3;
     }
   }
 `;
