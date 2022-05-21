@@ -5,7 +5,7 @@ import SideNav from './SideNav';
 import TopBar from './TopBar';
 import { Children } from 'lib/types';
 
-const Container = ({ children }: Children) => {
+const Container = ({ children }: { children?: React.ReactNode }) => {
   return (
     <ContainerContainer>
       <Head>

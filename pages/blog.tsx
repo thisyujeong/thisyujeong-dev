@@ -4,9 +4,9 @@ import Container from '../components/Container';
 import metadata from 'data/metadata';
 import PostCard from '../components/PostCard';
 import Title from 'components/Title';
-import { PostProps } from 'lib/types';
+import { InferGetStaticPropsType } from 'next';
 
-const Blog = ({ posts }: { posts: PostProps[] }) => {
+const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Container>
       <NextSeo
@@ -16,7 +16,7 @@ const Blog = ({ posts }: { posts: PostProps[] }) => {
         openGraph={{ url: `${metadata.meta.url}/blog` }}
       />
 
-      <Title title={'blog .'} description="지식과 기술들을 공유 및 정리합니다." />
+      <Title title={'blog'} description="지식과 기술들을 공유 및 정리합니다." />
       {posts.map((post, idx) => (
         <PostCard post={post} key={idx} slug={post.slug} />
       ))}

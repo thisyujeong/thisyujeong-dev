@@ -1,9 +1,9 @@
 import { allBlogs } from 'contentlayer/generated';
-import { PostProps } from 'lib/types';
+import { InferGetStaticPropsType } from 'next';
 import { GetStaticProps } from 'next';
 import BlogLayout from '../../layouts/blog';
 
-const PostPage = ({ post }: PostProps) => {
+const PostPage = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return <BlogLayout post={post} />;
 };
 

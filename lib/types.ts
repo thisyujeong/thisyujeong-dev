@@ -4,10 +4,6 @@ export type Children = {
   children: React.ReactNode;
 };
 
-export type PostProps = {
-  post: Blog;
-};
-
 export type PostTitleProps = {
   title: string;
   description: string;
