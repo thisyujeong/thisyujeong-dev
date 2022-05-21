@@ -34,15 +34,28 @@ export const ProjectCardImg = styled.div`
     height: 100%;
   }
 `;
+
 export const ProjectCardCopy = styled.div`
-  border-top: 1px solid #ececf3;
+  max-height: 90px;
+  min-height: 90px;
   padding: 8px;
+  border-top: 1px solid #ececf3;
 `;
 
 export const ProjectCardTitle = styled.h2`
   font-size: 18px;
   transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 export const ProjectCardDesc = styled.p`
-  opacity: 0.6;
+  opacity: 0.5;
+  height: 3.14em;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;

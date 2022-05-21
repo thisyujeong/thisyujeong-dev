@@ -1,5 +1,11 @@
 import type { Blog } from 'contentlayer/generated';
 
+/* Recet Title */
+export type RecentTitleProps = {
+  title: string;
+  path: string;
+};
+
 /* Blog */
 export type Children = {
   children: React.ReactNode;

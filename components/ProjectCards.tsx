@@ -25,7 +25,7 @@ const ProjectCards = ({ projects }: { projects: Project[] }) => {
             </ProjectCardImg>
             <ProjectCardCopy>
               <ProjectCardTitle>{project.title}</ProjectCardTitle>
-              <ProjectCardDesc>{project.title}</ProjectCardDesc>
+              <ProjectCardDesc>{project.description}</ProjectCardDesc>
             </ProjectCardCopy>
           </ProjectCard>
         </a>

@@ -12,19 +12,19 @@ const projects: Project[] = [
     image: '/projects/thisyujeong-com.png',
   },
   {
-    title: 'thisyujeong.com',
+    title: 'thisyujeong.com test1',
     description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
     url: 'https://thisyujeong.com',
     image: '/projects/thisyujeong-com.png',
   },
   {
-    title: 'thisyujeong.com',
+    title: 'thisyujeong.com test2',
     description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
     url: 'https://thisyujeong.com',
     image: '/projects/thisyujeong-com.png',
   },
   {
-    title: 'thisyujeong.com',
+    title: 'thisyujeong.com test3',
     description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
     url: 'https://thisyujeong.com',
     image: '/projects/thisyujeong-com.png',

@@ -1,11 +1,12 @@
 import ProjectCards from 'components/ProjectCards';
 import Title from 'components/Title';
 import metadata from 'data/metadata';
-import projects from 'data/projects';
+import * as allProjects from 'data/projects';
+import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import Container from '../components/Container';
 
-const project = () => {
+const project = ({ projects }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Container>
       <NextSeo
@@ -19,6 +20,15 @@ const project = () => {
       <ProjectCards projects={projects} />
     </Container>
   );
+};
+
+export const getStaticProps = () => {
+  const projects = [...allProjects.default];
+  return {
+    props: {
+      projects: projects,
+    },
+  };
 };
 
 export default project;

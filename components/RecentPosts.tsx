@@ -1,24 +1,13 @@
 import { Blog } from 'contentlayer/generated';
 import Link from 'next/link';
 import React from 'react';
-import {
-  RecentPostHeader,
-  RecentPostTitle,
-  MoreTitle,
-  PostCard,
-  PostTitle,
-  PostDesc,
-} from './RecentPosts.style';
+import { PostCard, PostTitle, PostDesc } from './RecentPosts.style';
+import RecentTitle from './RecentTitle';
 
 const RecentPost = ({ posts }: { posts: Blog[] }) => {
   return (
     <>
-      <RecentPostHeader>
-        <RecentPostTitle>Recent Post</RecentPostTitle>
-        <MoreTitle>
-          <Link href="/blog">ALL POSTS</Link>
-        </MoreTitle>
-      </RecentPostHeader>
+      <RecentTitle title="post" path="/post" />
       {posts.slice(0, 5).map((post) => (
         <Link href={`/blog/${post.slug}`} passHref key={post.slug}>
           <PostCard>
