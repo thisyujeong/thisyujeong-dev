@@ -1,83 +1,32 @@
+import { Blog } from 'contentlayer/generated';
+import Link from 'next/link';
 import React from 'react';
-import { RecentPostTitle, RecentPostCard } from './RecentPost.style';
+import {
+  RecentPostHeader,
+  RecentPostTitle,
+  MoreTitle,
+  PostCard,
+  PostTitle,
+  PostDesc,
+} from './RecentPost.style';
 
-const RecentPost = () => {
+const RecentPost = ({ posts }: { posts: Blog[] }) => {
   return (
     <>
-      <RecentPostTitle>Recent Post .</RecentPostTitle>
-
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">Lorem Ipsum has been the standard dummy text ever</p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">Lorem Ipsum is simply dummy text of the printing.</p>
-          <p className="post-desc">
-            Lorem Ipsum has been the standard dummy text ever since the 1500s
-          </p>
-        </div>
-      </RecentPostCard>
-      <RecentPostCard>
-        <div className="post-copy">
-          <p className="post-title">
-            when an unknown printer took a galley of type and scrambled it{' '}
-          </p>
-          <p className="post-desc">
-            to make a type specimen book. It has survived not only five centuries
-          </p>
-        </div>
-      </RecentPostCard>
+      <RecentPostHeader>
+        <RecentPostTitle>Recent Post</RecentPostTitle>
+        <MoreTitle>
+          <Link href="/blog">ALL POSTS</Link>
+        </MoreTitle>
+      </RecentPostHeader>
+      {posts.slice(0, 5).map((post) => (
+        <Link href={`/blog/${post.slug}`} passHref key={post.slug}>
+          <PostCard>
+            <PostTitle>{post.title}</PostTitle>
+            <PostDesc>{post.description}</PostDesc>
+          </PostCard>
+        </Link>
+      ))}
     </>
   );
 };

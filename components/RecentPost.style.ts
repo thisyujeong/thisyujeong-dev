@@ -1,71 +1,78 @@
 import styled from '@emotion/styled';
 
-export const RecentPostTitle = styled.div`
-  font-size: 36px;
-  font-weight: 600;
-  margin-bottom: 30px;
-`;
-
-export const RecentPostCard = styled.div`
-  padding: 8px 0;
-  margin: 12px 0;
-  position: relative;
+export const RecentPostHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  transition: 0.2s ease;
-  .post-copy {
-    padding-right: 24px;
-  }
+  align-items: flex-end;
+  margin-bottom: 10px;
+`;
 
-  .post-title {
-    display: inline-block;
-    position: relative;
-    font-size: 24px;
-    transition: 0.2s ease;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 8px;
-      height: 8px;
-      border-right: 2px solid #fb673e;
-      border-bottom: 2px solid #fb673e;
-      margin-right: 10px;
-      transition: 0.2s ease;
-      transform: translateY(-50%) rotate(-45deg);
-      opacity: 0;
+export const RecentPostTitle = styled.h1`
+  font-size: 36px;
+  font-weight: 500;
+`;
+
+export const MoreTitle = styled.div`
+  margin-bottom: 10px;
+  a {
+    color: #fb673e;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
     }
   }
-  .post-desc {
-    font-size: 18px;
-    margin-top: 8px;
-    line-height: 1.57;
-    opacity: 0.5;
-  }
-  .post-image {
-    min-width: 160px;
-    width: 160px;
-    height: 90px;
-    border-radius: 4px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
+`;
+
+export const PostCard = styled.div`
+  margin: 0px -14px;
+  padding: 8px 14px;
+  cursor: pointer;
 
   &:hover {
-    opacity: 0.7;
+    opacity: 0.8;
+    background: #f5f5f7;
 
-    .post-title {
+    h2 {
       color: #fb673e;
-      padding-left: 28px;
+      padding-left: 20px;
+
       &:before {
         opacity: 1;
         color: #fb673e;
       }
     }
   }
+
+  &:active {
+    opacity: 1;
+  }
+`;
+
+export const PostTitle = styled.h2`
+  position: relative;
+  font-size: 22px;
+  line-height: 1.57;
+  transition: 0.2s ease;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid #fb673e;
+    border-bottom: 2px solid #fb673e;
+    margin-right: 10px;
+    transition: 0.2s ease;
+    transform: translateY(-50%) rotate(-45deg);
+    opacity: 0;
+  }
+`;
+export const PostDesc = styled.div`
+  font-size: 14px;
+  opacity: 0.8;
 `;

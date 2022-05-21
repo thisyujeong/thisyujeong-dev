@@ -7,7 +7,7 @@ export const TitleContainer = styled.div`
     margin-bottom: 12px;
     font-size: 38px;
     font-weight: 500;
-    text-transform: lowercase;
+    text-transform: capitalize;
   }
 
   p {
