@@ -2,7 +2,7 @@ import type { Blog } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';
 import Container from '../components/Container';
-import MDXPost from '../components/MDXPost';
+import MDXPost from '../components/Post/MDXPost';
 import metadata from '../data/metadata';
 
 const BlogLayout = ({ post }: { post: Blog }) => {

@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import { allBlogs } from 'contentlayer/generated';
 import Container from '../components/Container';
 import metadata from 'data/metadata';
-import PostCard from '../components/PostCard';
+import PostCard from '../components/Post/PostCard';
 import Title from 'components/Title';
 import { InferGetStaticPropsType } from 'next';
 

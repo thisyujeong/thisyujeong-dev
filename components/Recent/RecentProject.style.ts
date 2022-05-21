@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 export const RecentProjectContaner = styled.div`
   display: flex;
-  flex-wrap: wrap;
   a {
     flex: 1;
   }
@@ -30,7 +29,8 @@ export const ProjectCard = styled.div`
 
 export const ProjectCardImg = styled.div`
   position: relative;
-  flex: 1;
+  width: 33.333%;
+  min-width: 130px;
 
   &:before {
     content: '';
@@ -45,14 +45,20 @@ export const ProjectCardImg = styled.div`
   }
 `;
 export const ProjectCardCopy = styled.div`
-  flex: 2;
+  position: relative;
+  width: 66.666%;
   margin-left: 12px;
   margin-top: 4px;
 `;
 
 export const ProjectCardTitle = styled.h3`
+  width: 100%;
+  display: block;
   font-size: 16px;
   transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const ProjectCardDesc = styled.p`

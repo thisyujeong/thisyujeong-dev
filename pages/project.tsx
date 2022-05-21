@@ -1,4 +1,4 @@
-import ProjectCards from 'components/ProjectCards';
+import ProjectCards from 'components/Project/ProjectCards';
 import Title from 'components/Title';
 import metadata from 'data/metadata';
 import * as allProjects from 'data/projects';
