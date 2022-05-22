@@ -5,7 +5,7 @@ import navLinks from '../data/navLinks';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const Links = ({ setSelected }: { setSelected: Function }) => {
+const Links = () => {
   const router = useRouter();
 
   return (
@@ -14,7 +14,6 @@ const Links = ({ setSelected }: { setSelected: Function }) => {
         <li
           key={link.title}
           data-selected={router.pathname.includes(link.path) ? true : false}
-          onClick={() => setSelected(link.title)}
         >
           <Link href={link.link} passHref>
             <a>{link.title}</a>
@@ -26,11 +25,9 @@ const Links = ({ setSelected }: { setSelected: Function }) => {
 };
 
 const SideNav = () => {
-  const [selected, setSelected] = useState<boolean>(false);
-
   return (
     <SideNavContainer>
-      <Links setSelected={setSelected} />
+      <Links />
     </SideNavContainer>
   );
 };
