@@ -1,4 +1,5 @@
 import type { Blog } from 'contentlayer/generated';
+import type { Note } from 'contentlayer/generated';
 
 /* Recet Title */
 export type RecentTitleProps = {
@@ -33,3 +34,15 @@ export type Project = {
   url: string;
   image: string;
 };
+
+/* Note */
+export type TreeNode = {
+  title: string;
+  date: string;
+  urlPath: string;
+  children: TreeNode[];
+};
+
+export type TreeRoot = TreeNode[];
+
+export type PathSegment = { pathName: string };
