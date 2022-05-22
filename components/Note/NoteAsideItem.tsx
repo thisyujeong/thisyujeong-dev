@@ -12,12 +12,9 @@ import {
 const NoteAsideItem = ({ item }: { item: TreeNode }) => {
   const router = useRouter();
   const [isItemsOpen, setIsItemsOpen] = useState(false);
-  const [currDir, setCurrDir] = useState('');
 
   useEffect(() => {
-    item.children.map((a) => {
-      if (router.asPath === a.urlPath) setIsItemsOpen(true);
-    });
+    item.children.map((a) => router.asPath === a.urlPath && setIsItemsOpen(true));
   }, []);
 
   const onClickItem = () => {

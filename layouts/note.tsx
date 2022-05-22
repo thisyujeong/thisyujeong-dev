@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import BreadCrumb from 'components/Note/BreadCrumb';
 import NoteAside from 'components/Note/NoteAside';
 import MDXPost from 'components/Post/MDXPost';
 import { NoteLayout } from 'lib/types';
@@ -13,6 +14,7 @@ const NoteLayout = ({ note, tree }: NoteLayout) => {
       <NextSeo />
       <NoteContainer>
         <NoteAside tree={tree} />
+        <BreadCrumb path={note.url_path} />
         <MDXPost title={note.title} date={note.date}>
           <MDXComponent />
         </MDXPost>

@@ -8,13 +8,14 @@ export const AsideItemTitle = styled.span`
   display: block;
   color: #2c3e50;
   color: #fb673e;
+  padding-left: 4px;
   font-size: 14px;
   font-weight: 500;
   line-height: 2em;
   text-transform: capitalize;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background: #f5f5f7;
   }
 
   &:before {
