@@ -36,6 +36,11 @@ export type Project = {
 };
 
 /* Note */
+export type NoteLayout = {
+  note: Note;
+  tree: TreeNode[];
+};
+
 export type TreeNode = {
   title: string;
   date: string;

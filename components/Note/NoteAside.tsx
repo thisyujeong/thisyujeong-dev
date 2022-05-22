@@ -1,11 +1,16 @@
 import { TreeNode } from 'lib/types';
 import { NoteAsideContainer } from './NoteAside.style';
+import NoteAsideItem from './NoteAsideItem';
 
 const NoteAside = ({ tree }: { tree: TreeNode[] }) => {
   if (tree) console.log('NoteAside tree ->', tree);
   return (
     <>
-      <NoteAsideContainer></NoteAsideContainer>
+      <NoteAsideContainer>
+        {tree.map((t) => (
+          <NoteAsideItem key={t.title} item={t} />
+        ))}
+      </NoteAsideContainer>
     </>
   );
 };

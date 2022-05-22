@@ -1,7 +1,6 @@
 import Container from 'components/Container';
 import NoteAside from 'components/Note/NoteAside';
 import MDXPost from 'components/Post/MDXPost';
-import { Note } from 'contentlayer/generated';
 import { NoteLayout } from 'lib/types';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';

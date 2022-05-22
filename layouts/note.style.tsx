@@ -1,3 +1,5 @@
 import styled from '@emotion/styled';
 
-export const NoteContainer = styled.div``;
+export const NoteContainer = styled.div`
+  position: relative;
+`;
