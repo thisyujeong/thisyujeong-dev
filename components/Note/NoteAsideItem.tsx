@@ -1,7 +1,7 @@
 import { TreeNode } from 'lib/types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   NoteAsideItemContainer,
   AsideItemTitle,
@@ -12,6 +12,13 @@ import {
 const NoteAsideItem = ({ item }: { item: TreeNode }) => {
   const router = useRouter();
   const [isItemsOpen, setIsItemsOpen] = useState(false);
+  const [currDir, setCurrDir] = useState('');
+
+  useEffect(() => {
+    item.children.map((a) => {
+      if (router.asPath === a.urlPath) setIsItemsOpen(true);
+    });
+  }, []);
 
   const onClickItem = () => {
     setIsItemsOpen(!isItemsOpen);
