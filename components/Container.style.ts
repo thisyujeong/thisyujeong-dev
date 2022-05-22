@@ -3,11 +3,11 @@ export const ContainerContainer = styled.div`
   height: auto;
   .contents {
     width: 100%;
-    max-width: 1140px;
+    max-width: 768px;
     margin: 0 auto;
     padding: 40px 22px 0;
     display: grid;
-    grid-template-columns: 240px auto;
+    /* grid-template-columns: 240px auto; */
   }
 `;
 

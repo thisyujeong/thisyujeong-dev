@@ -11,7 +11,6 @@ import {
 import RecentTitle from './RecentTitle';
 
 const RecentProject = ({ projects }: { projects: Project[] }) => {
-  console.log('recent projects', projects);
   return (
     <>
       <RecentTitle title="project" path="/project" />

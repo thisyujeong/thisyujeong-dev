@@ -1,4 +1,4 @@
-import { SideNavContainer } from './SideNav.style';
+import { SideNavContainer } from './Nav.style';
 import Link from 'next/link';
 import React from 'react';
 import navLinks from '../data/navLinks';
@@ -7,17 +7,17 @@ import { useState } from 'react';
 
 const Links = ({ setSelected }: { setSelected: Function }) => {
   const router = useRouter();
+
   return (
     <ul>
       {navLinks.map((link) => (
-        <li key={link.title}>
+        <li
+          key={link.title}
+          data-selected={router.pathname.includes(link.path) ? true : false}
+          onClick={() => setSelected(link.title)}
+        >
           <Link href={link.link} passHref>
-            <a
-              data-selected={router.pathname.includes(link.path) ? true : false}
-              onClick={() => setSelected(link.title)}
-            >
-              {link.title}
-            </a>
+            <a>{link.title}</a>
           </Link>
         </li>
       ))}
