@@ -15,6 +15,7 @@ export const MDXPostContainer = styled.div`
     transition: color 0.2s ease;
     &:hover {
       color: #289aff;
+      text-decoration: underline;
     }
   }
 

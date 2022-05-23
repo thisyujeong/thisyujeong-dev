@@ -51,3 +51,11 @@ export type TreeNode = {
 export type TreeRoot = TreeNode[];
 
 export type PathSegment = { pathName: string };
+
+/* ToC */
+export type TableOfContent = {
+  index: number;
+  text: string;
+  marginLeft: number;
+  offsetTop: number;
+};

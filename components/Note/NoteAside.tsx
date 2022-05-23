@@ -3,7 +3,6 @@ import { NoteAsideContainer } from './NoteAside.style';
 import NoteAsideItem from './NoteAsideItem';
 
 const NoteAside = ({ tree }: { tree: TreeNode[] }) => {
-  if (tree) console.log('NoteAside tree ->', tree);
   return (
     <>
       <NoteAsideContainer>

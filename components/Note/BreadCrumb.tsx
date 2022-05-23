@@ -4,7 +4,6 @@ import { CrumbContainer } from './BreadCrumb.style';
 const BreadCrumb = ({ path }: { path: string }) => {
   const paths = path.split('/');
   paths.shift();
-  console.log('path: ', paths);
   return (
     <>
       <CrumbContainer>

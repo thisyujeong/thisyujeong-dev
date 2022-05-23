@@ -7,15 +7,9 @@ import {
 import type { PropsWithChildren } from 'react';
 import { MDXPostProps } from 'lib/types';
 import convertDateUs from 'lib/convertDateUs';
+import Toc from 'components/Toc';
 
 const MDXPost = ({ title, date, children }: PropsWithChildren<MDXPostProps>) => {
-  const convertDate = () => {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
   return (
     <MDXPostContainer>
       <MDXPostTitle>{title}</MDXPostTitle>

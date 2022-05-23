@@ -2,6 +2,7 @@ import Container from 'components/Container';
 import BreadCrumb from 'components/Note/BreadCrumb';
 import NoteAside from 'components/Note/NoteAside';
 import MDXPost from 'components/Post/MDXPost';
+import Toc from 'components/Toc';
 import { NoteLayout } from 'lib/types';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';
@@ -18,6 +19,7 @@ const NoteLayout = ({ note, tree }: NoteLayout) => {
         <MDXPost title={note.title} date={note.date}>
           <MDXComponent />
         </MDXPost>
+        <Toc />
       </NoteContainer>
     </Container>
   );
