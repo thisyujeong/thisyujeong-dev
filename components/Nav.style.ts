@@ -10,13 +10,13 @@ export const SideNavContainer = styled.div`
     &:before {
       content: '';
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background-color: #2c3e50;
-      border-radius: 100%;
       top: 50%;
-      left: -2px;
-      opacity: 0.5;
+      left: 0;
+      width: 1px;
+      height: 70%;
+      opacity: 0.4;
+      background-color: #2c3e50;
+      transform: translateY(-50%);
     }
 
     li {
