@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const SideNavContainer = styled.div`
+export const NavContainer = styled.div`
   margin-left: 24px;
 
   ul {

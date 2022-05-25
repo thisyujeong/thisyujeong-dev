@@ -1,4 +1,4 @@
-import { SideNavContainer } from './Nav.style';
+import { NavContainer } from './Nav.style';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React from 'react';
@@ -25,9 +25,9 @@ const Links = () => {
 
 const SideNav = () => {
   return (
-    <SideNavContainer>
+    <NavContainer>
       <Links />
-    </SideNavContainer>
+    </NavContainer>
   );
 };
 

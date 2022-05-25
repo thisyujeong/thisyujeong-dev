@@ -19,6 +19,7 @@ export const HeaderContainer = styled.header`
     margin: 0 auto;
     padding: 0 22px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
   }
 

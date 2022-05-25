@@ -7,10 +7,9 @@ export const TocContainer = styled.div`
 
 export const TocInnerContainer = styled.div`
   position: fixed;
-  padding: 10px 0;
   width: 180px;
   margin-top: 16px;
-  margin-left: 40px;
+  margin-left: 20px;
   padding-left: 20px;
   border-left: 1px solid #2c3e5040;
 `;
@@ -41,5 +40,13 @@ export const TocItem = styled.div`
         opacity: 0.8;
       }
     }
+  }
+
+  &:first-child {
+    padding-top: 6px;
+  }
+
+  &:last-child {
+    padding-bottom: 6px;
   }
 `;
