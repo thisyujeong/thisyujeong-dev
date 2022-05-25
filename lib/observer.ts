@@ -2,24 +2,26 @@ import { Dispatch, SetStateAction } from 'react';
 
 const observerOption = {
   threshold: 0.4,
-  rootMargin: '60px 0px 0px 0px',
+  rootMargin: '0px 0px 0px 0px',
 };
 
 export const getIntersectionObserver = (setState: Dispatch<SetStateAction<string>>) => {
   let direction = '';
-  let prevY = 0;
+  let prevYposition = 0;
 
-  const chechDirection = (prevY: number) => {
-    if (window.scrollY === 0 && prevY) return;
+  // scroll 방향 check function
+  const checkScrollDirection = (prevY: number) => {
+    if (window.scrollY === 0 && prevY === 0) return;
     else if (window.scrollY > prevY) direction = 'down';
     else direction = 'up';
 
-    prevY = window.scrollY;
+    prevYposition = window.scrollY;
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      chechDirection(prevY);
+      checkScrollDirection(prevYposition);
+
       if (
         (direction === 'down' && !entry.isIntersecting) ||
         (direction === 'up' && entry.isIntersecting)
