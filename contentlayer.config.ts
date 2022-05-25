@@ -18,7 +18,7 @@ export const computedFields: ComputedFields = {
   },
 };
 
-export const urlFromFilePath = (doc: DocumentGen): string => {
+export const urlFromFilePath = (doc: LocalDocument): string => {
   return doc._raw.flattenedPath.replace(/pages\/?/, '');
 };
 
@@ -42,7 +42,6 @@ export const Note = defineDocumentType(() => ({
       resolve: (doc) =>
         doc._raw.flattenedPath
           .split('/')
-          // skip `/docs` prefix
           .slice(1)
           .map((pathName) => {
             return { pathName };
@@ -70,9 +69,37 @@ export const Blog = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const CP = defineDocumentType(() => ({
+  name: 'CP',
+  filePathPattern: `cp/**/*.mdx`,
+  fields: {
+    title: { type: 'string', required: true },
+    from: { type: 'string', required: true },
+    level: { type: 'string' },
+  },
+  computedFields: {
+    url_path: {
+      type: 'string',
+      description:
+        'The URL path of this page relative to site root. For example, the site root page would be "/", and doc page would be "docs/getting-started/"',
+      resolve: urlFromFilePath,
+    },
+    pathSegments: {
+      type: 'json',
+      resolve: (doc) =>
+        doc._raw.flattenedPath
+          .split('/')
+          .slice(1)
+          .map((pathName) => {
+            return { pathName };
+          }),
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: 'posts',
-  documentTypes: [Blog, Note],
+  documentTypes: [Blog, Note, CP],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

@@ -1,5 +1,6 @@
 import type { Blog } from 'contentlayer/generated';
 import type { Note } from 'contentlayer/generated';
+import type { CP } from 'contentlayer/generated';
 
 /* Recet Title */
 export type RecentTitleProps = {
@@ -58,4 +59,10 @@ export type TableOfContent = {
   text: string;
   marginLeft: number;
   offsetTop: number;
+};
+
+/* CP */
+export type CPSection = {
+  posts: CP[];
+  title: string;
 };
