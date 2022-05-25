@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const MDXPostContainer = styled.div`
+  position: relative;
   width: 100%;
   font-size: 16px;
   line-height: 1.8;
@@ -142,6 +143,7 @@ export const MDXPostContainer = styled.div`
 
 export const MDXPostTitle = styled.h1`
   font-size: 30px !important;
+  margin-top: 0 !important;
   word-break: keep-all;
 `;
 

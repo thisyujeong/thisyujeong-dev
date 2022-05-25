@@ -2,7 +2,7 @@ import { getIntersectionObserver } from 'lib/observer';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { TocContainer, TocItem } from './Toc.style';
+import { TocContainer, TocInnerContainer, TocItem } from './Toc.style';
 
 const Toc = () => {
   const router = useRouter();
@@ -21,25 +21,27 @@ const Toc = () => {
   return (
     <>
       <TocContainer>
-        {headingEls.map((h, i) =>
-          h.nodeName === 'H2' ? (
-            <TocItem
-              data-depth="1"
-              key={i}
-              data-active={currentId === h.id ? true : false}
-            >
-              {h.innerText}
-            </TocItem>
-          ) : (
-            <TocItem
-              data-depth="2"
-              key={i}
-              data-active={currentId === h.id ? true : false}
-            >
-              {h.id}
-            </TocItem>
-          )
-        )}
+        <TocInnerContainer>
+          {headingEls.map((h, i) =>
+            h.nodeName === 'H2' ? (
+              <TocItem
+                data-depth="1"
+                key={i}
+                data-active={currentId === h.id ? true : false}
+              >
+                {h.innerText}
+              </TocItem>
+            ) : (
+              <TocItem
+                data-depth="2"
+                key={i}
+                data-active={currentId === h.id ? true : false}
+              >
+                {h.id}
+              </TocItem>
+            )
+          )}
+        </TocInnerContainer>
       </TocContainer>
     </>
   );

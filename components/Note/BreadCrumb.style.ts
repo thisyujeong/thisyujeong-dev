@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
-export const CrumbContainer = styled.div`
-  margin: 12px 0;
+export const BreadCrumbContainer = styled.div`
   span {
     display: inline-block;
     &:first-child {

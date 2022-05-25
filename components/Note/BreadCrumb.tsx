@@ -1,16 +1,16 @@
 import Link from 'next/link';
-import { CrumbContainer } from './BreadCrumb.style';
+import { BreadCrumbContainer } from './BreadCrumb.style';
 
 const BreadCrumb = ({ path }: { path: string }) => {
   const paths = path.split('/');
   paths.shift();
   return (
     <>
-      <CrumbContainer>
+      <BreadCrumbContainer>
         {paths.map((p: string, i: number) => (
           <span key={i}>{p}</span>
         ))}
-      </CrumbContainer>
+      </BreadCrumbContainer>
     </>
   );
 };

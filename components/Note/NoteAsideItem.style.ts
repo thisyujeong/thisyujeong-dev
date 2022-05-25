@@ -8,7 +8,7 @@ export const AsideItemTitle = styled.span`
   display: block;
   color: #2c3e50;
   color: #fb673e;
-  padding-left: 4px;
+  padding-left: 8px;
   font-size: 14px;
   font-weight: 500;
   line-height: 2em;
@@ -51,10 +51,11 @@ export const AsideItemList = styled.div`
 `;
 export const AsideItemAnchor = styled.a`
   display: block;
-  padding-left: 10px;
+  padding: 4px 10px 4px 10px;
+  margin: 4px 0 4px 10px;
   opacity: 0.6;
   color: #2c3e50;
-  line-height: 2em;
+  line-height: 1.5;
   transition: all 0.2s ease;
 
   &:hover {

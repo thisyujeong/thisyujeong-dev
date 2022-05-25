@@ -1,9 +1,11 @@
+import { Dispatch, SetStateAction } from 'react';
+
 const observerOption = {
   threshold: 0.4,
-  rootMargin: '-60px 0px 0px 0px',
+  rootMargin: '60px 0px 0px 0px',
 };
 
-export const getIntersectionObserver = (setState) => {
+export const getIntersectionObserver = (setState: Dispatch<SetStateAction<string>>) => {
   let direction = '';
   let prevY = 0;
 
