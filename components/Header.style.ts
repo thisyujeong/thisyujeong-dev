@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   height: 56px;
   width: 100%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(7px);
   background-color: rgba(255, 255, 255, 0.72);
   border-bottom: 1px solid #00000016;
   z-index: 100;

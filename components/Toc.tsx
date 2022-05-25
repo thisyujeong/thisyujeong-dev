@@ -18,6 +18,7 @@ const Toc = () => {
     });
     console.log(headingElements);
   }, [router]);
+
   return (
     <>
       <TocContainer>
@@ -29,7 +30,7 @@ const Toc = () => {
                 key={i}
                 data-active={currentId === h.id ? true : false}
               >
-                {h.innerText}
+                <a href={`#${h.id}`}>{h.innerText}</a>
               </TocItem>
             ) : (
               <TocItem
@@ -37,7 +38,7 @@ const Toc = () => {
                 key={i}
                 data-active={currentId === h.id ? true : false}
               >
-                {h.id}
+                <a href={`#${h.id}`}>{h.id}</a>
               </TocItem>
             )
           )}
