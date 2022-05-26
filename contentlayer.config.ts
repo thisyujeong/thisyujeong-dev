@@ -9,7 +9,6 @@ import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import highlight from 'rehype-highlight';
-import { DocumentGen } from 'contentlayer/core';
 
 export const computedFields: ComputedFields = {
   slug: {
@@ -75,7 +74,8 @@ export const CP = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
     from: { type: 'string', required: true },
-    level: { type: 'string' },
+    level: { type: 'string', required: true },
+    number: { type: 'number', required: true },
   },
   computedFields: {
     url_path: {

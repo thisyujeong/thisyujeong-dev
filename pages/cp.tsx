@@ -9,7 +9,7 @@ const cp = ({ posts }: { posts: CP[] }) => {
 
   return (
     <Container>
-      <CPSection posts={baekjoonPosts} title="Baekjoon" />
+      <CPSection posts={baekjoonPosts} title="baekjoon" />
       <CPSection posts={programmersPosts} title="programmers" />
     </Container>
   );

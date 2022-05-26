@@ -13,7 +13,7 @@ export const ProjectCard = styled.div`
   display: flex;
   height: 100px;
   padding: 8px;
-  background: #f5f5f7;
+  background: #f5f5f730;
   border: 1px solid #d4dae0;
   transition: all 0.2s ease;
 

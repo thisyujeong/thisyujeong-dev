@@ -7,18 +7,6 @@ export const NavContainer = styled.div`
     display: flex;
     position: relative;
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 1px;
-      height: 70%;
-      opacity: 0.4;
-      background-color: #2c3e50;
-      transform: translateY(-50%);
-    }
-
     li {
       margin-left: 24px;
 
