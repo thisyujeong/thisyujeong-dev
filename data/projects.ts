@@ -6,7 +6,7 @@ import { Project } from 'lib/types';
 
 const projects: Project[] = [
   {
-    title: 'thisyujeong.com',
+    title: 'personal site',
     description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
     url: 'https://thisyujeong.com',
     image: '/projects/thisyujeong-com.png',

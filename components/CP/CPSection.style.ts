@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 export const CPHeader = styled.h2`
-  text-align: center;
   font-size: 1.5em;
   line-height: 2;
   margin-top: 2rem;
@@ -12,10 +11,10 @@ export const CPHeader = styled.h2`
 export const CPList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  margin: 0 -6px;
 
   li {
-    margin: 4px 8px;
+    margin: 4px 6px;
     background: #f5f5f7;
     text-align: center;
     border-radius: 4px;

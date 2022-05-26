@@ -7,18 +7,13 @@ export const ProjectCardsContainer = styled.div`
   a {
     display: block;
     width: 33.3333%;
-    padding: 8px;
+    padding: 12px 8px;
   }
 `;
 export const ProjectCard = styled.div`
   position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #ececf3;
-  transition: all 0.2s ease;
   &:hover {
-    background: #f5f5f7;
-    transform: translateY(-8px);
+    transition: all 0.2s ease;
     h2 {
       color: #fb673e;
     }
@@ -28,31 +23,30 @@ export const ProjectCard = styled.div`
 export const ProjectCardImg = styled.div`
   position: relative;
   padding: 33.3333%;
-
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ececf3;
   img {
     position: absolute;
     height: 100%;
   }
 `;
 
-export const ProjectCardCopy = styled.div`
-  max-height: 90px;
-  min-height: 90px;
-  padding: 8px;
-  border-top: 1px solid #ececf3;
-`;
+export const ProjectCardCopy = styled.div``;
 
 export const ProjectCardTitle = styled.h2`
-  font-size: 18px;
+  margin-top: 4px;
+  color: #cecedc;
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   transition: all 0.2s ease;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 `;
 export const ProjectCardDesc = styled.p`
   opacity: 0.5;
   height: 3.14em;
-  font-size: 14px;
+  font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
