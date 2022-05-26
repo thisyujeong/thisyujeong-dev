@@ -14,7 +14,7 @@ const MDXPost = ({ title, date, children }: PropsWithChildren<MDXPostProps>) => 
     <MDXPostContainer>
       <Toc />
       <MDXPostTitle>{title}</MDXPostTitle>
-      <MDXPostDate>{convertDateUs(date)}</MDXPostDate>
+      {date && <MDXPostDate>{convertDateUs(date)}</MDXPostDate>}
       <MDXPostContent>{children}</MDXPostContent>
     </MDXPostContainer>
   );

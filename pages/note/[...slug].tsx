@@ -17,6 +17,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
+  console.log('params!', params.slug.join('/'));
   const pagePath = params.slug.join('/');
   const note = allNotes.find(
     (_) => _.pathSegments.map((_: PathSegment) => _.pathName).join('/') === pagePath

@@ -25,7 +25,7 @@ export type PostCardProps = {
 
 export type MDXPostProps = {
   title: string;
-  date: string;
+  date?: string;
 };
 
 /* Project */
@@ -62,6 +62,10 @@ export type TableOfContent = {
 };
 
 /* CP */
+export type Post = {
+  post: CP;
+};
+
 export type CPSection = {
   posts: CP[];
   title: string;

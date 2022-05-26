@@ -71,6 +71,7 @@ export const Blog = defineDocumentType(() => ({
 export const CP = defineDocumentType(() => ({
   name: 'CP',
   filePathPattern: `cp/**/*.mdx`,
+  contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     from: { type: 'string', required: true },

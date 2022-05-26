@@ -74,11 +74,11 @@ export const MDXPostContainer = styled.div`
 
   pre {
     padding: 10px 16px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     border-radius: 5px;
     background-color: rgba(27, 31, 35, 0.05);
-    font-size: 15px;
+    overflow-x: auto;
   }
 
   blockquote {
