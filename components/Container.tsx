@@ -1,9 +1,8 @@
 import React from 'react';
 import { ContainerContainer, Main } from './Container.style';
 import Head from 'next/head';
-import SideNav from './Nav';
 import Header from './Header';
-import { Children } from 'lib/types';
+import Footer from './Footer';
 
 const Container = ({ children }: { children?: React.ReactNode }) => {
   return (
@@ -15,6 +14,7 @@ const Container = ({ children }: { children?: React.ReactNode }) => {
       <div className="contents">
         <Main>{children}</Main>
       </div>
+      <Footer />
     </ContainerContainer>
   );
 };

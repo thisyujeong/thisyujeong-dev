@@ -6,7 +6,8 @@ export const ContainerContainer = styled.div`
     width: 100%;
     max-width: 768px;
     margin: 0 auto;
-    padding: 40px 22px 0;
+    padding: 40px 22px 50px;
+    min-height: calc(100vh - 56px - 112px);
   }
 `;
 
