@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
 
 export const CPHeader = styled.h2`
+  text-align: center;
   font-size: 1.5em;
   line-height: 2;
-  margin-top: 2rem;
-  padding-bottom: 0.2em;
+  margin-top: 1.5rem;
   text-transform: capitalize;
 `;
 
 export const CPList = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 0 -6px;
 
   li {
