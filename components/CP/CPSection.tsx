@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { CPHeader, CPList } from './CPSection.style';
 
 const CPSection = ({ posts, title }: CPSection) => {
-  console.log(title, posts);
   return (
     <section>
       <CPHeader>{title}</CPHeader>

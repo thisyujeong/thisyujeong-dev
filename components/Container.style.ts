@@ -7,8 +7,6 @@ export const ContainerContainer = styled.div`
     max-width: 768px;
     margin: 0 auto;
     padding: 40px 22px 0;
-    display: grid;
-    /* grid-template-columns: 240px auto; */
   }
 `;
 

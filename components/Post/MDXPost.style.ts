@@ -73,12 +73,18 @@ export const MDXPostContainer = styled.div`
   }
 
   pre {
-    padding: 10px 16px;
+    position: relative;
     font-size: 15px;
     font-weight: 500;
+    padding: 9px 16px;
     border-radius: 5px;
     background-color: rgba(27, 31, 35, 0.05);
     overflow-x: auto;
+
+    > code {
+      width: 100%;
+      display: block;
+    }
   }
 
   blockquote {
@@ -138,6 +144,41 @@ export const MDXPostContainer = styled.div`
 
   img {
     max-width: 100%;
+  }
+
+  /* mdx code block styles */
+  pre > code[class*='language-'] {
+    &:not([class*='sh']) {
+      .hljs-title {
+        &.class_,
+        &.function_ {
+          color: #3c4e99;
+        }
+      }
+
+      .hljs-variable {
+        &.constant_ {
+          color: #3c8f99;
+        }
+      }
+
+      .hljs-built_in,
+      .hljs-function {
+        color: #4964d6;
+      }
+
+      .hljs-keyword {
+        color: #ff6161;
+      }
+
+      .hljs-string {
+        color: #7dab95;
+      }
+
+      .hljs-comment {
+        color: #c2b1a3;
+      }
+    }
   }
 `;
 

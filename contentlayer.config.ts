@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import highlight from 'rehype-highlight';
+import rehypeHighlight from 'rehype-highlight';
 
 export const computedFields: ComputedFields = {
   slug: {
@@ -106,7 +106,7 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       rehypeCodeTitles,
-      highlight,
+      rehypeHighlight,
       [
         rehypeAutolinkHeadings,
         {

@@ -7,7 +7,6 @@ import metadata from '../data/metadata';
 
 const BlogLayout = ({ post }: { post: Blog }) => {
   const MDXComponent = useMDXComponent(post.body.code);
-  console.log('blog post', post);
   return (
     <Container>
       <NextSeo

@@ -18,7 +18,6 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const pagePath = params.slug.join('/');
-  console.log('path', pagePath);
   const post = allCPs.find(
     (_) => _.pathSegments.map((_: PathSegment) => _.pathName).join('/') === pagePath
   )!;

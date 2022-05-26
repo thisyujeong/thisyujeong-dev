@@ -6,7 +6,6 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';
 
 const CPLayout = ({ post }: Post) => {
-  console.log('post', post);
   const MDXComponent = useMDXComponent(post.body.code);
   return (
     <Container>

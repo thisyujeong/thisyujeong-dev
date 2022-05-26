@@ -15,7 +15,6 @@ const Toc = () => {
     headingElements.map((header) => {
       observer.observe(header);
     });
-    console.log(headingElements);
   }, [router]);
 
   return (

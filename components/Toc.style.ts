@@ -18,12 +18,13 @@ export const TocItem = styled.div`
   a {
     display: block;
     line-height: 2;
-    color: #2c3e50;
+    color: #2c3e50 !important;
+    color: #2c3e50 !important;
     font-size: 14px;
-    opacity: 0.6;
+    opacity: 0.5;
+    transition: all 0.1s ease;
     &:hover {
-      opacity: 1;
-      color: #2c3e50;
+      opacity: 0.8;
       text-decoration: none;
     }
   }
@@ -34,7 +35,7 @@ export const TocItem = styled.div`
 
   &[data-active='true'] {
     a {
-      color: #fb673e;
+      color: #fb673e !important;
       opacity: 1;
       &:hover {
         opacity: 0.8;
