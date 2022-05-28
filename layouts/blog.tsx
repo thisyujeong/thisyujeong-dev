@@ -1,3 +1,4 @@
+import GiscusArea from 'components/GiscusArea';
 import type { Blog } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';
@@ -6,6 +7,7 @@ import MDXPost from '../components/Post/MDXPost';
 import metadata from '../data/metadata';
 
 const BlogLayout = ({ post }: { post: Blog }) => {
+  console.log('slug', post.slug);
   const MDXComponent = useMDXComponent(post.body.code);
   return (
     <Container>
@@ -33,6 +35,7 @@ const BlogLayout = ({ post }: { post: Blog }) => {
       <MDXPost title={post.title} date={post.date}>
         <MDXComponent />
       </MDXPost>
+      <GiscusArea slug={post.slug} />
     </Container>
   );
 };

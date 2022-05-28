@@ -49,7 +49,7 @@ export const TocItem = styled.div`
     }
   }
 
-  &:first-child {
+  &::first-of-type {
     padding-top: 6px;
   }
 

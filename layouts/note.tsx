@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import GiscusArea from 'components/GiscusArea';
 import NoteAside from 'components/Note/NoteAside';
 import MDXPost from 'components/Post/MDXPost';
 import metadata from 'data/metadata';
@@ -37,6 +38,7 @@ const NoteLayout = ({ note, tree }: NoteLayout) => {
         <MDXPost title={note.title} date={note.date}>
           {/* <BreadCrumb path={note.url_path} /> */}
           <MDXComponent />
+          <GiscusArea slug={note.url_path}></GiscusArea>
         </MDXPost>
       </NoteContainer>
     </Container>

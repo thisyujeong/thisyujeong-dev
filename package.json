@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@giscus/react": "^2.0.5",
     "contentlayer": "^0.2.5",
     "facepaint": "^1.2.1",
     "next": "12.1.6",

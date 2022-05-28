@@ -15,6 +15,11 @@ const metadata = {
     github: 'https://github.com/thisyujeong',
     rss: 'https://thisyujeong.dev/feed.xml',
   },
+  giscus: {
+    id: 'thisyujeong',
+    repo: 'thisyujeong-dev',
+    category: 'General',
+  },
 };
 
 export default metadata;
