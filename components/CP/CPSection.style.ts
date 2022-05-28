@@ -30,8 +30,13 @@ export const CPList = styled.ul`
       padding: 4px 16px;
       width: 6rem;
       color: #f5f5f7;
-      /* color: #2c3e5080; */
       font-weight: 500;
+    }
+
+    &:hover {
+      a {
+        text-decoration: underline;
+      }
     }
   }
 

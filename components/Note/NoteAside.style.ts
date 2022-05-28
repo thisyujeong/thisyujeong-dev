@@ -20,7 +20,7 @@ export const NoteAsideInnerContainer = styled.div`
   padding-right: 24px;
 
   ${mq()({
-    position: ['sticky', 'absolute'],
+    position: ['sticky', 'fixed'],
     top: ['96px', 'unset'],
   })}
 `;

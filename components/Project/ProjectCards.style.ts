@@ -17,12 +17,15 @@ export const ProjectCard = styled.div`
     h2 {
       color: var(--accent);
     }
+    p {
+      opacity: 1;
+    }
   }
 `;
 
 export const ProjectCardImg = styled.div`
   position: relative;
-  padding: 33.3333%;
+  padding-bottom: 60%;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid #ececf3;
@@ -52,4 +55,5 @@ export const ProjectCardDesc = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  transition: all 0.2s ease;
 `;
