@@ -7,7 +7,7 @@ export const TocContainer = styled.div`
 
 export const TocInnerContainer = styled.div`
   position: fixed;
-  width: 180px;
+  width: 210px;
   margin-top: 16px;
   margin-left: 20px;
   padding-left: 20px;

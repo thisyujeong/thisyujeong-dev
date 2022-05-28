@@ -1,6 +1,8 @@
 import Container from 'components/Container';
 import CPSection from 'components/CP/CPSection';
 import { allCPs, CP } from 'contentlayer/generated';
+import metadata from 'data/metadata';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 
 const cp = ({ posts }: { posts: CP[] }) => {
@@ -9,6 +11,7 @@ const cp = ({ posts }: { posts: CP[] }) => {
 
   return (
     <Container>
+      <NextSeo title={`CP`} />
       <CPSection posts={baekjoonPosts} title="baekjoon" />
       <CPSection posts={programmersPosts} title="programmers" />
     </Container>

@@ -28,6 +28,12 @@ export const Note = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'string', required: true },
+    tags: {
+      type: 'list',
+      required: true,
+      of: { type: 'string' },
+      default: [],
+    },
   },
   computedFields: {
     url_path: {
