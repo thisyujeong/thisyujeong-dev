@@ -35,6 +35,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# rss
+feed.xml
+sitemap.xml
 
 # Contentlayer
 .contentlayer

@@ -1,9 +1,9 @@
 import { writeFileSync } from 'fs';
 import RSS from 'rss';
 
-import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
-import { allNotes } from '../.contentlayer/generated/allNotes.mjs';
-import { allCPs } from '../.contentlayer/generated/allCPs.mjs';
+// import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
+// import { allNotes } from '../.contentlayer/generated/allNotes.mjs';
+import { allBlogs, allNotes, allCPs } from '../.contentlayer/generated/index.mjs';
 
 async function generate() {
   const feed = new RSS({
@@ -31,9 +31,8 @@ async function generate() {
 
   allCPs.map((cp) => {
     feed.item({
-      title: note.title,
+      title: cp.title,
       url: `https://thisyujeong.dev/${cp.url_path}`,
-      date: note.date,
     });
   });
 
