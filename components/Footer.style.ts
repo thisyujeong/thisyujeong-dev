@@ -3,11 +3,16 @@ import styled from '@emotion/styled';
 export const FooterContainer = styled.footer`
   height: 112px;
   padding: 24px 12px;
-  max-width: 768px;
   width: 100%;
   margin: 0 auto;
   border-top: 1px solid #00000016;
 `;
+
+export const FooterInner = styled.div`
+  max-width: 768px;
+  margin: 0 auto;
+`;
+
 export const SocialContainer = styled.div`
   a {
     display: inline-block;

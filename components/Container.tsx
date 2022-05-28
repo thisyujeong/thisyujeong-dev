@@ -4,16 +4,22 @@ import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
 
-const Container = ({ children }: { children?: React.ReactNode }) => {
+const Container = ({
+  isAside,
+  children,
+}: {
+  isAside?: boolean;
+  children?: React.ReactNode;
+}) => {
   return (
     <ContainerContainer>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       <Header />
-      <div className="contents">
-        <Main>{children}</Main>
-      </div>
+      <Main>
+        <div className={isAside ? 'contents is-aside' : 'contents'}>{children}</div>
+      </Main>
       <Footer />
     </ContainerContainer>
   );

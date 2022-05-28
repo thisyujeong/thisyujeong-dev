@@ -1,5 +1,6 @@
 import {
   MDXPostContainer,
+  MDXPostSection,
   MDXPostDate,
   MDXPostTitle,
   MDXPostContent,
@@ -12,10 +13,12 @@ import Toc from 'components/Toc';
 const MDXPost = ({ title, date, children }: PropsWithChildren<MDXPostProps>) => {
   return (
     <MDXPostContainer>
-      <Toc />
-      <MDXPostTitle>{title}</MDXPostTitle>
-      {date && <MDXPostDate>{convertDateUs(date)}</MDXPostDate>}
-      <MDXPostContent>{children}</MDXPostContent>
+      <MDXPostSection>
+        <Toc />
+        <MDXPostTitle>{title}</MDXPostTitle>
+        {date && <MDXPostDate>{convertDateUs(date)}</MDXPostDate>}
+        <MDXPostContent>{children}</MDXPostContent>
+      </MDXPostSection>
     </MDXPostContainer>
   );
 };

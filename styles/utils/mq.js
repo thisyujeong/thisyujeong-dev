@@ -1,7 +1,8 @@
 import facepaint from 'facepaint';
 
 const deviceWidth = {
-  mobile: 768,
+  large: 1280,
+  medium: 768,
 };
 const mq = (breakpoints = deviceWidth) => {
   const mediaQueries = Object.values(breakpoints).map(

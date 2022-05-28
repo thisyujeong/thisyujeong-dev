@@ -10,7 +10,7 @@ import { NoteContainer } from './note.style';
 const NoteLayout = ({ note, tree }: NoteLayout) => {
   const MDXComponent = useMDXComponent(note.body.code);
   return (
-    <Container>
+    <Container isAside={true}>
       <NextSeo
         title={`${note.title}`}
         description={'Code Snippets, Notes'}

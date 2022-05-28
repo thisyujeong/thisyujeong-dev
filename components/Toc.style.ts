@@ -1,8 +1,13 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const TocContainer = styled.div`
   position: absolute;
   left: 100%;
+
+  ${mq()({
+    display: ['none', 'block'],
+  })}
 `;
 
 export const TocInnerContainer = styled.div`
