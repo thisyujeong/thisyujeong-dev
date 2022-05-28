@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
   return { paths, fallback: 'blocking' };
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }: any) => {
   const pagePath = params.slug.join('/');
   const note = allNotes.find(
     (_) => _.pathSegments.map((_: PathSegment) => _.pathName).join('/') === pagePath
