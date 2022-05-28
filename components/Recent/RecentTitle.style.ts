@@ -5,7 +5,7 @@ export const RecentTitleContainer = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 12px;
-  margin-top: 32px;
+  margin-top: 50px;
 `;
 
 export const RecentTitleText = styled.h2`

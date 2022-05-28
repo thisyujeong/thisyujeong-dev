@@ -3,12 +3,12 @@ const metadata = {
   meta: {
     url: 'https://thisyujeong.dev',
     title: 'Thisyujeong | Frontend Developer',
-    description: 'I Experience It, And If I Like It, I Continue | thisyujeong',
+    description: 'I experience it and if i like it, i continue.',
   },
   author: 'thisyujeong',
   home: {
     name: 'thisyujeong',
-    description: 'I Experience It, And If I Like It, I Continue | thisyujeong',
+    description: 'I experience it and if i like it, i continue.',
     image: '/home/thisyujeong.png',
   },
   social: {

@@ -1,14 +1,15 @@
-import styles from '../styles/Home.module.css';
 import Container from '../components/Container';
 import RecentPost from '../components/Recent/RecentPosts';
 import { allBlogs } from 'contentlayer/generated';
 import { InferGetStaticPropsType } from 'next';
 import * as allProjects from 'data/projects';
 import RecentProject from 'components/Recent/RecentProject';
+import Profile from 'components/Profile';
 
 const Home = ({ posts, projects }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Container>
+      <Profile />
       <RecentPost posts={posts} />
       <RecentProject projects={projects} />
     </Container>
