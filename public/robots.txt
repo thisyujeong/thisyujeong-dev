@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://thisyujeong.dev/sitemap.xml
