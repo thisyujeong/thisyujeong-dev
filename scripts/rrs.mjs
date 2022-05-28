@@ -3,6 +3,7 @@ import RSS from 'rss';
 
 import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
 import { allNotes } from '../.contentlayer/generated/allNotes.mjs';
+import { allCPs } from '../.contentlayer/generated/allCPs.mjs';
 
 async function generate() {
   const feed = new RSS({
@@ -24,6 +25,14 @@ async function generate() {
     feed.item({
       title: note.title,
       url: `https://thisyujeong.dev/${note.url_path}`,
+      date: note.date,
+    });
+  });
+
+  allCPs.map((cp) => {
+    feed.item({
+      title: note.title,
+      url: `https://thisyujeong.dev/${cp.url_path}`,
       date: note.date,
     });
   });
