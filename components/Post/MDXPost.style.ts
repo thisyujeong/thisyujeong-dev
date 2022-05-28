@@ -57,7 +57,7 @@ export const MDXPostContainer = styled.div`
   }
 
   strong {
-    font-weight: 600;
+    font-weight: 500;
   }
 
   p {
@@ -103,6 +103,10 @@ export const MDXPostContainer = styled.div`
     & p {
       display: inline;
       color: #8a929b;
+
+      * {
+        color: #2c3e5070;
+      }
     }
   }
 

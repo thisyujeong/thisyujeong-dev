@@ -1,6 +1,5 @@
 import Container from 'components/Container';
 import MDXPost from 'components/Post/MDXPost';
-import { CP } from 'contentlayer/generated';
 import { Post } from 'lib/types';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo } from 'next-seo';
@@ -10,7 +9,7 @@ const CPLayout = ({ post }: Post) => {
   return (
     <Container>
       <NextSeo />
-      <MDXPost title={post.title} date={post.date}>
+      <MDXPost title={post.title}>
         <MDXComponent />
       </MDXPost>
     </Container>
