@@ -10,7 +10,7 @@ const Toc = () => {
 
   useEffect(() => {
     const observer = getIntersectionObserver(setCurrentId);
-    const headingElements = Array.from(document.querySelectorAll('h2, h3, h4, h5, h6'));
+    const headingElements = Array.from(document.querySelectorAll('h2, h3'));
     setHeadingEls(headingElements);
     headingElements.map((header) => {
       observer.observe(header);
@@ -28,7 +28,7 @@ const Toc = () => {
                 key={i}
                 data-active={currentId === h.id ? true : false}
               >
-                <a href={`#${h.id}`}>{h.innerText}</a>
+                <a href={`#${h.id}`}>{h.textContent}</a>
               </TocItem>
             ) : (
               <TocItem
