@@ -7,7 +7,6 @@ import MDXPost from '../components/Post/MDXPost';
 import metadata from '../data/metadata';
 
 const BlogLayout = ({ post }: { post: Blog }) => {
-  console.log('slug', post.slug);
   const MDXComponent = useMDXComponent(post.body.code);
   return (
     <Container>
