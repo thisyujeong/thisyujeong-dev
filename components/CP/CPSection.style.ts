@@ -6,6 +6,11 @@ export const CPHeader = styled.h2`
   line-height: 2;
   margin-top: 1.5rem;
   text-transform: capitalize;
+  sup {
+    font-size: 0.6em;
+    color: #2c3e50;
+    opacity: 0.6;
+  }
 `;
 
 export const CPList = styled.ul`

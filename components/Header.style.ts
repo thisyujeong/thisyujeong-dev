@@ -15,7 +15,7 @@ export const HeaderContainer = styled.header`
 
   .container {
     width: 100%;
-    max-width: 768px;
+    max-width: 1220px;
     margin: 0 auto;
     padding: 0 22px;
     display: flex;

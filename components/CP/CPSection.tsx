@@ -5,7 +5,9 @@ import { CPHeader, CPList } from './CPSection.style';
 const CPSection = ({ posts, title }: CPSection) => {
   return (
     <section>
-      <CPHeader>{title}</CPHeader>
+      <CPHeader>
+        {title} <sup>{posts.length}</sup>
+      </CPHeader>
       <CPList className={title}>
         {posts.map((post) => (
           <li key={post.number} className={post.level}>

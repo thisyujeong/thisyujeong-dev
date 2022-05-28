@@ -33,5 +33,3 @@ export const BlogInfo = styled.a`
     text-decoration: underline;
   }
 `;
-// #cecedc
-// #2c3e50

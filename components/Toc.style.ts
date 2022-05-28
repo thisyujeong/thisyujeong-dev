@@ -15,9 +15,10 @@ export const TocInnerContainer = styled.div`
 `;
 
 export const TocItem = styled.div`
+  margin: 6px 0;
   a {
     display: block;
-    line-height: 2;
+    line-height: 1.5em;
     color: #2c3e50 !important;
     color: #2c3e50 !important;
     font-size: 14px;
@@ -25,7 +26,7 @@ export const TocItem = styled.div`
     transition: all 0.1s ease;
     &:hover {
       opacity: 0.8;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
 

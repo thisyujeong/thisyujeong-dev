@@ -72,6 +72,12 @@ export const MDXPostContainer = styled.div`
     }
   }
 
+  hr {
+    height: 1px;
+    border: 0;
+    background-color: #d0d7de;
+  }
+
   pre {
     position: relative;
     font-size: 15px;
@@ -79,6 +85,7 @@ export const MDXPostContainer = styled.div`
     padding: 9px 16px;
     border-radius: 5px;
     background-color: rgba(27, 31, 35, 0.05);
+    background-color: #f6f8fb;
     overflow-x: auto;
 
     > code {
