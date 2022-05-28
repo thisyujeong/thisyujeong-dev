@@ -41,7 +41,7 @@ export const TocItem = styled.div`
 
   &[data-active='true'] {
     a {
-      color: #fb673e !important;
+      color: var(--accent) !important;
       opacity: 1;
       &:hover {
         opacity: 0.8;

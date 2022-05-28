@@ -165,3 +165,10 @@ body {
 *:focus {
   outline: 0;
 }
+
+/* variables */
+body {
+  --accent: #2a75e9;
+  --accent-sky: #f2f6fd;
+  --accent-border: #2a75e950;
+}

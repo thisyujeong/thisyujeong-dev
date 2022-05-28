@@ -30,7 +30,7 @@ export const NavContainer = styled.div`
 
       &[data-selected='true'] a {
         opacity: 0.8;
-        color: #fb673e;
+        color: var(--accent);
       }
     }
   }

@@ -17,7 +17,7 @@ export const RecentTitleText = styled.h2`
 export const RecentMore = styled.div`
   margin-bottom: 10px;
   a {
-    color: #fb673e;
+    color: var(--accent);
     opacity: 0.7;
     padding: 0 6px;
     transition: opacity 0.2s ease;

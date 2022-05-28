@@ -7,7 +7,7 @@ export const AsideItemTitle = styled.span`
   position: relative;
   display: block;
   color: #2c3e50;
-  color: #fb673e;
+  color: var(--accent);
   padding-left: 8px;
   font-size: 14px;
   font-weight: 500;
@@ -53,7 +53,6 @@ export const AsideItemAnchor = styled.a`
   display: block;
   padding: 4px 10px 4px 10px;
   margin: 4px 0 4px 10px;
-  opacity: 0.6;
   color: #2c3e50;
   line-height: 1.5;
   transition: all 0.2s ease;
@@ -65,8 +64,8 @@ export const AsideItemAnchor = styled.a`
 
   &[data-selected='true'] {
     opacity: 1;
-    background: #fff9f7;
-    color: #fb673e;
+    background: var(--accent-sky);
+    color: var(--accent);
 
     &:hover {
       opacity: 0.8;

@@ -10,12 +10,12 @@ export const PostCard = styled.div`
     background: #f5f5f7;
 
     h2 {
-      color: #fb673e;
+      color: var(--accent);
       padding-left: 20px;
 
       &:before {
         opacity: 1;
-        color: #fb673e;
+        color: var(--accent);
       }
     }
   }
@@ -37,8 +37,8 @@ export const PostTitle = styled.h2`
     left: 0;
     width: 6px;
     height: 6px;
-    border-right: 2px solid #fb673e;
-    border-bottom: 2px solid #fb673e;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
     margin-right: 10px;
     transition: 0.2s ease;
     transform: translateY(-50%) rotate(-45deg);

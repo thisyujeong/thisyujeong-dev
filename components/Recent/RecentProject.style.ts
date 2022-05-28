@@ -18,11 +18,11 @@ export const ProjectCard = styled.div`
   transition: all 0.2s ease;
 
   &:hover {
-    background: #fff9f7;
-    border-color: #ffbaa7;
+    background: var(--accent-sky);
+    border-color: var(--accent-border);
 
     h3 {
-      color: #fb673e;
+      color: var(--accent);
     }
   }
 `;

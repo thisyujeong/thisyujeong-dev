@@ -15,7 +15,7 @@ export const BreadCrumbContainer = styled.div`
     position: relative;
     margin-left: 14px;
     padding-left: 14px;
-    color: #fb673e;
+    color: var(--accent);
 
     &:before {
       content: '>';

@@ -20,8 +20,8 @@ export const PostCardContainer = styled.div`
       left: 0;
       width: 8px;
       height: 8px;
-      border-right: 2px solid #fb673e;
-      border-bottom: 2px solid #fb673e;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
       margin-right: 10px;
       transition: 0.2s ease;
       transform: translateY(-50%) rotate(-45deg);
@@ -43,11 +43,11 @@ export const PostCardContainer = styled.div`
     opacity: 0.8;
     background: #f5f5f7;
     h1 {
-      color: #fb673e;
+      color: var(--accent);
       padding-left: 28px;
       &:before {
         opacity: 1;
-        color: #fb673e;
+        color: var(--accent);
       }
     }
   }

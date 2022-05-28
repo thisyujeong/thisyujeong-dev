@@ -15,7 +15,7 @@ export const ProjectCard = styled.div`
   &:hover {
     transition: all 0.2s ease;
     h2 {
-      color: #fb673e;
+      color: var(--accent);
     }
   }
 `;
