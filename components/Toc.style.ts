@@ -4,9 +4,8 @@ import mq from 'styles/utils/mq';
 export const TocContainer = styled.div`
   position: absolute;
   left: 100%;
-
-  ${mq()({
-    display: ['none', 'block'],
+  ${mq({
+    display: ['block', 'none'],
   })}
 `;
 

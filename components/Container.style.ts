@@ -6,7 +6,7 @@ export const ContainerContainer = styled.div`
 `;
 
 export const Main = styled.main`
-  padding: 40px 22px 50px;
+  padding: 20px 22px 50px;
   min-height: calc(100vh - 56px - 112px);
 
   .contents {
@@ -17,9 +17,8 @@ export const Main = styled.main`
 
     &.is-aside {
       max-width: calc(768px + 240px);
-
-      ${mq()({
-        maxWidth: ['calc(768px + 240px)', '768px'],
+      ${mq({
+        maxWidth: ['768px', 'calc(768px + 240px)', '100%'],
       })}
     }
   }

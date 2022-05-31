@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import mq from '../styles/utils/mq';
-import { css } from '@emotion/react';
 
 export const HeaderContainer = styled.header`
   display: block;
@@ -25,8 +24,11 @@ export const HeaderContainer = styled.header`
 
   h1 a {
     color: #2c3e50;
-    font-size: 20px;
     font-weight: 600;
     line-height: 56px;
+
+    ${mq({
+      fontSize: ['20px', '18px', '18px'],
+    })}
   }
 `;
