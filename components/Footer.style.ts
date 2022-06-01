@@ -5,7 +5,7 @@ export const FooterContainer = styled.footer`
   padding: 24px 12px;
   width: 100%;
   margin: 0 auto;
-  border-top: 1px solid #00000016;
+  border-top: 1px solid var(--border-color);
 `;
 
 export const FooterInner = styled.div`
@@ -25,13 +25,13 @@ export const SocialContainer = styled.div`
 `;
 export const Copyright = styled.p`
   font-size: 12px;
-  color: #2c3e50;
+  color: var(--text-base);
   opacity: 0.5;
 `;
 
 export const BlogInfo = styled.a`
   font-size: 12px;
-  color: #2c3e50;
+  color: var(--text-base);
   opacity: 0.5;
   &:hover {
     opacity: 0.7;

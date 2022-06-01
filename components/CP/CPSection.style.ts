@@ -8,7 +8,7 @@ export const CPHeader = styled.h2`
   text-transform: capitalize;
   sup {
     font-size: 0.6em;
-    color: #2c3e50;
+    color: var(--text-base);
     opacity: 0.6;
   }
 `;

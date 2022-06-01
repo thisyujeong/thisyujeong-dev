@@ -171,4 +171,8 @@ body {
   --accent: #2a75e9;
   --accent-sky: #f2f6fd;
   --accent-border: #2a75e950;
+  --text-base: #2c3e50;
+  --text-base-40: #2c3e5040;
+  --text-base-70: #2c3e5070;
+  --border-color: #00000016;
 }

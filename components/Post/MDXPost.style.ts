@@ -8,7 +8,7 @@ export const MDXPostContainer = styled.div`
   font-weight: 400;
 
   * {
-    color: #2c3e50;
+    color: var(--text-base);
   }
 
   a {
@@ -105,7 +105,7 @@ export const MDXPostContainer = styled.div`
       color: #8a929b;
 
       * {
-        color: #2c3e5070;
+        color: var(--text-base-70);
       }
     }
   }
@@ -199,6 +199,27 @@ export const MDXPostTitle = styled.h1`
   font-size: 30px !important;
   margin-top: 0 !important;
   word-break: keep-all;
+`;
+
+export const MDXPostURL = styled.div`
+  font-size: 14px;
+  color: var(--text-base);
+
+  span {
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 8px;
+  }
+
+  a {
+    color: var(--text-base);
+
+    opacity: 0.5;
+    &:hover {
+      color: var(--text-base);
+      opacity: 1;
+    }
+  }
 `;
 
 export const MDXPostDate = styled.span`

@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header`
   width: 100%;
   backdrop-filter: blur(7px);
   background-color: rgba(255, 255, 255, 0.72);
-  border-bottom: 1px solid #00000016;
+  border-bottom: 1px solid var(--border-color);
   z-index: 100;
 
   ${mq({
@@ -26,7 +26,7 @@ export const HeaderContainer = styled.header`
   }
 
   h1 a {
-    color: #2c3e50;
+    color: var(--text-base);
     font-weight: 600;
 
     ${mq({

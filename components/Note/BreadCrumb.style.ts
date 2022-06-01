@@ -24,7 +24,7 @@ export const BreadCrumbContainer = styled.div`
       top: 50%;
       left: 0;
       transform: translate(-50%, -50%);
-      color: #2c3e50;
+      color: var(--text-base);
     }
   }
 `;

@@ -6,7 +6,7 @@ export const NoteAsideItemContainer = styled.div`
 export const AsideItemTitle = styled.span`
   position: relative;
   display: block;
-  color: #2c3e50;
+  color: var(--text-base);
   color: var(--accent);
   padding-left: 8px;
   font-size: 14px;
@@ -25,8 +25,8 @@ export const AsideItemTitle = styled.span`
     right: 16px;
     width: 6px;
     height: 6px;
-    border-right: 2px solid #2c3e50;
-    border-bottom: 2px solid #2c3e50;
+    border-right: 2px solid var(--text-base);
+    border-bottom: 2px solid var(--text-base);
     transform: translateY(-75%) rotate(45deg);
   }
 
@@ -41,7 +41,7 @@ export const AsideItemTitle = styled.span`
       right: 16px;
       width: 8px;
       height: 2px;
-      background: #2c3e50;
+      background: var(--text-base);
       transform: translateY(-50%);
     }
   }
@@ -53,7 +53,7 @@ export const AsideItemAnchor = styled.a`
   display: block;
   padding: 4px 10px 4px 10px;
   margin: 4px 0 4px 10px;
-  color: #2c3e50;
+  color: var(--text-base);
   line-height: 1.5;
   transition: all 0.2s ease;
 

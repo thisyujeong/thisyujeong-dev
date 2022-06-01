@@ -11,7 +11,7 @@ const cp = ({ posts }: { posts: CP[] }) => {
 
   return (
     <Container>
-      <NextSeo title={`CP`} />
+      <NextSeo title={`CP`} description={`Competitive Programming Notes`} />
       <CPSection posts={baekjoonPosts} title="baekjoon" />
       <CPSection posts={programmersPosts} title="programmers" />
     </Container>

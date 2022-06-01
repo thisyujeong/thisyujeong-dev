@@ -15,7 +15,7 @@ export const TocInnerContainer = styled.div`
   margin-top: 16px;
   margin-left: 20px;
   padding-left: 20px;
-  border-left: 1px solid #2c3e5040;
+  border-left: 1px solid var(--text-base-40);
 `;
 
 export const TocItem = styled.div`
@@ -23,8 +23,8 @@ export const TocItem = styled.div`
   a {
     display: block;
     line-height: 1.5em;
-    color: #2c3e50 !important;
-    color: #2c3e50 !important;
+    color: var(--text-base) !important;
+    color: var(--text-base) !important;
     font-size: 14px;
     opacity: 0.5;
     transition: all 0.1s ease;
@@ -48,7 +48,7 @@ export const TocItem = styled.div`
     }
   }
 
-  &::first-of-type {
+  &:first-of-type {
     padding-top: 6px;
   }
 

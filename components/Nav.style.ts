@@ -16,14 +16,14 @@ export const NavContainer = styled.nav`
       a {
         font-size: 16px;
         font-weight: 500;
-        color: #2c3e50;
+        color: var(--text-base);
         opacity: 0.5;
         transition: all 0.2s ease;
       }
 
       &:hover a {
         opacity: 0.8;
-        color: #2c3e50;
+        color: var(--text-base);
         text-decoration: underline;
       }
 

@@ -18,7 +18,7 @@ export const Main = styled.main`
     &.is-aside {
       max-width: calc(768px + 240px);
       ${mq({
-        maxWidth: ['768px', 'calc(768px + 240px)', '100%'],
+        maxWidth: ['768px', '768px', '100%'],
       })}
     }
   }

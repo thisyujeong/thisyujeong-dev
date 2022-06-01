@@ -67,7 +67,7 @@ export const ProfileDesc = styled.div`
 
   span {
     display: inline-block;
-    color: #2c3e50;
+    color: var(--text-base);
     font-size: 18px;
     text-transform: capitalize;
   }

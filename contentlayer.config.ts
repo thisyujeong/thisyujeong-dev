@@ -83,6 +83,7 @@ export const CP = defineDocumentType(() => ({
     from: { type: 'string', required: true },
     level: { type: 'string', required: true },
     number: { type: 'number', required: true },
+    url: { type: 'string', required: true },
   },
   computedFields: {
     url_path: {
