@@ -5,30 +5,33 @@ export const HeaderContainer = styled.header`
   display: block;
   position: sticky;
   top: 0;
-  height: 56px;
   width: 100%;
   backdrop-filter: blur(7px);
   background-color: rgba(255, 255, 255, 0.72);
   border-bottom: 1px solid #00000016;
   z-index: 100;
 
+  ${mq({
+    height: ['56px', '56px', '50px'],
+  })}
+
   .container {
-    width: 100%;
-    max-width: 1280px;
+    max-width: 768px;
     margin: 0 auto;
     padding: 0 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: content-box;
   }
 
   h1 a {
     color: #2c3e50;
     font-weight: 600;
-    line-height: 56px;
 
     ${mq({
-      fontSize: ['20px', '18px', '18px'],
+      fontSize: ['20px', '20px', '16px'],
+      lineHeight: ['56px', '56px', '50px'],
     })}
   }
 `;

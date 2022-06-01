@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const PostCard = styled.div`
   margin: 0px -14px;
@@ -30,6 +31,7 @@ export const PostTitle = styled.h2`
   font-size: 22px;
   line-height: 1.57;
   transition: 0.2s ease;
+
   &:before {
     content: '';
     position: absolute;
@@ -44,6 +46,10 @@ export const PostTitle = styled.h2`
     transform: translateY(-50%) rotate(-45deg);
     opacity: 0;
   }
+
+  ${mq({
+    fontSize: ['22px', '22px', '20px'],
+  })}
 `;
 export const PostDesc = styled.div`
   font-size: 14px;

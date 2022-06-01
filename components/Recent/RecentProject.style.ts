@@ -1,21 +1,36 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const RecentProjectContaner = styled.div`
   display: flex;
+
   a {
     flex: 1;
   }
+
   a + a {
-    margin-left: 10px;
+    ${mq({
+      marginLeft: ['10px', '10px', '0'],
+    })}
   }
+
+  ${mq({
+    flexDirection: ['row', 'row', 'column'],
+    borderTop: ['0', '0', '1px solid #d4dae0'],
+  })}
 `;
 export const ProjectCard = styled.div`
   display: flex;
-  height: 100px;
   padding: 8px;
+  height: 100px;
   background: #f5f5f730;
-  border: 1px solid #d4dae0;
   transition: all 0.2s ease;
+
+  ${mq({
+    border: ['1px solid #d4dae0', '1px solid #d4dae0', '0'],
+    borderBottom: ['auto', 'auto', '1px solid #d4dae0'],
+    padding: ['8px', '8px', '12px 8px'],
+  })}
 
   &:hover {
     background: var(--accent-sky);
@@ -62,7 +77,7 @@ export const ProjectCardTitle = styled.h3`
 `;
 
 export const ProjectCardDesc = styled.p`
-  margin-top: 8px;
+  margin-top: 4px;
   height: 3.14em;
   opacity: 0.5;
   font-size: 14px;

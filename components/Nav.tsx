@@ -23,12 +23,14 @@ const Links = () => {
   );
 };
 
-const SideNav = () => {
+const Nav = () => {
   return (
-    <NavContainer>
-      <Links />
-    </NavContainer>
+    <>
+      <NavContainer>
+        <Links />
+      </NavContainer>
+    </>
   );
 };
 
-export default SideNav;
+export default Nav;

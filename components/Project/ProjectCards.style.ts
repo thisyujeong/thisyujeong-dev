@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const ProjectCardsContainer = styled.div`
   display: flex;
@@ -8,6 +9,11 @@ export const ProjectCardsContainer = styled.div`
     display: block;
     width: 33.3333%;
     padding: 12px 8px;
+
+    ${mq({
+      width: ['33.3333%', '33.3333%', '50%', '100%'],
+      padding: ['12px 8px', '12px 8px', '8px', '12px 8px'],
+    })}
   }
 `;
 export const ProjectCard = styled.div`
@@ -39,13 +45,17 @@ export const ProjectCardCopy = styled.div``;
 
 export const ProjectCardTitle = styled.h2`
   margin-top: 4px;
-  color: #cecedc;
-  font-size: 14px;
   white-space: nowrap;
   text-overflow: ellipsis;
   transition: all 0.2s ease;
   overflow: hidden;
+
+  ${mq({
+    fontSize: ['14px', '14px', '18px'],
+    color: ['#cecedc', '#cecedc', '#2c3e50'],
+  })}
 `;
+
 export const ProjectCardDesc = styled.p`
   opacity: 0.5;
   height: 3.14em;
@@ -56,4 +66,9 @@ export const ProjectCardDesc = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   transition: all 0.2s ease;
+
+  ${mq({
+    fontSize: ['13px', '13px', '15px'],
+    color: ['#cecedc', '#cecedc', '#2c3e50'],
+  })}
 `;

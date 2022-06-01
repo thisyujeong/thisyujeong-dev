@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import mq from 'styles/utils/mq';
 
 export const NoteAsideContainer = styled.div`
-  max-height: calc(100vh - 56px);
   height: 100%;
   z-index: 10;
   background: #fff;
@@ -20,6 +19,7 @@ export const NoteAsideInnerContainer = styled.div`
   padding: 8px 0;
   padding-right: 14px;
   overflow-y: auto;
+  max-height: calc(100vh - 56px);
 
   ${mq({
     position: ['sticky', 'sticky'],

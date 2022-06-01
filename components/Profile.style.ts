@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 24px;
 `;
 
 export const ProfileImage = styled.div`
@@ -23,6 +25,11 @@ export const ProfileImage = styled.div`
     z-index: 2;
     animation: cloud 1.5s infinite ease-in;
     animation-direction: alternate;
+
+    ${mq({
+      width: ['100px', '100px', '80px'],
+      height: ['100px', '100px', '80px'],
+    })}
   }
 
   &:before {
@@ -39,6 +46,10 @@ export const ProfileImage = styled.div`
     background-size: contain;
     animation: cloud 2s infinite ease-in;
     animation-direction: alternate;
+    ${mq({
+      width: ['80px', '80px', '60px'],
+      height: ['80px', '80px', '60px'],
+    })}
   }
 
   @keyframes cloud {

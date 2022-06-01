@@ -1,15 +1,24 @@
 import metadata from 'data/metadata';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { ProfileContainer, ProfileImage, ProfileDesc } from './Profile.style';
 
 const Profile = () => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);
+    });
+  }, []);
+
   return (
     <ProfileContainer>
       <ProfileImage>
         <Image
           src={metadata.home.image}
-          width={200}
-          height={200}
+          width={!isMobile ? 200 : 150}
+          height={!isMobile ? 200 : 150}
           alt={metadata.home.name}
         />
       </ProfileImage>

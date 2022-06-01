@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const RecentTitleContainer = styled.div`
   display: flex;
@@ -6,16 +7,23 @@ export const RecentTitleContainer = styled.div`
   align-items: flex-end;
   margin-bottom: 12px;
   margin-top: 50px;
+  ${mq({
+    marginTop: ['50px', '50px', '30px'],
+  })}
 `;
 
 export const RecentTitleText = styled.h2`
   font-size: 28px;
   font-weight: 500;
   text-transform: capitalize;
+  ${mq({
+    fontSize: ['28px', '28px', '24px'],
+  })}
 `;
 
 export const RecentMore = styled.div`
   margin-bottom: 10px;
+
   a {
     color: var(--accent);
     opacity: 0.7;
@@ -24,9 +32,16 @@ export const RecentMore = styled.div`
     text-transform: uppercase;
     cursor: pointer;
 
+    ${mq({
+      opacity: [0.7, 0.7, 1],
+    })}
+
     &:hover {
       opacity: 1;
       text-decoration: underline;
+      ${mq({
+        textDecoration: ['underline', 'underline', 'none'],
+      })}
     }
   }
 `;
