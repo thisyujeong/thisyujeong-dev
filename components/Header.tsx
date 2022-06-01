@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import SideNav from './Nav';
+import Nav from './Nav';
 import { HeaderContainer } from './Header.style';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   return (
@@ -9,7 +10,8 @@ const Header = () => {
         <h1>
           <Link href="/">thisyujeong</Link>
         </h1>
-        <SideNav />
+        <Nav />
+        <ThemeToggle />
       </div>
     </HeaderContainer>
   );

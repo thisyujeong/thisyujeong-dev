@@ -12,10 +12,10 @@ export const MDXPostContainer = styled.div`
   }
 
   a {
-    color: #2a75e9;
+    color: var(--accent);
     transition: color 0.2s ease;
     &:hover {
-      color: #289aff;
+      color: var(--accent);
       text-decoration: underline;
     }
   }
@@ -85,7 +85,7 @@ export const MDXPostContainer = styled.div`
     padding: 9px 16px;
     border-radius: 5px;
     background-color: rgba(27, 31, 35, 0.05);
-    background-color: #f6f8fb;
+    background-color: var(--code-block);
     overflow-x: auto;
 
     > code {
@@ -163,7 +163,7 @@ export const MDXPostContainer = styled.div`
       .hljs-title {
         &.class_,
         &.function_ {
-          color: #3c4e99;
+          color: #109a79;
         }
       }
 

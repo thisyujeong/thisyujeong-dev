@@ -4,7 +4,6 @@ import mq from 'styles/utils/mq';
 export const NoteAsideContainer = styled.div`
   height: 100%;
   z-index: 10;
-  background: #fff;
 
   ${mq({
     display: ['block', 'block', 'none'],

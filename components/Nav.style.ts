@@ -3,7 +3,7 @@ import mq from 'styles/utils/mq';
 import { css } from '@emotion/react';
 
 export const NavContainer = styled.nav`
-  margin-left: 24px;
+  margin-left: auto;
   line-height: 1;
 
   ul {

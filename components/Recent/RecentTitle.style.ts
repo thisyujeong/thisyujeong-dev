@@ -26,7 +26,6 @@ export const RecentMore = styled.div`
 
   a {
     color: var(--accent);
-    opacity: 0.7;
     padding: 0 6px;
     transition: opacity 0.2s ease;
     text-transform: uppercase;
@@ -37,7 +36,6 @@ export const RecentMore = styled.div`
     })}
 
     &:hover {
-      opacity: 1;
       text-decoration: underline;
       ${mq({
         textDecoration: ['underline', 'underline', 'none'],

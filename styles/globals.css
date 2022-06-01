@@ -154,12 +154,12 @@ body {
   overflow-x: hidden;
   word-break: keep-all;
   word-wrap: break-word;
-  background: #fff;
+  background: var(--bg);
 }
 * {
   font-size: inherit;
   line-height: 1.57em;
-  color: #2c3e50;
+  color: var(--text-base);
   box-sizing: border-box;
 }
 *:focus {
@@ -168,11 +168,29 @@ body {
 
 /* variables */
 body {
+  --bg: rgb(255, 255, 255);
   --accent: #2a75e9;
-  --accent-sky: #f2f6fd;
   --accent-border: #2a75e950;
   --text-base: #2c3e50;
   --text-base-40: #2c3e5040;
   --text-base-70: #2c3e5070;
   --border-color: #00000016;
+  --hover-base: #f5f7f8;
+  --toggle-icon: var(--text-base-70);
+  --toggle-border: #eeeefb;
+  --code-block: #f6f8fb;
+}
+
+body[data-theme='dark'] {
+  --bg: rgb(23, 23, 23);
+  --accent: #ff7145;
+  --accent-border: #ff714550;
+  --text-base: #dfdfdf;
+  --text-base-40: #dfdfdf40;
+  --text-base-70: #dfdfdf70;
+  --border-color: #ffffff16;
+  --hover-base: #232323;
+  --toggle-icon: var(--text-base-70);
+  --toggle-border: #eeeefb20;
+  --code-block: #232323;
 }

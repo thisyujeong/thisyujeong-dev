@@ -1,8 +1,12 @@
 import React from 'react';
 import { ContainerContainer, Main } from './Container.style';
 import Head from 'next/head';
-import Header from './Header';
 import Footer from './Footer';
+import dynamic from 'next/dynamic';
+
+const Header = dynamic(() => import('../components/Header'), {
+  ssr: false,
+});
 
 const Container = ({
   isAside,

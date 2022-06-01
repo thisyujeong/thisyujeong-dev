@@ -23,17 +23,16 @@ export const ProjectCard = styled.div`
   display: flex;
   padding: 8px;
   height: 100px;
-  background: #f5f5f730;
   transition: all 0.2s ease;
+  background: var(--hover-base);
+  border-radius: 4px;
 
   ${mq({
-    border: ['1px solid #d4dae0', '1px solid #d4dae0', '0'],
     borderBottom: ['auto', 'auto', '1px solid #d4dae0'],
     padding: ['8px', '8px', '12px 8px'],
   })}
 
   &:hover {
-    background: var(--accent-sky);
     border-color: var(--accent-border);
 
     h3 {

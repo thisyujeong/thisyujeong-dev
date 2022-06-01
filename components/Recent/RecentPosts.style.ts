@@ -8,7 +8,7 @@ export const PostCard = styled.div`
 
   &:hover {
     opacity: 0.8;
-    background: #f5f5f7;
+    background: var(--hover-base);
 
     h2 {
       color: var(--accent);

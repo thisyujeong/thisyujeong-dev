@@ -41,7 +41,7 @@ export const PostCardContainer = styled.div`
 
   &:hover {
     opacity: 0.8;
-    background: #f5f5f7;
+    background: var(--hover-base);
     h1 {
       color: var(--accent);
       padding-left: 28px;

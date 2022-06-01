@@ -64,7 +64,6 @@ export const AsideItemAnchor = styled.a`
 
   &[data-selected='true'] {
     opacity: 1;
-    background: var(--accent-sky);
     color: var(--accent);
 
     &:hover {

@@ -21,7 +21,7 @@ export const CPList = styled.ul`
 
   li {
     margin: 4px 6px;
-    background: #f5f5f7;
+    background: var(--hover-base);
     text-align: center;
     border-radius: 4px;
 

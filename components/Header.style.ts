@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   backdrop-filter: blur(7px);
-  background-color: rgba(255, 255, 255, 0.72);
+  background-color: rgba(var(--bg), 0.72);
   border-bottom: 1px solid var(--border-color);
   z-index: 100;
 
