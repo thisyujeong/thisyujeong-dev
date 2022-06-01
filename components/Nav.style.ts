@@ -68,7 +68,7 @@ const dynamicVisible = ({ visible }: { visible: boolean }) => {
 };
 
 export const DropNavContainer = styled.nav`
-  position: fixed;
+  position: absolute;
   top: 50px;
   right: 0;
   background: #fff;

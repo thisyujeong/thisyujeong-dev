@@ -49,10 +49,10 @@ export const ProjectCardTitle = styled.h2`
   text-overflow: ellipsis;
   transition: all 0.2s ease;
   overflow: hidden;
+  color: #2c3e50;
 
   ${mq({
     fontSize: ['14px', '14px', '18px'],
-    color: ['#cecedc', '#cecedc', '#2c3e50'],
   })}
 `;
 
@@ -66,9 +66,9 @@ export const ProjectCardDesc = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   transition: all 0.2s ease;
+  color: #2c3e50;
 
   ${mq({
     fontSize: ['13px', '13px', '15px'],
-    color: ['#cecedc', '#cecedc', '#2c3e50'],
   })}
 `;

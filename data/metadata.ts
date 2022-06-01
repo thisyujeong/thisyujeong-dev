@@ -7,7 +7,7 @@ const metadata = {
   },
   author: 'thisyujeong',
   home: {
-    name: 'thisyujeong',
+    name: 'Yujeong Lee',
     description: 'I experience it and if i like it, i continue.',
     image: '/home/thisyujeong.png',
   },

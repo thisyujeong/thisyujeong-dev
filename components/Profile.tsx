@@ -7,6 +7,7 @@ const Profile = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
+    window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);
     window.addEventListener('resize', () => {
       window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);
     });
@@ -23,8 +24,7 @@ const Profile = () => {
         />
       </ProfileImage>
       <ProfileDesc>
-        <span>Yujeong Lee</span>
-        {/* <h2>{metadata.home.name}</h2> */}
+        <span>{metadata.home.name}</span>
         <p>{metadata.home.description}</p>
       </ProfileDesc>
     </ProfileContainer>
