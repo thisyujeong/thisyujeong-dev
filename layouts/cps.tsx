@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import GiscusArea from 'components/GiscusArea';
 import MDXPost from 'components/Post/MDXPost';
 import metadata from 'data/metadata';
 import { Post } from 'lib/types';
@@ -18,6 +19,7 @@ const CPLayout = ({ post }: Post) => {
       <MDXPost title={post.title} url={post.url}>
         <MDXComponent />
       </MDXPost>
+      <GiscusArea slug={post.url_path} />
     </Container>
   );
 };

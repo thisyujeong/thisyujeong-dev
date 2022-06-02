@@ -15,7 +15,7 @@ const GiscusArea = ({ slug }: { slug: string }) => {
         inputPosition="top"
         reactionsEnabled="1"
         emitMetadata="0"
-        theme="dark"
+        theme="dark_dimmed"
       />
     </GiscusContainer>
   );
