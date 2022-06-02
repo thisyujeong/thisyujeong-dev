@@ -20,7 +20,9 @@ const MDXPost = ({ title, date, children, url }: PropsWithChildren<MDXPostProps>
         {url && (
           <MDXPostURL>
             <span>문제 바로가기 </span>
-            <a href={url}>{url}</a>
+            <a href={url} target="_blank" rel="noreferrer">
+              {url}
+            </a>
           </MDXPostURL>
         )}
         {date && <MDXPostDate>{convertDateUs(date)}</MDXPostDate>}
