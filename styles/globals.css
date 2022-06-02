@@ -181,7 +181,6 @@ body {
   --toggle-icon: var(--text-base-70);
   --toggle-border: #dfdfdf4d;
   --code-block: #f6f8fb;
-  --code-block-border: transparent;
   --card-border: #ececf3;
   --mdx-border: #dfe2e5;
 }
@@ -199,8 +198,7 @@ body[data-theme='dark'] {
   --toggle-bg: #ffffff20;
   --toggle-icon: var(--text-base-70);
   --toggle-border: #eeeefb20;
-  --code-block: #0d1117;
-  --code-block-border: #30363d;
+  --code-block: #232323;
   --card-border: var(--text-base-40);
   --mdx-border: #dfe2e535;
 }

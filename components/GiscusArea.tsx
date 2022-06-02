@@ -1,15 +1,8 @@
 import Giscus from '@giscus/react';
 import metadata from 'data/metadata';
-import { useEffect, useState } from 'react';
 import { GiscusContainer } from './GiscusArea.style';
 
 const GiscusArea = ({ slug }: { slug: string }) => {
-  const [themeMode, setThemeMode] = useState();
-
-  useEffect(() => {
-    setThemeMode(window.localStorage.theme || document.body.dataset.theme);
-  }, [themeMode]);
-
   return (
     <GiscusContainer>
       <Giscus
@@ -22,7 +15,7 @@ const GiscusArea = ({ slug }: { slug: string }) => {
         inputPosition="top"
         reactionsEnabled="1"
         emitMetadata="0"
-        theme={themeMode}
+        theme="dark"
       />
     </GiscusContainer>
   );

@@ -66,8 +66,8 @@ export const MDXPostContainer = styled.div`
       color: #109a79;
       padding: 0.25rem 0.5rem;
       font-size: 0.85em;
+      margin: 0 2px;
       background-color: var(--code-block);
-      border: 1px solid var(--code-block-border);
       border-radius: 3px;
     }
   }
@@ -85,7 +85,6 @@ export const MDXPostContainer = styled.div`
     padding: 9px 16px;
     border-radius: 5px;
     background-color: var(--code-block);
-    border: 1px solid var(--code-block-border);
     overflow-x: auto;
 
     > code {
