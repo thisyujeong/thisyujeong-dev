@@ -15,7 +15,7 @@ export const AsideItemTitle = styled.span`
   text-transform: capitalize;
   cursor: pointer;
   &:hover {
-    background: #f5f5f7;
+    background: var(--hover-base);
   }
 
   &:before {
@@ -38,8 +38,8 @@ export const AsideItemTitle = styled.span`
       content: '';
       position: absolute;
       top: 50%;
-      right: 16px;
-      width: 8px;
+      right: 14px;
+      width: 12px;
       height: 2px;
       background: var(--text-base);
       transform: translateY(-50%);
@@ -59,15 +59,11 @@ export const AsideItemAnchor = styled.a`
 
   &:hover {
     opacity: 1;
-    background: #f5f5f7;
+    background: var(--hover-base);
   }
 
   &[data-selected='true'] {
     opacity: 1;
     color: var(--accent);
-
-    &:hover {
-      opacity: 0.8;
-    }
   }
 `;

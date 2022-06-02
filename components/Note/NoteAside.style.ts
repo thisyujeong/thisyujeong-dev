@@ -4,12 +4,12 @@ import mq from 'styles/utils/mq';
 export const NoteAsideContainer = styled.div`
   height: 100%;
   z-index: 10;
-
   ${mq({
     display: ['block', 'block', 'none'],
     position: ['absolute', 'relative'],
     right: ['100%', 'unset'],
     left: ['-240px', '0'],
+    marginLeft: [0, '-10px', 0],
   })}
 `;
 

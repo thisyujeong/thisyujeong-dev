@@ -32,7 +32,7 @@ export const NavContainer = styled.nav`
       }
 
       &[data-selected='true'] a {
-        opacity: 0.8;
+        opacity: 1;
         color: var(--accent);
       }
     }
@@ -43,9 +43,11 @@ export const NavContainer = styled.nav`
   }
 
   svg {
-    opacity: 0.8;
+    opacity: 0.6;
+    margin-left: 20px;
     margin-right: -4px;
-
+    fill: var(--text-base);
+    cursor: pointer;
     &.active {
       opacity: 1;
     }
@@ -71,7 +73,7 @@ export const DropNavContainer = styled.nav`
   position: absolute;
   top: 50px;
   right: 0;
-  background: #fff;
+  background: var(--bg);
   width: 100%;
   height: calc(100vh - 50px);
   text-align: left;
@@ -87,6 +89,7 @@ export const DropNavContainer = styled.nav`
 
       a {
         display: block;
+        color: var(--text-base);
       }
     }
   }

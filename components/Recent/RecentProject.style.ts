@@ -16,7 +16,6 @@ export const RecentProjectContaner = styled.div`
 
   ${mq({
     flexDirection: ['row', 'row', 'column'],
-    borderTop: ['0', '0', '1px solid #d4dae0'],
   })}
 `;
 export const ProjectCard = styled.div`
@@ -28,8 +27,8 @@ export const ProjectCard = styled.div`
   border-radius: 4px;
 
   ${mq({
-    borderBottom: ['auto', 'auto', '1px solid #d4dae0'],
     padding: ['8px', '8px', '12px 8px'],
+    marginBottom: [0, 0, '12px'],
   })}
 
   &:hover {
@@ -44,7 +43,6 @@ export const ProjectCard = styled.div`
 export const ProjectCardImg = styled.div`
   position: relative;
   width: 33.333%;
-  min-width: 130px;
 
   &:before {
     content: '';

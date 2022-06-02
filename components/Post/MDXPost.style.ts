@@ -63,11 +63,11 @@ export const MDXPostContainer = styled.div`
   p {
     margin: 0.7em 0;
     code {
-      color: #476582;
+      color: #109a79;
       padding: 0.25rem 0.5rem;
-      margin: 0;
       font-size: 0.85em;
-      background-color: rgba(27, 31, 35, 0.05);
+      background-color: var(--code-block);
+      border: 1px solid var(--code-block-border);
       border-radius: 3px;
     }
   }
@@ -84,8 +84,8 @@ export const MDXPostContainer = styled.div`
     font-weight: 500;
     padding: 9px 16px;
     border-radius: 5px;
-    background-color: rgba(27, 31, 35, 0.05);
     background-color: var(--code-block);
+    border: 1px solid var(--code-block-border);
     overflow-x: auto;
 
     > code {
@@ -98,7 +98,7 @@ export const MDXPostContainer = styled.div`
     margin: 0.5rem 0;
     padding: 0.5rem 1rem;
     position: relative;
-    border-left: 4px solid #dfe2e5;
+    border-left: 4px solid var(--mdx-border);
 
     & p {
       display: inline;
@@ -135,18 +135,18 @@ export const MDXPostContainer = styled.div`
   }
 
   thead th {
-    border-bottom: 2px solid #dfe2e5;
+    border-bottom: 2px solid var(--mdx-border);
   }
 
   td {
     padding: 0.5rem 1.2rem;
-    border: 1px solid #dfe2e5;
+    border: 1px solid var(--mdx-border);
   }
 
   th {
     padding: 0.5rem 1.2rem;
     font-weight: 500;
-    border: 1px solid #dfe2e5;
+    border: 1px solid var(--mdx-border);
   }
 
   sup a {

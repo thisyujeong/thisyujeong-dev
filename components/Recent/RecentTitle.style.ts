@@ -31,10 +31,6 @@ export const RecentMore = styled.div`
     text-transform: uppercase;
     cursor: pointer;
 
-    ${mq({
-      opacity: [0.7, 0.7, 1],
-    })}
-
     &:hover {
       text-decoration: underline;
       ${mq({

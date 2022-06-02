@@ -1,18 +1,23 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const ThemeToggleContainer = styled.div`
   line-height: 0;
-  margin-left: 20px;
+  margin-left: 12px;
+  ${mq({
+    marginLeft: ['20px', '20px', '12px'],
+  })}
 `;
 
 export const ToggleButton = styled.button`
   position: relative;
   background: var(--hover-base);
+  background: var(--toggle-bg);
   padding: 8px;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
-  outline: 2px solid transparent;
+  border: 2px solid transparent;
   transition: all 0.2s ease;
 
   svg {
@@ -23,7 +28,7 @@ export const ToggleButton = styled.button`
   }
 
   &:hover {
-    outline-color: var(--toggle-border);
+    border-color: var(--toggle-border);
     svg {
       fill: #ff9a00;
     }

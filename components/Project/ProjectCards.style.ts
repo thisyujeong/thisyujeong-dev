@@ -32,9 +32,9 @@ export const ProjectCard = styled.div`
 export const ProjectCardImg = styled.div`
   position: relative;
   padding-bottom: 60%;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
-  border: 1px solid #ececf3;
+  border: 1px solid var(--card-border);
   img {
     position: absolute;
     height: 100%;

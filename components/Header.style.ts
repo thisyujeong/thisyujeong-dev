@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   backdrop-filter: blur(7px);
-  background-color: rgba(var(--bg), 0.72);
+  background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
   z-index: 100;
 
@@ -23,6 +23,9 @@ export const HeaderContainer = styled.header`
     justify-content: space-between;
     align-items: center;
     box-sizing: content-box;
+    ${mq({
+      padding: ['0 22px', '0 22px', '0 12px'],
+    })}
   }
 
   h1 a {

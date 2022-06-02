@@ -176,9 +176,14 @@ body {
   --text-base-70: #2c3e5070;
   --border-color: #00000016;
   --hover-base: #f5f7f8;
+  --header-bg: #ffffff50;
+  --toggle-bg: #0101010a;
   --toggle-icon: var(--text-base-70);
-  --toggle-border: #eeeefb;
+  --toggle-border: #dfdfdf4d;
   --code-block: #f6f8fb;
+  --code-block-border: transparent;
+  --card-border: #ececf3;
+  --mdx-border: #dfe2e5;
 }
 
 body[data-theme='dark'] {
@@ -190,7 +195,12 @@ body[data-theme='dark'] {
   --text-base-70: #dfdfdf70;
   --border-color: #ffffff16;
   --hover-base: #232323;
+  --header-bg: #00000050;
+  --toggle-bg: #ffffff20;
   --toggle-icon: var(--text-base-70);
   --toggle-border: #eeeefb20;
-  --code-block: #232323;
+  --code-block: #0d1117;
+  --code-block-border: #30363d;
+  --card-border: var(--text-base-40);
+  --mdx-border: #dfe2e535;
 }
