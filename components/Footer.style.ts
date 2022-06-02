@@ -14,10 +14,18 @@ export const FooterInner = styled.div`
 `;
 
 export const SocialContainer = styled.div`
+  margin-left: -6px;
   a {
     display: inline-block;
-    margin: 0 4px;
+    margin: 0 6px;
     opacity: 0.5;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text-base);
+    }
+
     &:hover {
       opacity: 0.7;
     }
