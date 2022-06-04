@@ -1,6 +1,11 @@
+import { ChangeEventHandler } from 'react';
 import { SearchContainer } from './Search.style';
 
-const Search = ({ onChangeHandler }) => {
+const Search = ({
+  onChangeHandler,
+}: {
+  onChangeHandler: ChangeEventHandler<HTMLInputElement>;
+}) => {
   return (
     <SearchContainer>
       <input
