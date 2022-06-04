@@ -1,5 +1,6 @@
 import Container from 'components/Container';
 import GiscusArea from 'components/GiscusArea';
+import GoTop from 'components/GoTop';
 import NoteAside from 'components/Note/NoteAside';
 import MDXPost from 'components/Post/MDXPost';
 import metadata from 'data/metadata';
@@ -41,6 +42,7 @@ const NoteLayout = ({ note, tree }: NoteLayout) => {
           <GiscusArea slug={note.url_path}></GiscusArea>
         </MDXPost>
       </NoteContainer>
+      <GoTop />
     </Container>
   );
 };

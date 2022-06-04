@@ -50,9 +50,12 @@ export const NoteAsideInnerContainer = styled.div`
 export const NoteAsideAccordion = styled.div`
   text-align: center;
   margin-bottom: 8px;
-  border-bottom: 1px solid var(--text-base-20);
+  border-bottom: 2px dashed var(--text-base-20);
   padding: 10px 0;
   margin-top: -10px;
+  background: var(--bg);
+  display: block;
+  z-index: 20;
   cursor: pointer;
   span {
     color: var(--text-base-70);

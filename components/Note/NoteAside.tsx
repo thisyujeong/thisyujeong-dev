@@ -23,7 +23,7 @@ const NoteAside = ({ tree }: { tree: TreeNode[] }) => {
         onClick={() => setIsOpenAside(!isOpenAside)}
         className={isOpenAside ? 'open' : 'close'}
       >
-        <span>목록 {isOpenAside ? '열기' : '닫기'}</span>
+        <span>목록 {isOpenAside ? '닫기' : '열기'}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
           <path
             xmlns="http://www.w3.org/2000/svg"
