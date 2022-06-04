@@ -7,9 +7,6 @@ const dynamicVisible = ({ visible }: { visible: boolean }) => {
     return css`
       display: flex;
       border-left: 5px solid var(--bg-sub);
-      border-right: none;
-      padding-left: 10px;
-      padding-right: 5px;
     `;
   } else {
     return css`
@@ -30,6 +27,7 @@ export const NoteAsideContainer = styled.div`
     right: ['100%', 'unset'],
     left: ['-240px', '0'],
     marginLeft: [0, '-10px', 0],
+    paddingBottom: [0, 0, 20],
   })}
   ${dynamicVisible}
 `;
@@ -49,11 +47,9 @@ export const NoteAsideInnerContainer = styled.div`
 
 export const NoteAsideAccordion = styled.div`
   text-align: center;
-  margin-bottom: 8px;
-  border-bottom: 2px dashed var(--text-base-20);
+  margin: -20px -22px 12px;
   padding: 10px 0;
-  margin-top: -10px;
-  background: var(--bg);
+  background: var(--hover-base);
   display: block;
   z-index: 20;
   cursor: pointer;

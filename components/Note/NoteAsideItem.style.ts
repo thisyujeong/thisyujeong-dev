@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const NoteAsideItemContainer = styled.div`
   padding: 4px 0;
@@ -14,6 +15,11 @@ export const AsideItemTitle = styled.span`
   line-height: 2em;
   text-transform: capitalize;
   cursor: pointer;
+
+  ${mq({
+    paddingLeft: ['8px', '8px', 0],
+  })}
+
   &:hover {
     background: var(--hover-base);
   }
