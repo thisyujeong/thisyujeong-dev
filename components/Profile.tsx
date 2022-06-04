@@ -4,22 +4,13 @@ import { useEffect, useState } from 'react';
 import { ProfileContainer, ProfileImage, ProfileDesc } from './Profile.style';
 
 const Profile = () => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => {
-    window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);
-    window.addEventListener('resize', () => {
-      window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);
-    });
-  }, []);
-
   return (
     <ProfileContainer>
       <ProfileImage>
         <Image
           src={metadata.home.image}
-          width={!isMobile ? 200 : 150}
-          height={!isMobile ? 200 : 150}
+          width={180}
+          height={180}
           alt={metadata.home.name}
         />
       </ProfileImage>

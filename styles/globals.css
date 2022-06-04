@@ -172,6 +172,7 @@ body {
   --accent: #2a75e9;
   --accent-border: #2a75e950;
   --text-base: #2c3e50;
+  --text-base-20: #2c3e5020;
   --text-base-40: #2c3e5040;
   --text-base-70: #2c3e5070;
   --border-color: #00000016;
@@ -190,6 +191,7 @@ body[data-theme='dark'] {
   --accent: #ff7145;
   --accent-border: #ff714550;
   --text-base: #dfdfdf;
+  --text-base-20: #dfdfdf20;
   --text-base-40: #dfdfdf40;
   --text-base-70: #dfdfdf70;
   --border-color: #ffffff16;
