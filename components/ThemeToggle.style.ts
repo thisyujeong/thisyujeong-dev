@@ -19,6 +19,7 @@ export const ToggleButton = styled.button`
   border-radius: 10px;
   border: 2px solid transparent;
   transition: all 0.2s ease;
+  line-height: 1;
 
   svg {
     width: 16px;

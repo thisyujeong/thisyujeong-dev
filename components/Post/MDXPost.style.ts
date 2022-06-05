@@ -10,6 +10,7 @@ export const MDXPostContainer = styled.div`
   * {
     color: var(--text-base);
     font-size: 15px;
+    line-height: 2em;
   }
 
   a {
