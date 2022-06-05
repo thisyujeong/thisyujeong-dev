@@ -1,0 +1,20 @@
+---
+title: X보다 작은 수
+number: 10871
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10871
+---
+
+```js
+const [range, value] = require('fs').readFileSync('dev/stdin').toString().split('\n');
+const [N, X] = range.split(' ').map(Number);
+const nums = value.split(' ').map(Number);
+let result = '';
+for (let i = 0; i < N; i++) {
+  if (nums[i] < X) {
+    result += `${nums[i]} `;
+  }
+}
+console.log(result);
+```

@@ -1,0 +1,20 @@
+---
+title: 영화감독 숌
+number: 1436
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1436
+---
+
+```js
+const fs = require('fs');
+const input = +fs.readFileSync('dev/stdin').toString();
+
+let count = 0;
+let num = 665;
+while (count < input) {
+  num++;
+  if (String(num).includes('666')) count++;
+}
+console.log(num);
+```

@@ -1,0 +1,20 @@
+---
+title: 숫자의 개수
+number: 2577
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2577
+---
+
+```js
+const fs = require('fs');
+const [A, B, C] = fs.readFileSync('dev/stdin').toString().split('\n').map(Number);
+
+const value = (A * B * C).toString().split('').map(Number);
+console.log(value.filter((i) => i == 0).length);
+for (let i = 1; i < 10; i++) {
+  console.log(value.filter((v) => v == i).length);
+}
+```
+
+input 값을 각 A, B, C 변수에 받아 곱하기 `A × B × C` 연산을 했다. 연산을 한 결과 값은 `17037300` 이며 숫자의 개수를 구하기 위해 배열로 변환했다. 배열의 메소드 `filter`를 사용하여 조건을 주면 숫자의 개수를 쉽게 구할 수 있다.

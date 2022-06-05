@@ -1,0 +1,79 @@
+---
+title: 한수
+number: 1065
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1065
+---
+
+## 나의 풀이
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().trim();
+function d(n) {
+  let count = 0;
+  for (let i = 1; i <= n; i++) {
+    let result = true;
+    let preNum = 0;
+    let nextNum = 0;
+    let distance = 0;
+    let initDistance = 0;
+
+    if (i < 100) {
+      count++;
+    } else if (i < 1000) {
+      let number = i;
+      for (let j = 0; j < n.toString().length; j++) {
+        preNum = number % 10;
+        number = Math.floor(number / 10);
+        nextNum = number % 10;
+        if (j == 0) initDistance = preNum - nextNum;
+        if (j < n.toString().length - 1) {
+          distance = preNum - nextNum;
+          if (initDistance != distance) result = false;
+        }
+      }
+      if (result) count++;
+    }
+  }
+  console.log(count);
+}
+
+d(Number(input));
+```
+
+나의 풀이는 이와 같다. 결과는
+
+> 틀렸습니다.
+
+위 코드 실행결과는 문제에서 제시한 Output 과 동일하게 출력한다. 나는 위 코드가 효율적인 코드는 아니라고 생각한다. 훨씬 간단하고 깔끔하게 풀 수 있는 방법이 있을거라고 생각했기 때문에..
+
+## 수정한 코드
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim();
+
+function solution(n) {
+  let count = 0;
+  for (let i = 1; i <= n; ++i) {
+    if (i < 100) {
+      count++;
+    } else if (i < 1000) {
+      const strNum = String(i);
+      if (strNum[0] - strNum[1] === strNum[1] - strNum[2]) {
+        count++;
+      }
+    }
+  }
+  console.log(count);
+}
+
+solution(Number(input));
+```
+
+훨씬 간결하고 가독성이 좋아졌다. 1부터 99까지는 모두 한수에 해당하기 때문에 복잡한 비교를 할 필요 없이 count를 증가시켜준다.
+
+각 상황마다의 변수를 생성할 필요없이 하이라이트 된 라인처럼 각 자리수의 차를 비교해 같다면 count 를 증가 시켜주는 것이다.
+
+처음 제출한 코드와 비교하니 이전 코드가 형편없게 느껴진다.

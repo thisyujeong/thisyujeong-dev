@@ -1,0 +1,25 @@
+---
+title: 알람 시계
+number: 2884
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2884
+---
+
+```js
+cconst[(h, m)] = require('fs')
+  .readFileSync('dev/stdin')
+  .toString()
+  .split(' ')
+  .map(Number);
+function timeCalc(h, m) {
+  if (m - 45 < 0) {
+    m = 60 - (45 - m);
+    h == 0 ? (h = 23) : h--;
+    console.log(h, m);
+  } else {
+    console.log(h, m - 45);
+  }
+}
+timeCalc(h, m);
+```

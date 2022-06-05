@@ -1,0 +1,29 @@
+---
+title: 수 정렬하기 2
+number: 2751
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2751
+---
+
+## Solution 1 (시간초과)
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().trim().split('\n').map(Number);
+input.shift();
+input.sort((a, b) => a - b);
+input.map((a) => console.log(a));
+```
+
+## Solution 2 (성공)
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().trim().split('\n').map(Number);
+input.shift();
+input.sort((a, b) => a - b);
+console.log(input.join('\n'));
+```
+
+map 대신 배열 메소드 join을 사용해 한번에 출력한다.

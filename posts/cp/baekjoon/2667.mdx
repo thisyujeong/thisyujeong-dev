@@ -1,0 +1,67 @@
+---
+title: 단지번호붙이기
+number: 2667
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2667
+---
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? 'dev/stdin' : '../input.txt';
+const input = fs.readFileSync(filePath).toString('utf-8').trim().split('\n');
+
+let answer = [];
+const n = +input.shift();
+const map = input.map((v) => v.split('').map(Number));
+const visited = [...new Array(n)].map(() => []);
+for (let i = 0; i < n; i++) {
+  visited[i] = new Array(n).fill(0);
+}
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    if (visited[i][j] === 0 && map[i][j] === 1) {
+      bfs(i, j);
+    }
+  }
+}
+
+console.log(answer.length);
+console.log(answer.sort((a, b) => a - b).join('\n'));
+
+/* bfs */
+function bfs(x, y) {
+  let count = 1;
+  const dx = [-1, 1, 0, 0];
+  const dy = [0, 0, -1, 1];
+
+  const queue = [x, y];
+  visited[x][y] = 1;
+
+  while (queue.length) {
+    for (let i = 0; i < queue.length; i++) {
+      let x = +queue.shift();
+      let y = +queue.shift();
+      if (!visited[x][y]) continue;
+      for (let i = 0; i < 4; i++) {
+        let nx = x + dx[i];
+        let ny = y + dy[i];
+        if (
+          nx >= 0 &&
+          ny >= 0 &&
+          nx < n &&
+          ny < n &&
+          map[nx][ny] === 1 &&
+          !visited[nx][ny]
+        ) {
+          visited[nx][ny] = 1;
+          queue.push(nx, ny);
+          count++;
+        }
+      }
+    }
+  }
+  answer.push(count);
+}
+```

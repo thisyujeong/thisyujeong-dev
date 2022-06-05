@@ -1,0 +1,24 @@
+---
+title: 최소, 최대
+number: 10818
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10818
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().split('\n');
+let [count, arr] = input;
+nums = arr.split(' ').map(Number);
+let max = nums[0];
+let min = nums[0];
+for (let i = 0; i < count; i++) {
+  if (max < nums[i]) {
+    max = nums[i];
+  }
+  if (min > nums[i]) {
+    min = nums[i];
+  }
+}
+console.log(min, max);
+```

@@ -1,0 +1,136 @@
+---
+title: 골드바흐의 추측
+number: 9020
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/9020
+---
+
+## Solution 1 (시간초과)
+
+```js
+const fs = require('fs');
+const [cs, ...input] = fs.readFileSync('../input.txt').toString().split('\n').map(Number);
+
+input.map((num) => {
+  if (num < 4) return; // 제한 조건
+
+  // 1. 에라토스테네스의 체
+  const isPrime = Array(num + 1).fill(true);
+  isPrime[0] = isPrime[1] = false; //  0, 1은 소수
+
+  for (let i = 2; i <= Math.ceil(Math.sqrt(num)); i++) {
+    if (isPrime[i]) {
+      let t = 2;
+      while (i * t <= num) {
+        isPrime[i * t] = false;
+        t++;
+      }
+    }
+  }
+
+  // 2. 짝수 n 까지의 소수 찾기
+  let prime = [];
+  isPrime.filter((v, i) => v === true && prime.push(i));
+
+  // 3. 두 소수의 차이 값
+  let diff = Math.max(...prime);
+  let sm = 0; // 두 소수 중 작은 수
+  let lg = 0; // 두 소수 중 큰 수
+
+  // 4. 두 소수의 차이가 가장 작은 골드바흐 파티션 구하기
+  prime.map((v) => {
+    for (let i = 0; i < prime.length; i++) {
+      if (v + prime[i] === num) {
+        // 4-1
+        if (Math.abs(v - prime[i]) < diff) {
+          // 4-2
+          diff = Math.abs(v - prime[i]); // 4-3
+          if (v <= prime[i]) {
+            // 4-4
+            sm = v;
+            lg = prime[i];
+          } else {
+            sm = prime[i];
+            lg = v;
+          }
+        }
+      }
+    }
+  });
+  console.log(sm, lg);
+});
+```
+
+1. [에라토스테네스의 체](https://namu.wiki/w/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98%20%EC%B2%B4) 방법을 활용하여 0부터 n까지의 범위 중 소수를 찾아냈다. 에라토스테네스의 체 방법을 활용한 해설은 [4948 베르트랑 공준](https://thisyujeong.github.io/TIL/algorithm/baekjoon/4948.html) 풀이와 동일하므로 참고하도록 하자.
+2. 찾아낸 소스를 prime 배열에 push 했다.
+3. diff 변수는 두 소수의 차이가 가장 작은 값을 저장할 용도로 사용한다.
+4. 두 소수의 차이가 가장 적은 골드바흐 파티션을 구한다.
+   1. 두 소수의 합이 입력값과 같은지 판별한다.
+   2. 두 소수의 차가 diff 값보다 작은지 판별한다. **Math.abs** 는 절댓값을 구하는 메소드
+   3. 두 소수의 차가 diff 값보다 작다면 diff 에 할당한다.
+   4. 두 소수 중 작은 수를 sm 변수에, 큰 수를 lg 변수에 할당한다.
+5. 최종 골드바흐 파디션 출력
+
+> 결과는 시간초과 🥲
+
+어디에서 시간초과기 일어났을 지 짐작해보면 4번의 for 반복문에서 시간초과가 일어났을 것이라고 생각했다.
+
+0부터 prime 길이까지 모든 수를 검사할 필요가 있을까?
+
+0이 아니라 반복문의 0번째 순환이 끝나면 다음 순환은 1번째 인덱스부터, 또 다음 순환은 2번째 인덱스 부터, 또 다음 순환은 3번째 인덱스 부터, ..., ..., 이렇게 검사하면 검사량이 대폭 줄어들 것이다. 아마도 모든 경우의 수를 순환하느라 시간 초과가 일어났을 것이라 생각했고 아래 코드와 같이 수정했다. 수정한 부분은 별(\*)로 표시해두었다.
+
+## Solution 2 (성공)
+
+```js
+const fs = require('fs');
+const [cs, ...input] = fs.readFileSync('dev/stdin').toString().split('\n').map(Number);
+
+input.map((num) => {
+  if (num < 4) return;
+
+  // 1. 에라토스테네스의 체
+  const isPrime = Array(num + 1).fill(true);
+  isPrime[0] = isPrime[1] = false;
+
+  for (let i = 2; i <= Math.ceil(Math.sqrt(num)); i++) {
+    if (isPrime[i]) {
+      let t = 2;
+      while (i * t <= num) {
+        isPrime[i * t] = false;
+        t++;
+      }
+    }
+  }
+
+  // 2. 짝수 n 까지의 소수 찾기
+  let prime = [];
+  isPrime.filter((v, i) => v === true && prime.push(i));
+
+  // 3. 두 소수의 차이 값
+  let diff = Math.max(...prime);
+  let sm = 0;
+  let lg = 0;
+
+  // 4. 두 소수의 차이가 가장 작은 골드바흐 파티션 구하기
+  prime.map((v) => {
+    // *
+    for (let i = 0; i < prime.length; i++) {
+      // *
+      if (v + prime[i] === num) {
+        if (Math.abs(v - prime[i]) < diff) {
+          diff = Math.abs(v - prime[i]);
+          if (v <= prime[i]) {
+            sm = v;
+            lg = prime[i];
+          } else {
+            sm = prime[i];
+            lg = v;
+          }
+        }
+      }
+    }
+  });
+  console.log(sm, lg);
+});
+```

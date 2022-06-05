@@ -1,0 +1,34 @@
+---
+title: 빠른 A+B
+number: 10950
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10950
+---
+
+[10950 A+B - 3 문제](https://thisyujeong.github.io/TIL/algorithm/baekjoon/10950.html)와 유사하다. 하지만 이 문제에서는 ‘빠른’ 출력을 방식을 요구한다. 10950 번 문제에서는 for문 내에서 직접 출력하는 방식이었는데, 문제에서 이 방식은 출력할 때마다 시간 초과가 날 수 있다고 한다.
+
+Java 에서는 맨 마지막에 한번만 출력이 가능하다고 했고, 파이썬에서는 맨 끝에 개행문자까지 입력할 수 있다고 했다.
+
+그렇다면 이를 어떻게 응용할 수 있을까?
+
+Node.js 에서도 맨 마지막에 한 번만 출력하며, 개행문자를 사용해 줄내림을 하면 될 것이라고 생각했다.
+
+풀이를 보면 이해가 쉬울 것이다. 10950번과 같이 for 문 내 출력이 아니라
+
+1. `answer` 라는 빈 문자열 변수를 전역으로 선언하고
+2. for 문 내에서 줄내림을 하는 `\n` 개행 문자를 함께 할당하여
+3. 가장 마지막에 `answer` 를 출력한다.
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().split('\n');
+const [t, ...rest] = input;
+let answer = '';
+for (let i = 0; i < t; i++) {
+  const [a, b] = rest[i].split(' ').map(Number);
+  answer += a + b + '\n';
+}
+console.log(answer);
+```
+
+결과는 성공!

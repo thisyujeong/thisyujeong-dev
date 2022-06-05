@@ -1,0 +1,68 @@
+---
+title: 거스름돈
+number: 5585
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/5585
+---
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const input = +fs.readFileSync(filePath).toString().trim();
+
+solution(input);
+function solution(p) {
+  const coins = [500, 100, 50, 10, 5, 1];
+  const pay = 1000;
+  let rest = pay - p;
+  let count = 0;
+  coins.forEach((coin) => {
+    if (rest === 0) return;
+    if (rest / coin > 0) {
+      count += Math.floor(rest / coin);
+      rest -= coin * Math.floor(rest / coin);
+    }
+  });
+  console.log(count);
+}
+```
+
+알고리즘: 그리디
+
+잔돈을 가장 적은 동전의 수로 주는 방법은 각 동전(500엔, 100엔, 50엔, 10엔, 5엔, 1엔) 중에서 가장 큰 가격의 동전을 최대한 사용하는 것이다.
+
+1. 동전을 담는 고정 `coins` 배열과 고정 지불 가격을 담는 `pay` 변수를 할당 및 초기화한다.
+2. 1000엔을 지불했을 때 돌려받을 거스름 돈은 `rest` 변수에 할당한다.
+3. 동전의 개수를 담을 `count` 변수를 선언한다.
+4. 각 coins 를 순환하는 forEach 반복문을 사용하여 도출한다.
+
+```js
+if (rest === 0) return;
+if (rest / coin > 0) {
+  count += Math.floor(rest / coin);
+  rest -= coin * Math.floor(rest / coin);
+}
+```
+
+잔 돈을 각 동전으로 나누었을 때 0보다 크다면 해당 코인을 사용할 수 있다.
+
+만약 여기서 물건 값이 280엔 이고 coin 이 500 엔이라면 받아야 할 잔돈은 620엔 이며,
+
+잔돈을 해당 코인을 나누어 0보다 큰 값이 나온다면 나눈 몫이 사용할 수 있는 코인의 개수가 된다.
+
+> 받아야할 잔돈 / 500엔  
+> 620 / 500 = 1.24
+
+몫은 1이기 때문에 500엔 동전은 1개 사용할 수 있고 잔돈에서 사용한 돈만큼 빼주어야한다.
+
+그 과정을 코드로 표현하면 바로 이 코드이며, 빼주기 전에 사용한 동전의 수만큼 count 해준다.
+
+```js
+count += Math.floor(rest / coin);
+rest -= coin * Math.floor(rest / coin);
+```
+
+이 작업을 동전 수만큼 반복하면 성공!
+
+성공!

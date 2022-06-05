@@ -1,0 +1,31 @@
+---
+title: N 찍기
+number: 2741
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2741
+---
+
+## Solution
+
+[15552 빠른 A+B](https://thisyujeong.github.io/TIL/algorithm/baekjoon/15552.html) 를 응용할 수 있는 문제다. 아래 코드와 같이 for 문 내에서 출력하면 시간이 초과되어 실패한다.
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString();
+for (let i = 1; i <= input; i++) {
+  console.log(i);
+}
+```
+
+### 문제해결
+
+마지막에 한 번만 출력하는 방식과 개행문자를 활용해 빠른 시간초과 없이 빠른 출력이 가능하다.
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString();
+let answer = '';
+for (let i = 1; i <= input; i++) {
+  answer += i + '\n';
+}
+console.log(answer);
+```

@@ -1,0 +1,36 @@
+---
+title: 보물
+number: 1026
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1026
+---
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+let [N, A, B] = fs.readFileSync(filePath).toString().trim().split('\n');
+
+let sum = 0;
+N = Number(N);
+A = A.split(' ')
+  .map(Number)
+  .sort((a, b) => a - b);
+B = B.split(' ')
+  .map(Number)
+  .sort((a, b) => b - a);
+
+for (let i = 0; i < N; i++) {
+  sum += A[i] * B[i];
+}
+
+console.log(sum);
+```
+
+알고리즘: 그리디
+
+배열 A 와 배열 B의 각 인덱스를 곱할 때 가장 작은 수가 나올 수 있도록 정렬해준다.
+
+한 배열은 오름차순, 한 배열은 내림차순으로 정렬해주면 곱했을 때 가장 작은 수가 나온다.
+
+정렬 후 각 인덱스 값의 곱을 의 총 합을 sum 변수에 대입 연산자(+=)를 사용해 저장했다.

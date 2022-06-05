@@ -1,0 +1,18 @@
+---
+title: 나이순 정렬
+number: 10814
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/10814
+---
+
+```js
+const fs = require('fs');
+const [N, ...input] = fs.readFileSync('../input.txt').toString().trim().split('\n');
+const persons = input.map((person) => person.split(' '));
+persons.sort((a, b) => Number(a[0]) - Number(b[0]));
+
+let result = '';
+persons.map((i) => (result += `${i.join(' ')}\n`));
+console.log(result);
+```

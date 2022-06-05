@@ -1,0 +1,65 @@
+---
+title: 숫자 문자열과 영단어
+number: 81301
+from: programmers
+level: level1
+url: https://programmers.co.kr/learn/courses/30/lessons/81301
+---
+
+## 나의 풀이
+
+```js
+function solution(s) {
+  var answer = 0;
+  let str = s;
+  let word = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+
+  for (let i = 0; i < word.length; i++) {
+    let reg = new RegExp(word[i], 'g');
+    str = str.replace(reg, i);
+    answer = Number(str);
+  }
+
+  return answer;
+}
+```
+
+문제를 보자마자 정규식 풀이를 생각했는데 다른 사람들 풀이를 보니 정규식이 필요 없었다.
+
+## 다른 풀이
+
+```js
+function solution(s) {
+  let numbers = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+  var answer = s;
+
+  for (let i = 0; i < numbers.length; i++) {
+    let arr = answer.split(numbers[i]);
+    answer = arr.join(i);
+  }
+
+  return Number(answer);
+}
+```

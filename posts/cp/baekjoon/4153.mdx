@@ -1,0 +1,43 @@
+---
+title: 직각삼각형
+number: 4153
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/4153
+---
+
+직각삼각형의 [피타고라스의 정리](https://ko.wikipedia.org/wiki/%ED%94%BC%ED%83%80%EA%B3%A0%EB%9D%BC%EC%8A%A4_%EC%A0%95%EB%A6%AC) 공식을 활용했다. 간단하게 요약하자면,
+
+> a^2 + b^2 = c^2
+
+공식을 만족한다면 이 삼각형은 반드시 c를 빗변으로 하는 직각 삼각형이며 c는 세 변의 길이중 가장 긴 변이다.
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().trim().split('\n');
+
+input.map((t) => {
+  const sides = t.split(' ').map(Number); // 1
+  sides.sort((a, b) => a - b); // 2
+
+  const [a, b, c] = sides; // 3
+
+  if (sides[0] === 0) return; // 4
+  if (a ** 2 + b ** 2 === c ** 2) console.log('right');
+  // 5
+  else console.log('wrong');
+});
+```
+
+1.  각 변의 길이를 정수형 배열(sides)로 받는다.
+
+2.  가장 마지막 수가 세변의 길이중 가장 긴 c 빗변이 되도록 오름차순 정렬한다.
+
+3.  오름차순으로 정렬한 각 변의 길이를 a, b, c 변수에 선언 및 할당한다.
+
+4.  문제에서 가장 마지막 줄로 0 0 0 입력값이 입력된다고 했기 때문에 첫번째 인덱스가 0 이면 다음 코드를 실행하지 않고 아무 값도 리턴하지 않는다.
+
+5.  피타고라스 공식을 만족한다면 `right` 을 출력, 일치하지 않는다면 `wrong` 을 출력한다.  
+    곱하기(\*) 기호를 두번 작성하면 제곱 연산을 한다.
+    > a ** 2 는 a^2 과 같고
+    > a ** 3 는 a^3 과 같다.

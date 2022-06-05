@@ -1,0 +1,43 @@
+---
+title: 설탕 배달
+number: 2839
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2839
+---
+
+```js
+const input_file = 'dev/stdin' || '../input.txt';
+const input = require('fs').readFileSync(input_file).toString().trim();
+const sugar = Number(input);
+
+function sugarCount(input) {
+  let cnt = -1; // (1)
+  let lg = Math.floor(sugar / 5); // (2)
+  while (lg >= 0) {
+    // (3)
+    const rest = input - lg * 5; // (4)
+
+    if (rest % 3 === 0) {
+      // (5)
+      cnt = rest / 3 + lg; // (6)
+      break;
+    } else {
+      // (7)
+      lg--;
+    }
+  }
+  console.log(cnt);
+}
+sugarCount(sugar);
+```
+
+1. **`cnt`** 변수는 설탕봉지의 개수, 정확하게 N 킬로그램으로 담을 수 없다면 -1 을 출력해야하므로 기본 값은 -1이다.
+2. `lg` 변수는 5 킬로그램 봉지의 수, 먼저 설탕봉지를 최소 개수로 들고가기 위해서는 5킬로그램을 먼저 먼저 담아야 한다.
+   > 설탕을 5킬로그램씩 몇개의 봉지를 담을 수 있을지 연산했다.  
+   > 나누어떨어지지 않을 때 소수점은 `Math.floor` 메소드로 날린다.
+3. 반복문을 실행하는데 `lg` 가 0이 되면 종료되는 while 반복문을 작성했다.
+4. `rest` 변수는 5킬로그램씩 담고 난 나머지 설탕의 양이다.
+5. 나머지 설탕을 3킬로그램씩 나누어 떨어진다면
+6. 3킬로그램 봉지의 개수와 (`rest / 3` ) 5킬로그램 봉지의 개수(`lg`) 를 더해 `cnt` 에 할당하고, 더이상 반복문을 실행할 필요가 없으므로 `break` 문으로 반복문을 탈출한다.
+7. 3킬로그램으로 으로 나누어 떨어지지 않는다면 5킬로그램 봉지 개수(lg)를 하나씩 줄여나가며 반복한다. 5킬로그램 봉지의 개수(`lg`)가 0이 될 때까지 3킬로그램으로 나누어떨어지지 않는다면 cnt 는 -1 값을 그대로 출력한다.

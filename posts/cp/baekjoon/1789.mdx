@@ -1,0 +1,23 @@
+---
+title: 수들의 합
+number: 1789
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1789
+---
+
+알고리즘: 그리디
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const input = +fs.readFileSync(filePath).toString().trim();
+
+let cnt = 1;
+let sum = 1;
+while (sum <= input) {
+  cnt++;
+  sum += cnt;
+}
+console.log(cnt - 1);
+```

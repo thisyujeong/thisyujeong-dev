@@ -1,0 +1,18 @@
+---
+title: 평균
+number: 1546
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/1546
+---
+
+```js
+const [n, scores] = require('fs').readFileSync('../input.txt').toString().split('\n');
+const arr = scores.split(' ').map(Number);
+let total = 0;
+arr.map((i) => (total += (i / Math.max(...arr)) * 100));
+
+console.log(total / n);
+```
+
+최고점은 최댓값을 구해주는 Math.max 함수로 쉽게 찾을 수 있다.

@@ -1,0 +1,28 @@
+---
+title: 문자열 반복
+number: 2675
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2675
+---
+
+```js
+const [T, ...input] = require('fs')
+  .readFileSync('../input.txt')
+  .toString()
+  .trim()
+  .split('\n');
+
+input.map((i) => {
+  let result = '';
+  const [R, S] = i.split(' ');
+  S.split('').map((str) => {
+    for (let i = 0; i < R; i++) {
+      result += str;
+    }
+  });
+  console.log(result);
+});
+```
+
+배열 메소드 `map` 과 반복문을 적극 활용

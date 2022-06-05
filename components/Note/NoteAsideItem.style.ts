@@ -34,6 +34,7 @@ export const AsideItemTitle = styled.span`
     border-right: 2px solid var(--text-base);
     border-bottom: 2px solid var(--text-base);
     transform: translateY(-75%) rotate(45deg);
+    opacity: 0.3;
   }
 
   &[data-open='true'] {

@@ -1,0 +1,22 @@
+---
+title: 다이얼
+number: 5622
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/5622
+---
+
+## Solution
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim().split('');
+const dials = ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ'];
+
+let result = 0;
+input.map((a) => {
+  dials.map((dial, i) => {
+    if (dial.includes(a)) result += 3 + i;
+  });
+});
+console.log(result);
+```

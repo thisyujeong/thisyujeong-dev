@@ -1,0 +1,29 @@
+---
+title: 분해합
+number: 2231
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2231
+---
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim();
+const N = Number(input);
+
+let result = 0;
+for (let i = 0; i < N; i++) {
+  let sum = 0;
+  const str = i.toString();
+
+  for (let j = 0; j < str.length; j++) {
+    sum += Number(str[j]);
+  }
+
+  sum += i;
+  if (sum == N) {
+    result = i;
+    break;
+  }
+}
+console.log(result);
+```

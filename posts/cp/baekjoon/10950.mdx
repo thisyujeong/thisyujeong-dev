@@ -1,0 +1,24 @@
+---
+title: A+B - 3
+number: 10950
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10950
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().split('\n');
+const [t, ...rest] = input;
+for (let i = 0; i < t; i++) {
+  const [a, b] = rest[i].split(' ').map(Number);
+  console.log(a + b);
+}
+```
+
+input 값의 첫째 줄은 케이스의 개수이므로 for문을 몇번 반복할지 횟수를 결정하는 값으로 사용할 수 있다.
+
+반복 횟수와 횟수를 제외한 나머지 입력 input 값들을 구조분해 할당을 통해 횟수는 `t`, 나머지 값은 **Spread 문법**으로 `rest` 변수에 할당했다.
+
+t 를 사용한 for문 안에서 나머지 케이스들의 `a` 와 `b` 값을 구조분해 할당을 통해 구하고 split 함수를 사용했고, Number 타입으로 변환 후 출력했다.
+
+성공!

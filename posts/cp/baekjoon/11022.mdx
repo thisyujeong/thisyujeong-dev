@@ -1,0 +1,20 @@
+---
+title: A+B - 8
+number: 11022
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/11022
+---
+
+```js
+const [t, ...rest] = require('fs')
+  .readFileSync('./input/11021.txt')
+  .toString()
+  .split('\n');
+let result = '';
+for (let i = 0; i < Number(t); i++) {
+  const [a, b] = rest[i].split(' ').map(Number);
+  result += `Case #${i + 1}: ${a} + ${b} = ${a + b} \n`;
+}
+console.log(result);
+```

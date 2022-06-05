@@ -4,7 +4,8 @@ export const CPHeader = styled.h2`
   text-align: center;
   font-size: 1.5em;
   line-height: 2;
-  margin-top: 1.5rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
   text-transform: capitalize;
   sup {
     font-size: 0.6em;
@@ -20,14 +21,13 @@ export const CPList = styled.ul`
   margin: 0 -6px;
 
   li {
-    margin: 4px 6px;
     background: var(--hover-base);
     text-align: center;
-    border-radius: 4px;
+    margin: 0.5px;
 
     a {
       display: inline-block;
-      padding: 4px 16px;
+      padding: 6px 16px;
       width: 6rem;
       color: #f5f5f7;
       font-weight: 500;

@@ -1,0 +1,17 @@
+---
+title: 나머지
+number: 10430
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10430
+---
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('/dev/stdin').toString().split(' ').map(Number);
+const [a, b, c] = input;
+console.log((a + b) % c);
+console.log(((a % c) + (b % c)) % c);
+console.log((a * b) % c);
+console.log(((a % c) * (b % c)) % c);
+```

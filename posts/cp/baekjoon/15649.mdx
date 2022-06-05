@@ -1,0 +1,33 @@
+---
+title: N과 M (1)
+number: 15649
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/15649
+---
+
+```js
+const fs = require('fs');
+const [N, M] = fs.readFileSync('dev/stdin').toString().trim().split(' ').map(Number);
+const check = new Array(9).fill(false);
+const arr = [];
+function sequnce(cnt) {
+  if (cnt === M) {
+    console.log(arr.join(' '));
+    return;
+  }
+  for (let i = 1; i <= N; i++) {
+    if (!check[i]) {
+      check[i] = true;
+      arr[cnt] = i;
+      sequnce(cnt + 1);
+      check[i] = false;
+    }
+  }
+}
+sequnce(0);
+```
+
+재귀함수를 활용한 풀이
+
+참고 [https://nyang-in.tistory.com/m/284](https://nyang-in.tistory.com/m/284)

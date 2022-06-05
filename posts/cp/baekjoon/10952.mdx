@@ -1,0 +1,24 @@
+---
+title: A+B - 5
+number: 10952
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10952
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().split('\n');
+let n = 0;
+let result = '';
+while (n < input.length) {
+  const [a, b] = input[n].split(' ').map(Number);
+  if (a == 0 && b == 0) {
+    break;
+  }
+  result += `${a + b}\n`;
+  n++;
+}
+console.log(result);
+```
+
+문제에서 입력의 마지막에는 0 두개가 들어온다고 했다. 때문에 while 문 안에서 result 재할당과 증감연산자를 사용하기 전 a 와 b 가 0일 때 while 문을 빠져나가도록 break 를 걸어 종료시켰다.

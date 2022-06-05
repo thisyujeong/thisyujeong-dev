@@ -1,0 +1,33 @@
+---
+title: A/B
+number: 1008
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1008
+---
+
+## Solution 1
+
+배열 메소드 reduce 사용
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('/dev/stdin').toString().split(' ').map(Number);
+
+let answer = input.reduce((a, b) => {
+  return a / b;
+});
+
+console.log(answer);
+```
+
+## Solution 2
+
+구조분해 할당
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().split(' ').map(Number);
+const [a, b] = input;
+console.log(a / b);
+```

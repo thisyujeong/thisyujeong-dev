@@ -1,0 +1,40 @@
+---
+title: 택시 기하학
+number: 3053
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/3053
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim();
+const R = Number(input);
+console.log((Math.pow(R, 2) * Math.PI).toFixed(6));
+console.log((Math.pow(R, 2) * 2).toFixed(6));
+```
+
+유클리드 기하학과 택시 기하학은 난생 처음 들어보는 기법이었다.
+
+문제만 봐서는 무슨 말인지 알 수 없어서 먼저 유클리드와 택시 기하학에 대해서 알아보았다.
+
+<img src="/cps/programmers-3053.png" />
+
+위 이미지와 유클리드와 택시 기하학에 대한 내용은 [이 글](https://m.blog.naver.com/alwaysneoi/100172516753)을 참고했고,
+
+위 이미지에서 힌트를 얻었다. 유클리드 기하학과 의 지름과 택시 기하학의 대각선 길이는 같다는 것을 알 수 있다.
+
+때문에 유클리드 기하학 을 통한 원의 넓이는 원주율을 공식으로 구할 수 있었고,
+
+택시 기하학 원은 마름모 넓이 공식을 통해 구할 수 있었다.
+
+> 유클리드 가하학 원의 넓이 = 반지름^2 _ 원주율  
+> 택시 기하학 원의 넓이 = 반지름^2 _ 2
+
+따라서 제곱 연산을 하는 메소드 `Math.pow` 와 원주율 `Math.PI` 를 활용할 수 있으며
+
+여섯번째 소수점까지 구하기 위해 `toFixed(6)` 메소드를 사용했다.
+
+```js
+유클리드 기하학에서 원의 넓이 = (Math.pow(R, 2) * Math.PI).toFixed(6)
+택시 기하학에서 원의 넓이 = ((Math.pow(R, 2) * 2).toFixed(6)
+```

@@ -1,0 +1,41 @@
+---
+title: 30
+number: 10610
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/10610
+---
+
+알고리즘: 그리디
+
+아래 규칙만 알면 풀기 쉽다.
+
+- 30의 배수는 0이 필수적으로 들어가야한다. 숫자에 0이 들어가있지 않다면 그 수는 30의 배수가 아니다.
+- 30의 배수는 각 자리 수를 모두 합한 수를 3으로 나누어 떨어진다면 그 수는 30의 배수이다. 나누어 떨어지지 않는다면 그 수는 30의 배수가 아니다.
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const input = fs.readFileSync(filePath).toString().trim().split('');
+
+solution(input);
+
+function solution(input) {
+  if (!input.includes('0')) {
+    // 1
+    console.log('-1');
+  } else {
+    const sum = input.map(Number).reduce((acc, cur) => acc + cur); // 2
+    if (sum % 3 !== 0) return console.log('-1'); // 3
+    const result = input.sort((a, b) => b - a).join('');
+    console.log(result);
+  }
+}
+```
+
+1. 입력 값에 0이 포함되어있는 지 확인한다. 포함되어있지 않다면 -1 출력
+2. map 을 통해 총 숫자형 타입으로 변환 후 각 자리 수의 합을 reduce 로 구한다.
+3. 각 자리수의 합을 3으로 나누었을 때 나누어 떨어지지 않는다면 -1을 출력하고 함수를 빠져나간다.
+4. 나누어 떨어진다면 30의 배수이므로 내림차순으로 정렬 후 하나의 합쳐준다
+
+> [ ‘8’, ‘8’, ‘7’, ‘5’, ‘5’, ‘4’, ‘2’, ’0’ ] → 88755420

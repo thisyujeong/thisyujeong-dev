@@ -1,0 +1,16 @@
+---
+title: 소트인사이드
+number: 1427
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1427
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().split('');
+let result = '';
+
+input.sort((a, b) => b - a);
+input.map((num) => (result += num));
+console.log(result);
+```

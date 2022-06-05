@@ -1,0 +1,15 @@
+---
+title: 수 정렬하기
+number: 2750
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2750
+---
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().trim().split('\n').map(Number);
+input.shift(); // 수의 개수 제거
+input.sort((a, b) => a - b); // 오름차순 정렬
+input.map((a) => console.log(a)); // 출력
+```

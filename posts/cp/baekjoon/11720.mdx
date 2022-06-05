@@ -1,0 +1,18 @@
+---
+title: 숫자의 합
+number: 11720
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/11720
+---
+
+```js
+const fs = require('fs');
+const [cnt, nums] = fs.readFileSync('../input.txt').toString().trim().split('\n');
+
+let result = 0;
+nums.split('').map((num) => (result += Number(num)));
+console.log(result);
+```
+
+입력값 두번째 줄의 숫자들을 nums 변수에 할당했고, `split` 메소드를 통해 숫자를 하나씩 분리한 배열로 변환했고 이어서 배열 메소드인 `map`을 통해 숫자의 개수만큼 순회하도록했다. 대입연산자를 사용해 결과값을 출력했다.

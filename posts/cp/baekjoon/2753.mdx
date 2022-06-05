@@ -1,0 +1,15 @@
+---
+title: 윤년
+number: 2753
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2753
+---
+
+논리 연산자 사용
+
+```js
+const input = require('fs').readFileSync('dev/stdin');
+const year = Number(input);
+(year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? console.log(1) : console.log(0);
+```

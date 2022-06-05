@@ -1,0 +1,25 @@
+---
+title: 반복수열
+number: 2331
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2331
+---
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? 'dev/stdin' : '../input.txt';
+const [a, p] = fs.readFileSync(filePath).toString('utf-8').trim().split(' ').map(Number);
+
+const arr = [a];
+while (true) {
+  const cur = String(arr[arr.length - 1]);
+  const next = cur.split('').reduce((acc, v) => acc + Math.pow(v, p), 0);
+  if (arr.includes(next)) {
+    // 하나라도 같은 수가 존재한다면
+    console.log(arr.indexOf(next));
+    break;
+  }
+  arr.push(next);
+}
+```

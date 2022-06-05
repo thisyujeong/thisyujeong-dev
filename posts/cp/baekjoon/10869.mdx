@@ -1,0 +1,20 @@
+---
+title: 사칙연산
+number: 10869
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10869
+---
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().split(' ').map(Number);
+let [a, b] = input;
+console.log(a + b);
+console.log(a - b);
+console.log(a * b);
+console.log(parseInt(a / b));
+console.log(a % b);
+```
+
+나누기 연산의 경우 나누어 떨어지지 않는 수일때 2.33333333... 과 같이 소수점을 날려 정수만 출력할 수 있도록 parseInt 함수를 사용했다.

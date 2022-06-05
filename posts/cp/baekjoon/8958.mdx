@@ -1,0 +1,36 @@
+---
+title: OX퀴즈
+number: 8958
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/8958
+---
+
+```js
+const [count, ...input] = require('fs').readFileSync('dev/stdin').toString().split('\n');
+input.map((grade) => {
+  let init = 0;
+  let result = 0;
+  grade.split('').map((q) => {
+    q === 'O' ? init++ : (init = 0);
+    result += init;
+  });
+  console.log(result);
+});
+```
+
+입력 값의 첫 줄은 케이스의 수라고 했다. 때문에, 첫 줄을 제외하고 input 을 받아오기 위해 구조분해 할당을 통해 `count`(케이스의 수) 와 나머지 input을 배열로 받아왔다.
+
+```js
+console.log(count); // 5
+consloe.log(input);
+/* 
+[ 'OOXXOXXOOO',
+  'OOXXOOXXOO',
+  'OXOXOXOXOXOXOX',
+  'OOOOOOOOOO',
+  'OOOOXOOOOXOOOOX'
+] */
+```
+
+이중 포문을 사용하는 대신 더 간결한 이중 map 함수를 사용했고 `input` 배열을 또 한번 `split` 함수를 사용해 각 채점 결과를 배열화 했다! 채점 결과가 O 라면 init 값을 1씩 증가, 아니라면 0으로 초기화하여 **더하기 할당 연산자**를 통해 result 값을 도출했다.

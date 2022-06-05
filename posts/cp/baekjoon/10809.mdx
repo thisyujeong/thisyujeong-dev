@@ -1,0 +1,21 @@
+---
+title: 알파벳 찾기
+number: 10809
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10809
+---
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim();
+const result = [];
+for (let i = 97; i <= 122; i++) {
+  result.push(input.indexOf(String.fromCharCode(i)));
+}
+console.log(result.join(' '));
+```
+
+아스키코드에서 알파벳 소문자는 97 ~ 122 범위이기 때문에, 반복문을 아스키코드 범위만큼 반복하도록 작성했다.
+아스키코드를 반환하는 `fromCharCode` 사용하여 input 값에 아스키코드에 해당하는 알파벳이 존재하는지, 존재한다면 인덱스값을 판별하고 result 배열에 할당했다.
+
+배열 함수 join 을 사용해 공백을 표시한 문자열을 출력했다.

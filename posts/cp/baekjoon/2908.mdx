@@ -1,0 +1,50 @@
+---
+title: 상수
+number: 2908
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2908
+---
+
+## Solution 1
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split(' ');
+
+const compare = []; // (1)
+
+input.map((num) => {
+  // (2)
+  let reverse = ''; // (3)
+  const nums = num.split(''); // (4)
+  for (let i = nums.length - 1; i >= 0; i--) {
+    reverse += nums[i];
+  }
+  compare.push(Number(reverse)); // (5)
+});
+console.log(Math.max(...compare)); // (6)
+```
+
+1. `compare` 변수는 거꾸로 변환한 두 수를 담을 Array 변수이다.
+2. input 값을 배열로 받아 map 함수를 사용했다.
+3. `reverse` 변수는 숫자를 연산자를 사용해 거꾸로 변환하여 담을 변수이다.
+4. `nums` 변수에 숫자를 하나씩 `split`을 사용해 쪼개어 할당했다.
+5. 거꾸로 변환한 수를 `compare` 배열에 추가한다.
+6. 최댓값을 구하는 `Math.max` 메소드를 사용해 결과값을 출력한다.
+
+아직 더 간결한 코드를 쓰는 것이 몸에 베지 않아 약간의 하드코딩 느낌이 없잖아 있다.
+다른 코드를 비교해 어떻게 보완하면 더 깔끔하게 작성할 수 있을까.
+
+## Solution 2
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split(' ');
+const [a, b] = input.map((x) => [...x].reverse().join(''));
+console.log(a > b ? a : b);
+```
+
+훨씬 간결하고 가독성이 좋다.
+
+`map` 함수를 사용하는 것은 동일하다. 세 자리 숫자를 하나씩 분리하는 것을 반복문이 아닌 spread 문법과 배열을 사용하는 것이었다.
+
+배열 메소드 `reverse` 로 간편하게 순서를 바꿀 수 있다는 것을 새롭게 알았다. join 으로 세 수를 합쳐 큰 수를 출력할 수 있었다.

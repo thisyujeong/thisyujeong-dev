@@ -1,0 +1,44 @@
+---
+title: 크레인 인형뽑기
+number: 64061
+from: programmers
+level: level1
+url: https://programmers.co.kr/learn/courses/30/lessons/64061
+---
+
+## Solution
+
+```js
+function solution(board, moves) {
+  const stack = [];
+  let answer = 0;
+
+  moves.forEach((order) => {
+    const target = pick(board, order - 1);
+    if (target) {
+      if (stack[stack.length - 1] === target) {
+        stack.pop();
+        answer += 2;
+      } else {
+        stack.push(target);
+      }
+    }
+  });
+  return answer;
+}
+
+function pick(board, order) {
+  for (let i = 0; i < board.length; i++) {
+    if (board[i][order] !== 0) {
+      target = board[i][order];
+      board[i][order] = 0;
+      return target;
+    }
+  }
+}
+```
+
+인형을 뽑는 기능을 함수로 분리했다.
+
+stack 변수는 뽑은 인형을 담는 바구니 역할을 한다. stack 의 가장 마지막으로 들어온 인형과 뽑은 인형이 같다면 제거(pop) 하고,
+두개의 인형이 함께 제거되었기 때문에 제거 횟수는 2번씩 카운트한다.

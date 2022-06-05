@@ -1,0 +1,52 @@
+---
+title: 소수 구하기
+number: 1929
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1929
+---
+
+## Solution 1 (시간초과)
+
+```js
+const fs = require('fs');
+const [a, b] = fs.readFileSync('dev/stdin').toString().trim().split(' ').map(Number);
+
+for (let i = a; i <= b; i++) {
+  let decimal = true;
+  if (i <= 1) continue;
+  for (let k = 2; k < i; k++) {
+    if (i % k === 0) decimal = false;
+  }
+  decimal && console.log(i);
+}
+```
+
+[2681 소수](https://thisyujeong.github.io/TIL/algorithm/baekjoon/2681.html) 문제와 유사하다. 소수인지 아닌지 판별할 수 있는 boolean 변수로 `decimal` 를 선언 및 초기화 했다. 소수라면 `decimal` 변수에 `false` 를 할당하고 `decimal` 변수가 `true` 라면 소수인 수를 출력하도록 작성했다.
+
+단, 1은 소수가 아니므로 continue 문을 사용했다.
+
+그러나 결과는 시간초과로 실패했다.
+
+해결방안으로 [1978 소수찾기](https://thisyujeong.github.io/TIL/algorithm/baekjoon/1978.html) 문제에서 했던 방법과 비슷하게 수정해보기로 했다. 위 문제에서는 수를 반으로 나누어 탐색하도록 하였는데, 그럴 필요 없이 좋은 Math 메소드가 있다.
+
+`Math.sqrt` 메소드로 제곱근을 반환하는 함수로 2부터 제곱근까지의 수만 탐색하는 것이다.
+
+## Solution 2 (성공)
+
+수정하여 제출한 풀이이다.
+
+```js
+const fs = require('fs');
+const [a, b] = fs.readFileSync('dev/stdin').toString().trim().split(' ').map(Number);
+for (let i = a; i <= b; i++) {
+  let decimal = true;
+  if (i <= 1) continue;
+  for (let k = 2; k <= Math.sqrt(i); k++) {
+    if (i % k === 0) decimal = false;
+  }
+  decimal && console.log(i);
+}
+```
+
+> 정답입니다!

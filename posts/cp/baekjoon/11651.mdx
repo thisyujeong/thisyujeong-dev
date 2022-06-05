@@ -1,0 +1,24 @@
+---
+title: 좌표 정렬하기 2
+number: 11651
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/11651
+---
+
+```js
+const fs = require('fs');
+const [N, ...input] = fs.readFileSync('dev/stdin').toString().trim().split('\n');
+const nums = input.map((num) => num.split(' ').map(Number));
+nums.sort((a, b) => {
+  if (a[1] !== b[1]) return a[1] - b[1]; // 1
+  return a[0] - b[0]; // 2
+});
+
+let result = '';
+nums.map((num) => (result += `${num.join(' ')}\n`));
+console.log(result);
+```
+
+1. y 좌표가 다를 경우 y 좌표끼리 비교하여 오름차순 정렬
+2. y 좌표가 같을 경우 x 좌표끼리 비교하여 오름차순 정렬

@@ -1,0 +1,57 @@
+---
+title: 좌표 정렬하기
+number: 11650
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/11650
+---
+
+## Solution (시간초과)
+
+```js
+const fs = require('fs');
+const [N, ...input] = fs.readFileSync('dev/stdin').toString().split('\n');
+
+input.sort((a, b) => a - b);
+input.map((num, idx) => {
+  const [curX, curY] = num.split(' ').map(Number);
+  for (let i = idx; i < N; i++) {
+    if (i < N - 1) {
+      const [x, y] = input[i + 1].split(' ').map(Number);
+      if (curX === x && curY > y) {
+        const temp = input.splice(i, 1);
+        input.splice(i + 1, 0, temp[0]);
+      }
+    }
+  }
+});
+
+console.log(input.join('\n'));
+```
+
+sort 메소드를 통해서 x 값만 비교해 1차적으로 정렬했다. 2차적으로는 x 의 값이 같을 때 y 의 값을 비교해 정렬한다.
+
+map 을 사용해 배열의 모든 값을 순환하면서 순환하고 있는 좌표와 다음 좌표를 비교해 정렬한 것인데, 너무나도 하드코딩이다 😅
+
+sort 메소드를 활용해서 정렬하는 코드를 통으로 외운 탓에 좀 더 활용해 볼 생각은 못했다.
+
+아래 코드는 sort 함수로 위 코드를 아주 간략하게 출력할 수 있었다.
+
+```js
+const fs = require('fs');
+const [N, ...input] = fs.readFileSync('dev/stdin').toString().trim().split('\n');
+const coords = input.map((coord) => coord.split(' ').map(Number));
+coords.sort((a, b) => {
+  if (a[0] !== b[0]) return a[0] - b[0]; // 1
+  return a[1] - b[1]; // 2
+});
+
+let results = '';
+coords.map((coord) => (results += `${coord.join(' ')}\n`));
+console.log(results);
+```
+
+1. x 좌표가 다를 경우 x 좌표끼리 비교하여 오름차순 정렬
+2. x 좌표가 같을 경우 y 좌표끼리 비교하여 오름차순 정렬
+
+이번 기회로 sort 메소드를 깊이 이해할 수 있었다.

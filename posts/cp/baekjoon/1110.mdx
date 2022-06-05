@@ -1,0 +1,52 @@
+---
+title: 더하기 사이클
+number: 1110
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/1110
+---
+
+## Solution
+
+```js
+const input = Number(require('fs').readFileSync('dev/stdin').toString());
+let num = input;
+let i = 0;
+
+while (true) {
+  i++;
+  const sum = Math.floor(num / 10) + (num % 10);
+  num = (num % 10) * 10 + (sum % 10);
+  if (input === num) {
+    break;
+  }
+}
+console.log(i);
+```
+
+연산을 통해 숫자의 1의자리, 10의자리를 받아 풀었다.
+
+숫자를 num 이라는 변수라고 할 때 10의 자리 수를 구하려면 num을 10으로 나누기 연산을 사용할 수 있는데,
+여기서 주의할 점은 나누어 떨어지지 않을 경우의 수를 생각해 `Math.floor`를 사용해 소수점 날려주어야 한다.
+
+1의자리 수를 구할 땐 더 간단하다. num 을 10으로 나눈 나머지 값이 1의자리수가 된다.
+
+반대로 숫자의 1의자리 수를 10의 자리수로 만들기 위해선 나눈 나머지값에 다시 10을 곱하면 끝이다!
+
+> num의 10의 자리 수 = Math.fllor(num / 10);  
+> num의 1의 자리 수 = num % 10
+
+> 1의 자리 수를 10의 10의자리 수로 = (num % 10) \* 10
+
+## 번외
+
+원래는 아래 코드처럼 input 값을 String 타입으로 받아와 `5 + 6 = 56` 와 같이 연산하는 방식으로 풀어보려고 했다.
+
+문제는 이렇게 풀면 Stinrg 타입이었던 값을 다시 Number로, Number 타입이였던 값을 다시 String 타입으로 변경해애야하는 복잡한 과정이 필요했다.
+
+그래서 위와 같이 연산을 통해 1, 10의자리 수를 구하는 방식으로 구현했다.!
+
+```js
+// 56
+const [a, b] = input; // a: 5, b: 6
+```

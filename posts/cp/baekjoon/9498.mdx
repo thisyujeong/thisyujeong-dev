@@ -1,0 +1,24 @@
+---
+title: 시험 성적
+number: 9498
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/9498
+---
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin');
+const score = Number(input);
+if (score >= 90) {
+  console.log('A');
+} else if (score >= 80) {
+  console.log('B');
+} else if (score >= 70) {
+  console.log('C');
+} else if (score >= 60) {
+  console.log('D');
+} else {
+  console.log('F');
+}
+```

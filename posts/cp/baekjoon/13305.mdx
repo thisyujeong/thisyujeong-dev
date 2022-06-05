@@ -1,0 +1,71 @@
+---
+title: 주유소
+number: 13305
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/13305
+---
+
+알고리즘: 그리디
+
+이 문제는 다음 도시에서의 주유 가격이 현재 도시의 가격보다 저렴한지 비싼지 비교하여, 현재 도시의 주유 가격이 더 싸다면 현재 주유소에서 오른쪽에 있는 도시들의 거리까지 갈 수 있도록 주유를 해야한다. 단 오른쪽에 있는 도시들 중 현 주유소보다 더 싼 곳이 있다면 그 지점부터는 더 싼 가격으로 주유를 해야한다.
+
+## 부분 성공(58점)
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const [n, d, p] = fs.readFileSync(filePath).toString().trim().split('\n');
+
+let dis = d.split(' ').map(Number); // 1
+let cost = p.split(' ').map(Number); // 1
+
+let curr = cost[0]; // 2
+let sum = 0; // 3
+for (let i = 0; i < n - 1; i++) {
+  sum += curr * dis[i]; // 4
+  if (curr > cost[i + 1]) curr = cost[i + 1]; // 5
+}
+console.log(sum);
+```
+
+알고리즘: 그리디
+
+1. 도시 간의 거리를 dis 변수에 Number 타입 배열로, 주유소의 리터당 가격을 cost 배열에 Number 타입 배열로 할당했다.
+2. curr 은 지나온 마을들 중 가장 싼 주유값을 담을 것이다. 초깃값으로 가장 앞 도시를 할당한다.
+3. 가장 마지막 마을은 주유가 필요 없기 때문에 n - 1 까지 반복한다.
+4. 지나온 거리까지 주유한 가격이다. (가격 x 거리)
+5. 다음 도시의 주유 가격이 더 싸다면 `curr` 변수에 다음 주유 가격을 저장한다.
+
+위 과정을 반복하면 최종적으로 최소의 비용을 계산할 수 있다.
+
+> **58점 으로 부분 성공했다. 서브 태스크의 2번까지 수행한 것이다.**
+
+3번 태스크의 ‘**원래의 제약조건 이외에 아무 제약조건이 없다.’** 가 무슨 의미인지 한참 고민했다.
+
+다른 사람들의 코드를 보니 Number 타입이 아닌 BigInt 타입을 사용했다.
+
+BigInt 는 길이의 ‘제약 없이’ 정수를 다룰 수 있게 해주는 숫자형이다.
+
+## 성공 (100점)
+
+코드를 모두 `Number` 타입이 아닌 `BigInt` 타입으로 변경하여 재 제출했다.
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const [n, d, p] = fs.readFileSync(filePath).toString().trim().split('\n');
+
+let dis = d.split(' ').map(BigInt);
+let cost = p.split(' ').map(BigInt);
+
+let curr = cost[0];
+let sum = 0n;
+for (let i = 0; i < n - 1; i++) {
+  sum += curr * dis[i];
+  if (curr > cost[i + 1]) curr = cost[i + 1];
+}
+console.log(String(sum));
+```
+
+> 성공!

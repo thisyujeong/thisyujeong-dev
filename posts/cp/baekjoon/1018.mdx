@@ -1,0 +1,119 @@
+---
+title: 체스판 다시 칠하기
+number: 1018
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1018
+---
+
+## Solution
+
+문제의 요지를 잘 파악해야한다. 문제에서 체스판은 8x8이라고 했으므로 입력값으로 8x8보다 큰 보드를 받아오더라도 보드 내에서 수정횟수가 가장 적은 8x8 범위를 체크해야한다. 처음에 문제를 잘못 이해해서 입력값으로 받아온 체스판 크기 전체를 체크했었다.
+
+입력값은 모든 공백을 제거하는 정규식을 통해 M, N, board 를 받아왔고, 맨 위 왼쪽 첫번째 칸이 흰색인 경우(`white`)와, 검은색인 경우(`black`) 를 라인을 분리하여 배열로 준비했다.
+
+```js
+const fs = require('fs');
+const [M, N, ...board] = fs.readFileSync('../input.txt').toString().trim().split(/\s+/);
+
+const white = [
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+];
+const black = [
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+];
+```
+
+1. 입력받은 전체 보드판의 크기에서 8x8범위로 모든 경우의 수를 검사한다
+2. 8x8 범위의 수정이 필요한 칸 수를 찾아내는 함수
+   > 보드판 칸을 `white` / `black` 보드와 비교했을 경우 수정해야할 횟수를 각 `whiteCk` / `blackCk` 변수에 저장한다.
+3. `whiteCk` 와 `blackCk` 중 횟수가 적은 경우를 min 변수에 할당하여 최종적으로 최소 횟수를 출력한다.
+
+```js
+// 1
+for (let i = 0; i <= M - 8; i++) {
+  for (let j = 0; j <= N - 8; j++) {
+    check(i, j);
+  }
+}
+
+// 2
+function check(x, y) {
+  let whiteCk = 0;
+  let blackCk = 0;
+
+  for (let i = x; i < x + 8; i++) {
+    for (let j = y; j < y + 8; j++) {
+      if (board[i][j] !== white[i - x][j - y]) whiteCk++;
+      if (board[i][j] !== black[i - x][j - y]) blackCk++;
+    }
+  }
+  let min = Math.min(whiteCk, blackCk); // 3
+  if (min < result) result = min;
+}
+console.log(result);
+```
+
+## 전체 풀이
+
+```js
+const fs = require('fs');
+const [M, N, ...board] = fs.readFileSync('../input.txt').toString().trim().split(/\s+/);
+const white = [
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+];
+const black = [
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+  'BWBWBWBW',
+  'WBWBWBWB',
+];
+
+let result = 64;
+
+for (let i = 0; i <= M - 8; i++) {
+  for (let j = 0; j <= N - 8; j++) {
+    check(i, j);
+  }
+}
+
+function check(x, y) {
+  let whiteCk = 0;
+  let blackCk = 0;
+
+  for (let i = x; i < x + 8; i++) {
+    for (let j = y; j < y + 8; j++) {
+      if (board[i][j] !== white[i - x][j - y]) whiteCk++;
+      if (board[i][j] !== black[i - x][j - y]) blackCk++;
+    }
+  }
+  let min = Math.min(whiteCk, blackCk);
+  if (min < result) result = min;
+}
+console.log(result);
+```

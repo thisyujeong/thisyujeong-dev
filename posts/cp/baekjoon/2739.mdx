@@ -1,0 +1,31 @@
+---
+title: 구구단
+number: 2739
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2739
+---
+
+## Solution
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString();
+for (let i = 1; i < 10; i++) {
+  console.log(`${input} * ${i} = ${input * i}`);
+}
+```
+
+> 결과: 출력 형식이 잘못되었습니다.
+
+input 값을 잘못 받아왔나? 라는 생각에 콘솔에 출력해보았지만 값은 제대로 받아왔다.
+그렇다면 문제는 Number 타입으로 변환하는 과정없이 그대로 받아왔기 때문에 input의 타읍은 문자열 타입일 것이라 생각했다. Number 타입으로 변환하는 과정을 추가했더니 결과는 성공이다!
+
+### 문제 해결
+
+```js{2}
+const input = require('fs').readFileSync("dev/stdin").toString();
+let num = Number(input);
+for(let i = 1; i <= 9; i ++) {
+  console.log(`${num} * ${i} = ${num * i}`);
+}
+```

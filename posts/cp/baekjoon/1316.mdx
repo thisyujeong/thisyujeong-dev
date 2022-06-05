@@ -1,0 +1,43 @@
+---
+title: 그룹 단어 체커
+number: 1316
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1316
+---
+
+```js
+const [N, ...input] = require('fs')
+  .readFileSync('dev/stdin')
+  .toString()
+  .trim()
+  .split('\n');
+
+let cnt = 0;
+input.map((word) => {
+  const letter = []; // (1)
+  let isGroup = true; // (1)
+
+  for (let i = 0; i < word.length; i++) {
+    // (2)
+    if (!letter.includes(word[i])) {
+      // (3)
+      letter.push(word[i]);
+    } else {
+      if (letter.indexOf(word[i]) !== letter.length - 1) {
+        // (4)
+        isGroup = false;
+        break;
+      }
+    }
+  }
+  isGroup && cnt++; // (5)
+});
+console.log(cnt);
+```
+
+1. 각 단어들을 map을 통해 한번씩 순회한다. 순회할 때마다 초기으로`letter` 변수 빈 배열, `isGroup` 은 true 로 할당한다.
+2. 순회하는 단어의 각 문자들을 for 문을 통하여 쪼개어 검사하고 그룹단어인지 판별하는데,
+3. 각 문자가`letter` 배열에 포함되어있지 않다면 push 한다. 이때 `push` 된 문자가 `a` 라면 이후에 `a`가 나와도 더이상 push 하지 않으며, `else` 스코프를 실행한다.
+4. 문자의 인덱스가 `letter` 의 마지막 인덱스와 같지 않다면 연속되는 문자가 아니라는 의미로 `isGroup` 변수는 `false` 가 된다. 이미 그룹 단어가 아님을 판별했으므로 더이상 해당 단어를 판별할 필요가 없기때문에 `break` 문을 통해 빠져나온다.
+5. isGroup 이 true일 때, 그룹단어라면 cnt 를 증가시킨다.

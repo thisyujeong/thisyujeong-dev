@@ -1,0 +1,31 @@
+---
+title: 두 수 비교하기
+number: 1330
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/1330
+---
+
+## Solution
+
+```js
+const fs = require('fs');
+const [a, b] = fs.readFileSync('dev/stdin').toString().split(' ').map(Number);
+function compare(a, b) {
+  if (a > b) return console.log('>');
+  if (a < b) return console.log('<');
+  if (a == b) return console.log('==');
+}
+compare(a, b);
+```
+
+## Short Coding
+
+```js
+const [a, b] = require('fs')
+  .readFileSync('./input/1330.txt')
+  .toString()
+  .split(' ')
+  .map(Number);
+console.log(a > b ? '>' : a < b ? '<' : '==');
+```

@@ -1,0 +1,26 @@
+---
+title: 소인수분해
+number: 11653
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/11653
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim();
+
+let num = Number(input);
+let divider = 2;
+let prime = [];
+
+while (divider <= input) {
+  if (num % divider === 0) {
+    num /= divider;
+    prime.push(divider);
+  } else {
+    divider++;
+  }
+}
+
+console.log(prime);
+```

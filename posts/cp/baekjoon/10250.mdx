@@ -1,0 +1,77 @@
+---
+title: ACM 호텔
+number: 10250
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10250
+---
+
+## Solution 1 (실패)
+
+```js
+const [count, ...input] = require('fs')
+  .readFileSync('dev/stdin')
+  .toString()
+  .trim()
+  .split('\n');
+input.map((a) => {
+  const [H, W, N] = a.split(' ').map(Number);
+  let yy = (N % H).toString(); // 층
+  let xx = Math.ceil(N / H).toString(); // 호
+  if (xx.length == 1) xx = `0${xx}`;
+  console.log(yy + xx);
+});
+```
+
+yy 는 층, xx 는 호를 나타낸다.
+
+N 번째 방의 층(yy)을 구하려면 N 을 층수로 나눈 나머지를 구하면 된다.
+
+> yy = N % H
+
+방의 호수(xx)를 구하려면 N을 층 수만큼 나누면 된다. 호 수를 구할 때 주의할 점은 나눈 값이 나누어 떨어지지 않을 때를 대비하여 반올림을 해줘야한다. (`Math.ceil` 메소드)
+
+> xx = Meth.ceil(N / H);
+
+마지막으로 호수가 한 자리수라면 10의 자리를 0으로 지정해준다.
+
+예제의 입력값으로 실행시켜보았을 때 문제의 출력값과 일치한다.
+
+> 틀렸습니다.
+> x
+
+그러나 위 풀이는 실패한 풀이다.
+
+[https://www.acmicpc.net/board/view/74683](https://www.acmicpc.net/board/view/74683)
+
+이 문제에 대한 반례를 찾았다. 출력값이 상이한 입력값이 있어 확인해보니
+
+층 수를 구할 때, 가장 마지막 층이 되면 yy 값이 0 이 되므로 가장 높은 층(H) 으로 대입해주어야 한다는 것을 알 수 있었다.
+
+## Solution 2 (성공)
+
+다시 시도한 풀이다.
+
+```js
+const [count, ...input] = require('fs')
+  .readFileSync('../input.txt')
+  .toString()
+  .trim()
+  .split('\n');
+input.map((a) => {
+  const [H, W, N] = a.split(' ').map(Number);
+  let xx = Math.ceil(N / H); // 호
+  let yy = N % H; // 층
+  if (yy === 0) yy = H;
+  if (xx / 10 < 1) xx = `0${xx}`;
+  console.log(`${yy}${xx}`);
+});
+```
+
+위에서 가독성이 좋지 않은 코드들도 함께 수정했다.
+
+층 수가 한 자리 수임을 확인하는 코드를 문자열의 length 가 아닌 연산으로 찾아냈다.
+
+10으로 나눈 값이 1보다 작다면 한 자리 수라는 의미이므로 한자리 수라면 백틱을 사용해 숫자 앞에 0을 붙여줬다. 출력값 역시 백틱을 통해 문자열로 합쳤다
+
+> 정답

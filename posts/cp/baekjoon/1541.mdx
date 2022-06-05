@@ -1,0 +1,75 @@
+---
+title: 잃어버린 괄호
+number: 1541
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1541
+---
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const input = fs.readFileSync(filePath).toString().trim();
+
+let block = [];
+input.split('-').map((item) => {
+  let sum = 0;
+  let num = item.split('+').map(Number);
+  num.forEach((n) => (sum += n));
+  block.push(sum);
+});
+
+let total = block[0];
+for (let i = 1; i < block.length; i++) {
+  total -= block[i];
+}
+
+console.log(total);
+```
+
+알고리즘: 그리디
+
+적절히 괄호를 쳐서 최소합을 만드는 방법은 마이너스(-)를 기준으로 쪼개었을 때(분할된 부분들을 블럭이라고 하겠다.) 이 블럭내에서 더하기(+) 연산이 있다면 수행하고, 수행한 블럭들 끼리 빼기 연산을 하면 최솟값이 된다.
+
+예를들어 `55-50+40` 를 입력받을 경우
+
+1 . 빼기(-) 연산을 기준으로 나눈다. ( `[ ]` 는 블럭을 표기함.)
+
+> [ 55 ] [50+40]
+
+2. 블럭 내 더하기(+) 연산을 수행한다.
+
+> [ 55 ] [ 90 ]
+
+3. 더하기(+) 연산까지 완료한 후 블럭들 끼리 뺀다.
+
+> 55 - 90 = -35
+
+이처럼 `55-50+40` 에 적절히 괄호를 쳤을 때 나올 수 있는 최솟값은 -35가 된다.
+
+```js
+let block = [];
+input.split('-').map((item) => {
+  let sum = 0;
+  let num = item.split('+').map(Number);
+  num.forEach((n) => (sum += n));
+  block.push(sum);
+});
+```
+
+위 코드는 빼기(-)를 기준으로 split 함수로 쪼갠 후 map 함수를 사용해 블럭 내 더하기(+)연산을 실행한 값을 block 이라는 배열 변수에 push 했다. 여기까지 수행하면 위 예시에서 2번까지 진행된 것이.
+
+```js
+let total = block[0];
+for (let i = 1; i < block.length; i++) {
+  total -= block[i];
+}
+
+console.log(total);
+```
+
+위 코드는 각 블럭의 빼기(-) 수행하는 코드이다.
+
+total 변수를 첫번째 블럭의 값으로 초기화한 후 block 의 길이만 큼 반복문을 수행해 최종적인 최솟값을 도출했다.
+
+성공!

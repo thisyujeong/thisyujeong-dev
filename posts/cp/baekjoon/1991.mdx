@@ -1,0 +1,56 @@
+---
+title: 트리 순회
+number: 1991
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1991
+---
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('dev/stdin').toString().trim().split('\n');
+
+const n = +input.shift();
+let result = '';
+let tree = {};
+
+for (let i = 0; i < n; i++) {
+  const [node, left, right] = input[i].split(' ');
+  tree[node] = [left, right];
+}
+
+// 전위
+function preorder(node) {
+  if (node === '.') return;
+  const [lt, rt] = tree[node];
+  result += node;
+  preorder(lt);
+  preorder(rt);
+}
+
+// 중위
+function inorder(node) {
+  if (node === '.') return;
+  const [lt, rt] = tree[node];
+  inorder(lt);
+  result += node;
+  inorder(rt);
+}
+
+// 후위
+function postorder(node) {
+  if (node === '.') return;
+  const [lt, rt] = tree[node];
+  postorder(lt);
+  postorder(rt);
+  result += node;
+}
+
+preorder('A');
+result += '\n';
+inorder('A');
+result += '\n';
+postorder('A');
+
+console.log(result);
+```

@@ -1,0 +1,16 @@
+---
+title: 직사각형에서 탈출
+number: 1085
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/1085
+---
+
+```js
+const fs = require('fs');
+const [x, y, w, h] = fs.readFileSync('dev/stdin').toString().split(' ').map(Number);
+
+const calc = [x, y, w - x, h - y];
+const min = Math.min(...calc);
+console.log(min);
+```

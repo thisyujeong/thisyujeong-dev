@@ -1,0 +1,29 @@
+---
+title: 벌집
+number: 2292
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2292
+---
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim();
+let range = 1;
+let count = 1;
+
+while (range < input) {
+  range += 6 * count;
+  count++;
+}
+console.log(count);
+```
+
+1번 벌집을 중심으로 한 사이클씩 늘어날 때마다 6개의 벌집이 추가된다.
+
+58을 예로 들면, 58까지 가기위한 최단 경로는 1번 벌집을 중심으로 감싸고 있는 사이클이 몇겹이냐로 계산할 수 있다.
+
+따라서 범위를 계산할 range 변수와 몇개의 방을 지나가는 지를 판별한 count 변수를 선언 및 1로 초기화했다.
+
+while 문을 사용해 range 가 input 값보다 작을 때까지 해당 스코프를 반복하고, range 에 **_6 \* 반복하는 횟수_**를 대입한다.
+
+따라서 count 통해 방을 몇번지나 input 값에 도달하는지 확인할 수 있다.

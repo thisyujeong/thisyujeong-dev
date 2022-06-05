@@ -1,0 +1,33 @@
+---
+title: 두 개 뽑아서 더하기
+number: 68644
+from: programmers
+level: level1
+url: https://programmers.co.kr/learn/courses/30/lessons/68644
+---
+
+## Solution
+
+```js
+function solution(numbers) {
+  let answer = [];
+  for (let i = 0; i < numbers.length; i++) {
+    for (let j = i + 1; j < numbers.length; j++) {
+      answer.push(numbers[i] + numbers[j]);
+    }
+  }
+  answer = [...new Set(answer)];
+  answer.sort((a, b) => a - b);
+  return answer;
+}
+```
+
+백준 알고르즘에서 풀었던 문제와 비슷해서 바로 풀 수 있었다.
+
+이중 포문을 사용하여 두 수의 합을 구해 `answer` 배열에 `push` 했다.
+
+이 때, 두번째 반복문에서 0부터 시작하지 않는 이유는 첫번째 반복문에서 순환하고 있는 인덱스의 다음 원소들만 순환할 수 있도록 하기 위해서다.
+
+두 수를 합한 수 중 중복되는 수는 하나만 남기고 제거해주어야한다. 이는 `Set` 을 통해 중복을 제거해주고
+
+`sort` 함수를 사용해 오름차순으로 정렬한다.

@@ -1,0 +1,25 @@
+---
+title: 평균은 넘겠지
+number: 4344
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/4344
+---
+
+```js
+const fs = require('fs');
+const [C, ...input] = fs.readFileSync('dev/stdin').toString().trim().split('\n');
+for (let i = 0; i < C; i++) {
+  let sum = 0;
+  let count = 0;
+  score = input[i].split(' ').map(Number);
+  for (let j = 1; j <= score[0]; j++) {
+    sum += score[j];
+  }
+  let avg = sum / score[0];
+  for (let k = 1; k <= score[0]; k++) {
+    if (score[k] > avg) count++;
+  }
+  console.log(((count / score[0]) * 100).toFixed(3) + '%');
+}
+```

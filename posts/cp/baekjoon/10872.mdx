@@ -1,0 +1,29 @@
+---
+title: 팩토리얼
+number: 10872
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10872
+---
+
+```js
+const input = Number(require('fs').readFileSync('dev/stdin').toString().trim());
+
+function factorial(n) {
+  if (n < 2) return 1;
+  else return n * factorial(n - 1);
+}
+
+console.log(factorial(input));
+```
+
+팩토리얼은 그 수 보다 작거나 같은 모든 양의 정수의 곱을 말한다.
+
+> 1! = 1  
+> 2! = 2 _ 1 = 2  
+> 3! = 3 _ 2 _ 1 = 6  
+> 4! = 4 _ 3 _ 2 _ 1 = 24
+
+반복문을 통해 충분히 풀 수 있는 문제지만 해당 문제는 ‘재귀함수'를 다루는 단계이기 때문에 반복문을 사용하지 않았다.
+
+입력값이 1이라면 팩토리얼 연산이 필요없기 때문에 2보다 작은 수는 그대로 1을 반환하며 2보다 큰 수는 재귀함수를 통해 곱해 나간다.

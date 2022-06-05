@@ -1,0 +1,18 @@
+---
+title: 크로아티아 알파벳
+number: 2941
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2941
+---
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim();
+const RegExp = /c\=|c\-|dz\=|d\-|lj|nj|s\=|z\=/g;
+const answer = input.replace(RegExp, ' ');
+console.log(answer.length);
+```
+
+크로아티아 알파벳들을 **정규식**으로 작성한 RegExp를 replace 함수를 사용해 해당 크로아티아 알파벳이 존재하면 하나로 수로 셀 수 있도록 한자리 문자열로 변경해주어야 한다. 나는 공백으로 변경했고 answer 의 길이를 출력해 크로아티아 알파벳의 개수를 출력했다.
+
+특정 문자열을 찾을 때는 정규식을 사용하면 쉽게 해결할 수 있다. 정규식에 익숙해져야겠다.

@@ -1,0 +1,27 @@
+---
+title: 분수찾기
+number: 1193
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/1193
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim();
+let number = Number(input);
+let value = 1;
+while (true) {
+  number -= value;
+  if (number <= 0) {
+    number += value;
+    break;
+  }
+  value++;
+}
+
+if (value % 2 === 1) {
+  console.log(`${value - (number - 1)}/${1 + (number - 1)}`);
+} else {
+  console.log(`${1 + (number - 1)}/${value - (number - 1)}`);
+}
+```

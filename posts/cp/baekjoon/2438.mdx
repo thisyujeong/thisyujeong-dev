@@ -1,0 +1,18 @@
+---
+title: 별찍기-1
+number: 2438
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2438
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString();
+let star = '';
+let result = '';
+for (let i = 1; i <= Number(input); i++) {
+  star += `*`;
+  result += star + '\n';
+}
+console.log(result);
+```

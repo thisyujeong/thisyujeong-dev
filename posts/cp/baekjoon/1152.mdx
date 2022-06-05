@@ -1,0 +1,23 @@
+---
+title: 단어의 개수
+number: 1152
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/1152
+---
+
+## 풀이 1 (실패)
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim().split(' ');
+console.log(input.length);
+```
+
+## 풀이 2 (성공)
+
+```js
+const input = require('fs').readFileSync('../input.txt').toString().trim().split(' ');
+console.log(input.filter((a) => a !== '').length);
+```
+
+filter 를 사용해 공백이 아닌 원소들의 수를 출력했다.

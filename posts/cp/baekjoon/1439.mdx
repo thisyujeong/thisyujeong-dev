@@ -1,0 +1,85 @@
+---
+title: 뒤집기
+number: 1439
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1439
+---
+
+알고리즘: Greedy 탐욕법
+
+## 계획 세우기
+
+입력값의 연속된 0의 그룹과 1이 그룹을 계산해 두 그룹의 수가 더 많은 그룹의 수를 출력
+
+> ex) 입력값이 `11001100110011000001` 일 때 아래와 같이 그룹지을 수 있다.
+> 11 00 11 00 11 00 11 0000 1
+> 1로 구성된 그룹이 5개, 0으로 구성된 4그룹
+
+1. 입력값(input)을 한 글자씩 쪼개 배열로 받아온다.
+2. 반복문을 사용할 것 → 반복문 시작은 1부터 : input 배열의 첫번 두번째 요소부터 시작하기 위함
+3. 이전 인덱스 값과 현재 인덱스 값을 비교한다.
+   이전 인덱스의 값을 저장하기 위한 pre 변수 선언 → 초기 값은 input 배열의 첫번째 요소
+4. 두 값이 다르다면 그룹으로 분리되는 지점이므로 pre 변수를 현재 값으로 교체해준다.
+5. 분리 지점에서 현재 값이 0 이라면 zero 변수 카운트, 1이라면 one 변수 카운트
+6. 두 카운트 변수중 작은 변수 출력
+
+## 나의 풀이
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? 'dev/stdin' : '../input.txt';
+const input = fs.readFileSync(filePath).toString().trim().split('');
+
+let pre = input[0];
+let one = 0;
+let zero = 0;
+
+for (let i = 1; i < input.length; i++) {
+  let cur = input[i];
+  if (pre !== cur) {
+    pre = cur;
+    if (cur === '1') one++;
+    else zero++;
+  }
+}
+console.log(Math.min(one, zero));
+```
+
+## 계획과 풀이 비교
+
+첫 그룹의 수가 카운트 되지 않아 실제 그룹 수보다 1이 작게 출력되는 것을 확인했다.
+
+사실 입력값이 0과 1이 돌아가면서 나오는 수이기 때문에 답에 영향이 있진 않지만 정확한 풀이가 아니기 때문에 아래 코드를 추가했다.
+
+변수를 선언한 다음 반복문 실행 전 pre 변수의 초기 값이 0이라면 zero를 카운트 하고, 1이라면 one 변수를 카운트한다.
+
+```js
+if (pre === '0') zero++;
+else one++;
+```
+
+## 최종 풀이
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? 'dev/stdin' : '../input.txt';
+const input = fs.readFileSync(filePath).toString().trim().split('');
+
+let pre = input[0];
+let one = 0;
+let zero = 0;
+
+if (pre === '0') zero++;
+else zero++;
+
+for (let i = 1; i < input.length; i++) {
+  let cur = input[i];
+  if (pre !== cur) {
+    pre = cur;
+    if (cur === '1') one++;
+    else zero++;
+  }
+}
+console.log(Math.min(one, zero));
+```

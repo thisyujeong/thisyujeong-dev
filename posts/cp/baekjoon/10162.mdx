@@ -1,0 +1,60 @@
+---
+title: 전자레인지
+number: 10162
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/10162
+---
+
+```js
+const fs = require('fs');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : '../input.txt';
+const input = +fs.readFileSync(filePath).toString().trim();
+
+solution(input);
+
+function solution(input) {
+  const timer = [300, 60, 10]; // 1
+  let counts = []; // 2
+  let time = input;
+
+  timer.forEach((t) => {
+    // 3
+    let count = 0; // 4
+    if (time >= t) {
+      // 5
+      count += Math.floor(time / t); // 6
+      time -= t * Math.floor(time / t); // 7
+    }
+    counts.push(count);
+  });
+
+  if (time > 0) console.log(-1);
+  else console.log(counts.join(' '));
+}
+```
+
+알고리즘: 그리디
+
+1. 타이머의 시간을 단위로 변경하여 배열로 담는다. (5분, 1분, 10초 → 300초, 60초, 10초)
+2. 각 타이머를 누르는 횟수들을 담을 빈 배열
+3. 타이머 배열길이만큼 순환하는 `forEach` 반복문을 사용했다.
+4. 버튼을 누른 횟수를 담을 count 변수는 0으로 초기화한다.
+5. 남은 시간(time)이 타이머의 시간(t)보다 크거나 같다면 해당 타이머 버튼을 누를 수 있다는 의미이다.
+6. 남은 시간(time)을 타이머 시간(t)으로 나눈 몫으로 각 타이머를 누르는 횟수를 계산할 수 있다.
+7. 남은 시간에서 누른 타이머 시간만큼 뺀다.
+8. 계산된 횟수를 counts 배열 변수에 push 한다.
+
+위 순서대로 타이머 종류 수만큼 반복한다.
+
+남은 시간이 있다면(`time > 0`) 주어진 세개읩 버튼으로 T 초를 맞출 수 없다는 의미이므로 `-1` 을 출력한다.
+
+그렇지 않다면 counts 변수들을 공백으로 이어붙여 출력한다.
+
+100점 성공!
+
+| 서브태스크 | 점  | 결과         |
+| ---------- | --- | ------------ |
+| 1          | 30  | 맞았습니다!! |
+| 2          | 30  | 맞았습니다!! |
+| 3          | 40  | 맞았습니다!! |

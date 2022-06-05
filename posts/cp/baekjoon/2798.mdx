@@ -1,0 +1,36 @@
+---
+title: 블랙잭
+number: 2798
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/2798
+---
+
+```js
+const fs = require('fs');
+const [N, M, ...numbers] = fs.readFileSync('dev/stdin').toString().trim().split(/\s+/);
+
+const nums = numbers.map(Number);
+const nums_arr = [];
+
+for (let i = 0; i < N; i++) {
+  for (let j = i + 1; j < N; j++) {
+    for (let k = j + 1; k < N; k++) {
+      const sum = nums[i] + nums[j] + nums[k];
+      if (sum <= M) {
+        nums_arr.push(sum);
+      }
+    }
+  }
+}
+
+console.log(Math.max(...nums_arr));
+```
+
+`/\s+/` 는 모든 공백을 없애는 정규식이다.
+
+삼중 반복문을 통해 모든 경우의 수를 체크 할 수 있다.
+
+단, j 와 k 변수를 사용하는 반복문의 시작 점은 상위 반복문보다 + 1이 되어야 하며, 그렇지 않을경우 너무 많은 경우의 수를 체크해야하기 때문에 시간초과기 일어날 수 있다. 또는 이미 체크한 수를 또 체크할 수 있다.\
+
+세개의 수를 합한 값들을 `nums_arr` 배열에 저장해 최종적으로 최댓값을 반환하는 `Math.max` 메소드를 사용했다.

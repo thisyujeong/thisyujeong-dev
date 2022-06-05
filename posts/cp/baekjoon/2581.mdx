@@ -1,0 +1,57 @@
+---
+title: 소수
+number: 2581
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2581
+---
+
+```js
+const [M, N] = require('fs')
+  .readFileSync('../input.txt')
+  .toString()
+  .trim()
+  .split('\n')
+  .map(Number);
+const decimals = []; // 1
+let sum = 0; // 2
+for (let i = M; i <= N; i++) {
+  // 3
+  let decimal = true; // 4
+  if (i === 1) continue; // 9
+  for (let j = 2; j < i; j++) {
+    // 5
+    if (i % j === 0) decimal = false;
+  }
+  if (decimal) {
+    // 6
+    decimals.push(i);
+    sum += i;
+  }
+}
+if (!decimals[0]) console.log(-1);
+// 7
+else {
+  // 8
+  console.log(sum);
+  console.log(decimals[0]);
+}
+```
+
+입력값은 큰수 M 은 60, 작은 수는 N 이라고 가정한다.
+
+> M = 60  
+> N = 100
+
+1. `decimals` 변수는 입력값 범위 내 소수만을 담을 배열 변수
+   > 60 ~ 100 범위 내 소수는 61, 67, 71, 73, 79, 83, 89, 97
+2. `sum` 변수는 범위 내 소수들을 합한 값을 할당할 변수
+3. 범위 내 숫자들(60~100)만큼 반복문 실행
+4. `decimal` 변수는 해당 숫자가 소수인지 판별한다. 소수라면 true, 아니라면 false
+5. 1은 무조건 소수가 아니기 때문에 2부터 해당 숫자 - 1 만큼 반복문 실행하여
+   j 로 나누어 떨어지는 수라면 소수가 아니기 때문에 `decimal` 에 `false` 를 할당한다.
+6. 만약 소수라면 `decimals` 배열에 push 하고, sum 에 더해준다.
+7. `decimals` 배열이 비어있다면 -1 을 출력한다. 비어있다는 것은 소수가 없다는 뜻이다.
+8. 배열이 비어있지 않다면, 소수의 총 합과 최솟값을 출력한다.
+
+9. 여기서 마지막으로!! 예의처리를 해줘야한다. 예외처리를 안해서 계속 오답으로 처리되었다. 1은 소수가 아니므로 범위내에 1이 있을 경우 아무 것도 하지 않고 다음 숫자를 검사한다.

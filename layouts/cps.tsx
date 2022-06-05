@@ -16,7 +16,7 @@ const CPLayout = ({ post }: Post) => {
         description={`${post.from} ${post.number} ${post.title} | Competitive Programming Notes`}
         canonical={`${metadata.meta.url}/${post.url_path}`}
       />
-      <MDXPost title={post.title} url={post.url}>
+      <MDXPost title={`${post.number} ${post.title}`} url={post.url}>
         <MDXComponent />
       </MDXPost>
       <GiscusArea slug={post.url_path} />

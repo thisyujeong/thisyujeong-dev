@@ -1,0 +1,27 @@
+---
+title: 다이얼
+number: 5622
+level: bronze
+from: baekjoon
+url: https://www.acmicpc.net/problem/5622
+---
+
+```js
+const fs = require('fs');
+const [count, ...input] = fs.readFileSync('dev/stdin').toString().trim().split('\n');
+
+const lanks = [];
+
+for (let i = 0; i < count; i++) {
+  let lank = 0;
+  const [x, y] = input[i].split(' ').map(Number);
+
+  for (let j = 0; j < count; j++) {
+    const [p, q] = input[j].split(' ').map(Number);
+    if (x < p && y < q) lank++;
+  }
+  lanks.push(lank + 1);
+}
+
+console.log(lanks.join(' '));
+```
