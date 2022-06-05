@@ -1,6 +1,6 @@
 # thisyujeong.dev
 
-> Thisyujeong-Nextjs-Blog
+Thisyujeong-Nextjs-Blog
 
 ## Stack
 
@@ -18,6 +18,5 @@ yarn dev
 
 ## Page Configuration
 
-|      |      |         |      |     |
-| ---- | ---- | ------- | ---- | --- |
 | main | blog | project | note | cp  |
+| ---- | ---- | ------- | ---- | --- |
