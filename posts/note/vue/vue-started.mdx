@@ -1,0 +1,37 @@
+---
+title: Vue 시작하기 - 개발환경 세팅
+date: 2022-05-15
+tags: ['vue']
+---
+
+## 사전 설치 파일
+
+- [Node.js](https://nodejs.org/ko/) 설치 (npm)
+- VSCode Extensioins - Vetur, HTML CSS Support, Vue 3 Snippets
+
+## Vue 설치하기
+
+```bash
+npm install -g @vue/cli  # npm을 사용한 vue 설치
+yarn global add @vue/cli # yarn을 사용한 vue 설치 (npm 보다 안정적, 빠름)
+```
+
+## Vue 프로젝트 생성 및 실행
+
+```bash
+# vue create [프로젝트_명]
+# vue2, vue3 중 선택
+vue create vue-project
+
+# 프로젝트 파일로 이동
+cd vue-project
+
+# 프로젝트 실행
+yarn serve
+```
+
+### 설치된 Vue 버전 확인
+
+```js
+npm list vue
+```

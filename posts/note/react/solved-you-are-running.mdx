@@ -1,0 +1,32 @@
+---
+title: 오류 해결 - You are running create-react-app 4.0.3, which is behind the latest release (5.0.0)
+date: 2021-06-05
+tags: ['React', '리액트']
+---
+
+npx create-react-app 을 사용하다가 에러가 발생했다.
+
+더 이상 전역 CRA 는 지원하지 않으니 전역 CRA 를 제거하라는 에러였다.
+
+```jsx
+You are running `create-react-app` 4.0.3, which is behind the latest release (5.0.0).
+
+We no longer support global installation of Create React App.
+
+Please remove any global installs with one of the following commands:
+- npm uninstall -g create-react-app
+- yarn global remove create-react-app
+
+The latest instructions for creating a new app can be found here:
+https://create-react-app.dev/docs/getting-started/
+```
+
+친절하게 해결 방법을 알려줬지만, 여전히 같은 에러를 뱉는다.
+
+구글링한 결과 에러 코드에서 제안한 커맨드에 이어 다음 명령어들을 입력하면 해결된다.
+
+```jsx
+npm uninstall -g create-react-app
+npm add create-react-app
+npx create-react-app <app-name>
+```

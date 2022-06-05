@@ -1,0 +1,56 @@
+---
+title: Heroku(헤로쿠)에 Gabia(가비아) 도메인 연결하기 feat.CloudFlare
+date: 2021-05-15
+tags: ['Heroku', 'Deploy', '헤로쿠', '배포', 'CloudFlare', '가비아', 'Gabia']
+---
+
+헤로쿠에서 프로젝트를 배포하게되면 도메인이 https://프로젝트이름.herokuapp.com 으로 지정되는데, herokuapp.com 이 붙는게 거슬려서 커스텀 도메인을 연결하기로 했다.
+
+헤로쿠 프로젝트에 커스텀 도메인을 연결한 과정을 정리해보겠다.
+
+헤로쿠는 커스텀 도메인 추가 시 DNS를 발급해주는데 ip 형태가 아니라 가비아에 등록이 안된다. 그래서 CloudFlare에서 DNS 를 연결하고 네임서버를 변경하는 방법으로 도메인 연결에 성공했다.
+
+## 도메인 구입
+
+[Gabia(가비아)](https://dns.gabia.com/)에서 도메인을 구매한다. (약 14,000원 정도)
+
+도메인 구입 과정은 복잡하지 않으니 넘어가겠다.
+
+## 헤로쿠에서 도메인 연결
+
+[heroku(헤로쿠)](https://dashboard.heroku.com/)에 구입한 커스텀 도메인을 추가한다.
+
+- 도메인을 연결할 헤로쿠 앱 > Setting > Domains > Add domain 클릭
+- 구입한 도메인이 thisyujoeng 이라고 할 때, **1️⃣ thisyujeong.com** 과 2️⃣ **www.thisyujeong.com** 두개를 추가한다.
+
+  {' '}
+
+  <img src="/notes/etc/heroku-domain_1.png" />
+
+## CloudFlare 에서 DNS 등록
+
+1. [CloudFlare](https://dash.cloudflare.com/) 가입에 접속해 회원가입을 한다.
+2. CloudFlare 의 메인페이지(Websites)에서 **Add a Site** 버튼을 클릭한다.  
+   (최초 사용이면 도메인을 입력 창이 먼저 뜰 것이다.)
+3. 무료 플랜을 선택하고 넘어간다.
+4. DNS 레코드 검토가 진행되는데 검토 후 자동으로 뜨는 record 는 삭제하고 새로 추가한다.
+
+   <img src="/notes/etc/heroku-domain_2.png" />
+   아래 양식으로 **Name** 이 **@** 인 것과 **www** 인 것으로 두번 추가한다.
+
+   > Type : CNAME  
+   > Name : @ / www (@는 루트 도메인)  
+   > Target : 헤로쿠에서 발급받은 DNS  
+   > Proxy status : 허용
+
+   완료되면 가비아로 설정된 네임서버를 삭제하고 CloudFlare 네임서버를 등록하라고 한다. 가비아 도메인 관리에서 가비아로 되어있는 네이버를 모두 삭제 후 CloudFlare 네임서버로 변경한다.
+
+등록 후 1~7일 내에 처리 결과를 메일로 발송해준다.
+등록하고 몇분 후에 바로 메일이 왔는데 모바일에서는 접속이 잘 되다가 pc에서는 접속이 안됐는데 몇시간 뒤에 다시 접속하니 성공적으로 연걸되었다.
+
+---
+
+참고한 글
+
+[https://m.blog.naver.com/cocoyun1604/221830773823](https://m.blog.naver.com/cocoyun1604/221830773823)
+[https://blog.naver.com/kbs4674/221446015988](https://blog.naver.com/kbs4674/221446015988)

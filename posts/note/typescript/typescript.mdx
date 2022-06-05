@@ -1,0 +1,131 @@
+---
+title: 타입스크립트 시작하기
+date: 2022-05-15
+tags: ['ts', 'typescript', '타입스크립트']
+---
+
+## 타입스크립트란
+
+> 마이크로 소프트사에서 만든 개발언어로 자바스크립트를 베이스로 하는 자바스크립트 확장언어라고 할 수 있다.
+
+프로그램이 동작할 때 실시간으로 타입이 결정되어 런타임 환경 때 에러가 발생할 수 있는 자바스크립트와 달리
+타입스크립트는 컴파일을 할 때 실시간으로 타입에 관련된 에러를 잡을 수 있어 안정적이고 확장이 쉽다.
+
+타입스크립트 코드를 자바스크립트 코드로 변환하는 컴파일러가 필요하다.
+컴파일러에는 TS에서 제공하는 툴 또는 Babel을 이용할 수 있다.
+
+타입스크립트의 강점은 객체지향 프로그래밍(OOP)이 가능하다는 것이다.
+
+1. 객체 위주로 모듈성 있는 코드 작성 용이하다
+2. 모듈별 재사용성
+3. 객체단위의 확장성
+4. 코드 수정/추가 등의 높은 유지보수성
+
+타입스크립트는 빠른 속도로 꾸준히 릴리즈 되고있다.  
+릴리즈 내용은 공식 문서에서 확인할 수 있으며, 위키피디아에도 계속 추가되는 것을 확인할 수 있다.
+
+> 공식 문서 - [바로가기](https://www.typescriptlang.org/)  
+> 타입스크립트 버전업 릴리즈 - [위키피디아](https://en.wikipedia.org/wiki/TypeScript)
+
+## Typescript install
+
+> [https://www.typescriptlang.org/download](https://www.typescriptlang.org/download)
+
+필자는 글로벌 환경에 **npm**을 통해 설치를 진행했다.
+
+```bash
+npm install -g typescript
+```
+
+#### ⚠️  브라우저는 타입스크립트 파일을 바로 실행할 수 없다.
+
+간단한 예시로 아래와 같이 html 파일에 타입스크립트를 연결해보았다.
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./main.ts"></script>
+  </head>
+  <body></body>
+</html>
+```
+
+```ts
+// main.ts
+console.log('Hello TS!');
+```
+
+과연 정상적으로 코드를 실행했을까? 위 코드를 실행하면 콘솔 창에는 에러가 발생한다.
+
+> Refused to execute script from '[http://127.0.0.1:5500/main.ts](http://127.0.0.1:5500/main.ts)' because its MIME type ('video/mp2t') is not executable.
+
+이 에러는 타입스크립트 파일을 실행할 수 없다는 에러인데, 필자는 위 내용에서 타입스크립트는 자바스크립트로 변환하는 컴파일러가 필요하다고 했다. 타입스크립트는 자바스크립트 컴파일 과정 없이 실행할 수 없다는 것이다.
+
+타입스크립트 툴을 이용해 컴파일해보자.
+
+### 단일 파일 실행 및 실시간 컴파일
+
+```bash
+$ tsc main.ts
+```
+
+명령어를 입력하면 main.js 라는 이름의 자바스크립트 파일이 생성된 것을 확인할 수 있다.  
+이제 html 에 타입스크립트 파일이 아닌 자바스크립트 파일을 연결해주면 정상적으로 작동할 것이다.
+
+#### 💡 그럼, TS 파일을 수정할 때마다 새로 컴파일 해줘야 하나?
+
+아니다. 타입스크립트 툴의 명렁어를 통해 TS 파일을 업데이트 할 때마다 컴파일 된 JS 파일도 자동적반영된다.
+
+```bash
+$ tsc main.ts -w
+```
+
+`w` 는 watch 의 약자로 해당 파일을 바로 볼 수 있다는 명령어다. `Watch input file.`  
+타입스크립트의 다양한 명령어를 알고 싶다면, 아래 커맨드로 확인할 수 있다.
+
+```bash
+$ tsc -h
+```
+
+### 다수의 파일 실행 및 실시간 컴파일
+
+다수의 파일을 실행후, 실시간 컴파일
+
+```bash
+tsc --init
+tsc -w
+```
+
+`tsc --init`으로 타입스크립트 설정 파일 (tsconfig.json)을 프로젝트 디렉토리에 생성 후,
+`tsc -w` 커맨드로 다수의 타입스크립트 파일을 동시에 실시간 컴파일 한다.
+
+-
+
+tsconfig.json 에서 타입스크립트 옵션을 설정할 수 있다.
+
+> tsconfig.json 옵션 문서 [바로가기](https://www.typescriptlang.org/tsconfig/)
+
+## ts-node 로 타입스크립트 실행하기
+
+자바스크립트와 달리 타입스크립트는 Node 환경에서 해석할 수 없다.  
+ts-node 라이브러리를 설치하면 웹이 아닌 노드 환경에서 Node 환경에서 타입스크립트를 단독적으로 실행할 수 있다.
+
+### ts-node Install
+
+```bash
+npm install -g ts-node
+```
+
+### Usage
+
+ts-node [타입스크립트파일] 명령어로 실행할 수 있다.
+
+```bash
+$ ts-node main.ts
+```

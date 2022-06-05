@@ -1,0 +1,23 @@
+---
+title: input autofill 해결
+date: 2021-06-05
+tags: ['HTML', 'CSS', 'input', 'autofill']
+---
+
+input 요소의 자동완성 기능을 사용하면 자동으로 배경 컬러가 변경된다.
+
+아래 코드를 통해 이를 해결할 수 있다.
+
+```css
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  -webkit-text-fill-color: green;
+}
+```
+
+`-webkit-box-shadow` 는 배경 컬러를 변경하는 역할, `-webkit-text-fill-color` 는 텍스트 컬러를 변경하는 역할을 한다.
+
+자세한 내용은 아래 [여기서](https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/) 확인할 수 있다.

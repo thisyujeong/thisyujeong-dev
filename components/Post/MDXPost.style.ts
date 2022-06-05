@@ -158,36 +158,38 @@ export const MDXPostContainer = styled.div`
 
   /* mdx code block styles */
   pre > code[class*='language-'] {
-    &:not([class*='sh']) {
-      .hljs-title {
-        &.class_,
-        &.function_ {
-          color: #109a79;
-        }
+    .hljs-title {
+      &.class_,
+      &.function_ {
+        color: #109a79;
       }
+    }
 
-      .hljs-variable {
-        &.constant_ {
-          color: #3c8f99;
-        }
+    .hljs-variable {
+      &.constant_ {
+        color: #3c8f99;
       }
+    }
 
-      .hljs-built_in,
-      .hljs-function {
-        color: #4964d6;
-      }
+    .hljs-built_in,
+    .hljs-function {
+      color: #4964d6;
+    }
 
-      .hljs-keyword {
-        color: #ff6161;
-      }
+    .hljs-keyword {
+      color: #ff6161;
+    }
 
-      .hljs-string {
-        color: #7dab95;
-      }
+    .hljs-string {
+      color: #7dab95;
+    }
 
-      .hljs-comment {
-        color: #c2b1a3;
-      }
+    .hljs-comment {
+      color: #c2b1a3;
+    }
+    .hljs-name,
+    .hljs-selector-tag {
+      color: #ff6161;
     }
   }
 `;

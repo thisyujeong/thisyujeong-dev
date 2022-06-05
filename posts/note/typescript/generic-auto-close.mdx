@@ -1,0 +1,27 @@
+---
+title: Generic Type 자동 닫힘 현상 해결
+date: 2022-05-15
+tags: ['ts', 'typescript', 'Generic', '타입스크립트']
+---
+
+VSCode 에서 타입스크립트 공부를 하던 중.. 제네릭 타입 사용 시 VSCode 확장 프로그램인 auto-close-tag 가 실행된다. 아래와 같은 경우다.
+
+```js
+function fetchN(id: string): Promise<number></number> {...}
+```
+
+이런 경우 setting.json 에서 확장프로그램 auto-close-tag 를 사용할 파일 형식을 추가해주면, 지정한 형식을 제외한 모든 파일에서는 자동으로 태그를 닫지 않는다.
+
+```json
+{
+  "auto-close-tag.activationOnLanguage": [
+    "html",
+    "xml",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact"
+  ]
+}
+```
+
+[출처](https://intzzzero.netlify.app/blog/disable-auto-close-tag)

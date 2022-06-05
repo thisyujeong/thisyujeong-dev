@@ -1,0 +1,50 @@
+---
+title: React CORS 이슈 해결하기
+date: 2021-06-05
+tags: ['React', 'CORS', 'http-proxy-middleware', '리액트']
+---
+
+## http-proxy-middleware
+
+리액트 개발환경에서 프록시(Proxy) 설정을 통해 CORS 이슈를 해결할 수 있다.
+
+## CORS란?
+
+> CORS(Cross-Origin Resource Sharing)는 클라이언트와 서버의 포트가 다른 상태에서 클라이언트 측에서 서버 측으로 무언가를 요청했을 때 브라우저가 보안상의 이유로 요청을 차단하는 문제이다. 가령 클라이언트의 포트가 3000이고 서버 측의 포트가 8080이라면 보안상의 이유로 차단된다.
+
+## 프록시를 사용하는 이유
+
+> 1. 회사의 직원들이나 집 안의 아이들이 특정 사이트를 들어갈 수 없도록 방지하기 위함
+> 2. 캐쉬를 이용해 더 빠른 인터넷 이용 제공  
+>    프록시 서버는 서버 측의 정적 이미지 등을 저장시켜 놓을 수 있기 때문에 굳이 서버까지 가지 않아도 프록시 서버를 통해 더욱 빠르게 이미지를 접근할 수 있다.
+> 3. 더 나은 보안 제공  
+>    IP를 바꿔서 보내줄 수 있기 때문
+
+## install
+
+```
+npm install http-proxy-middleware --save
+yarn add http-proxy-middleware --save
+```
+
+## Usage
+
+```js
+// src/setupProxy.js
+
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function (app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://localhost:8080',
+      changeOrigin: true,
+    })
+  );
+};
+```
+
+setupProxy.js 파일을 src 폴더에 생성해 프로젝트 proxy 설정을 커스터마이징 한다. 본 예제에서는 클라이언트 포트를 서버 포트로 설정해주어야 하기 때문에 `target`의 `value`값을 클라이언트 서버 포트인 `8080`으로 설정해주었다.
+
+공식문서 바로가기 [Create React App - Proxying in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/)

@@ -1,0 +1,61 @@
+---
+title: dotenv로 환경변수 관리하기 (.env)
+date: 2021-04-09
+tags: ['dotenv', 'env', 'environment variable', '환경변수']
+---
+
+> dotenv는 환경변수를 .env 파일에 저장하고 precess.env로 로드하는 의존성 모듈 (environment variable)
+
+`dotenv`를 사용하는 이유는 개발을 하는 과정에서 서버주소, 고유 API KEY 값 등 필요한 정보를 저장하게 되는데 이러한 정보들은 민감한 정보임과 동시에 보안이 이루어져야 하는 정보들이기 때문에 오픈소스에 공개될 경우 보안 위험이 있기 때문이다.
+
+## dotenv install
+
+```
+npm install dotenv
+yarn add dotenv
+```
+
+## How to Use
+
+```
+# .env
+PORT=8080
+DB_URL='DB_url'
+DATABASE_ID=''
+```
+
+프로젝트 디렉토리에서 최상위폴더에 `.env` 파일 생성 후 `변수명=값` 형식으로 작성한다.
+
+## require
+
+```js
+# server.js
+
+// import dotenv from 'dotenv'
+require('dotenv').config();
+```
+
+이제 환경변수를 사용할 때 `process.env.변수명` 형태로 사용할 수 있다.
+
+```js
+let db;
+const MongoClient = require('mongodb').MongoClient;
+MongoClient.connect(process.env.DB_URL, function (error, client) {
+  if (error) return console.log(error);
+  db = client.db('TodoApp'); // TodoApp 데이터베이스에 접근
+  app.listen(process.env.PORT, function () {
+    console.log('listening on 8080');
+  });
+});
+```
+
+## 주의사항
+
+깃허브와 같은 오픈소스에 업로드 할 때는 반드시 .gitignore 파일에 .env 파일을 추가해주어야한다. 그렇지 않으면 .env 파일에 저장하더라도 오픈소스에 함께 업로드 되기 때문에 dotenv를 사용한 의미가 없어진다.
+
+```
+# .gitignore
+
+# dotenv environment variables file
+.env
+```

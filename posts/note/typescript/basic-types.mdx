@@ -1,0 +1,266 @@
+---
+title: 기본 타입과 타입 정의
+date: 2022-05-15
+tags: ['ts', 'typescript', 'types', '타입스크립트']
+---
+
+타입의 종류는 **원시 타입(primitive)** 과 **객체 타입(object)** 으로 나뉜다. 자바스크립트의 개념을 잘 알고 있다면 익숙할 것이다. 원시 타입은 객체를 제외한 모든 것으로 Number, String, Boolean, Undefined, Null 이 있으며, 객체타입에는 원시타입을 제외한 모든 객체를 말한다. (함수, 배열 ...)
+
+타입을 정의하는 방법은 매우 간단하다. 변수명 뒤에 `: type`을 명시한다.
+
+## 원시 타입 (Primitive)
+
+### Number
+
+```ts
+const num: number = 1;
+```
+
+### String
+
+```ts
+const str: string = 'hello world';
+```
+
+### Boolean
+
+```ts
+const bool: boolean = true;
+```
+
+### Undefined
+
+> 값이 결정되지 않은 상태를 의미한다.
+
+```ts
+let message: undefined;
+```
+
+undefined 타입은 보통 단독적으로 사용하지 않으며 사용하지 않는 것이 좋다.  
+'A 또는 B' 의 형태로 `|` 기호를 사용하여 경우의 수를 부여할 수 있다.
+
+```ts
+let message: string | undefined; // string or undefined
+message = 'hello world'; // not error
+message = undefined; // not error
+```
+
+### Null
+
+> 값이 없는 상태를 의미한다.
+
+null 또한 undefined와 같이 보통 단독적으로 사용하지 않으며 사용하지 않는 것이 좋다.  
+보편적으로 null 보다는 undefined를 많이 사용한다.
+
+```ts
+let num: null;
+let num2: number | null; // number or null
+```
+
+### Unknown
+
+어떤 타입의 데이터를 담길 지 예상할 수 없는 상태로 어떤 타입의 데이터든 할당할 수 있다.  
+타입 스크립트를 사용하는 이유는 타입의 명확함을 명시하고 인지하기 위함이다.  
+`unknown` 과 같이 불명확한 타입 명시는 권장하지 않는다.
+
+```ts
+let unk: unknown;
+unk = 1;
+unk = 'hello world';
+unk = true;
+```
+
+### Any
+
+> 어떤 타입의 데이터도 할당할 수 있다.
+> 불명확한 타입 명시로 권장하지 않는다.
+
+```ts
+let anything: any = 0;
+anything = true;
+anyting = 'hello world';
+```
+
+## 객체 타입 (Object)
+
+### Object
+
+원시타입을 제외한 모든 객체 타입을 할당할 수 있다.
+
+```ts
+function object(obj: object) {
+  ...
+};
+object({msg: 'hello world'});
+object([option: true]);
+
+```
+
+### Function: void
+
+아무것도 리턴하지 않는 함수라면 void 타입을 명시한다. 리턴값 없이 타입을 명시하지 않으면 default 로 void 타입을 갖는다. 변수에도 void 명시가 가능하지만 보통 사용하지 않으며, 사용하지 않는 것이 좋다.
+
+```ts
+function hello(): void {
+  console.log('hello world');
+}
+```
+
+### Function: never
+
+리턴값을 절대 반환하지 않음을 명시한다. 에러와 같은 핸들링을 할 수 없도록 할 때 사용할 수 있다.
+
+```ts
+function throwError(message: string): never {
+  throw new Error(message);
+}
+```
+
+### Optional Parameter
+
+함수 내에서 인자를 전달하지 않아도 주어진 함수의 기능을 수행하도록 선택권을 부여한다.
+
+```ts
+function optionalFun(a: string, b?: string) {...}
+fullName('hello', 'world');
+fullName('hi');
+```
+
+### Array
+
+배열 타입은 배열 내 원소의 타입까지 지정할 수 있다. `type[]` 또는 `Array<type>` 으로 명시할 수 있다. `Array<type>` 명시법은 generic 제네릭 문법이다.
+
+```ts
+const arr: string[] = ['hello', 'world']; // 원소가 문자열인 배열
+const arr: number[] = [1, 2, 3, 4]; // 원소가 숫자인 배열
+const arr: boolean[] = [true, false]; // 원소가 boolea인 배열
+
+const arr: Array<string> = ['hello', 'world']; // 원소가 문자열인 배열
+const arr: Array<number> = [1, 3, 4]; // 원소가 숫자인 배열
+const arr: Array<boolean> = [true, false]; // 원소가 boolea인 배열
+```
+
+두개 이상의 타입을 동시에 명시할 수 있다.
+
+```ts
+const arr: (string | number)[] = ['hello', 'world', 1, 2, 3];
+const arr: Array<string | number> = ['hello', 'world', 1, 2, 3];
+```
+
+타입에 상관없이 어떤 타입의 원소도 담을 수 있는 배열을 any 를 명시한다.
+
+```ts
+const arr: any[] = [1, 'a', 2, 'b', 'c', 3];
+const arr: Array<any> = [1, 'a', 2, 'b', 'c', 3];
+```
+
+### Tuple
+
+서로 다른 타입을 가질 수 있는 배열이다.
+
+```ts
+let tuple: [string, number]; // 첫번째 값은 string, 두번째 값은 number 타입임을 명시
+tuple = ['hello world', 100];
+tuple[0];
+tuple[1];
+```
+
+tuple 의 문제점은 위와 같이 작성했을 때 배열의 인덱스로 접근해야 한다는 것이다. 때문에 Tuple 타입은 권장하지 않으며 interface, type alias, class... 로 대체하여 사용하는 것이 좋다고 한다. 또는 아래와 같이 object destructuring 문법을 통해 인덱스로 접근하는 방식을 개선할 수 있다.
+
+```ts
+const [name, age] = student;
+```
+
+### Tuple Alias
+
+새로운 타입을 별칭으로 직접 정의할 수 있다. 타입을 직접 정의할 때는 Camel Case 로 명명한다.
+
+```tsx
+type Str = string;
+type Num = number;
+
+const message: Str = 'hello world';
+const number: Num = 1;
+```
+
+객체로도 지정할 수 있다.
+
+```tsx
+type Person = {
+  name: string,
+  age: number;
+}
+
+const person: Person = {
+  name: 'yujeong';
+  age: 24,
+}
+```
+
+#### String Literal Types
+
+타입을 문자열로 지정할 수 있다. 지정된 타입은 해당 값 이외에 절대 할당할 수 없다.
+
+```ts
+type Msg = 'hello world';
+let msg: Msg = 'hello world';
+let msg2: Msg = 'hi'; // Error!
+```
+
+### Union
+
+Union 타입은 간단하게 말해 OR(또는) 역할을 한다. 발생할 수 있는 여러 경우의 수 중 하나만 할당할 수 있는 경우에 사용한다. 즉 정해진 조건 내에서, 하나를 선택해 할당할 수 있다는 의미로 다중 타입을 말한다.
+
+```ts
+type Color = 'red', 'orange', 'yellow', 'green';
+function printColor(color: Color) {
+  console.log(`this color is ${color}`);
+}
+printColor('red');
+```
+
+위 예제에서는 printColor 함수의 인자로 정해진 타입 중 하나의 값을 정달받을 수 있다.
+
+### Intersection Type
+
+AND(&) 열할을 하는 Intersection 타입은 여러타입을 하나로 통칭해 사용할 수 있다.
+
+```ts
+type A = {
+  title : string;
+  description: number;
+};
+type B = {
+  function : () => void;
+}
+
+function anything(AB: A & B) {...};
+
+anything({
+  name: 'typescript',
+  description: 'hello type script',
+  function: () => {}
+});
+```
+
+### Enum
+
+여러가지의 관련된 상수 값들을 한 곳에 모아 정의할 수 있도록 돕는 타입으로 JavaScript 에서 지원하지 않는 타입이기 때문에 TS에서 자체적으로 제공한다.
+
+```ts
+// 값을 입력하지 않으면 0 부터 차례대로 할당된다. 문자열 할당도 가능
+enum Options {
+  A, // 0
+  B, // 1
+  C, // 2
+  D = 4,
+  E = 'hi',
+  ...
+}
+
+let otipn = Options.E;
+otipn = 10 // Not Error
+console.log(otipn); // 10
+```
+
+하지만 타입스크립트에서는 타입이 명확하지 않은 Enum을 사용하지 않는 것이 좋다. 위 예제에서 `let option = Options.E` 에서 문자열을 할당했지만, `option = 10` 을 통해 숫자를 할당해도 에러없이 동작하는 것을 확인할 수 있다.

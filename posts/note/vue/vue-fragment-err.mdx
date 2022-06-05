@@ -1,0 +1,33 @@
+---
+title: Vue Fragments eslint 에러 해결
+date: 2022-05-15
+tags: ['Vue', 'vue fragment', 'eslint']
+---
+
+기존 Vue2 에서는 아래 예시와 같이 컴포넌트를 반드시 한개의 Root Element 로 감싸주어야했다.
+
+## vue 2
+
+```html
+<template>
+  <div>
+    <h1>Hello, world!</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing ..</p>
+  </div>
+</template>
+```
+
+하지만 Vue3 에서는 하나의 Root Element로 감싸주지 않아도 된다.
+
+## vue 3
+
+```html
+<template>
+  <h1>Hello, world!</h1>
+  <p>Lorem Ipsum is simply dummy text of the printing ..</p>
+</template>
+```
+
+Vue2 eslint 확장 프로그램이 설치 되어있다면 프로젝트에서 빨간 밑줄로 에러가 뜨는것을 확인 할 수 있는데,
+
+이는 package.json 의 `eslintConfig` 옵션에 아래 코드를 추가해준 후 VSCode 를 재시작하면 밑줄이 사라진 것을 확인할 수 있다.

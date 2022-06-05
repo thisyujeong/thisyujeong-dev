@@ -1,0 +1,119 @@
+---
+title: TSConfig 시작하기(셋업하기)
+date: 2022-05-15
+tags: ['ts', 'typescript', 'TSconfig', '타입스크립트']
+---
+
+다수의 파일 실시간 컴파일 설정
+
+## 타입스크립트 실행하기
+
+### 단일 파일 실행하기
+
+타입스크립트 파일을 실행할때 명령어를 통해 실행하는 방법에 대해서 기록한 바 있다.
+
+```
+tsc filename.ts
+tsc filename.ts -w
+```
+
+> `-w` : 실시간으로 저장된 ts 파일을 브라우저에서 확인할 수 있는 watching mode
+
+해당 명령어로 타입스크립트 파일을 실행하면 Typescript 가 JavaScript 문법으로 변환된 js 파일이 생성되는데, html 에서는 TypeScript에 접근할 수 없기 때문에 js 파일로 컴파일하는 과정이 필요하다.
+
+### 다수의 파일 실행하기
+
+그런데 한개의 타입스크립트 파일이 아닌 여러개의 타입스크립트를 실행할 때는 어떻게 해야할까?
+
+```
+tsc --init
+tsc -w
+```
+
+> `tsc --init` : 타입스크립트 설정 파일(tsconfig.json)을 프로젝트 디렉토리에 생성한다.  
+> `tsc -w` : 다수의 타입스크립트 파일을 동시에 watcing mode 로 실행할 수 있다.
+
+## tsconfig.json 옵션
+
+> tsconfig 옵션 [문서 바로가기](https://aka.ms/tsconfig.json)
+
+tsconfig.json 파일에는 타입스크립트의 컴파일러 옵션들이 있는 것을 확인해볼 수 있다.
+
+각 옵션들이 어떤 역할을 하는지 알아보자.
+
+1. 변환된 js 파일 생성 경로 설정하기
+
+   자바스크립트와 타입스크립트를 동시에 사용하는 경우가 많기 때문에 변환된 js 파일은 새로운 디렉토리를 생성해 그 디렉토리 안에서 관리를 하는 것이 좋다.
+
+   ```json
+   "outDir": "./build", // default './'
+   ```
+
+   default 값은 `./` 경로다. 나는 build 라는 파일에 변환된 js 파일들을 보관하도록 설정했다.
+
+   설정 후, 실행하면, build 디렉토리가 생성되고 js 파일들이 생성될 것이다.
+
+2. root 디렉토리 설정
+
+   가령, 나는 타입스크립트 파일을 src 디렉토리 안에 생성하여 사용하고 있는데 누군가 타입스크립트 파일을 root 디렉토리 생성하는 등 이런 상황을 방지하기 위해 root 디렉토리의 경로를 src 디렉토리로 설정한다. 잘못된 경로에 ts 파일을 생성하여 실행하게 되면 오류가 발생한다.
+
+   ```json
+   "rootDir": "./src", // default './'
+   ```
+
+3. 컴파일 항목에서 추가 / 제거
+
+   ```json
+   {
+     "compilerOptions": {...},
+     "include": ["./src/prod.ts"], // 선택
+     "exclude": ["./src/dev.ts"], // 제외
+   }
+   ```
+
+   > `include` : 원하는 ts 파일만 컴파일  
+   > `exclude` : 컴파일 항목에서 해당 ts 파일 제외
+
+4. Incremental
+
+   컴파일이 될 때마다 새롭게 모든 파일을 컴파일 하는 것이 아니라, 컴파일 된 파일과 비교해서 수정된 내용만 컴파일할 수 있어 속도가 빨라진다는 장점이 있다. 하지만, 이전의 모든 컴파일 정보를 디스크에 보관하기 때문에 pc 의 용량이 커질 수 있다.
+
+   ```json
+   "incremental": true,
+   ```
+
+5. target
+
+   ECMAScript 의 버전을 설정할 수 있다.
+
+   ```json
+   "target": "ES5",
+   ```
+
+6. module
+
+   모듈 정보를 어떻게 할 것인지 결정한다.
+
+   ```json
+   "module": "ES6",
+   ```
+
+7. allowJs
+
+   프로젝트 안에서 JavaScript 파일을 같이 쓸 것인지, TypeScript 와 JavaScript를 섞어 사용할 것인지 결정할 수 있다.
+
+   ```json
+   "allowJs": true,
+   ```
+
+8. checkJs
+
+   자바스크립트 파일에서 잘못 작성하고 있다면 에러가 뜰 수 있도록 설정할 수 있다.
+
+   ```json
+   "checkJs": true,
+   ```
+
+---
+
+더 많은 옵션은 공식문서를 참고

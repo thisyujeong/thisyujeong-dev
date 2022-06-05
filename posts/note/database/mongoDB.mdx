@@ -1,0 +1,226 @@
+---
+title: NoSQL MongoDB 시작 및 사용하기
+date: 2021-06-05
+tags: ['Database', 'MongoDB', 'NoSQL']
+---
+
+MongoDB Atlas 접속 : [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/lp/try2?utm_content=rlsavisitor&utm_source=google&utm_campaign=gs_apac_rlsamulti_search_core_brand_atlas_desktop_rlsa&utm_term=mongodb%20atlas&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=14412646476&gclid=Cj0KCQjwtMCKBhDAARIsAG-2Eu9HzTx9-UPpf_y3NBye5OhBkVwT7pLKya1WNQuDPIPtQO848-XzZbsaAouCEALw_wcB)
+
+> 1. Cluster 생성
+> 2. Database Access 에서 DB 접속용 아이디/비밀번호를 생성한다.
+> 3. Network Access 에서 IP 추가
+> 4. Database / collection 생성 (Browser Collections)  
+>    _Add My Own Data_ 클릭하여 원하는 DB 이름을 설정하면 설정한 이름의 > 데이터베이스가 생성된다.
+> 5. 생성된 DB를 연결하기 위해 Clusters에서 connect(연결)하기 / > **connect your application**  
+>    사용할 언어와 버전 선택 후 DB 연결을 위한 connection code 복사 후 사용
+
+## 생성된 DB 연결하기
+
+### MongoDB Install
+
+MongoDB 라이브러리 설치
+
+```
+npm install mongodb
+yarn add mongodb
+```
+
+### How to Use
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+MongoClient.connect('connection code', function (error, client) {
+  // database 접속이 완료되면 실행될 코드
+  if (error) return console.log(error); // 에러 발생 시 실행될 코드
+});
+```
+
+`connect` 함수의 첫번째 파라미터로 Database connection code를 입력하여 연결한다.
+
+ex / connection code
+
+> mongodb+srv://_[username]_:_[password]_@cluster0.syrv2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+DataBase Access 에서 새로운 User를 생성할 때 입력한 아이디를 [username]에 입력하고, 비밀번호는 [password]에 입력한다.
+
+## 데이터베이스 접근 및 자료 저장
+
+어떤 DB에 데이터를 저장할 것인지 명시해주어야 하기 때문에 연결할 DB를 담을 수 있는 변수 생성이 필요하다.
+DB 를 생성할 때 설정했던 Database name을 이와같이 연결하면 해당 db에 접근이 가능하다.
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+
+let db;
+MongoClient.connect('connection code', function (error, client) {
+  if (error) return console.log(error);
+  db = client.db('database name');
+
+  db.collection('collection name').insertOne(
+    // 데이터 저장
+    { name: 'John', age: 20 },
+    function (error, result) {
+      console.log('save comopleted');
+    }
+  );
+});
+```
+
+위 예제는 연결한 db의 collection에 접근한 모습이다. `inserOne`은 db에 자료를 저장할 때 쓰이는 함수로 첫번째 파라미터로 **저장할 데이터**를 전달하고 두번째 파라미터로 콜백함수를 전달한다. 위 예시에서는 이름과 나이를 데이터에 저장한 모습이다. 저장이 완료되면 콜백함수를 전달한다.
+
+### 위 예제의 데이터가 Mongo DB에 저장된 모습
+
+```js
+{
+  _id: ObjectId('~');
+  name: 'John';
+  age: 20;
+}
+```
+
+이처럼 DB에 자료를 저장하고 나면 MongoDB에서 해당 db의 collection에 저장된 데이터를 실시간으로 확인할 수 있다. 그런데 저장된 데이터에서 `_id`라는 자료가 저장되어있는 것을 확인할 수 있는데, 이는 데이터를 저장할 때 직접 `_id`를 설정하지 않으면 임시의 `_id`를 강제로 생성하기 때문에 데이터를 저장할때 `_id`를 함께 저장하는 것이 좋다.
+
+## DB 데이터 불러오기
+
+### 1. find 함수
+
+원하는 db의 컬렉션에서 `find` 함수를 사용하면 collection 안의 모든 데이터를 불러올 수 있다.
+
+```js
+db.collection('collection name').find();
+```
+
+주로, 이와같이 `toArray` 함수를 사용해 배열 형태로 데이터를 불러온다.
+
+```js
+db.collection('collection name')
+  .find()
+  .toArray((err, result) => {
+    if (err) return console.log(err);
+    console.log(result);
+  });
+```
+
+### 2. findOne 함수
+
+`findOne` 함수는 DB에서 한가지 자료만 불러오고 싶을 때 사용하는 함수로 이와 같이 사용할 수 있다.
+아래 예제는 해당 collection 에서 `name`이 `counter`인 데이터만 불러오는 예제이다.
+
+```js
+db.collection('collection name').findOne({ name: 'counter' }, (err, result) => {
+  ...
+};
+```
+
+## DB 데이터 수정하기
+
+### 1. updateOne 함수
+
+`updateOne` 함수는 DB에서 하나의 데이터를 수정할 때 사용하며, 세가지의 파라미터를 받는다.
+
+> 1. 첫번째 파라미터는 수정할 데이터의 이름
+> 2. 두번째 파라미터는 수정 값
+> 3. 세번째 파라미터는 콜백함수를 전달한다. (생략 가능)
+
+단, 두번째 파라미터는 operator를 사용해야 한다. operator의 종류는 `$set`(변경), `$inc`(증가), `$min`(기존 값보다 적을 때 변경), `$rename`(key값 이름 변경)... 등이 있다.
+
+아래 예제는 `name`이 `counter`인 데이터의`total` 값을 100로 **변경**시키는 예제이다.
+
+```js
+db.collection('collection name').updateOne(
+  { name: 'counter' },
+  { $set: { total: 100 } },
+  (err, result) => {
+    // 실행할 코드
+  }
+);
+```
+
+아래 예제는 `name`이 `counter`인 데이터의`total`값을 100만큼 **증가**시키는 예제이다.
+
+```js
+db.collection('collection name').updateOne(
+  { name: 'counter' },
+  { $inc: { total: 100 } },
+  (err, result) => {
+    // 실행할 코드
+  }
+);
+```
+
+### 2. updateMany 함수
+
+`updateMany` 함수는 DB에서 다수의 데이터를 수정할 때 사용한다. 사용 법은 `updateOne`과 크게 다르지 않다. 두번째 파라미터에서 여러 데이터를 를 수정할 수 있다.
+
+```js
+db.collection('collection name').updateMany(
+  { name: 'counter' },
+  { $inc: { total: 100 }, $set: { initNum: 0 } },
+  (err, result) => {
+    // 실행할 코드
+  }
+);
+```
+
+## DB 데이터 삭제하기
+
+### deleteOne 함수
+
+```js
+db.collection('collection name').deleteOne({_id: 2}, (err, result) => {
+  ...
+})
+```
+
+해당 예제는 app(expresS)에서 삭제(delete)요청을 할 때 DB의 원하는 collection에서 `_id`의 값이 2인 데이터를 삭제하겠다는 의미이다.
+
+`deleteOne` 함수의 첫번째 파라미터는 삭제할 항목을 전닫달하고, 두번째 파라미터로 콜백함수를 전달한며, 해당 요청이 성공/실패했을 때 실행 된다.
+
+### AJAX로 DB 삭제 요청하기
+
+> Node.js(Express)가 포함된 예제.
+
+이 예제는 delete 버튼을 누르면 `/delete` 경로로 `{_id: 1}`이라는 데이터와 함께 전달하여 삭제 요청을 하는 예제이다.
+
+```js
+$('.delete').click(() => {
+  $.ajax({
+    method: 'DELETE', // delete 요청
+    url: '/delete', // 요청할 path
+    data: { _id: postNumber }, // 요청과 함께 서버에 {_id: 1} 이라는 데이터도 함께 전달
+  })
+    .done(function (result) {
+      // 요청이 완료되면 실행될 코드
+      // ex 페이지를 강제로 새로고침
+      console.log('ajax success');
+    })
+    .fail(function () {
+      // ajax 요청 실패 시 실행할 코드
+    });
+});
+```
+
+```js
+app.delete('/delete', (req, res) => {
+  console.log(req.body);
+  db.collection('post').deleteOne(req.body, () => {
+    console.log('delete completed');
+  });
+});
+```
+
+이렇게 작성하고 새로고침을 해보면 터미널 창에 요청한 값(`req.body`)인 `{ _id: '1' }`이 출력되는 것을 확인할 수 있다.
+
+그런데 DB에서 해당 데이터가 삭제되지 않은 것을 알 수 있는데, 자세히 보면 위 ajax 예제에서 `{_id: 1}` 숫자형 데이터를 보냈으나 `Node`로 받아온 데이터는 `{ _id: '1' }` 문자열로 변환된 데이터를 전달받았다. 이럴 땐 `parseInt` 함수를 사용해 숫자로 변환시킬 수 있다.
+
+```js
+app.delete('/delete', (req, res) => {
+  console.log(req.body);
+  req.body._id = parseInt(req.body._id);
+  db.collection('post').deleteOne(req.body, () => {
+    console.log('delete completed');
+  });
+});
+```
+
+다시 확인해보면 데이터가 삭제된 것을 확인할 수 있을 것이다.

@@ -34,14 +34,13 @@ export const NoteAsideContainer = styled.div`
 
 export const NoteAsideInnerContainer = styled.div`
   overflow-y: auto;
-  max-height: calc(100vh - 56px);
 
   ${mq({
     position: ['sticky', 'sticky', 'relative'],
     top: ['76px', 'unset'],
     width: [230, 230, '100%'],
     padding: ['8px 14px 8px 0', '8px 14px 8px 0', 0],
-    maxHeight: ['calc(100vh - 56px)', 'calc(100vh - 56px)', 'calc(50vh - 56px)'],
+    maxHeight: ['calc(100vh - 168px)', 'calc(100vh - 168px)', 'calc(50vh - 56px)'],
   })}
 `;
 
