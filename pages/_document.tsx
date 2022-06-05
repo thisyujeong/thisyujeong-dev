@@ -1,3 +1,4 @@
+import metadata from 'data/metadata';
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
@@ -18,6 +19,22 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <link href="/favicon.ico" rel="shortcut icon" />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${metadata.analytics.google}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${metadata.analytics.google}', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
         </Head>
         <body>
           <script dangerouslySetInnerHTML={{ __html: setThemeMode }} />

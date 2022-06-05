@@ -20,6 +20,9 @@ const metadata = {
     repo: 'thisyujeong-dev',
     category: 'General',
   },
+  analytics: {
+    google: 'G-PQ789NGS9J',
+  },
 };
 
 export default metadata;
