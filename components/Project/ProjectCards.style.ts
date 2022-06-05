@@ -59,6 +59,7 @@ export const ProjectCardDesc = styled.p`
   opacity: 0.5;
   height: 3.14em;
   font-size: 13px;
+  line-height: 1.57em;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
