@@ -36,7 +36,7 @@ const Toc = () => {
                 key={i}
                 data-active={currentId === h.id ? true : false}
               >
-                <a href={`#${h.id}`}>{h.id}</a>
+                <a href={`#${h.id}`}>{h.textContent}</a>
               </TocItem>
             )
           )}

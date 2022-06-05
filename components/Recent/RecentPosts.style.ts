@@ -8,7 +8,6 @@ export const PostCard = styled.div`
 
   @media screen and (min-width: 577px) {
     &:hover {
-      opacity: 0.8;
       background: var(--hover-base);
 
       h2 {
@@ -53,7 +52,8 @@ export const PostTitle = styled.h2`
     fontSize: ['22px', '22px', '20px'],
   })}
 `;
+
 export const PostDesc = styled.div`
   font-size: 14px;
-  opacity: 0.8;
+  opacity: 0.6;
 `;

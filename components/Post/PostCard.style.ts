@@ -4,7 +4,7 @@ export const PostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px 14px;
-  margin: 12px -14px;
+  margin: 12px 0;
   transition: opacity 0.2s ease;
   cursor: pointer;
 
@@ -31,12 +31,12 @@ export const PostCardContainer = styled.div`
 
   p {
     font-size: 16px;
-    opacity: 0.8;
+    opacity: 0.6;
   }
   span {
     margin-top: 8px;
     font-size: 14px;
-    opacity: 0.5;
+    opacity: 0.4;
   }
   @media screen and (min-width: 577px) {
     &:hover {
