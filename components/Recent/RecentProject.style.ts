@@ -43,6 +43,8 @@ export const ProjectCard = styled.div`
 export const ProjectCardImg = styled.div`
   position: relative;
   width: 33.333%;
+  border-radius: 4px;
+  overflow: hidden;
 
   &:before {
     content: '';

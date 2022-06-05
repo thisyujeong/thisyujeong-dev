@@ -6,28 +6,16 @@ import { Project } from 'lib/types';
 
 const projects: Project[] = [
   {
-    title: 'personal site',
+    title: 'Portfolio site',
     description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
     url: 'https://thisyujeong.com',
     image: '/projects/thisyujeong-com.png',
   },
   {
-    title: 'thisyujeong.com test1',
-    description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
-    url: 'https://thisyujeong.com',
-    image: '/projects/thisyujeong-com.png',
-  },
-  {
-    title: 'thisyujeong.com test2',
-    description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
-    url: 'https://thisyujeong.com',
-    image: '/projects/thisyujeong-com.png',
-  },
-  {
-    title: 'thisyujeong.com test3',
-    description: 'React, NodeJS, MongoDB를 사용한 개인 프토폴리오 사이트입니다.',
-    url: 'https://thisyujeong.com',
-    image: '/projects/thisyujeong-com.png',
+    title: 'thisyujeong.dev',
+    description: 'My Personal Development Blog with Next.js, Emotion, and Vercel. ✨',
+    url: 'https://thisyujeong.dev',
+    image: '/projects/thisyujeong-dev.png',
   },
 ];
 
