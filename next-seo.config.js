@@ -12,9 +12,9 @@ const SEO = {
     site_name: metadata.meta.title,
     images: [
       {
-        url: `${metadata.meta.url}/home/main.png`,
-        width: 1280,
-        height: 720,
+        url: `${metadata.meta.url}/static/og-graph.png`,
+        width: 850,
+        height: 650,
         alt: `thisyujeong.dev`,
       },
     ],

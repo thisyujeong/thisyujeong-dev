@@ -21,14 +21,6 @@ const BlogLayout = ({ post }: { post: Blog }) => {
             publishedTime: new Date(post.date).toISOString(),
             tags: [...post.tags, 'frontend', 'develop'],
           },
-          images: [
-            {
-              url: `${metadata.meta.url}${post.thumbnailUrl}`,
-              width: 850,
-              height: 650,
-              alt: post.title,
-            },
-          ],
         }}
       />
       <MDXPost title={post.title} date={post.date}>

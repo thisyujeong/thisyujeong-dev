@@ -24,14 +24,6 @@ const NoteLayout = ({ note, tree }: NoteLayout) => {
             publishedTime: new Date(note.date).toISOString(),
             tags: [...note.tags, 'frontend', 'develop'],
           },
-          images: [
-            {
-              url: `${metadata.meta.url}/note/note.png`,
-              width: 850,
-              height: 650,
-              alt: note.title,
-            },
-          ],
         }}
       />
       <NoteContainer>
