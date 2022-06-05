@@ -7,18 +7,14 @@ export const NoteAsideItemContainer = styled.div`
 export const AsideItemTitle = styled.span`
   position: relative;
   display: block;
-  color: var(--text-base);
   color: var(--accent);
   padding-left: 8px;
   font-size: 14px;
   font-weight: 500;
   line-height: 2em;
+  padding-left: 8px;
   text-transform: capitalize;
   cursor: pointer;
-
-  ${mq({
-    paddingLeft: ['8px', '8px', 0],
-  })}
 
   &:hover {
     background: var(--hover-base);
@@ -52,6 +48,12 @@ export const AsideItemTitle = styled.span`
       transform: translateY(-50%);
     }
   }
+
+  @media screen and (max-width: 576px) {
+    &:hover {
+      background: transparent;
+    }
+  }
 `;
 export const AsideItemList = styled.div`
   display: block;
@@ -72,5 +74,11 @@ export const AsideItemAnchor = styled.a`
   &[data-selected='true'] {
     opacity: 1;
     color: var(--accent);
+  }
+
+  @media screen and (max-width: 576px) {
+    &:hover {
+      background: transparent;
+    }
   }
 `;

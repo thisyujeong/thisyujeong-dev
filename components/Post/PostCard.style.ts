@@ -38,21 +38,22 @@ export const PostCardContainer = styled.div`
     font-size: 14px;
     opacity: 0.5;
   }
-
-  &:hover {
-    opacity: 0.8;
-    background: var(--hover-base);
-    h1 {
-      color: var(--accent);
-      padding-left: 28px;
-      &:before {
-        opacity: 1;
+  @media screen and (min-width: 577px) {
+    &:hover {
+      opacity: 0.8;
+      background: var(--hover-base);
+      h1 {
         color: var(--accent);
+        padding-left: 28px;
+        &:before {
+          opacity: 1;
+          color: var(--accent);
+        }
       }
     }
-  }
 
-  &:active {
-    opacity: 1;
+    &:active {
+      opacity: 1;
+    }
   }
 `;

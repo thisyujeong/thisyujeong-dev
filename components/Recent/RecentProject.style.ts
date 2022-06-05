@@ -31,11 +31,11 @@ export const ProjectCard = styled.div`
     marginBottom: [0, 0, '12px'],
   })}
 
-  &:hover {
-    border-color: var(--accent-border);
-
-    h3 {
-      color: var(--accent);
+  @media screen and (min-width: 577px) {
+    &:hover {
+      h3 {
+        color: var(--accent);
+      }
     }
   }
 `;

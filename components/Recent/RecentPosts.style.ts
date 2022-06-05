@@ -6,23 +6,25 @@ export const PostCard = styled.div`
   padding: 8px 14px;
   cursor: pointer;
 
-  &:hover {
-    opacity: 0.8;
-    background: var(--hover-base);
+  @media screen and (min-width: 577px) {
+    &:hover {
+      opacity: 0.8;
+      background: var(--hover-base);
 
-    h2 {
-      color: var(--accent);
-      padding-left: 20px;
-
-      &:before {
-        opacity: 1;
+      h2 {
         color: var(--accent);
+        padding-left: 20px;
+
+        &:before {
+          opacity: 1;
+          color: var(--accent);
+        }
       }
     }
-  }
 
-  &:active {
-    opacity: 1;
+    &:active {
+      opacity: 1;
+    }
   }
 `;
 

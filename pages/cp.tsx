@@ -1,7 +1,6 @@
 import Container from 'components/Container';
 import CPSection from 'components/CP/CPSection';
 import { allCPs, CP } from 'contentlayer/generated';
-import metadata from 'data/metadata';
 import { NextSeo } from 'next-seo';
 import React from 'react';
 

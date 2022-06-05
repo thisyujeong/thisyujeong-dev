@@ -23,11 +23,12 @@ export const NoteAsideContainer = styled.div`
   z-index: 10;
   ${mq({
     display: ['block', 'block', 'fixed'],
-    position: ['absolute', 'relative'],
+    position: ['absolute', 'sticky', 'relative'],
+    top: ['unset', '76px', 'unset'],
     right: ['100%', 'unset'],
     left: ['-240px', '0'],
-    marginLeft: [0, '-10px', 0],
-    paddingBottom: [0, 0, 20],
+    margin: [0, '0 0 0 -10px', '0 -18px'],
+    paddingBottom: [0, 0, 28],
   })}
   ${dynamicVisible}
 `;
@@ -47,7 +48,8 @@ export const NoteAsideInnerContainer = styled.div`
 export const NoteAsideAccordion = styled.div`
   text-align: center;
   margin: -20px -22px 12px;
-  padding: 10px 0;
+  padding: 6px 0;
+  border-bottom: 2px solid var(--text-base-20);
   background: var(--hover-base);
   display: block;
   z-index: 20;
