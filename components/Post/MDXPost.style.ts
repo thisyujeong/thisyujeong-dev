@@ -89,6 +89,10 @@ export const MDXPostContainer = styled.div`
     background-color: var(--code-block);
     overflow-x: auto;
 
+    * {
+      line-height: 1.57em;
+    }
+
     > code {
       width: 100%;
       display: block;
@@ -115,8 +119,14 @@ export const MDXPostContainer = styled.div`
     margin: 0;
     padding-left: 20px;
     margin: 1rem 0;
-    li {
+    > li {
       list-style: disc;
+      ㄱ > ul {
+        margin: 0;
+        li {
+          list-style: circle;
+        }
+      }
     }
   }
 
@@ -192,6 +202,19 @@ export const MDXPostContainer = styled.div`
     .hljs-name,
     .hljs-selector-tag {
       color: #ff6161;
+    }
+  }
+
+  .rehype-code-title {
+    color: #e8b882;
+    font-size: 14px;
+    margin-bottom: -15px;
+    margin-left: 4px;
+    opacity: 0.8;
+    font-style: italic;
+    &:before {
+      content: '🗂';
+      margin-right: 6px;
     }
   }
 `;

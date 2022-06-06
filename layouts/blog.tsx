@@ -11,7 +11,7 @@ const BlogLayout = ({ post }: { post: Blog }) => {
   return (
     <Container>
       <NextSeo
-        title={`${metadata.author} | ${post.title}`}
+        title={`${post.title}`}
         description={post.description}
         canonical={`${metadata.meta.url}/blog/${post.slug}`}
         openGraph={{

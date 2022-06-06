@@ -1,0 +1,175 @@
+---
+title: Next.js 정적 블로그에 TOC 목차 생성하기
+date: 2022-06-06
+description: InteractionObserver API로 TOC 구현하기
+thumbnailUrl: /posts/created-toc-generator.png
+tags:
+  ['next.js', 'next.js blog', 'blog', 'TOC', 'InteractionObserver', 'API', '정적 블로그']
+---
+
+## 내 블로그에 TOC(Table of Contents, 목차)를 추가하자.
+
+벨로그나 다른 개발 블로그를 보면 TOC 가 있는 것을 흔히 볼 수 있다. 직접 사용해 봤을 때 사용 만족도가 최상이었고, 노션을 사용할 때에도 fix된 TOC는 아니지만 긴 문서의 경우 꼭 추가하여 작성하는 편이다.
+
+그래서 블로그 기획 시점부터 TOC 만큼은 반드시 추가해야겠다는 생각이 있었다.
+
+### 어떻게 구현할 것인가?
+
+scroll 이벤트 리스너를 통해 구현할 수도 있겠지만, 스크롤 이벤트의 경우 짧은 시간 내에 수천 수백번의 이벤트가 동기적으로 실행되므로 성능 이슈가 있어 사용하지 않았다.
+
+대신, 이를 보완할 수 있는 InteractionObserver API 를 사용해 구현하기로 한다.
+
+### InteractionObserver API
+
+> Intersection Observer API는 타겟 요소와 상위 요소 또는 최상위 document 의 viewport 사이의 intersection 내의 변화를 비동기적으로 관찰하는 방법이다.
+
+IntersectionObserver는 비동기적으로 실행되기 때문에 스크롤 이벤트와 달리 렌더링 성능 이슈 없이 구현할 수 있다.
+
+### 구현 순서
+
+1. interection observer 생성 함수 작성
+2. 생성한 interection observer에 TOC에 표시될 header id 등록
+3. 스크롤에 따른 하이라이팅 처리
+
+### Observer 생성과 등록
+
+interection observer를 생성한다.
+관찰 대상이 등록되거나 변화가 생기면 callback이 실행되고 옵션을 부여할 수 있다.
+
+```js
+const observer = new IntersectionObserver(callback, options); // 관찰자 초기화(생성)
+observer.observe(element); // 관찰 대상 등록
+```
+
+### Observer options
+
+- root
+  - 설정한 root element 와 관찰 대상의 교차점 여부를 판단
+- threshold
+  - 관찰 대상의 가시성이 얼마나 필요한지 백분율로 표시한다.
+  - 기본 값은 Array타입의 [0], Number 타입의 단일 값 작성도 가능
+- rootMargin
+  - root elemnet를 기준으릐 바깥 여백(Margin)을 이용해 Root 범위를 설정한다.
+  - 입력 포맷은 css margin 과 같다.
+
+## 실전 - 블로그에 등록해보자
+
+### observer 생성
+
+컴포넌트에서 호출해서 사용할 수 있도록 getIntersectionObserver 함수를 생성해 IntersectionObserver를 생성한다.
+
+```ts:lib/observer.ts
+export const getIntersectionObserver = () => {
+  const observer = new IntersectionObserver( // observer 생성
+    (entries) => { console.log(entries) }, // callback
+    options // options
+  );
+  return observer;
+};
+```
+
+### observer에 header 등록
+
+useState를 사용해 스크롤에 따른 현재 목차와 header 들을 저장할 state를 선언한다.
+
+```ts:components/Toc.tsx
+import { useState } from 'react';
+
+const Toc = () => {
+  const [currentId, setCurrentId] = useState<string>('');
+  const [headingEls, setHeadingEls] = useState<Element[]>([]);
+  return ...
+}
+
+export default Toc.
+```
+
+useEffect를 사용해 컴포넌트가 처음 렌더되면 header elements를 저장하고 observer 의 인자로 `setCurrentId` 를 넘겨 observer 내에서 현재 목차를 저장하도록 작성할 것이다.
+
+나는 h2, h3만 표시할 것이므로 headingElements 로 h2, h3 만 저장하고, `observer.observe(header)`로 header 를 등록한다.
+
+```ts:components/Toc.tsx
+  useEffect(() => {
+    const observer = getIntersectionObserver(setCurrentId);
+    const headingElements = Array.from(document.querySelectorAll('h2, h3'));
+
+    setHeadingEls(headingElements);
+
+    headingElements.map((header) => {
+      observer.observe(header);
+    });
+  }, []);
+```
+
+### 스크롤 방향 체크
+
+스크롤 방향을 체크할 변수와 함수를 `getIntersectionObserver` 내에 작성한다.
+
+```ts:lib/observer.ts
+import { Dispatch, SetStateAction } from 'react';
+
+const observerOption = {
+  threshold: 0.4,
+  rootMargin: '-76px 0px 0px 0px',
+};
+
+export const getIntersectionObserver = (setState: Dispatch<SetStateAction<string>>) => {
+  let direction = '';
+  let prevYposition = 0;
+
+  // scroll 방향 check function
+  const checkScrollDirection = (prevY: number) => {
+    if (window.scrollY === 0 && prevY === 0) return;
+    else if (window.scrollY > prevY) direction = 'down';
+    else direction = 'up';
+
+    prevYposition = window.scrollY;
+  };
+
+  // observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      checkScrollDirection(prevYposition);
+
+      if ((direction === 'down' && !entry.isIntersecting) ||
+        (direction === 'up' && entry.isIntersecting)) {
+        setState(entry.target.id);
+      }
+    });
+  }, observerOption);
+
+  return observer;
+}
+```
+
+`entry.isIntersecting` 는 요소의 노출 여부를 boolean 타입으로 반환한다.  
+스크롤 방향에 따른 조건부를 작성하고 인자로 전달받은 setState 를 타겟의 id로 저장하여 observer를 return 한다.
+
+### 옵션 설정
+
+rootMargin 은 header 의 높이 만큼 설정했다.
+
+```js
+const observerOption = {
+  threshold: 0.4,
+  rootMargin: '-76px 0px 0px 0px',
+};
+```
+
+<br />
+
+---
+
+<br />
+
+<img src="/posts/created-toc-generator.gif" alt="toc generator" />
+
+이제 Toc 컴포넌트에서 `console.log(currentId)` 를 출력해보면 현재 목차가 출력되는 것을 확인할 수 있다.
+
+---
+
+## 참고 레퍼런스
+
+InteractionObserver 를 자세히 알고싶다면 아래 링크에서 상세하게 설명해주니 확인해보는 것을 추천한다.  
+[Intersection Observer - 요소의 가시성 관찰](https://heropy.blog/2019/10/27/intersection-observer/)  
+[React에서 Intersection Observer로 TOC 구현하기](https://se9round.dev/post/React%EC%97%90%EC%84%9C%20Intersection%20Observer%EB%A1%9C%20TOC%20%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
