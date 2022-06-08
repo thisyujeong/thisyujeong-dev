@@ -121,7 +121,7 @@ export const MDXPostContainer = styled.div`
     margin: 1rem 0;
     > li {
       list-style: disc;
-      ㄱ > ul {
+      > ul {
         margin: 0;
         li {
           list-style: circle;
