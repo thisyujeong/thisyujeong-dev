@@ -2,14 +2,11 @@ import styled from '@emotion/styled';
 import mq from 'styles/utils/mq';
 
 export const PostCard = styled.div`
-  margin: 0px -14px;
-  padding: 8px 14px;
+  padding: 8px 0;
   cursor: pointer;
 
   @media screen and (min-width: 577px) {
     &:hover {
-      background: var(--hover-base);
-
       h2 {
         color: var(--accent);
         padding-left: 20px;

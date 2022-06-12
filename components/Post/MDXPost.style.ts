@@ -25,37 +25,43 @@ export const MDXPostContainer = styled.div`
   h1 {
     font-size: 28px;
     font-weight: 500;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
+    line-height: 1.57em;
   }
 
   h2 {
     font-size: 26px;
     font-weight: 500;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
+    line-height: 1.57em;
   }
 
   h3 {
     font-size: 22px;
     font-weight: 500;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
+    line-height: 1.57em;
   }
 
   h4 {
     font-size: 18px;
     font-weight: 500;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
+    line-height: 1.57em;
   }
 
   h5 {
     font-size: 17px;
     font-weight: 500;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
+    line-height: 1.57em;
   }
 
   h6 {
     font-size: 16px;
     font-weight: 500;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
+    line-height: 1.57em;
   }
 
   strong {

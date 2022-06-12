@@ -3,13 +3,57 @@ import mq from 'styles/utils/mq';
 
 export const ProfileContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   margin-top: 24px;
+  width: 100%;
+  position: relative;
+
+  ${mq({
+    flexDirection: ['row', 'row', 'row', 'column-reverse'],
+    marginBottom: [0, 0, 0, '50px'],
+  })}
+`;
+
+export const ProfileDesc = styled.div`
+  text-align: left;
+  margin-right: 50px;
+  ${mq({
+    marginRight: ['50px', '50px', '50px', 0],
+  })}
+`;
+
+export const ProfileTitle = styled.div`
+  display: inline-block;
+  color: var(--text-base);
+  font-size: 38px;
+  text-transform: capitalize;
+  font-weight: bold;
+`;
+
+export const ProfileMainDesc = styled.div`
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+export const ProfileSubDesc = styled.div`
+  margin-top: 0.5em;
+  font-size: 16px;
+  font-weight: 300;
+  opacity: 0.8;
 `;
 
 export const ProfileImage = styled.div`
   position: relative;
+  display: block;
+  min-width: 180px;
+  height: 180px;
+  transform: rotateY(180deg);
+  ${mq({
+    marginBottom: [0, 0, 0, '20px'],
+  })}
 
   &:after {
     content: '';
@@ -59,22 +103,5 @@ export const ProfileImage = styled.div`
     to {
       transform: translateY(5px) rotateY(180deg);
     }
-  }
-`;
-
-export const ProfileDesc = styled.div`
-  text-align: center;
-
-  span {
-    display: inline-block;
-    color: var(--text-base);
-    font-size: 18px;
-    text-transform: capitalize;
-  }
-
-  p {
-    margin-top: 4px;
-    font-size: 16px;
-    font-weight: 300;
   }
 `;

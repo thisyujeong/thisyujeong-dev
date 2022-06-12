@@ -4,32 +4,38 @@ import mq from 'styles/utils/mq';
 export const RecentProjectContaner = styled.div`
   display: flex;
 
-  a {
-    flex: 1;
-  }
+  margin: 0 -10px;
 
-  a + a {
+  a {
+    width: 33.3333%;
+    display: block;
+    box-sizing: border-box;
+
+    /* ${mq({
+      padding: ['0 10px', '0 10px', '0'],
+    })} */
     ${mq({
-      marginLeft: ['10px', '10px', '0'],
+      width: ['33.3333%', '33.3333%', '50%', '100%'],
+      padding: ['12px 8px', '12px 8px', '8px', '12px 8px'],
     })}
   }
 
   ${mq({
-    flexDirection: ['row', 'row', 'column'],
+    flexDirection: ['row', 'row', 'row', 'column'],
   })}
 `;
 export const ProjectCard = styled.div`
   display: flex;
-  padding: 8px;
-  height: 100px;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 0.6em;
+  background: var(--card-bg);
+  box-shadow: 0px 6px 14px var(--shadow);
   transition: all 0.2s ease;
-  background: var(--hover-base);
-  border-radius: 4px;
-
-  ${mq({
-    padding: ['8px', '8px', '12px 8px'],
-    marginBottom: [0, 0, '12px'],
-  })}
+  overflow: hidden;
+  &:hover {
+    transform: scale(1.01);
+  }
 
   @media screen and (min-width: 577px) {
     &:hover {
@@ -42,15 +48,15 @@ export const ProjectCard = styled.div`
 
 export const ProjectCardImg = styled.div`
   position: relative;
-  width: 33.333%;
-  border-radius: 4px;
-  overflow: hidden;
 
   &:before {
     content: '';
     position: relative;
     display: block;
     padding-bottom: 64%;
+    ${mq({
+      paddingBottom: ['64%', '64%', '40%'],
+    })}
   }
 
   img {
@@ -60,9 +66,10 @@ export const ProjectCardImg = styled.div`
 `;
 export const ProjectCardCopy = styled.div`
   position: relative;
-  width: 66.666%;
-  margin-left: 12px;
-  margin-top: 4px;
+
+  ${mq({
+    padding: ['12px 16px', '12px 16px', '12px 16px'],
+  })}
 `;
 
 export const ProjectCardTitle = styled.h3`
@@ -77,12 +84,17 @@ export const ProjectCardTitle = styled.h3`
 
 export const ProjectCardDesc = styled.p`
   margin-top: 4px;
-  height: 3.14em;
+  height: 4.68em;
+  word-break: break-word;
   opacity: 0.5;
   font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+
+  ${mq({
+    height: ['4.68em;', '4.68em', '3.14em'],
+  })}
 `;

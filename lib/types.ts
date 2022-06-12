@@ -5,6 +5,7 @@ import type { CP } from 'contentlayer/generated';
 /* Recet Title */
 export type RecentTitleProps = {
   title: string;
+  engTitle: string;
   path: string;
 };
 

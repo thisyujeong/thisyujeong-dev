@@ -2,14 +2,14 @@ import { RecentTitleProps } from 'lib/types';
 import Link from 'next/link';
 import { RecentTitleContainer, RecentTitleText, RecentMore } from './RecentTitle.style';
 
-const RecentTitle = ({ title, path }: RecentTitleProps) => {
+const RecentTitle = ({ title, engTitle, path }: RecentTitleProps) => {
   return (
     <>
       <RecentTitleContainer>
-        <RecentTitleText>Recent {title}</RecentTitleText>
+        <RecentTitleText>최신 {title}</RecentTitleText>
         <RecentMore>
           <Link href={path} passHref>
-            <a>all {title}s</a>
+            <a>all {engTitle}s</a>
           </Link>
         </RecentMore>
       </RecentTitleContainer>

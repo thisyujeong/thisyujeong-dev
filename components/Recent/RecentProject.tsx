@@ -13,7 +13,7 @@ import RecentTitle from './RecentTitle';
 const RecentProject = ({ projects }: { projects: Project[] }) => {
   return (
     <>
-      <RecentTitle title="project" path="/project" />
+      <RecentTitle title="프로젝트" engTitle="project" path="/project" />
       <RecentProjectContaner>
         {projects.map((p) => (
           <a href={p.url} key={p.title} target="_blank" rel="noreferrer">

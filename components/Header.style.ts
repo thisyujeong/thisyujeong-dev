@@ -23,18 +23,31 @@ export const HeaderContainer = styled.header`
     justify-content: space-between;
     align-items: center;
     box-sizing: content-box;
+
     ${mq({
       padding: ['0 22px', '0 22px', '0 12px'],
+      height: ['56px', '56px', '50px'],
     })}
   }
 
-  h1 a {
+  h1 {
     color: var(--text-base);
     font-weight: 600;
 
-    ${mq({
-      fontSize: ['20px', '20px', '16px'],
-      lineHeight: ['56px', '56px', '50px'],
-    })}
+    svg {
+      display: block;
+      width: 24px;
+      height: 24px;
+      path {
+        fill: var(--text-base-70);
+        transition: all 0.2s ease;
+      }
+    }
+
+    &:hover {
+      svg path {
+        fill: var(--text-base);
+      }
+    }
   }
 `;

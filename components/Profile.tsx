@@ -1,11 +1,22 @@
 import metadata from 'data/metadata';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { ProfileContainer, ProfileImage, ProfileDesc } from './Profile.style';
+import {
+  ProfileContainer,
+  ProfileImage,
+  ProfileDesc,
+  ProfileTitle,
+  ProfileMainDesc,
+  ProfileSubDesc,
+} from './Profile.style';
 
 const Profile = () => {
   return (
     <ProfileContainer>
+      <ProfileDesc>
+        <ProfileTitle>{metadata.home.name} 😶‍🌫️</ProfileTitle>
+        <ProfileMainDesc>{metadata.home.description}</ProfileMainDesc>
+        <ProfileSubDesc>{metadata.home.subDescription}</ProfileSubDesc>
+      </ProfileDesc>
       <ProfileImage>
         <Image
           src={metadata.home.image}
@@ -14,10 +25,6 @@ const Profile = () => {
           alt={metadata.home.name}
         />
       </ProfileImage>
-      <ProfileDesc>
-        <span>{metadata.home.name}</span>
-        <p>{metadata.home.description}</p>
-      </ProfileDesc>
     </ProfileContainer>
   );
 };

@@ -16,9 +16,16 @@ export const ProjectCardsContainer = styled.div`
     })}
   }
 `;
+
 export const ProjectCard = styled.div`
   position: relative;
+  background: var(--card-bg);
+  box-shadow: 0px 6px 14px var(--shadow);
+  border-radius: 0.6em;
+  overflow: hidden;
+
   &:hover {
+    transform: scale(1.01);
     transition: all 0.2s ease;
     h2 {
       color: var(--accent);
@@ -31,17 +38,20 @@ export const ProjectCard = styled.div`
 
 export const ProjectCardImg = styled.div`
   position: relative;
-  padding-bottom: 60%;
-  border-radius: 6px;
+  padding-bottom: 64%;
   overflow: hidden;
-  border: 1px solid var(--card-border);
   img {
     position: absolute;
     height: 100%;
   }
 `;
 
-export const ProjectCardCopy = styled.div``;
+export const ProjectCardCopy = styled.div`
+  ${mq({
+    padding: ['12px 16px', '12px 16px', '12px 16px'],
+    marginBottom: [0, 0, '12px'],
+  })}
+`;
 
 export const ProjectCardTitle = styled.h2`
   margin-top: 4px;
@@ -51,7 +61,7 @@ export const ProjectCardTitle = styled.h2`
   overflow: hidden;
   color: var(--text-base);
   ${mq({
-    fontSize: ['14px', '14px', '18px'],
+    fontSize: ['16px', '16px', '18px'],
   })};
 `;
 
@@ -59,15 +69,16 @@ export const ProjectCardDesc = styled.p`
   opacity: 0.5;
   height: 3.14em;
   font-size: 13px;
-  line-height: 1.57em;
+  height: 4.68em;
   overflow: hidden;
+  word-break: break-word;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   transition: all 0.2s ease;
   color: var(--text-base);
   ${mq({
-    fontSize: ['13px', '13px', '15px'],
+    fontSize: ['14px', '14px', '15px'],
   })};
 `;

@@ -13,11 +13,10 @@ export const RecentTitleContainer = styled.div`
 `;
 
 export const RecentTitleText = styled.h2`
-  font-size: 28px;
   font-weight: 500;
   text-transform: capitalize;
   ${mq({
-    fontSize: ['28px', '28px', '24px'],
+    fontSize: ['24px', '24px', '24px'],
   })}
 `;
 
