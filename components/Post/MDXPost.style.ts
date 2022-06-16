@@ -25,42 +25,42 @@ export const MDXPostContainer = styled.div`
   h1 {
     font-size: 28px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 28px 0 0;
     line-height: 1.57em;
   }
 
   h2 {
     font-size: 26px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 24px 0 0;
     line-height: 1.57em;
   }
 
   h3 {
     font-size: 22px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 28px 0 0;
     line-height: 1.57em;
   }
 
   h4 {
     font-size: 18px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 28px 0 0;
     line-height: 1.57em;
   }
 
   h5 {
     font-size: 17px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 28px 0 0;
     line-height: 1.57em;
   }
 
   h6 {
     font-size: 16px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 28px 0 0;
     line-height: 1.57em;
   }
 
@@ -69,11 +69,11 @@ export const MDXPostContainer = styled.div`
   }
 
   p {
-    margin: 1em 0;
+    margin: 0.85em 0;
     code {
-      color: #109a79;
+      color: #314f94;
       padding: 0.25rem 0.5rem;
-      font-size: 0.85em;
+      font-size: 1em;
       margin: 0 2px;
       background-color: var(--code-block);
       border-radius: 3px;
@@ -93,6 +93,7 @@ export const MDXPostContainer = styled.div`
     padding: 9px 16px;
     border-radius: 5px;
     background-color: var(--code-block);
+    margin: 0.85em 0;
     overflow-x: auto;
 
     * {
@@ -131,6 +132,27 @@ export const MDXPostContainer = styled.div`
         margin: 0;
         li {
           list-style: circle;
+        }
+      }
+    }
+  }
+
+  ol {
+    > li {
+      list-style: decimal;
+      p {
+        margin: 0.5em 0;
+      }
+      > ol {
+        margin: 0.5em 0;
+        li {
+          list-style: lower-alpha;
+
+          > ol {
+            > li {
+              list-style: lower-roman;
+            }
+          }
         }
       }
     }
@@ -190,12 +212,9 @@ export const MDXPostContainer = styled.div`
     }
 
     .hljs-built_in,
-    .hljs-function {
+    .hljs-function,
+    .hljs-selector-class {
       color: #4964d6;
-    }
-
-    .hljs-keyword {
-      color: #ff6161;
     }
 
     .hljs-string {
@@ -206,20 +225,26 @@ export const MDXPostContainer = styled.div`
       color: #c2b1a3;
     }
     .hljs-name,
+    .hljs-keyword,
     .hljs-selector-tag {
       color: #ff6161;
+    }
+
+    &.language-csharp {
+      * {
+        color: var(--text-base);
+      }
     }
   }
 
   .rehype-code-title {
-    color: #e8b882;
+    color: #aa865e;
     font-size: 14px;
     margin-bottom: -15px;
     margin-left: 4px;
     opacity: 0.8;
-    font-style: italic;
     &:before {
-      content: '🗂';
+      content: '✦';
       margin-right: 6px;
     }
   }
