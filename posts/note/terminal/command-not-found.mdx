@@ -1,0 +1,19 @@
+---
+title: npm 설치 시 command not found 에러 해결
+date: 2021-06-05
+tags: ['Next', 'Next.js', 'NextJS']
+---
+
+npm global 설치를 했음에도 명령어 입력시 command not found 에러를 뱉을 때,  
+터미널의 경로를 새로 세팅해주면 해결된다.
+
+나같은 경우 nvm 명령어를 사용하려 할 때마다 지속적으로 발생했다.  
+설치하면 다시 실행되지만 다른 커맨드 창에서 실행하면 또 같은 에러가 발생한 경우.
+
+### 문제 해결
+
+아래 명령어로 경로를 다시 세팅해주었다.
+
+```
+npm config set prefix /usr/local
+```
