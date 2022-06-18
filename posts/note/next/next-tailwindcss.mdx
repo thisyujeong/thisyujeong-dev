@@ -1,0 +1,59 @@
+---
+title: next.js 에서 tailwind CSS 사용하기
+date: 2021-06-19
+tags: ['Next', 'Next.js', 'Tailwind', 'TailwindCSS']
+---
+
+[tailwindCSS Install Guid](https://tailwindcss.com/docs/guides/nextjs)
+
+## Create project
+
+```
+npx create-next app my-project
+cd my-project
+```
+
+## Install Tailwind CSS
+
+```
+npm install -D tailwindcss postcss autoprefixer
+```
+
+## Configure
+
+```js:tailwind.config.js
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+## Global CSS setting
+
+```:globals.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Plugins
+
+HTML에서 스타일을 추가할 수 있는 플러그인
+
+```
+yarn add -D @tailwindcss/typography
+```
+
+```js:tailwind.config.js
+module.exports = {
+  content: [ ... ],
+  theme: { ... },
+  plugins: [require("@tailwindcss/typography")],
+};
+```
