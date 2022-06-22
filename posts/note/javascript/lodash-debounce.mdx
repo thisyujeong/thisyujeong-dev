@@ -1,0 +1,47 @@
+---
+title: lodash debounce 메소드
+date: 2021-06-22
+tags: ['Javascript', 'JS', 'lodash', 'debounce', 'lodash debounce']
+---
+
+작업 중 키보드 이벤트 발생 시 transform이 발생하는 예제가 있었는데, 연속해서 여러번 눌러도 한 번의 이벤트만 실행될 수 있도록 수정이 필요한 상황에 사용되었음.
+
+## debounce
+
+> 특정 함수가 여러 번 반복 실행될 경우 반복된 호출을 마지막에 한 번만 호출하도록 제어
+
+- `debounce(콜백함수, 시간)`
+
+```js
+_.debounce(function() { ... }, 1000);
+```
+
+## Example
+
+resize 이벤트가 2초 동안 여러번 호출되더라도 한 번만 호출
+
+```jsx
+window.onresize = _.debounce(() => {
+  console.log('window resize.');
+}, 2000);
+```
+
+### 실제 사용했던 코드
+
+> React + TS 환경
+
+- 어떤 하위 엘리먼트에 포커스가 될 때마다 onStartVideo 함수가 실행되어야 함
+- 3초 내에 여러번의 포커스가 일어나도 onStartVideo 함수는 한 번만 호출됨
+
+```tsx
+import { debounce } from "lodash";
+
+const Comp = (()) => {
+  const delayedQuery = useCallback(
+    debounce((q: string) => onStartVideo(q), 300)
+  , []);
+
+  const onStartVideo = useCallback((url = initVideo)=> {}, [])
+  return ...
+}
+```

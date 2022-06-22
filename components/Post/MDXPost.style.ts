@@ -108,7 +108,7 @@ export const MDXPostContainer = styled.div`
 
   blockquote {
     margin: 0.5rem 0;
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 1rem;
     position: relative;
     border-left: 4px solid var(--mdx-border);
 
