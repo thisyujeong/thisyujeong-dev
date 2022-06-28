@@ -17,7 +17,7 @@ export const TitleContainer = styled.div`
   }
 
   p {
-    font-size: 14px;
+    font-size: 16px;
     opacity: 0.5;
   }
 `;

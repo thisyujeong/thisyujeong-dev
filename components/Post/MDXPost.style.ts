@@ -9,7 +9,7 @@ export const MDXPostContainer = styled.div`
 
   * {
     color: var(--text-base);
-    font-size: 15px;
+    font-size: 17px;
     line-height: 2em;
   }
 
@@ -71,7 +71,7 @@ export const MDXPostContainer = styled.div`
   p {
     margin: 0.85em 0;
     code {
-      color: #314f94;
+      color: #109a79;
       padding: 0.25rem 0.5rem;
       font-size: 1em;
       margin: 0 2px;

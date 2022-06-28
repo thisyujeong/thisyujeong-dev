@@ -9,7 +9,7 @@ export const AsideItemTitle = styled.span`
   display: block;
   color: var(--accent);
   padding-left: 8px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 2em;
   padding-left: 8px;
@@ -63,6 +63,7 @@ export const AsideItemAnchor = styled.a`
   padding: 4px 10px 4px 10px;
   margin: 4px 0 4px 10px;
   color: var(--text-base);
+  font-size: 15px;
   line-height: 1.5;
   transition: all 0.2s ease;
 
@@ -73,7 +74,7 @@ export const AsideItemAnchor = styled.a`
 
   &[data-selected='true'] {
     opacity: 1;
-    color: var(--accent);
+    font-weight: 600;
   }
 
   @media screen and (max-width: 576px) {

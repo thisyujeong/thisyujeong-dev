@@ -25,7 +25,7 @@ export const TocItem = styled.div`
     line-height: 1.5em;
     color: var(--text-base) !important;
     color: var(--text-base) !important;
-    font-size: 14px;
+    font-size: 15px;
     opacity: 0.5;
     transition: all 0.1s ease;
     &:hover {
