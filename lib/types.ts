@@ -28,6 +28,7 @@ export type MDXPostProps = {
   title: string;
   date?: string;
   url?: string;
+  path?: string;
 };
 
 /* Project */

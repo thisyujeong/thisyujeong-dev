@@ -252,6 +252,75 @@ export const MDXPostContainer = styled.div`
 
 export const MDXPostSection = styled.section``;
 
+export const MDXPostHead = styled.div`
+  position: relative;
+`;
+
+export const ClipboardCopyBtn = styled.button`
+  position: relative;
+  display: block;
+  height: 32px;
+  width: 32px;
+
+  svg {
+    fill: var(--icon-color);
+    width: 20px;
+    height: 32px;
+    transition: all 0.2s ease;
+  }
+
+  &:after {
+    content: 'copy';
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    padding: 4px 8px 6px;
+    color: var(--bg);
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 4px;
+    background: var(--text-base);
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-right: 6px solid var(--text-base);
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  &:hover {
+    svg {
+      fill: var(--text-base);
+    }
+
+    &:before,
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    svg {
+      transform: scale(0.95);
+      fill: var(--accent);
+    }
+  }
+`;
+
 export const MDXPostTitle = styled.h1`
   font-size: 30px !important;
   margin-top: 0 !important;

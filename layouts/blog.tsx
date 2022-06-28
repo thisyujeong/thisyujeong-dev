@@ -23,7 +23,11 @@ const BlogLayout = ({ post }: { post: Blog }) => {
           },
         }}
       />
-      <MDXPost title={post.title} date={post.date}>
+      <MDXPost
+        title={post.title}
+        date={post.date}
+        path={`${metadata.meta.url}/blog/${post.slug}`}
+      >
         <MDXComponent />
       </MDXPost>
       <GiscusArea slug={post.slug} />
