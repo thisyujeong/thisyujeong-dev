@@ -257,15 +257,19 @@ export const MDXPostHead = styled.div`
 `;
 
 export const ClipboardCopyBtn = styled.button`
+  margin-top: 10px;
   position: relative;
   display: block;
-  height: 32px;
-  width: 32px;
+  height: 38px;
+  width: 38px;
+  border-radius: 20%;
+  background: var(--mdx-icon-bg);
+  transition: all 0.1s ease;
 
   svg {
-    fill: var(--icon-color);
+    fill: var(--mdx-icon-color);
     width: 20px;
-    height: 32px;
+    height: 38px;
     transition: all 0.2s ease;
   }
 
@@ -315,7 +319,7 @@ export const ClipboardCopyBtn = styled.button`
 
   &:active {
     svg {
-      transform: scale(0.95);
+      transform: scale(0.9);
       fill: var(--accent);
     }
   }

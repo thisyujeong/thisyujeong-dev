@@ -187,6 +187,8 @@ body {
   --card-bg: #fff;
   --card-border: #ececf3;
   --mdx-border: #dfe2e5;
+  --mdx-icon-color: #2c3e5070;
+  --mdx-icon-bg: #dfdfdf4d;
 }
 
 body[data-theme='dark'] {
@@ -210,4 +212,6 @@ body[data-theme='dark'] {
   --card-bg: #212121;
   --card-border: var(--text-base-40);
   --mdx-border: #dfe2e535;
+  --mdx-icon-color: #dfdfdf70;
+  --mdx-icon-bg: #eeeefb20;
 }
