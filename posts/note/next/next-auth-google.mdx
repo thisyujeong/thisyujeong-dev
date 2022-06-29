@@ -1,0 +1,138 @@
+---
+title: Next-auth 구글 로그인 구현
+date: 2021-06-29
+tags: ['Next', 'Next.js', 'NextJS', 'next-auth', 'google']
+---
+
+## next-auth 설치
+
+```bash
+yarn add -D next-auth
+```
+
+## 환경변수 설정
+
+루트 경로에 `.env.local` 파일 추가 후 환경변수를 설정한다.
+
+```bash
+NEXTAUTH_URL=http://localhost:3000
+SECRET=
+GOOGLE_ID=
+GOOGLE_SECRET=
+```
+
+### **`NEXTAUTH_URL`**
+
+- 기본 host 설정. 개발/운영 배포시 각 환경에 맞는 BASE_URL 값으로 조정
+- Default host setting. During development/production deployment, adjust to the BASE_URL value for each environment.
+
+### **`GOOGLE_ID`, `GOOGLE_SECRET`**
+
+- [Google Cloud platform](https://console.cloud.google.com/?hl=ko)에서 발급한 ID 및 비밀 코드 할당.
+- Allocation of ID and secret code issued by [Google Cloud platform](https://console.cloud.google.com/?hl=ko).
+- [발급 방법 참고](https://blog.bud-it.com/next-auth-google/)
+
+### **`SECRET`**
+
+- 임의의 난수를 발생시켜 프로젝트 별 고유값으로 설정.
+- An arbitrary random number is generated and set to a unique value for each project.
+  ```bash
+  openssl rand -hex 32
+  ```
+
+## 세션 사용 설정
+
+`./pages/_app.tsx` 에서 `Component` 를 `SessionProvider`로 감싸준다.
+
+```js:./pages/_app.tsx
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <SessionProvider session={pageProps.session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
+}
+
+export default MyApp;
+```
+
+## next-auth API 설정
+
+`./pages/api` 디렉토리에 auth 디렉토리 생성 후 `[…nextauth].ts` 파일 추가
+
+```js:./pages/api/auth/[...nextauth].ts
+import NextAuth from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+
+export default NextAuth({
+  /* 사용할 서비스 제공자 설정.
+   * 소셜 로그인 추가할 때 이곳에서 설정을 추가한다. */
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
+  ],
+
+  /* jwt 사용을 위한 임의의 난수를 할당 */
+  secret: process.env.SECRET,
+
+  /* 세션 전략을 jwt로 설정 */
+  session: {
+    strategy: 'jwt',
+  },
+});
+```
+
+## 로그인 버튼 추가
+
+```js
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Layout from '../components/layout';
+
+const Page = () => {
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
+  return (
+    <Layout headerOption={{ title: '로그인' }}>
+      <div>
+        {!session && (
+          <ul>
+            <li>
+              <a
+                href={'/api/auth/signin'}
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn('google');
+                }}
+              >
+                Google Sign in
+              </a>
+            </li>
+          </ul>
+        )}
+      </div>
+      <div>
+        {session?.user && (
+          <a
+            href={'/api/auth/signout'}
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+          >
+            Sign out
+          </a>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default Page;
+```

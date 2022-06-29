@@ -103,6 +103,12 @@ export const MDXPostContainer = styled.div`
     > code {
       width: 100%;
       display: block;
+      font-size: 16px;
+      line-height: 1.57em;
+      * {
+        font-size: 16px;
+        line-height: 1.57em;
+      }
     }
   }
 
@@ -113,10 +119,12 @@ export const MDXPostContainer = styled.div`
     border-left: 4px solid var(--mdx-border);
 
     & p {
+      font-size: 16px;
       display: inline;
       color: #8a929b;
 
       * {
+        font-size: 16px;
         color: var(--text-base-70);
       }
     }

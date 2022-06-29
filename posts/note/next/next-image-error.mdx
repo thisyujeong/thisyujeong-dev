@@ -1,0 +1,23 @@
+---
+title: Next.js Image hostname 에러 해결
+date: 2021-06-29
+tags: ['Next', 'Next.js', 'NextJS', 'Next.js Image', 'hostname']
+---
+
+Next.js 에서 `Image` 태그의 `src` 로 도메인 url 을 입력하면 발생하는 에러
+
+> Unhandled Runtime Error
+> Error: Invalid src prop (https://lh3.googleusercontent.com/...) on `next/image`, hostname "lh3.googleusercontent.com" is not configured under images in your `next.config.js`
+> See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+
+`next.config.js` 에 해당 도메인을 추가해주면 해결된다.
+
+```js:next.config.js
+module.exports = {
+  ...
+  images: {
+    domains: ['lh3.googleusercontent.com', 'localhost']
+  },
+  ...
+}
+```
