@@ -1,23 +1,12 @@
-import {
-  ComputedFields,
-  defineDocumentType,
-  makeSource,
-  LocalDocument,
-} from 'contentlayer/source-files';
+import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeHighlight from 'rehype-highlight';
+import { DocumentGen } from 'contentlayer/core';
 
-export const computedFields: ComputedFields = {
-  slug: {
-    type: 'string',
-    resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, ''),
-  },
-};
-
-export const urlFromFilePath = (doc: LocalDocument): string => {
+export const urlFromFilePath = (doc: DocumentGen): string => {
   return doc._raw.flattenedPath.replace(/pages\/?/, '');
 };
 
@@ -71,7 +60,12 @@ export const Blog = defineDocumentType(() => ({
       default: [],
     },
   },
-  computedFields,
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, ''),
+    },
+  },
 }));
 
 export const CP = defineDocumentType(() => ({
