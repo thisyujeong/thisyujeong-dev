@@ -1,0 +1,159 @@
+---
+title: 문제해결 패턴 - 빈도수 세기
+date: 2022-08-07
+tags:
+  ['algorithm', 'data structure', '자료구조', '알고리즘', '빈도수 세기', '문제해결 패턴']
+---
+
+> [JavaScript 알고리즘 & 자료구조 마스터 클래스](!https://www.udemy.com/course/best-javascript-data-structures/) 강의를 듣고 작성하는 강의노트 3
+
+## 문제해결 패턴 - 빈도수 세기
+
+> Frequency Counter
+
+말 그대로 특정 문자열, 배열 등이 주어졌을 때 요소들의 빈도 수를 체크하여 풀어내는 방식이다. 간단한 예제를 통해 알아보자.
+
+## Example
+
+1. 두 개의 배열을 허용하는 same 이라는 함수를 작성한다.
+2. 첫 번째 배열의 모든 값이 두번째 배열에 순서와 무관하게 제곱되어 포함될 경우 `true` 를 반환한다.
+3. 단, 빈도는 동일해야 한다.
+
+```js
+same([1, 2, 3], [4, 1, 9]); // true
+same([1, 2, 3], [1, 9]); // false
+same([1, 2, 1], [4, 4, 1]); // false, 빈도가 동일해야 한다.
+```
+
+## Solution
+
+가장 일반적인 접근법으로 For loop 내에서 indexOf를 사용해 Nested loop(중첩된 루프)가  
+사용되고 있어 시간 복잡도는 O(n<sup>2</sup>) 이다.
+
+```js
+function same(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    let correctIndex = arr2.indexOf(arr1[i] ** 2);
+    if (correctIndex === -1) {
+      return false;
+    }
+    arr2.splice(correctIndex, 1);
+  }
+  return true;
+}
+```
+
+> Nested loop 보다 두개의 loop 를 사용하는 것이 좋다. 이는 시간 복잡도를 O(n)으로 유지할 수 있다.
+
+위 코드를 Frequency Counter 패턴을 사용해 리팩토링 해보자.
+
+### Refactored (Frequency Counter)
+
+- 시간 복잡도 O(n)
+
+```js
+function same(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  let frequencyCounter1 = {};
+  let frequencyCounter2 = {};
+  for (let val of arr1) {
+    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
+  }
+  for (let val of arr2) {
+    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+  }
+  for (let key in frequencyCounter1) {
+    if (!(key ** 2 in frequencyCounter2)) {
+      return false;
+    }
+    if (frequencyCounter2[key ** 2] !== frequencyCounter1[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+same([1, 2, 3, 2], [9, 1, 4, 4]);
+```
+
+> 이처럼 빈도 카운터의 개념은 보통 **객체를 사용한 다는 것**이 핵심이다.두 배열을 객체로 쪼개 만든 후 분류하여 두 객체를 비교한 방식이다.
+
+객체를 사용하여 프로파일을 구성하는 것은 배열이나 문자열의 내용을 분석하는 방법으로 보통 배열이나 문자열과 같은 선형 구조를 구성하는 것이다. 이는 해당 분석을 문자열이나 배열에서 생성된 다른객체의 형태와 신속하게 비교할 수 있다.
+
+## 애너그램 도전 과제
+
+두 문자열이 주어질 때, 두 문자열에 대해 서로 애너그램일 경우 true, 아닐경우 false 를 반환하는 코드를 작성하라.
+
+> 애너그램이란, 단어나 문장을 구성하고 있는 문자의 순서를 바꾸어 다른 단어나 문장을 만드는 놀이이다.
+
+즉 문자의 순서는 다를 수 있으나 각 문자의 수는 동일해야 하며 문자의 길이 또한 동일해야 한다.
+
+### 나의 풀이 - 정답
+
+```js
+function validAnagram(str1, str2) {
+  // 두 문자열의 길이가 같은지 검토. 다르다면 false 반환
+  if (str1.length !== str2.length) {
+    return false;
+  }
+  if (str1 === str2) return true;
+  // 두 문자열의 비교하기 위한 객체 생성
+  let frequencyCounter1 = {};
+  let frequencyCounter2 = {};
+
+  // str1 의 각 문자 수 세기
+  for (let val of str1) {
+    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
+  }
+  // str2 의 각 문자 수 세기
+  for (let val of str2) {
+    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+  }
+  // 생성한 두 객체의 키가 같은지 비교
+  for (let key in frequencyCounter1) {
+    if (!(key in frequencyCounter2)) {
+      return false;
+    }
+    if (frequencyCounter2[key] !== frequencyCounter1[key]) {
+      return false;
+    }
+  }
+  // 위 모든 과정에 옳다면 true 반환
+  return true;
+}
+```
+
+### 다른 풀이
+
+```js
+function validAnagram(first, second) {
+  if (first.length !== second.length) {
+    return false;
+  }
+
+  const lookup = {};
+
+  for (let i = 0; i < first.length; i++) {
+    let letter = first[i];
+    // if letter exists, increment, otherwise set to 1
+    lookup[letter] ? (lookup[letter] += 1) : (lookup[letter] = 1);
+  }
+
+  for (let i = 0; i < second.length; i++) {
+    let letter = second[i];
+    // can't find letter or letter is zero then it's not an anagram
+    if (!lookup[letter]) {
+      return false;
+    } else {
+      lookup[letter] -= 1;
+    }
+  }
+  return true;
+}
+```
