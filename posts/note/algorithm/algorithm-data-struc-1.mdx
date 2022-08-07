@@ -1,7 +1,7 @@
 ---
-title: JS 알고리즘 & 자료구조 강의노트 1 (Big O)
-date: 2021-06-05
-tags: ['algorithm', 'data structure', '자료구조', '알고리즘']
+title: JS 알고리즘 & 자료구조 강의노트 1
+date: 2022-08-06
+tags: ['algorithm', 'data structure', '자료구조', '알고리즘', 'Big O', '빅오']
 ---
 
 > [JavaScript 알고리즘 & 자료구조 마스터 클래스](!https://www.udemy.com/course/best-javascript-data-structures/) 강의를 듣고 작성하는 강의노트
@@ -58,7 +58,7 @@ function add(n) {
 3. for loop의 `i <= n` 연산 **n번**
 4. for loop의 `i++` 연산 **n번**
 5. `total += i` 의 `+` 연산 **n번**
-6. `total += i`의 `=` 여산 **n번**
+6. `total += i`의 `=` 연산 **n번**
 
 총 5n+2 번 일어난다. 즉, case 1 의 속도가 더 빠른 것을 알 수 있다.
 
@@ -151,7 +151,7 @@ function print(n) {
 ### 공간 복잡도 규칙
 
 - boolean, number, undefined, null은 자바스크립트에서 모두 불변 공간이다.
-  - 입력의 크기와 상관없이 숫자가 1이든 1000이든 모두 불변 공간
+  - 입력의 크기와 상관없이 숫자가 1이든 1000이든 모두 불변 공간 O(1)
 - 문자열은 O(n)공간이 필요하다.
 - reference 타입, 배열, 객체도 O(n)
 
