@@ -1,0 +1,99 @@
+---
+title: 문제해결 패턴 - 다중 포인터
+date: 2022-08-08
+tags: ['algorithm', 'data structure', '자료구조', '알고리즘', '다중 포인터']
+---
+
+> [JavaScript 알고리즘 & 자료구조 마스터 클래스](!https://www.udemy.com/course/best-javascript-data-structures/) 강의를 듣고 작성하는 강의노트 4  
+> \* 다중 포인터(Multi Pointers)라는 명칭은 공식 명칭이 아니다. 본 글에서는 이를 '다중 포인터'라고 명명한다.
+
+## 다중포인터의 개념
+
+인덱스나 위치에 해당하는 포인터나 값을 만든 다음 특정 조건에 따라 중간 지점에서 부터 시작•끝•양쪽 지점을 향해 이동시키는 것이다.
+즉, 배열이나 문자열과 같은 일종의 선형 구조나 이중 연결 리스트, 단일 연결 리스트를 만든다.
+
+## 간단한 예제 1
+
+오름차순으로 정렬된 배열을 인자로 받는 `sumZero` 함수로, 함계가 0인 첫번째 쌍을 찾는다.
+
+```js
+sumZero([-3, -2, -1, 0, 1, 2, 3]); // [-3, 3]
+sumZero([-2, 0, 1, 3]); // undefined
+sumZero([1, 2, 3]); // undefined
+```
+
+### 흔한 해결책
+
+- 시간 복잡도 O(N<sup>2</sup>)
+- 공간 복잡도 O(1)
+
+Nested loop 로 시간 복잡도 효율성이 떨어진다.
+
+```js
+function sumZero(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === 0) {
+        return [arr[i], arr[j]];
+      }
+    }
+  }
+}
+```
+
+### 리팩토링
+
+두 개의 포인터를 사용한 리팩토링 솔루션이다.  
+하나는 왼쪽에서 0 의 인덱스에서 시작하고, 다른 하나는 배열의 마지막 인덱스에 시작한다.
+
+- 시간 복잡도 O(N)
+- 공간 복잡도 O(1)
+
+```js
+function sumZero(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    let sum = arr[left] + arr[right];
+    if (sum === 0) {
+      return [arr[left], arr[right]];
+    } else if (sum > 0) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+}
+
+sumZero([-4, -3, -2, -1, 0, 1, 2, 3, 10]); // [-3, 3]
+sumZero([-4, -3, -2, -1, 0, 5, 10]); // undefined
+```
+
+## 간단한 예제 2
+
+오름차순으로 정렬된 배열을 인자로 받는 `countUniqueValues` 함수로, 해당 배열의 고유한 값의 개수를 반환한다.
+
+- 두개의 포인터가 사용됐다.
+- 루프가 한 번만 적용되기 때문에 시간 복잡도는 O(n)
+
+```js
+function countUniqueValues(arr) {
+  if (arr.length === 0) return 0;
+  let i = 0;
+  for (let j = 1; j < arr.length; j++) {
+    if (arr[i] !== arr[j]) {
+      i++;
+      arr[i] = arr[j];
+    }
+  }
+  return i + 1;
+}
+```
+
+```js
+countUniqueValues([]); // 0
+countUniqueValues([1, 1, 1, 1, 1, 2]); // 2
+countUniqueValues([1, 2, 2, 5, 7, 7, 99]); // 5
+countUniqueValues([1, 1, 2, 3, 3, 4, 5, 6, 6, 7]); // 7
+countUniqueValues([-2, -1, -1, 0, 1]); // 4
+```
