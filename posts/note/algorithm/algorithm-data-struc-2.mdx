@@ -1,0 +1,68 @@
+---
+title: JS 알고리즘 & 자료구조 강의노트 2
+date: 2022-08-07
+tags: ['algorithm', 'data structure', '자료구조', '알고리즘', 'Big O', '빅오']
+---
+
+> [JavaScript 알고리즘 & 자료구조 마스터 클래스](!https://www.udemy.com/course/best-javascript-data-structures/) 강의를 듣고 작성하는 강의노트
+
+## 배열과 오브젝트의 성능 평가
+
+### 객체 (Objects)
+
+객체는 순서가 없고, key와 value를 사용해 속도가 빠르다.
+
+- 삽입(Insertion) = O(1)
+- 삭제(Removal) = O(1)
+- 검색(Searching) = O(N)
+- 접근(Access) = O(1)
+
+### 객체 메소드의 Big O
+
+- `Object.keys` = O(N)
+- `Object.values` = O(N)
+- `Object.entries` = O(N)
+- `hasOwnProperty` = O(1)
+
+```js
+let instructor = {
+  firstName: 'Kelly',
+  isInstructor: true,
+  favoriteNumbres: [1, 2, 3, 4],
+};
+
+console.log(Object.keys(instructor));
+// output: ['firstName', 'isInstructor', 'favoriteNumbres']
+console.log(Object.values(instructor));
+// output: ['Kelly', true, Array(4)]
+console.log(Object.entries(instructor));
+/* output: [
+  ['firstName', 'Kelly'],
+  ['isInstructor', true],
+  ['favoriteNumbres', Array(4)]
+] */
+console.log(instructor.hasOwnProperty('firstName'));
+// output: true
+```
+
+### 배열 (Array)
+
+1. 객체와 다르게 정렬되어 있는 자료구조이다.
+2. 정렬되어있는 데이터가 위해 사용한다.
+3. 빠른 접근이 가능하다.
+
+- 삭제(Searching) = O(N)
+- 접근(Access) = O(1)
+
+### 배열 메소드의 Big O
+
+- `Array.push` = O(1)
+  - 배열의 끝에 삽입하는 것으로 인덱스에 영향을 주지 않아 상수로 표현한다.
+- `Array.pop` = O(1)
+  - 배열의 마지막 요소를 제거하는 것으로 인덱스에 영향을 주지 않아 상수로 표현한다.
+- `Array.shift` = O(N)
+- `Array.unshift` = O(N)
+- `Array.concat` = O(N)
+- `Array.slice` = O(N)
+- `Array.sort` = O(N \* logN)
+- `Array.forEach/map/filter/reduce/etc` = O(N)
