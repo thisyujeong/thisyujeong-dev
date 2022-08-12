@@ -1,0 +1,142 @@
+---
+title: 재귀 & 팩토리얼
+date: 2022-08-06
+tags: ['algorithm', 'data structure', '자료구조', '알고리즘', '재귀', 'Recursion']
+---
+
+> [JavaScript 알고리즘 & 자료구조 마스터 클래스](!https://www.udemy.com/course/best-javascript-data-structures/) 강의를 듣고 작성하는 강의노트
+
+## 재귀(Recursion) 개념
+
+재귀는 자기 자신을 호출하는 절차, 코드상에서는 함수를 의미한다.
+
+- 자바스크립트의 함수를 호출하기 위해 호출 스택(Call Stack) 자료구조를 사용한다.
+- 재귀 함수는 종료조건 반드시 포함한다.
+
+### 재귀 예시 1
+
+인자로 전달받는 수(num)부터 시작해 카운트다운하는 함수다. `num` 이 0 이 될 때까지 재귀함수로 호출하여 반복하고, 0이 되면 종료한다.
+
+```js
+function countDown(num) {
+  if (num <= 0) {
+    console.log('All done!');
+    return;
+  }
+  console.log(num);
+  num--;
+  countDown(num);
+}
+
+countDown(5);
+```
+
+### 재귀 예시 2
+
+1부터 인자로 전달받은 수까지의 합을 구하는 재귀함수다.  
+인자로 3가 입력됐다면 `3 + 2 + 1 = 6` 이 될 것이다.
+
+```js
+function sumRange(num) {
+  if (num === 1) return 1; // 종료조건
+  return num + sumRange(num - 1);
+}
+```
+
+## 팩토리얼(Factorial) 개념
+
+팩토리얼은 주어진 수보다 작거나 같은 모든 양의 정수의 곱이다. n이 하나의 자연수일 때, 1부터 n까지의 모든 자연수의 곱을 n에 상대하여 이르는 말이다. 팩토리얼은 느낌표(!)를 붙여 표기한다.
+
+```
+1! = 1
+2! = 2 * 1 = 2
+3! = 3 * 2 * 1 = 6
+4! = 4 * 3 * 2 * 1 = 24
+```
+
+## 재귀 팩토리얼을 구현해보자.
+
+### 비재귀적 구현
+
+for 반복문을 통해 구현한 팩토리얼
+
+```js
+function factorial(num) {
+  let total = 1;
+  for (let i = num; i > 0; i--) {
+    total *= i;
+  }
+  return total;
+}
+```
+
+### 재귀적 구현
+
+재귀를 통해 구현한 팩토리얼
+
+```js
+function factorial(num) {
+  if (num > 0) return 1;
+  return num * factorial(num - 1);
+}
+```
+
+## 주의할 점
+
+- 종료 조건은 필수적으로 존재해야한다.
+  - 종료 조건이 없으면 함수가 무한정 반복되어
+    `Uncaught RangeError: Maximum call stack size exceeded.` 에러가 발생한다. (Stack Overflow!)
+- 반드시 값을 반환해야하며 잘못된 값을 반환하지 않아야 한다.
+  - 잘못된 값을 전달해 종료 조건에 해당되지 않을 시 Stack Overflow 에러가 발생한다.
+- Stack Overflow!
+
+## Helper 메소드 재귀
+
+> Helper Method Recursion
+
+위에서 살펴보았던 모든 재귀 함수는 팩토리얼과 같이 **단일 단독함수(single standalone function)** 였다.
+
+헬퍼 메소드 재귀에는 외부 함수와 재귀함수가 있는데,
+해당 예제에서 외부함수(outer function)는 outer 함수를 말하고, 재귀함수는 outer 함수 내에 있는 helper 함수를 말한다.
+
+배열이나 데이터 목록 같은 자료들을 컴파일해야할 때 흔히 사용한다.
+
+```js
+// 외부함수
+function outer(input) {
+  let couterScopedVariable = [];
+
+  // 재귀함수
+  function helper(helperInput) {
+    helper(helperInput--);
+  }
+  helper(input);
+  return couterScopedVariable;
+}
+```
+
+아래 코드처럼 재귀함수 자체에서 데이터(result)를 제어하게 되면 result의 데이터는 해당 함수가 실행될 때마다 빈 배열로 초기화 된다. 그럼 데이터는 어떻게 수집할까?
+
+```js
+function collect(nums) {
+  let result = []; // x
+  // ... 종료조건
+  collect();
+}
+ㄴ;
+```
+
+이를 해결하고자 헬퍼 메소드 재귀를 사용해 외부 함수에 정의한다.
+
+## 순수 재귀
+
+헬퍼 메소드 재귀가 어떤 문제의 유일한 방법은 아니며 순수재귀를 통해 같은 작업을 수행할 수 있다.
+순수 재귀의 경우 필요한 모든 코드가 함수 자체에 포함된는 재귀다.
+
+개인적으로 순수 재귀보다 헬퍼 메소드 재귀를 통해 구현하는 것이 더 직관적이고 쉬운 것 같다.
+
+### 주의할 점
+
+1. 배열의 경우, 원본을 변경하지 않도록 배열 복사본을 만드는 slice, spread operator 및 concat과 같은 배열 메소드 사용을 권장한다.
+2. 문자열 같은 경우, 문자열의 복사본을 만드는 slice, substr 또는 substring과 같은 메서드를 사용한다.
+3. 객체의 경우, 객체의 복사본을 만드는 Object.assign 또는 스프레드 연산자를 사용한다.
