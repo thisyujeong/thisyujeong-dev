@@ -1,0 +1,102 @@
+---
+title: 탐색 알고리즘
+date: 2022-08-13
+tags:
+  [
+    'algorithm',
+    'data structure',
+    'Searching algorithm',
+    '자료구조',
+    '알고리즘',
+    '탐색 알고리즘',
+  ]
+---
+
+> [JavaScript 알고리즘 & 자료구조 마스터 클래스](!https://www.udemy.com/course/best-javascript-data-structures/) 강의를 듣고 작성하는 강의노트
+
+## 선형 탐색 (Linear Search)
+
+선형 탐색은 탐색 알고리즘의 가장 기초가 되는 알고리즘이다.
+구현이 매우 쉽다는 장점이 있는 반면, 배열의 크기가 커질수록 탐색 시간이 증가하여 오래 걸린다는 단점이 있다.
+
+자바스크립트에는 선형 검색 기능이 있는데, `indexOf`, `includes`, `find`, `findIndex` 와 같은 함수들이 이에 해당한다.
+이는 세트 간격으로 이동하면서 한 번에 하나의 항목을 확인하는 방식으로 모든 항목을 확인한다.
+
+### 의사 코드
+
+의사코드(Pseudocode)를 통해 선형 탐색 알고리즘을 구현할 수 있다.
+`linearSearch` 함수는 indexOf 와 같은 기능을 하는 선형 탐색 함수다.
+
+```js
+function linearSearch(arr, val) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === val) return i;
+  }
+  return -1;
+}
+
+linearSearch([34, 56, 1, 2], 1); // 2
+```
+
+### 선형 검색 빅오(Big O)
+
+```
+O(1)       O(n)       O(n)
+Best      Average     Worst
+```
+
+한 배열을 인덱스를 통해 접근 한다면 시간 복잡도는 O(1)으로 최고의 시간 복잡도를 가질 것이다.
+반면에 한 배열에 100개의 정수가 존재할 때 마지막 값을 찾고 있거나, 배열에 포함되지 않은 값을 찾으려 한다면 검색을 100번 수행하여 최악의 시간 복잡도 O(n)가 된다.
+
+그렇다면 50개의 항목이 있다고 가정해볼 때, 시간 복잡도는 어떨까?
+
+검색을 50번 수행할 것이고 이 또한 평균은 O(n)이다. 평균적으로 O(n)보다는 적다고 생각할 수 있지만, 빅오의 경우 광범위한 경향에만 신경쓰기 때문에 2 \* n, n / 2, ... 등과 같은 정수부분은 신경쓰지 않는다.
+
+## 이진 탐색 (Binary Search)
+
+- 훨씬 더 빠르게 잡업을 완료할 수 있다.
+- 탐색 범위를 절반으로 나누어 좁혀나가면서 탐색헌다.
+- 탐색 대상인 데이터가 오름차순/내림차순으로 정렬되어 있는 경우에 사용할 수 있다.
+- 분할 정복(Divide and Conquer)을 기초로 한다.
+
+예를 들어보자.
+
+이와 같은 배열에 15개의 데이터가 존재한다. 우리가 찾고자 하는 수는 21이다.
+
+```
+[1, 3, 4, 6, 4, 10, 12, 15, 19, 20, 21, 26, 28, 31, 35]
+```
+
+1. 중간 지점을 찾아 찾고자하는 수 21과 비교한다.
+2. 21 보다 작다. 좌측의 값들은 탐색할 필요가 없어져 탐색 범위에서 제외한다.
+   > [~~1, 3, 4, 6, 4, 10, 12, 15~~, 19, 20, 21, 26, 28, 31, 35]
+3. 남은 범위에서 1~2번의 과정을 반복해 중간 지점의 값이 21과 일치한다면 종료한다.
+
+### 의사코드
+
+의사코드(Pseudocode)를 통해 이진 탐색 알고리즘을 구현할 수 있다.
+
+```js
+function binarySearch(arr, elem) {
+  let start = 0;
+  let end = arr.length - 1;
+  let middle = Math.floor((start + end) / 2);
+
+  while (arr[middle] !== elem && start <= end) {
+    if (elem < arr[middle]) end = middle - 1;
+    else start = middle + 1;
+    middle = Math.floor((start + end) / 2);
+  }
+  if (arr[middle] === elem) return middle;
+  return -1;
+}
+
+binarySearch([2, 4, 5, 9, 13, 15, 28, 30], 15);
+```
+
+### 이진 탐색 빅오(Big O)
+
+```
+O(1)             O(log n)
+Best      Worst & Average Case
+```
