@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const CPHeader = styled.div`
   position: relative;
@@ -57,6 +58,10 @@ export const CPList = styled.ul`
     position: relative;
     width: 50%;
     display: block;
+
+    ${mq({
+      width: ['50%', '50%', '100%'],
+    })}
 
     &:hover {
       background: var(--hover-base);
