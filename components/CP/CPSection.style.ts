@@ -1,12 +1,16 @@
 import styled from '@emotion/styled';
 
-export const CPHeader = styled.h2`
-  text-align: center;
-  font-size: 1.5em;
-  line-height: 2;
+export const CPHeader = styled.div`
+  position: relative;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
+`;
+
+export const CPTitle = styled.h2`
+  font-size: 1.5em;
+  line-height: 2;
   text-transform: capitalize;
+
   sup {
     font-size: 0.6em;
     color: var(--text-base);
@@ -14,23 +18,64 @@ export const CPHeader = styled.h2`
   }
 `;
 
+export const CPFolder = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%) rotate(180deg);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hover-base);
+  }
+
+  svg path {
+    fill: var(--text-base);
+  }
+
+  &.close {
+    transform: translateY(-50%) rotate(0deg);
+  }
+`;
+
 export const CPList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 -6px;
+
+  &.hide {
+    display: none;
+  }
 
   li {
-    background: var(--hover-base);
-    text-align: center;
-    margin: 0.5px;
+    position: relative;
+    width: 50%;
+    display: block;
+
+    &:hover {
+      background: var(--hover-base);
+    }
 
     a {
-      display: inline-block;
-      padding: 6px 16px;
-      width: 6rem;
+      display: block;
+      padding: 10px 16px;
       color: #f5f5f7;
       font-weight: 500;
+
+      span {
+        display: inline-block;
+      }
+
+      .number {
+        width: 50px;
+        margin-right: 20px;
+      }
     }
 
     &:hover {
@@ -42,72 +87,61 @@ export const CPList = styled.ul`
 
   &.baekjoon {
     .silver {
-      background: #365677;
-      &:hover {
-        background: #4a6582;
+      .number {
+        color: #365677;
       }
     }
     .bronze {
-      background: #d57926;
-      &:hover {
-        background: #e48937;
+      .number {
+        color: #d57926;
       }
     }
     .gold {
-      background: #eeb73b;
-      &:hover {
-        background: #f3c14f;
+      .number {
+        color: #eeb73b;
       }
     }
     .platinum {
-      background: #4dbb8d;
-      &:hover {
-        background: #5fc49a;
+      .number {
+        color: #4dbb8d;
       }
     }
     .diamond {
-      background: #5cb1e2;
-      &:hover {
-        background: #70bdea;
+      .number {
+        color: #5cb1e2;
       }
     }
     .ruby {
-      background: #ff457c;
-      &:hover {
-        background: #fd5e8d;
+      .number {
+        color: #ff457c;
       }
     }
   }
 
   &.programmers {
     .level1 {
-      background: #66c369;
-      &:hover {
-        background: #7ed181;
+      .number {
+        color: #66c369;
       }
     }
     .level2 {
-      background: #ffd044;
-      &:hover {
-        background: #ffda6c;
+      .number {
+        color: #ffd044;
       }
     }
     .level3 {
-      background: #ffa92b;
-      &:hover {
-        background: #ffba54;
+      .number {
+        color: #ffa92b;
       }
     }
     .level4 {
-      background: #ff7145;
-      &:hover {
-        background: #ff825b;
+      .number {
+        color: #ff7145;
       }
     }
     .level5 {
-      background: #f44336;
-      &:hover {
-        background: #ff5a4e;
+      .number {
+        color: #f44336;
       }
     }
   }
