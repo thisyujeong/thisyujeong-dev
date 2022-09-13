@@ -1,0 +1,18 @@
+---
+title: Git 로그인 정보 캐싱
+date: 2022-09-13
+tags: ['git']
+---
+
+## 문제
+
+git push, pull 등을 수행할 때마다 username과 password를 묻는다. 반복적인 작업을 줄이기 위해 로그인 정보를 캐싱한다.
+
+## 해결
+
+```bash
+git config credential.helper store
+```
+
+해당 명령어 입력 후 push 하면 username 과 password 를 묻는다.
+입력 후 인증없이 사용 가능하다.
