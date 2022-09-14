@@ -1,0 +1,94 @@
+---
+title: Firebase 시작하기
+date: 2022-09-14
+tags: ['database', 'firebase']
+---
+
+> 웹사이트를 통해 제공해주는 백엔드 서비스
+
+## firebaseSDK 발급
+
+1. [Firebase](https://firebase.google.com) 접속
+2. 상단 우측 **'콘솔 이동'** 클릭
+3. 프로젝트 추가 - 프로젝트 이름과 옵션들 확인하여 생성
+4. IOS, Android, Web 앱 선택하여 Firebas에 추가
+5. 앱 이름 설정 > 추가하여 FirebaseSDK 를 발급받는다.  
+   다음과 같이 SDK를 확인할 수 있다.
+
+<img src="/notes/database/firebaseSDK.png" alt="firebaseSDK 발급 결과" />
+
+## firebase 설치
+
+react 내에서 사용할 것이므로 npm 을 사용하여 설치한다.
+
+```
+npm install --save firebase
+```
+
+## firebase 연결
+
+발급받은 firebaseSDK를 firebase.js 파일을 추가하여 프로젝트에 연결한다.
+
+```js:src/firebase.js
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: '',
+  authDomain: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
+};
+
+export default initializeApp(firebaseConfig);
+```
+
+연결이 정상적으로 되었는지 확인하기 위해 콘솔에 출력해보자.
+
+```js:src/index.js
+import firebase from './firebase';
+
+console.log(firebase);
+```
+
+<img
+  src="/notes/database/firebaseSDK-connect.png"
+  alt="firebaseSDK 연결 후 콘솔 출력 결과"
+/>
+
+## firebaseConfig 정보 보호하기
+
+루트 디렉터리에 `.env` 파일을 생성해 환경변수로 노출시 위험한 정보를 보호하자.
+
+React 앱에서 환경변수 설정 시 `REACT_APP_[SOMETHING]'` 형태로 네이밍 해야한다.
+
+```:.env
+REACT_APP_API_KEY=[apiKey]
+REACT_APP_AUTH_DOMAIN=[authDomain]
+REACT_APP_PROJECT_ID=[projectId]
+REACT_APP_STORAGE_BUCKET=[storageBucket]
+REACT_APP_MESSAGIN_ID=[messagingSenderId]
+REACT_APP_APP_ID=[appId]
+```
+
+### 환경변수 사용하기
+
+```js:src/firebase.js
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+  appId: process.env.REACT_APP_APP_ID,
+};
+```
+
+### 주의
+
+환경변수를 사용하는 것은 **정보가 완벽하게 보호되는 것이 아님**을 명심해야한다.
+
+서비스가 빌드되면 결국엔 create-react-app 은 해당 코드를 실제 값으로 변환하는 과정을 거치게 된다. 결국 `apiKey: 실제 Key 값`으로 변환되는 것으로 브라우저를 통해 보이게 될 수도 있다는 의미이다.
+
+때문에 위 과정은 단지 깃에 업로드하는 것을 방지하기 위함이라는 것을 명심하자.
