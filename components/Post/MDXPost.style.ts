@@ -30,21 +30,23 @@ export const MDXPostContainer = styled.div`
   h1 {
     font-size: 28px;
     font-weight: 500;
-    margin: 28px 0 0;
+    margin: 32px 0 0;
     line-height: 1.57em;
   }
 
   h2 {
     font-size: 26px;
     font-weight: 500;
-    margin: 24px 0 0;
+    margin: 32px 0 8px;
+    padding-bottom: 8px;
     line-height: 1.57em;
+    border-bottom: 1px solid var(--border-color);
   }
 
   h3 {
     font-size: 22px;
     font-weight: 500;
-    margin: 28px 0 0;
+    margin: 20px 0 0;
     line-height: 1.57em;
   }
 
@@ -74,7 +76,6 @@ export const MDXPostContainer = styled.div`
   }
 
   p {
-    margin: 0.85em 0;
     code {
       color: #109a79;
       padding: 0.25rem 0.5rem;
@@ -118,10 +119,10 @@ export const MDXPostContainer = styled.div`
   }
 
   blockquote {
-    margin: 0.5rem 0;
-    padding: 0.2rem 1rem;
+    margin: 0.25rem 0;
+    padding: 0 1rem;
     position: relative;
-    border-left: 4px solid var(--mdx-border);
+    border-left: 2px solid var(--mdx-border);
 
     & p {
       font-size: 16px;
@@ -187,10 +188,8 @@ export const MDXPostContainer = styled.div`
     > li {
       list-style: decimal;
       p {
-        margin: 0.5em 0;
       }
       > ol {
-        margin: 0.5em 0;
         li {
           list-style: lower-alpha;
 
@@ -250,6 +249,8 @@ export const MDXPostContainer = styled.div`
 
   img {
     max-width: 100%;
+    display: block;
+    margin: 0.5rem 0;
   }
 
   /* mdx code block styles */
