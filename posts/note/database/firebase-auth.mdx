@@ -1,0 +1,135 @@
+---
+title: Firebase Auth(인증)
+date: 2022-09-17
+tags: ['database', 'firebase']
+---
+
+> [Firebase - Auth 공식문서](https://firebase.google.com/docs/auth/web/start)  
+> 참고로, 해당 글은 Firebase V9 버전을 바탕으로 작성된 글이다.  
+> Firebase V8 이하 버전은 import 등의 방식이 다르므로 공식 문서를 꼭 참고하길 바란다.
+
+- React 환경 + Firebase
+
+## 절대 경로 설정
+
+[CRA 공식 문서](https://create-react-app.dev/docs/importing-a-component/)에 따르면 절대경로 설정을 위해 최상위 경로에 jsconfig.json 파일을 생성하여 설정할 수 있다.
+
+```json:jsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
+}
+```
+
+절대 경로를 설정하면 컴포넌트를 import할 때 `../`, `./` 등과 같은 상대경로 대신 다음과 같이 좀 더 보기 좋게 작성할 수 있다.
+
+```js
+import Button from 'components/Button';
+```
+
+## Firebase 인증 초기화
+
+getAuth 모듈을 import해 Firebase 인증을 초기화한다.  
+다시 말하지만, Firebase 의 버전에 따라 import 방식이 다르다. **이 문서는 V9 버전을 기준으로 작성되었다.**
+
+```js:fbase.js
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+
+const firebaseConfig = {
+  ...
+};
+
+initializeApp(firebaseConfig);
+export const authService = getAuth();
+```
+
+인증 초기화를 완료했다면 정상적으로 작동하는지 확인하기위해 `App.js` 에서 import 하여 로그를 출력해보자.
+
+```js:src/components/App.js
+// Absoulte import (상대경로)
+import { authService } from 'fbase';
+
+function App() {
+  console.log(authService); // firebase auth 출력
+  return <>...</>;
+}
+
+export default App;
+```
+
+정상작동 하는 것을 확인했다.
+
+<img
+  src="/notes/database/firebase-auth-01.png"
+  alt="firebase-auth 초기화 후 로그 출력 결과"
+/>
+
+## Firebase 로그인 여부 확인
+
+`authService.currentUser` 를 통해 현재 로그인된 유저의정보를 확인할 수 있다.
+
+현재 아무것도 작업하지 않았기 때문에 `null` 이 출력되는 것을 확인할 수 있다.
+
+이제 Firebase 콘솔에서 어떤 방법으로 로그인 할 것인지 설정해야 한다.
+
+```js
+import { authService } from 'fbase';
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+  console.log(isLoggedIn); // null
+
+  return <>...</>;
+}
+
+export default App;
+```
+
+## Firebase 로그인 방법 설정
+
+1. [Firebase 콘솔](https://console.firebase.google.com/)에서 해당 프로젝트에 접속한다.
+2. 제품 카테고리의 빌드 > Authentication > 시작하기 > **_User_** 탭을 클릭한다.
+3. **_로그인 방법 설정(Sign-in-method)_** 버튼을 클릭한다.
+
+<img
+  src="/notes/database/firebase-auth-02.png"
+  alt="firebase-auth 로그인 설정 목록 리스트"
+/>
+
+본인의 사용 목적에 맞게 설정한다. 나는 '이메일/비밀번호'와 Google'을 선택했다.
+
+사용 설정을 해주고 저장을 클릭한다. Google 또한 사용 설정 후 저장을 클릭한다.
+
+<img
+  src="/notes/database/firebase-auth-03.png"
+  alt="firebase-auth 이메일/비밀번호 로그인 설정 결과 화면"
+/>
+
+### GitHub 설정하는 법
+
+추가로 깃허브 설정까지 완료했다. 깃허브의 경우 별도의 셋팅이 필요하다.
+
+[[GitHub] Setting/Develpoer settings - OAuth Apps](https://github.com/settings/developers)로 이동해 **New OAuth App**을 클릭해 추가한다.
+
+1. Application name 입력
+2. Homepage URL 입력
+
+   > Firebase Github 설정 화면에서 다음 URL의 도메인까지만 복사/붙여넣기 한다.
+   > https://~.firebase.com/
+
+   <img
+     src="/notes/database/firebase-auth-04.png"
+     alt="firebase-auth GitHub 로그인 설정 화면"
+   />
+
+3. Application description 입력(선택)
+4. Authorization callback URL
+   > 2번의 '전체' URL을 복사/붙여넣기 한다.  
+   > https://~.firebase.com/\_\_auth/handler
+5. Register Application 클릭하면 **Client ID** 와 **Client
+   secret** 을 발급받는다.
+   > Client secret은 `Generate a new client secret` 버튼을 클릭하면 발급 받을 수 있다.
+6. 발급받은 ID 와 secret 을 GitHub 설정 창에 입력하고 저장한다.
