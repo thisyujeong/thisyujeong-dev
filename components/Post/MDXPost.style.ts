@@ -96,11 +96,10 @@ export const MDXPostContainer = styled.div`
     position: relative;
     font-size: 15px;
     font-weight: 500;
-    padding: 9px 16px;
+    padding: 9px 12px;
     border-radius: 5px;
     background-color: var(--code-block);
     margin: 0.85em 0;
-    overflow-x: auto;
 
     * {
       line-height: 1.57em;
@@ -111,6 +110,7 @@ export const MDXPostContainer = styled.div`
       display: block;
       font-size: 16px;
       line-height: 1.57em;
+      overflow-x: auto;
       * {
         font-size: 16px;
         line-height: 1.57em;

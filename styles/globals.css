@@ -168,11 +168,13 @@ body {
 
 /* variables */
 body {
-  --bg: #f9fafb;
+  /* --bg: #f9fafb; */
+  --bg: #fff;
   --accent: #2a75e9;
   --accent-border: #2a75e950;
   --shadow: #2c3e5015;
-  --text-base: #2c3e50;
+  /* --text-base: #2c3e50; */
+  --text-base: #000;
   --text-base-20: #2c3e5020;
   --text-base-40: #2c3e5040;
   --text-base-70: #2c3e5070;
