@@ -178,9 +178,10 @@ body {
   --text-base-20: #2c3e5020;
   --text-base-40: #2c3e5040;
   --text-base-70: #2c3e5070;
+  --text-base-90: #2c3e5090;
   --icon-color: #2c3e5070;
   --border-color: #00000016;
-  --hover-base: #edf1f3;
+  --hover-base: #edf1f38a;
   --header-bg: #f9fafb50;
   --toggle-bg: #0101010a;
   --toggle-icon: var(--text-base-70);
@@ -188,7 +189,7 @@ body {
   --code-block: #eff2f6;
   --card-bg: #fff;
   --card-border: #ececf3;
-  --mdx-border: #dfe2e5;
+  --mdx-border: #2c3e5040;
   --mdx-icon-color: #2c3e5070;
   --mdx-icon-bg: #dfdfdf4d;
 }
@@ -203,6 +204,7 @@ body[data-theme='dark'] {
   --text-base-20: #dfdfdf20;
   --text-base-40: #dfdfdf40;
   --text-base-70: #dfdfdf70;
+  --text-base-90: #dfdfdf90;
   --icon-color: #ffffff20;
   --border-color: #ffffff16;
   --hover-base: #232323;

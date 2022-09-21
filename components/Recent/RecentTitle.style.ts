@@ -22,19 +22,22 @@ export const RecentTitleText = styled.h2`
 
 export const RecentMore = styled.div`
   margin-bottom: 10px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  &:hover {
+    background-color: var(--hover-base);
+    a {
+      opacity: 1;
+    }
+  }
 
   a {
     color: var(--accent);
     padding: 0 6px;
     transition: opacity 0.2s ease;
     text-transform: uppercase;
+    font-weight: 500;
     cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-      ${mq({
-        textDecoration: ['underline', 'underline', 'none'],
-      })}
-    }
+    opacity: 0.8;
   }
 `;

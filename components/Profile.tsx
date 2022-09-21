@@ -13,7 +13,7 @@ const Profile = () => {
   return (
     <ProfileContainer>
       <ProfileDesc>
-        <ProfileTitle>{metadata.home.name} 😶‍🌫️</ProfileTitle>
+        <ProfileTitle>{metadata.home.name}</ProfileTitle>
         <ProfileMainDesc>{metadata.home.description}</ProfileMainDesc>
         <ProfileSubDesc>{metadata.home.subDescription}</ProfileSubDesc>
       </ProfileDesc>

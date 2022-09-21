@@ -9,7 +9,7 @@ export const MDXPostContainer = styled.div`
 
   * {
     color: var(--text-base);
-    font-size: 17px;
+    font-size: 16px;
     line-height: 2em;
   }
 
@@ -72,15 +72,17 @@ export const MDXPostContainer = styled.div`
   }
 
   strong {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   p {
     code {
       color: #109a79;
+      color: var(--text-base-90);
       padding: 0.25rem 0.5rem;
-      font-size: 1em;
-      margin: 0 2px;
+      font-size: 14px;
+      font-family: 'FiraMono';
+      font-weight: 500;
       background-color: var(--code-block);
       border-radius: 3px;
     }
@@ -96,8 +98,8 @@ export const MDXPostContainer = styled.div`
     position: relative;
     font-size: 15px;
     font-weight: 500;
-    padding: 9px 12px;
-    border-radius: 5px;
+    padding: 12px 14px;
+    border-radius: 8px;
     background-color: var(--code-block);
     margin: 0.85em 0;
 
@@ -108,11 +110,14 @@ export const MDXPostContainer = styled.div`
     > code {
       width: 100%;
       display: block;
-      font-size: 16px;
-      line-height: 1.57em;
+      line-height: 1.5em;
       overflow-x: auto;
+      font-family: 'FiraMono';
+      font-weight: 400;
+      font-size: 14px;
+
       * {
-        font-size: 16px;
+        font-size: 14px;
         line-height: 1.57em;
       }
     }
@@ -122,12 +127,12 @@ export const MDXPostContainer = styled.div`
     margin: 0.25rem 0;
     padding: 0 1rem;
     position: relative;
-    border-left: 2px solid var(--mdx-border);
-
+    border-left: 3px solid var(--text-base-40);
     & p {
       font-size: 16px;
       display: inline;
-      color: #8a929b;
+      color: var(--text-base-70);
+      line-height: 1;
 
       * {
         font-size: 16px;
@@ -140,7 +145,7 @@ export const MDXPostContainer = styled.div`
       }
 
       strong {
-        font-weight: bold;
+        font-weight: 600;
       }
 
       em {
@@ -149,9 +154,10 @@ export const MDXPostContainer = styled.div`
     }
 
     code {
-      color: #109a79;
+      color: var(--text-base-90);
+      font-weight: 500;
       padding: 0.25rem 0.5rem;
-      font-size: 1em;
+      font-size: 14px;
       margin: 0 2px;
       background-color: var(--code-block);
       border-radius: 3px;
@@ -174,12 +180,14 @@ export const MDXPostContainer = styled.div`
 
     li {
       code {
-        color: #109a79;
-        padding: 0.25rem 0.5rem;
-        font-size: 1em;
+        color: var(--text-base-90);
+        font-weight: 500;
         margin: 0 2px;
+        padding: 0.25rem 0.5rem;
         background-color: var(--code-block);
         border-radius: 3px;
+        font-size: 14px;
+        font-family: 'FiraMono';
       }
     }
   }
@@ -203,12 +211,14 @@ export const MDXPostContainer = styled.div`
     }
     li {
       code {
-        color: #109a79;
+        color: var(--text-base-90);
+        font-weight: 500;
         padding: 0.25rem 0.5rem;
-        font-size: 1em;
+        font-size: 14px;
         margin: 0 2px;
         background-color: var(--code-block);
         border-radius: 3px;
+        font-family: 'FiraMono';
       }
     }
   }
@@ -255,6 +265,7 @@ export const MDXPostContainer = styled.div`
 
   /* mdx code block styles */
   pre > code[class*='language-'] {
+    position: relative;
     .hljs-title {
       &.class_,
       &.function_ {
@@ -271,20 +282,22 @@ export const MDXPostContainer = styled.div`
     .hljs-built_in,
     .hljs-function,
     .hljs-selector-class {
-      color: #4964d6;
+      color: #e06c75;
     }
 
     .hljs-string {
-      color: #7dab95;
+      color: #e1954d;
+      color: #e7aa70;
     }
 
     .hljs-comment {
-      color: #c2b1a3;
+      color: var(--text-base-70);
+      font-weight: 500;
     }
     .hljs-name,
     .hljs-keyword,
     .hljs-selector-tag {
-      color: #ff6161;
+      color: #e06c75;
     }
 
     &.language-csharp {
@@ -295,14 +308,21 @@ export const MDXPostContainer = styled.div`
   }
 
   .rehype-code-title {
-    color: #aa865e;
+    display: block;
+    padding: 2px 12px;
+    margin-top: 4px;
     font-size: 14px;
-    margin-bottom: -15px;
-    margin-left: 4px;
-    opacity: 0.8;
-    &:before {
-      content: '✦';
-      margin-right: 6px;
+    font-weight: 500;
+    color: var(--text-base-90);
+    font-family: 'FiraMono';
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: var(--code-block);
+
+    & + pre {
+      margin-top: 2px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
   }
 `;

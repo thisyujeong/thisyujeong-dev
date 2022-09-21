@@ -28,8 +28,8 @@ export const ProfileTitle = styled.div`
   display: inline-block;
   color: var(--text-base);
   font-size: 38px;
+  font-family: 'SecularOne';
   text-transform: capitalize;
-  font-weight: bold;
 `;
 
 export const ProfileMainDesc = styled.div`
@@ -41,8 +41,7 @@ export const ProfileMainDesc = styled.div`
 export const ProfileSubDesc = styled.div`
   margin-top: 0.5em;
   font-size: 16px;
-  font-weight: 300;
-  opacity: 0.8;
+  opacity: 0.6;
 `;
 
 export const ProfileImage = styled.div`
