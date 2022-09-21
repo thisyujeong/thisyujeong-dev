@@ -1,5 +1,5 @@
 ---
-title: Firebase Auth 설정 및 사용하기
+title: Firebase Auth 설정과 로그인 & 로그아웃 구현
 date: 2022-09-17
 tags: ['database', 'firebase']
 ---
@@ -134,7 +134,7 @@ export default App;
    > Client secret은 `Generate a new client secret` 버튼을 클릭하면 발급 받을 수 있다.
 6. 발급받은 ID 와 secret 을 GitHub 설정 창에 입력하고 저장한다.
 
-## 계정 생성과 생성과 로그인
+## 계정 생성과 로그인
 
 [공식 문서](https://firebase.google.com/docs/auth/web/start)에 따르면 다음과 같이 계정을 생성할 수 있다. 계정이 생성되면 자동으로 로그인 처리된다.
 
@@ -193,18 +193,144 @@ function Auth() {
 export default Auth;
 ```
 
-### 인증 상태 지속성 설정 (Persistence)
+### setPersistence
 
-[공식 문서](https://firebase.google.com/docs/auth/web/auth-state-persistence)
+> 인증 상태 지속성 설정
+> [Firebase - 인증 상태 지속성](https://firebase.google.com/docs/auth/web/auth-state-persistence)  
+> `firebase.auth().setPersistence` 메서드를 통해 기존의 지속성 유형 설정할 수 있다.
 
 - `local`(default): 브라우저를 닫더라도 사용자 정보를 기억한다.
 - `session`: 탭이 열려있는 동안에는 사용자 정보를 기억한다.
-- `none`: 사용자 정보를 기억하지 않는다. 로그인을 시ㄴ도할 경우 로그인은 되지만, 새로고침 시 로그아웃된다.
+- `none`: 사용자 정보를 기억하지 않는다. 로그인을 시도할 경우 로그인은 되지만, 새로고침 시 로그아웃된다.
 
-기본적으로 **Persistance**를 설정하지 않으면 `local`로 설정된다.
+기본적으로 **Persistence**를 설정하지 않으면 `local`로 설정된다.
 로그인 된 상태에서 개발자도구를 열어 firebase 로컬 스토리지를 확인해보면 접속된 사용자 정보를 그대로 기억하고 있는 것을 확인할 수 있다.
 
 <img
   src="/notes/database/firebase-auth-05.png"
   alt="인증 상태 지속성이 local로 설정되었을 때 개발자도구 로컬스토리지 화면"
 />
+
+### onAuthStateChanged
+
+[Firebase Auth - onAuthStateChanged](https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#onauthstatechanged)
+
+> onAuthStateChanged는 유저 상태의 변화가 있을 때 실행되는 메소드이다.
+
+다음과 같이 활용할 수 있다.
+
+```js
+import { authService } from 'fbase';
+
+function Auth() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        // 로그인 된 상태일 경우
+        setIsLoggedIn(true);
+      } else {
+        // 로그아웃 된 상태일 경우
+        setIsLoggedIn(false);
+      }
+    });
+  }, []);
+
+  return <>...</>;
+}
+```
+
+## 소셜 로그인 구현
+
+소셜로그인을 구현할 수 있는 방법은 [signInWithRedirect](https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithredirect)과
+[signInWithPopup](https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopup) 두가지 옵션이 있다. 이 글에선 팝업 형식으로 구현할 것이다.
+
+`signInWithPopup`을 사용하려면
+
+1. Provider 가 있어야 한다. Provider는 각 소셜에 맞게 사용할 수 있다.
+   - Google(`GoogleAuthProvider`), GitHub(`GithubAuthProvider`) 등 공식문서 참고
+2. SignWithPopup를 호출한다.
+   - 첫 번째 인자로 auth를 전달한다.
+   - 두 번째 인자로 1번에서 생성한 Provider를 전달한다.
+
+다음과 같은 형태로 사용할 수 있다.
+
+```js
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
+signInWithPopup(auth, provider)
+  .then((result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    // ...
+  })
+  .catch((error) => {
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+```
+
+다음과 같이 응용할 수 있다.
+
+```js
+import { authService } from 'fbase';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
+function Auth() {
+  const onSocialClick = async (evt) => {
+    const provider = new GoogleAuthProvider();
+    const data = await signInWithPopup(authService, provider);
+    console.log(data); // 로그인 정보
+  };
+
+  return (
+    <>
+      <button onClick={onSocialClick} name="google">
+        Continue with Google
+      </button>
+    </>
+  );
+}
+```
+
+## 로그아웃 signOut()
+
+로그아웃은 `signOut` 메소드 호출로 간단하게 처리할 수 있다.
+
+```js
+import { getAuth, signOut } from 'firebase/auth';
+
+const auth = getAuth();
+signOut(auth)
+  .then(() => {...}) // logout successful
+  .catch((error) => {...}); // logout fail
+
+// 또는
+auth.signOut();
+```
+
+다음과 같이 응용할 수 있다.
+
+```js
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../fbase';
+
+const Profile = () => {
+  const navigate = useNavigate();
+  const onLogOutClick = () => {
+    authService.signOut();
+    navigate('/');
+  };
+  return (
+    <>
+      <button onClick={onLogOutClick}>Log Out</button>
+    </>
+  );
+};
+
+export default Profile;
+```
