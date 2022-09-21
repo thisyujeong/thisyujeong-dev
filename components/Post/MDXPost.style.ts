@@ -46,7 +46,7 @@ export const MDXPostContainer = styled.div`
   h3 {
     font-size: 22px;
     font-weight: 500;
-    margin: 20px 0 0;
+    margin: 20px 0 8px;
     line-height: 1.57em;
   }
 
@@ -167,7 +167,7 @@ export const MDXPostContainer = styled.div`
   ul {
     margin: 0;
     padding-left: 20px;
-    margin: 1rem 0;
+    margin: 10px 0;
     > li {
       list-style: disc;
       > ul {
@@ -243,12 +243,14 @@ export const MDXPostContainer = styled.div`
   }
 
   td {
-    padding: 0.5rem 1.2rem;
+    font-size: 14px;
+    padding: 4px 15px;
     border: 1px solid var(--mdx-border);
   }
 
   th {
-    padding: 0.5rem 1.2rem;
+    font-size: 14px;
+    padding: 4px 15px;
     font-weight: 500;
     border: 1px solid var(--mdx-border);
   }
@@ -334,13 +336,12 @@ export const MDXPostHead = styled.div`
 `;
 
 export const ClipboardCopyBtn = styled.button`
-  margin-top: 10px;
   position: relative;
   display: block;
   height: 38px;
   width: 38px;
+  margin: 20px auto;
   border-radius: 20%;
-  background: var(--mdx-icon-bg);
   transition: all 0.1s ease;
 
   svg {
@@ -384,6 +385,7 @@ export const ClipboardCopyBtn = styled.button`
   }
 
   &:hover {
+    background: var(--mdx-icon-bg);
     svg {
       fill: var(--text-base);
     }
@@ -406,6 +408,7 @@ export const MDXPostTitle = styled.h1`
   font-size: 30px !important;
   margin-top: 0 !important;
   word-break: keep-all;
+  text-align: center;
 `;
 
 export const MDXPostURL = styled.div`
@@ -429,9 +432,10 @@ export const MDXPostURL = styled.div`
   }
 `;
 
-export const MDXPostDate = styled.span`
-  margin-bottom: 20px;
+export const MDXPostDate = styled.div`
+  margin-bottom: 14px;
   font-size: 14px;
+  text-align: center;
   word-break: keep-all;
   opacity: 0.5;
 `;

@@ -24,6 +24,7 @@ const MDXPost = ({
     <MDXPostContainer>
       <MDXPostHead>
         <Toc />
+        {date && <MDXPostDate>{convertDateUs(date)}</MDXPostDate>}
         <MDXPostTitle>{title}</MDXPostTitle>
         {url && (
           <MDXPostURL>
@@ -33,7 +34,6 @@ const MDXPost = ({
             </a>
           </MDXPostURL>
         )}
-        {date && <MDXPostDate>{convertDateUs(date)}</MDXPostDate>}
         {path && (
           <ClipboardCopyBtn onClick={() => path && navigator.clipboard.writeText(path)}>
             <svg

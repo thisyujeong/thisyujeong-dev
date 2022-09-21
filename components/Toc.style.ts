@@ -15,15 +15,14 @@ export const TocInnerContainer = styled.div`
   margin-top: 16px;
   margin-left: 20px;
   padding-left: 20px;
-  border-left: 1px solid var(--text-base-40);
+  /* border-left: 1px solid var(--text-base-40); */
 `;
 
 export const TocItem = styled.div`
-  margin: 6px 0;
+  padding: 6px 0;
   a {
     display: block;
     line-height: 1.5em;
-    color: var(--text-base) !important;
     color: var(--text-base) !important;
     font-size: 15px;
     opacity: 0.5;
@@ -35,7 +34,9 @@ export const TocItem = styled.div`
   }
 
   &[data-depth='2'] {
-    padding-left: 20px;
+    margin-left: 5px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border-color);
   }
 
   &[data-active='true'] {

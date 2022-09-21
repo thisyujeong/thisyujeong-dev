@@ -168,12 +168,9 @@ body {
 
 /* variables */
 body {
-  /* --bg: #f9fafb; */
   --bg: #fff;
-  --accent: #2a75e9;
-  --accent-border: #2a75e950;
+  --accent: #2caa50;
   --shadow: #2c3e5015;
-  /* --text-base: #2c3e50; */
   --text-base: #000;
   --text-base-20: #2c3e5020;
   --text-base-40: #2c3e5040;
@@ -197,8 +194,7 @@ body {
 body[data-theme='dark'] {
   --bg: rgb(23, 23, 23);
   --bg: #292929;
-  --accent: #ff7145;
-  --accent-border: #ff714550;
+  --accent: #8ddb8c;
   --shadow: #13161640;
   --text-base: #dfdfdf;
   --text-base-20: #dfdfdf20;
