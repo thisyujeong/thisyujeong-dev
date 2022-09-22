@@ -9,7 +9,7 @@ export const FooterContainer = styled.footer`
 `;
 
 export const FooterInner = styled.div`
-  max-width: 768px;
+  max-width: 720px;
   margin: 0 auto;
 `;
 

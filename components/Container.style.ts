@@ -12,13 +12,13 @@ export const Main = styled.main`
   .contents {
     display: block;
     width: 100%;
-    max-width: 768px;
+    max-width: 720px;
     margin: 0 auto;
 
     &.is-aside {
-      max-width: calc(768px + 240px);
+      max-width: calc(720px + 240px);
       ${mq({
-        maxWidth: ['768px', '768px', '100%'],
+        maxWidth: ['720px', '720px', '100%'],
       })}
     }
   }

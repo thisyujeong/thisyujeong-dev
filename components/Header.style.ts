@@ -8,7 +8,6 @@ export const HeaderContainer = styled.header`
   width: 100%;
   backdrop-filter: blur(7px);
   background-color: var(--header-bg);
-  border-bottom: 1px solid var(--border-color);
   z-index: 100;
 
   ${mq({
@@ -16,7 +15,7 @@ export const HeaderContainer = styled.header`
   })}
 
   .container {
-    max-width: 768px;
+    max-width: 720px;
     margin: 0 auto;
     padding: 0 22px;
     display: flex;
