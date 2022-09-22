@@ -1,0 +1,52 @@
+---
+title: Two Sum
+number: 1
+from: leetcode
+level: easy
+url: https://leetcode.com/problems/two-sum/
+---
+
+## solution 1
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+const twoSum = function (nums, target) {
+  //solution 1
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+};
+```
+
+## solution 2
+
+````js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+const twoSum = function (nums, target) {
+  const twoSum = function (nums, target) {
+    const numsObj = {};
+    for (let i = 0; i < nums.length; i++) {
+      let current = nums[i];
+      let match = target - current;
+      if (match in numsObj) {
+        return [i, numsObj[match]];
+      } else {
+        numsObj[current] = i;
+      }
+    }
+  };
+};```
+
+````

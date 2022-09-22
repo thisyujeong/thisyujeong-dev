@@ -1,0 +1,37 @@
+---
+title: Palindrome Number
+number: 9
+from: leetcode
+level: easy
+url: https://leetcode.com/problems/palindrome-number/
+---
+
+```js
+/**
+ * @param { number } x
+ * @return { boolean }
+ */
+var isPalindrome = function (x) {
+  // solution 1 (364 ms, 51.7 MB)
+  const palindrome = x.toString().split().reverse().join('');
+  return x === Number(palindrome) ? true : false;
+
+  // solution 2 (297 ms, 50.8 MB)
+  const target = x.toString();
+  for (let i = 0; i < Math.floor(target.length / 2); i++) {
+    if (target[i] !== target[target.length - 1 - i]) {
+      return false;
+    }
+  }
+  return true;
+
+  // solution 3 (82 ms, 51.1 MB)
+  let answer = true;
+  let num = String(x).split('');
+  let len = num.length;
+  for (let i = 0; i < Math.floor(len / 2); i++) {
+    if (num[i] !== num[len - i - 1]) answer = false;
+  }
+  return answer;
+};
+```
