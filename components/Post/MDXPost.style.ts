@@ -275,7 +275,16 @@ export const MDXPostContainer = styled.div`
       }
     }
 
+    .hljs-doctag {
+      color: #449bb4;
+    }
+
+    .hljs-type {
+      color: var(--text-base-70);
+    }
+
     .hljs-variable {
+      color: var(--text-base-70);
       &.constant_ {
         color: #3c8f99;
       }
@@ -412,21 +421,12 @@ export const MDXPostTitle = styled.h1`
 `;
 
 export const MDXPostURL = styled.div`
-  font-size: 14px;
   color: var(--text-base);
-
-  span {
-    display: inline-block;
-    opacity: 0.5;
-    margin-right: 8px;
-  }
+  text-align: center;
 
   a {
-    color: var(--text-base);
-
-    opacity: 0.5;
+    font-size: 14px;
     &:hover {
-      color: var(--text-base);
       opacity: 1;
     }
   }

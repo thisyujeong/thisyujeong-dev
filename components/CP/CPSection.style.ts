@@ -48,7 +48,6 @@ export const CPFolder = styled.div`
 export const CPList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 
   &.hide {
     display: none;
@@ -147,6 +146,24 @@ export const CPList = styled.ul`
     .level5 {
       .number {
         color: #f44336;
+      }
+    }
+  }
+
+  &.leetcode {
+    .easy {
+      .number {
+        color: #00af9b;
+      }
+    }
+    .medium {
+      .number {
+        color: #ffb800;
+      }
+    }
+    .hard {
+      .number {
+        color: #ff2d55;
       }
     }
   }

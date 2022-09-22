@@ -28,9 +28,8 @@ const MDXPost = ({
         <MDXPostTitle>{title}</MDXPostTitle>
         {url && (
           <MDXPostURL>
-            <span>문제 바로가기 </span>
             <a href={url} target="_blank" rel="noreferrer">
-              {url}
+              문제 바로가기
             </a>
           </MDXPostURL>
         )}
