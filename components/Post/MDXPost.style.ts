@@ -38,9 +38,7 @@ export const MDXPostContainer = styled.div`
     font-size: 26px;
     font-weight: 500;
     margin: 32px 0 8px;
-    padding-bottom: 8px;
     line-height: 1.57em;
-    border-bottom: 1px solid var(--border-color);
   }
 
   h3 {
@@ -79,8 +77,9 @@ export const MDXPostContainer = styled.div`
     code {
       color: #109a79;
       color: var(--text-base-90);
-      padding: 0.25rem 0.5rem;
+      padding: 3px 6px;
       font-size: 14px;
+      margin: 0 2px;
       font-family: 'FiraMono';
       font-weight: 500;
       background-color: var(--code-block);
@@ -167,59 +166,29 @@ export const MDXPostContainer = styled.div`
   ul {
     margin: 0;
     padding-left: 20px;
-    margin: 10px 0;
     > li {
       list-style: disc;
-      > ul {
-        margin: 0;
-        li {
-          list-style: circle;
-        }
-      }
-    }
 
-    li {
-      code {
-        color: var(--text-base-90);
-        font-weight: 500;
-        margin: 0 2px;
-        padding: 0.25rem 0.5rem;
-        background-color: var(--code-block);
-        border-radius: 3px;
-        font-size: 14px;
-        font-family: 'FiraMono';
+      > ul > li {
+        list-style: circle;
+
+        > ul > li {
+          list-style: square;
+        }
       }
     }
   }
 
-  ol {
-    > li {
-      list-style: decimal;
-      p {
-      }
-      > ol {
-        li {
-          list-style: lower-alpha;
-
-          > ol {
-            > li {
-              list-style: lower-roman;
-            }
-          }
-        }
-      }
-    }
-    li {
-      code {
-        color: var(--text-base-90);
-        font-weight: 500;
-        padding: 0.25rem 0.5rem;
-        font-size: 14px;
-        margin: 0 2px;
-        background-color: var(--code-block);
-        border-radius: 3px;
-        font-family: 'FiraMono';
-      }
+  li {
+    code {
+      color: var(--text-base-90);
+      font-weight: 500;
+      margin: 0 2px;
+      padding: 0.25rem 0.5rem;
+      background-color: var(--code-block);
+      border-radius: 3px;
+      font-size: 14px;
+      font-family: 'FiraMono';
     }
   }
 
@@ -227,8 +196,27 @@ export const MDXPostContainer = styled.div`
     margin: 0;
     padding-left: 20px;
     margin: 1rem 0;
-    li {
+    > li {
       list-style: decimal;
+      > ol > li {
+        list-style: lower-alpha;
+        > ol > li {
+          list-style: lower-roman;
+        }
+      }
+    }
+  }
+
+  li {
+    code {
+      color: var(--text-base-90);
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      font-size: 14px;
+      margin: 0 2px;
+      background-color: var(--code-block);
+      border-radius: 3px;
+      font-family: 'FiraMono';
     }
   }
 
@@ -284,6 +272,9 @@ export const MDXPostContainer = styled.div`
     }
 
     .hljs-variable {
+      &.language_ {
+        color: #109a79;
+      }
       color: var(--text-base-70);
       &.constant_ {
         color: #3c8f99;
@@ -421,9 +412,10 @@ export const MDXPostTitle = styled.h1`
 `;
 
 export const MDXPostURL = styled.div`
-  color: var(--text-base);
+  margin-bottom: 14px;
   text-align: center;
-
+  line-height: 2em;
+  color: var(--text-base);
   a {
     font-size: 14px;
     &:hover {
