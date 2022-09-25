@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import mq from 'styles/utils/mq';
 
 export const MDXPostContainer = styled.div`
   position: relative;
@@ -6,6 +7,10 @@ export const MDXPostContainer = styled.div`
   font-size: 16px;
   line-height: 1.8;
   font-weight: 400;
+
+  ${mq({
+    maxWidth: ['100%', 'calc(100% - 250px)', '100%'],
+  })}
 
   * {
     color: var(--text-base);
