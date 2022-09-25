@@ -1,0 +1,168 @@
+---
+title: Firebase Cloud Firestore
+date: 2022-09-23
+tags: ['database', 'firebase']
+---
+
+> [Firebase - Cloud Firestore 공식문서](https://firebase.google.com/docs/firestore/quickstart)  
+> 해당 글은 Firebase V9 버전을 바탕으로 작성된 글입니다.
+
+## Cloud Firestore 생성
+
+1. 프로젝트의 Firestore Database 메뉴로 이동
+2. 데이터베이스 만들기 버튼 클릭
+   - **프로덕션 모드**, **테스트 모드** 중 택 1
+   - 글쓴이는 연습용이므로 테스트 모드를 선택했다.
+3. Cloud Firestore 위치 선택 후 사용 설정 버튼 클릭
+   - 지역은 거주지에서 가까운 곳을 선택하면 된다.
+   - 어디를 고를지 고민된다면, [문서](https://firebase.google.com/docs/firestore/locations)에서 확인할 수 있다.
+
+## Cloud Firestore 시작하기
+
+다음과 같이 `getFirestore`를 불러와 사용한다.
+
+```js:src/fbase.js
+import { getFirestore } from 'firebase/firestore';
+// ...
+export const dbService = getFirestore();
+```
+
+> Cloud Firestore SDK는 npm으로도 제공된다.  
+> `npm install firebase@9.9.3 --save`
+
+## 데이터 추가
+
+`addDoc`는 Cloud Firestore의 Collection에 데이터를 저장한다. 문서에 데이터를 처음 추가할 때 암시적으로 새 컬렉션을 생성 후 데이터가 추가된다.
+Collection 이란 쉽게 말해 '폴더'의 개념으로 볼 수 있다.
+
+1. 위에서 `dbService`라는 이름으로 export한 `getFirestore`를 불러온다.
+2. `collection`과 `addDoc`을 불러온다.
+3. 다음과 같은 형태로 작성할 수 있다.
+
+```js
+import { dbService } from 'fbase'; // getFirestore
+import { collection, addDoc } from 'firebase/firestore';
+
+try {
+  const docRef = await addDoc(collection(dbService, 'posts'), {
+    text: 'hello world!',
+    createdAt: Date.now(),
+  });
+  console.log(docRef.id);
+} catch (err) {
+  console.error('Error:', err);
+}
+```
+
+위와 같이 작성하면, Cloud Firestore에서 posts 라는 컬렉션으로 하나의 데이터가 생성된 것을 볼 수 있다.
+
+<img
+  src="/notes/database/firebase-firestore-01.png"
+  alt="Cloud Firestore 데이터 추가한 결과"
+/>
+
+## 데이터 조회
+
+`addDoc`과 유사하게 `getDoc`을 통해 조회할 수 있다.
+
+```js
+import { dbService } from 'fbase'; // getFirestore
+import { collection, getDocs } from 'firebase/firestore';
+
+const querySnapshot = await getDocs(collection(db, 'posts'));
+querySnapshot.forEach((doc) => {
+  console.log(doc.id, doc.data());
+});
+```
+
+<img
+  src="/notes/database/firebase-firestore-02.png"
+  alt="Cloud Firestore 데이터 조회한 결과"
+/>
+
+### 실시간 데이터 조회
+
+실시간으로 삽입, 삭제, 수정 등 업데이트되는 Cloud Firestore의 데이터베이스를 조회한다.
+
+```js
+import { doc, onSnapshot } from 'firebase/firestore';
+
+const unsub = onSnapshot(doc(db, 'cities', 'SF'), (doc) => {
+  console.log('Current data: ', doc.data());
+});
+```
+
+### 실시간 데이터 조회 활용
+
+리액트 환경에서 다음과 같이 `useEffect` 훅 내에서 활용할 수 있다.
+
+```js
+import { useEffect } from 'react';
+import { dbService } from 'fbase'; // getFirestore
+import { collection, onSnapshot } from 'firebase/firestore';
+
+const Sample = ({}) => {
+  // ...
+  useEffect(() => {
+    onSnapshot(collection(dbService, 'posts'), (docs) => {
+      docs.forEach((doc) => console.log(doc.data()));
+    });
+  }, []);
+  return (...)
+};
+
+export default Home;
+```
+
+## 데이터 삭제
+
+데이터를 삭제하려면 `deleteDoc` 메서드를 사용해 삭제할 수 있다.
+
+공식 문서에 따르면 Cloud Firestore는 데이터를 삭제할 때 하위 컬렉션의 데이터를 자동으로 삭제하지 않는다.
+따라서 하위 데이터까지 삭제하려면 수동으로 삭제해야 한다.
+
+공식문서에서 설명하는 `deleteDoc` 메서드 사용방법은 다음과 같다.
+
+> deleteDoc(doc(db, 컬렉션, 문서));  
+> db 의 cities 라는 컬렉션의 DC 문서를 삭제한다.
+
+```js
+import { doc, deleteDoc } from 'firebase/firestore';
+
+await deleteDoc(doc(db, 'cities', 'DC'));
+```
+
+따라서 우리는 다음과 같이 작성할 수 있다.
+
+```js
+import { dbService } from 'fbase'; // getFirestore
+import { deleteDoc, doc } from 'firebase/firestore';
+
+await deleteDoc(doc(dbService, 'posts', postObj.id));
+```
+
+## 데이터 업데이트
+
+데이터를 수정하는 것은 데이터를 삭제하는 것만큼 간단하다.
+
+다음 예시는 공식 문서에서 설명하는 사용법이다.
+
+> db에서 `cities` 라는 컬렉션의 `DC` 문서 내 `capital` 값을 `true`로 변경
+
+```js
+import { doc, deleteDoc } from 'firebase/firestore';
+
+const washingtonRef = doc(db, 'cities', 'DC'); // 변경할 문서
+await updateDoc(washingtonRef, {
+  capital: true,
+});
+```
+
+우리의 프로젝트에 적용하면 다음과 같이 작성할 수 있다.
+
+```js
+import { dbService } from 'fbase'; // getFirestore
+import { deleteDoc, doc } from 'firebase/firestore';
+
+await updateDoc(doc(dbService, 'posts', postObj.id), { text: 'hello world!' });
+```
