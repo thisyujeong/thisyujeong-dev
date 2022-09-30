@@ -84,7 +84,7 @@ export default Sample;
    - onClick 이벤트 리스너에 `onClearAttachment` 함수를 설정한다.
    - `onClearAttachment` 함수는 `attachement`를 초기화한다.
 
-## Storage 파일 업로드
+## 파일 업로드
 
 > Firebase 를 사용하기 위한 기본적인 firebaseSDK 세팅이 되어있어야 한다.  
 > [Firebase 시작하기](/note/database/firebase) 포스팅 참고
@@ -100,7 +100,7 @@ const storage = getStorage();
 const mountainsRef = ref(storage, 'mountains.jpg');
 ```
 
-## Storage 파일 업로드 구현
+## 파일 업로드 구현
 
 업로드한 파일명 그대로 storage에 업로드할 수 있지만, 파일의 이름은 고유한 이름을 갖는 것이 좋다.
 
@@ -191,3 +191,42 @@ service firebase.storage {
   }
 }
 ```
+
+## 파일 다운로드
+
+파일 다운로드는 매우 간단하게 수행할 수 있다.
+
+```js
+import { getStorage, ref, uploadString } from 'firebase/storage';
+
+// ...
+const onSubmit = async (evt) => {
+  evt.preventDefault();
+
+  /* 파일 업로드 */
+  const storage = getStorage();
+  const fileRef = ref(storage, uuidv4()); // 파일 참조 생성
+  const response = await uploadString(fileRef, attachment, 'data_url');
+
+  /* 파일 다운로드 */
+  const fileURL = await getDownloadURL(ref(storage, fileRef));
+  console.log(fileURL);
+};
+```
+
+`firebase/storage`로부터 `getDownloadURL`과 `ref` 모듈을 불러온 후,
+
+`getDownloadURL`의 인자로 ref를, `ref`의 인자로 storage와 위에서 생성한 참조를 전달하면 해당 이미지를 다운로드 할 수 있는 url을 반환한다.
+
+## 파일 삭제
+
+```js
+import { deleteObject, ref } from 'firebase/storage';
+
+const storage = getStorage();
+const desertRef = ref(storage, fileURL); // 파일 참조 생성
+
+deleteObject(desertRef);
+```
+
+파일 삭제 또한 삭제할 파일 참조(`desertRef`)를 생성하고 `deleteObject`의 인자로 생성한 참조를 전달하면 끝이다. 이제 Firebase Storage 에서 해당 파일이 삭제된 것을 확인할 수 있을 것이다.
