@@ -78,6 +78,9 @@ export const MDXPostContainer = styled.div`
     font-weight: 600;
   }
 
+  code {
+    font-family: 'FiraMono';
+  }
   p {
     code {
       color: #109a79;
@@ -85,7 +88,6 @@ export const MDXPostContainer = styled.div`
       padding: 3px 6px;
       font-size: 14px;
       margin: 0 2px;
-      font-family: 'FiraMono';
       font-weight: 500;
       background-color: var(--code-block);
       border-radius: 3px;
