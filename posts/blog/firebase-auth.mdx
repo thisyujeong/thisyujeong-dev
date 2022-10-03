@@ -1,5 +1,6 @@
 ---
 title: Firebase Auth 설정과 로그인 & 로그아웃 구현
+description: Firebase Authentication으로 쉽게 로그인 기능을 구현해보자.
 date: 2022-09-17
 tags: ['database', 'firebase']
 ---
@@ -8,7 +9,10 @@ tags: ['database', 'firebase']
 > 참고로, 해당 글은 Firebase V9 버전을 바탕으로 작성된 글이다.  
 > Firebase V8 이하 버전은 import 등의 방식이 다르므로 공식 문서를 꼭 참고하길 바란다.
 
-- React 환경 + Firebase
+<br />
+
+- React 환경에서 작성되었습니다.
+- [Firebase 시작하기](/note/database/firebase) 포스팅으로 초기 세팅을 한 후 보는 것을 추천드립니다.
 
 ## 절대 경로 설정
 
@@ -32,7 +36,7 @@ import Button from 'components/Button';
 ## Firebase 인증 초기화
 
 getAuth 모듈을 import해 Firebase 인증을 초기화한다.  
-다시 말하지만, Firebase 의 버전에 따라 import 방식이 다르다. **이 문서는 V9 버전을 기준으로 작성되었다.**
+Firebase 의 버전에 따라 import 방식이 다르며, 해당 문서는 **V9 버전을 기준으로 작성되었다.**
 
 ```js:fbase.js
 import { initializeApp } from 'firebase/app';

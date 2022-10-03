@@ -27,9 +27,11 @@ npm install --save firebase
 
 ## firebase 연결
 
-발급받은 firebaseSDK를 firebase.js 파일을 추가하여 프로젝트에 연결한다.
+발급받은 firebaseSDK를 **fbase.js** 파일을 추가하여 프로젝트에 연결한다.
 
-```js:src/firebase.js
+깔끔한 코드를 위해 fbase.js 파일을 별도 생성하여 작성한다. (선택)
+
+```js:src/fbase.js
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
@@ -47,7 +49,7 @@ export default initializeApp(firebaseConfig);
 연결이 정상적으로 되었는지 확인하기 위해 콘솔에 출력해보자.
 
 ```js:src/index.js
-import firebase from './firebase';
+import firebase from 'fbase';
 
 console.log(firebase);
 ```
