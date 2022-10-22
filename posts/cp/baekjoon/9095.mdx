@@ -6,6 +6,8 @@ from: baekjoon
 url: https://www.acmicpc.net/problem/9095
 ---
 
+## 220503
+
 알고리즘: DP
 
 정수 n 이 1 일 때 조합 (1개)
@@ -62,4 +64,28 @@ input.map((v) => {
   }
   console.log(dp[v]);
 });
+```
+
+## 221022
+
+```js
+// 메모리: 9328kb
+// 시간: 112ms
+const [T, ...input] = require('fs')
+  .readFileSync('./input.txt')
+  .toString()
+  .trim()
+  .split('\n');
+const memo = { 1: 1, 2: 2, 3: 4 };
+
+let result = '';
+input.map((n) => {
+  const num = parseInt(n);
+  for (let i = 4; i <= num; i++) {
+    memo[i] = memo[i - 1] + memo[i - 2] + memo[i - 3];
+  }
+  result += memo[num] + '\n';
+});
+
+console.log(result);
 ```

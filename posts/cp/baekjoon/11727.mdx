@@ -6,6 +6,8 @@ from: baekjoon
 url: https://www.acmicpc.net/problem/11727
 ---
 
+## 220503
+
 알고리즘: DP
 
 ```js
@@ -19,4 +21,19 @@ for (let i = 3; i <= input; i++) {
   dp[i] = (dp[i - 1] + 2 * dp[i - 2]) % 10007;
 }
 console.log(dp[input]);
+```
+
+## 221022
+
+```js
+// 메모리 9660kb
+// 시간 196ms
+const n = +require('fs').readFileSync('dev/stdin');
+const memo = { 1: 1, 2: 3 };
+
+for (let i = 3; i <= n; i++) {
+  memo[i] = (memo[i - 1] + 2 * memo[i - 2]) % 10007;
+}
+
+console.log(memo[n]);
 ```
