@@ -234,18 +234,18 @@ export const MDXPostContainer = styled.div`
   }
 
   thead th {
-    border-bottom: 2px solid var(--mdx-border);
+    background: #c2e7c64d;
   }
 
   td {
     font-size: 14px;
-    padding: 4px 15px;
+    padding: 2px 15px;
     border: 1px solid var(--mdx-border);
   }
 
   th {
     font-size: 14px;
-    padding: 4px 15px;
+    padding: 2px 15px;
     font-weight: 500;
     border: 1px solid var(--mdx-border);
   }
