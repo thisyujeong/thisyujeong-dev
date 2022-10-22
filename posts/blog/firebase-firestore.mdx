@@ -69,13 +69,13 @@ try {
 
 ## 데이터 조회
 
-`addDoc`과 유사하게 `getDoc`을 통해 조회할 수 있다.
+`addDoc`과 유사하게 `getDocs`을 통해 조회할 수 있다.
 
 ```js
 import { dbService } from 'fbase'; // getFirestore
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDoc } from 'firebase/firestore';
 
-const querySnapshot = await getDocs(collection(db, 'posts'));
+const querySnapshot = await getDoc(collection(db, 'posts'));
 querySnapshot.forEach((doc) => {
   console.log(doc.id, doc.data());
 });
