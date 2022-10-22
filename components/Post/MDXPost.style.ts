@@ -9,7 +9,7 @@ export const MDXPostContainer = styled.div`
   font-weight: 400;
 
   ${mq({
-    maxWidth: ['100%', 'calc(100% - 250px)', '100%'],
+    maxWidth: ['100%', '100%', '100%'],
   })}
 
   * {
