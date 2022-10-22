@@ -1,0 +1,25 @@
+---
+title: MacOS - eclipse 응용 프로그램이 예기치 않게 종료되었습니다.
+date: 2022-10-22
+tags: ['eclipse']
+---
+
+## 오류 발생 상황
+
+오랜만에 이클립스를 실행했더니 'eclipse 응용 프로그램이 예기치 않게 종료되었습니다.' 문구와 함께 강제종료되는 현상이 발생
+
+구글링하면 이클립스를 재실행하거나, 다음 방법으로 해결이 가능하다고 한다.
+
+> [Finder의 Applications - Eclipse 우클릭하여 패키지 내용보기 - Contents - MacOS - eclipse 실행]
+
+하지만 위 방법으로도 해결되지 않았고 다음 방법으로 해결했다.
+
+## 문제 해결
+
+문제 발생 원인은 이클립스 앱 내의 코드 서명이 깨져 발생한 것이라고 한다.
+
+터미널을 실행하여 다음 명령을 입력후 eclipse 를 재실행하면 문제 해결
+
+```
+codesign --force --deep --sign - /Applications/Eclipse.app/Contents/MacOS/eclipse
+```
