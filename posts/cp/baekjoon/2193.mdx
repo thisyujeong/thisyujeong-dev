@@ -1,0 +1,61 @@
+---
+title: 이친수
+number: 2193
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2193
+---
+
+## 문제 분석
+
+| N=1   | N=2    | N=3    | N=4    | N=5    |
+| ----- | ------ | ------ | ------ | ------ |
+| 1     | 10     | 100    | 1000   | 10000  |
+|       |        | 101    | 1001   | 10001  |
+|       |        |        | 1010   | 10010  |
+|       |        |        |        | 10100  |
+|       |        |        |        | 10101  |
+| 총 개 | 총 1개 | 총 2개 | 총 3개 | 총 5개 |
+
+위 패턴을 통해 알 수 있는 것은 이 문제가 피보나치 수열 문제라는 것이다.
+
+### 피보나치 수열 점화식
+
+> `memo[N] = memo[N-1] + memo[N-2];`
+
+## 풀이
+
+위 점화식을 적용하여 풀이하면 다음과 같다.
+
+```js
+const N = +require('fs').readFileSync('dev/stdin');
+const memo = new Array(N);
+memo[0] = 1;
+memo[1] = 1;
+
+for (let i = 2; i < N; i++) {
+  memo[i] = memo[i - 1] + memo[i - 2];
+}
+
+console.log(memo[N - 1]);
+```
+
+하지만 위 풀이를 제출하면 **오답**이다. 이는 Number 타입으로 처리하게되면 최대 정수값(2^53)을 넘기는 경우가 발생하기 때문이라고 한다.
+
+이 문제를 해결하기 위해 BigInt 자료형으로 변환 후, 다시 String 문자열로 변환해준다.
+String 자료형으로 변환하는 이유는 BigInt 자료형을 사용할 경우 끝에 'n'이 붙기 때문이다.
+
+## 최종 풀이
+
+```js
+const N = +require('fs').readFileSync('dev/stdin');
+const memo = new Array(N);
+memo[0] = 1;
+memo[1] = 1;
+
+for (let i = 2; i < N; i++) {
+  memo[i] = BigInt(memo[i - 1]) + BigInt(memo[i - 2]);
+}
+
+console.log(String(memo[N - 1]));
+```

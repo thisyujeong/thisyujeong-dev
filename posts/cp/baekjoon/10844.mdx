@@ -1,0 +1,28 @@
+---
+title: 쉬운 계단 수
+number: 10844
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/10844
+---
+
+```js
+const N = +require('fs').readFileSync('dev/stdin');
+const memo = [[0, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
+
+let answer = 0;
+let mod = 1000000000;
+
+for (let n = 1; n < N; n++) {
+  memo[n] = new Array(10);
+  for (let i = 0; i <= 9; i++) {
+    memo[n][i] = (memo[n - 1][i - 1] || 0) + (memo[n - 1][i + 1] || 0);
+    memo[n][i] %= mod;
+  }
+}
+
+for (let i = 0; i <= 9; i++) {
+  answer += memo[N - 1][i];
+}
+console.log(answer % mod);
+```
