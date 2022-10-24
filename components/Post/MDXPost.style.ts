@@ -81,7 +81,9 @@ export const MDXPostContainer = styled.div`
   code {
     font-family: 'FiraMono';
   }
+
   p {
+    /* margin: 0.5rem 0; */
     code {
       color: #109a79;
       color: var(--text-base-90);
@@ -162,7 +164,7 @@ export const MDXPostContainer = styled.div`
     code {
       color: var(--text-base-90);
       font-weight: 500;
-      padding: 0.25rem 0.5rem;
+      padding: 0.2rem 0.3rem;
       font-size: 14px;
       margin: 0 2px;
       background-color: var(--code-block);
@@ -171,8 +173,13 @@ export const MDXPostContainer = styled.div`
   }
 
   ul {
-    margin: 0;
-    padding-left: 20px;
+    margin: 0.75rem 0;
+    padding-left: 24px;
+
+    ul,
+    ol {
+      margin: 0;
+    }
     > li {
       list-style: disc;
 
@@ -186,23 +193,15 @@ export const MDXPostContainer = styled.div`
     }
   }
 
-  li {
-    code {
-      color: var(--text-base-90);
-      font-weight: 500;
-      margin: 0 2px;
-      padding: 0.25rem 0.5rem;
-      background-color: var(--code-block);
-      border-radius: 3px;
-      font-size: 14px;
-      font-family: 'FiraMono';
-    }
-  }
-
   ol {
-    margin: 0;
-    padding-left: 20px;
-    margin: 1rem 0;
+    padding-left: 24px;
+    margin: 0.75rem 0;
+
+    ul,
+    ol {
+      margin: 0;
+    }
+
     > li {
       list-style: decimal;
       > ol > li {
@@ -216,14 +215,14 @@ export const MDXPostContainer = styled.div`
 
   li {
     code {
-      color: var(--text-base-90);
-      font-weight: 500;
-      padding: 0.25rem 0.5rem;
-      font-size: 14px;
       margin: 0 2px;
-      background-color: var(--code-block);
-      border-radius: 3px;
+      padding: 0.2rem 0.3rem;
+      font-size: 14px;
+      font-weight: 500;
       font-family: 'FiraMono';
+      color: var(--text-base-90);
+      border-radius: 3px;
+      background-color: var(--code-block);
     }
   }
 
