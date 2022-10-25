@@ -1,0 +1,32 @@
+---
+title: 가장 긴 감소하는 부분 수열
+number: 11722
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/11722
+---
+
+알고리즘: DP
+
+이 문제는 [11722 가장 긴 증가하는 부분 수열](/cp/baekjoon/11722)문제와 거의 유사하며, 풀이 또한 크게 다르지 않다.
+
+해당 문제에서는 반대로 감소하는 부분 수열이기 때문에 조건문에서 부등호만 바꿔주면 된다.
+
+자세한 풀이는 11722번 포스트를 참고할 것
+
+```js
+const [N, input] = require('fs').readFileSync('dev/stdin').toString().split('\n');
+const n = parseInt(N);
+const a = input.split(' ').map(Number);
+const dp = new Array(n).fill(1);
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < i; j++) {
+    if (a[j] > a[i] && dp[i] < dp[j] + 1) {
+      dp[i] = dp[j] + 1;
+    }
+  }
+}
+
+console.log(Math.max(...dp));
+```
