@@ -5,7 +5,7 @@ export const MDXPostContainer = styled.div`
   position: relative;
   width: 100%;
   font-size: 16px;
-  line-height: 1.8;
+  line-height: 1.75;
   font-weight: 400;
 
   ${mq({
@@ -15,7 +15,11 @@ export const MDXPostContainer = styled.div`
   * {
     color: var(--text-base);
     font-size: 16px;
-    line-height: 2em;
+    line-height: 1.75;
+
+    &::selection {
+      background-color: #98b48d63;
+    }
   }
 
   sub,
@@ -83,14 +87,14 @@ export const MDXPostContainer = styled.div`
   }
 
   p {
-    /* margin: 0.5rem 0; */
+    margin: 0.75rem 0;
     code {
       color: #109a79;
       color: var(--text-base-90);
       padding: 3px 6px;
       font-size: 14px;
       margin: 0 2px;
-      font-weight: 500;
+      font-weight: 400;
       background-color: var(--code-block);
       border-radius: 3px;
     }
@@ -163,7 +167,7 @@ export const MDXPostContainer = styled.div`
 
     code {
       color: var(--text-base-90);
-      font-weight: 500;
+      font-weight: 400;
       padding: 0.2rem 0.3rem;
       font-size: 14px;
       margin: 0 2px;
@@ -218,7 +222,7 @@ export const MDXPostContainer = styled.div`
       margin: 0 2px;
       padding: 0.2rem 0.3rem;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
       font-family: 'FiraMono';
       color: var(--text-base-90);
       border-radius: 3px;
