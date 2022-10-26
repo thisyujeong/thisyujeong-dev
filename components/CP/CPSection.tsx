@@ -38,7 +38,7 @@ const CPSection = ({ posts, title }: CPSection) => {
       </CPHeader>
       <CPList className={isOpen ? title : `${title} hide`}>
         {posts.map((post) => (
-          <li key={post.number} className={post.level}>
+          <li key={post._id} className={post.level}>
             <Link href={`/${post.url_path}`} passHref>
               <a>
                 <span className="number">{post.number}</span>
