@@ -1,0 +1,65 @@
+---
+title: 연속합
+number: 1912
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1912
+---
+
+## 문제 분석
+
+알고리즘: DP
+
+[11055](/cp/baekjoon/11055), [11053](/cp/baekjoon/11053) 등의 문제와 같이 부분 수열 문제이나, 앞의 두 문제와 다르게 **‘연속된’** 수들의 합을 구하는 문제이다. 때문에 단일 반복문으로 해당 문제를 해결할 수 있다.
+
+주어진 수열 A 배열을 순환하면서 DP 배열에 메모제이션 한다.
+
+> A = { 10, -4, 3, 1, 5, 6, -35, 12, 21, -1 }
+
+| A   | 10  | -4  | 3   | 1   | 5   | 6   | -35 | 12  | 21  | -1  |
+| :-- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| DP  | 10  | 6   | 9   | 10  | 15  | 21  | -14 | 12  | 33  | 22  |
+
+## 풀이
+
+> 메모리 15908KB, 시간 200ms
+
+```js
+const [N, input] = require('fs').readFileSync('./input.txt').toString().split('\n');
+const n = parseInt(N);
+const a = input.split(' ').map(Number);
+const dp = [...a];
+
+for (let i = 0; i < n; i++) {
+  if (dp[i] < dp[i - 1] + a[i]) {
+    dp[i] = dp[i - 1] + a[i];
+  }
+}
+
+console.log(Math.max(...dp));
+```
+
+### 개선
+
+위 풀이의 `Math.max` 메서드 없이 max 변수를 생성해 최대 값을 구하는 방식으로 변경해 코드의 길이는 늘었지만 처리 시간과 메모리 사용량은 더 적어졌다.
+
+`Math.max`를 사용하는 것은 반복문을 실행하는 것과 같은 개념이다.
+
+> 메모리 15680KB, 시간 196ms
+
+```js
+const [N, input] = require('fs').readFileSync('./input.txt').toString().split('\n');
+const n = parseInt(N);
+const a = input.split(' ').map(Number);
+const dp = [...a];
+let max = dp[0];
+
+for (let i = 0; i < n; i++) {
+  if (dp[i] < dp[i - 1] + a[i]) {
+    dp[i] = dp[i - 1] + a[i];
+  }
+  if (max < dp[i]) max = dp[i];
+}
+
+console.log(max);
+```
