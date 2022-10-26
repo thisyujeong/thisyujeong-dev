@@ -1,14 +1,21 @@
 import React from 'react';
 import { NextSeo } from 'next-seo';
-import { allCPs, CP } from 'contentlayer/generated';
+import { allCPs } from 'contentlayer/generated';
 import Container from 'components/Container';
 import CPSection from 'components/CP/CPSection';
 import fs from 'fs';
+import { PostFrom, PostWithBirth } from 'lib/types';
 
-const cp = ({ posts }: { posts: CP[] }) => {
-  const baekjoonPosts = posts.filter((post) => post.from == 'baekjoon');
-  const programmersPosts = posts.filter((post) => post.from == 'programmers');
-  const leetcodePosts = posts.filter((post) => post.from == 'leetcode');
+const cp = ({ posts }: { posts: PostWithBirth[] }) => {
+  const sorting = (from: PostFrom) => {
+    const filter = posts.filter((post) => post.from == from);
+    const sorted = filter.sort((a, b) => a.birthTime - b.birthTime);
+    return sorted;
+  };
+
+  const baekjoonPosts = sorting('baekjoon');
+  const programmersPosts = sorting('programmers');
+  const leetcodePosts = sorting('leetcode');
 
   return (
     <Container>
@@ -21,14 +28,16 @@ const cp = ({ posts }: { posts: CP[] }) => {
 };
 
 export const getStaticProps = async () => {
-  const sortedPost = allCPs.sort((a, b) => {
-    const aTime = fs.statSync('./posts/' + a._raw.sourceFilePath).birthtime.getTime();
-    const bTime = fs.statSync('./posts/' + b._raw.sourceFilePath).birthtime.getTime();
-    return aTime - bTime;
+  const posts = allCPs.map((cp) => {
+    return {
+      ...cp,
+      birthTime: fs.statSync('./posts/' + cp._raw.sourceFilePath).birthtime.getTime(),
+    };
   });
+
   return {
     props: {
-      posts: sortedPost,
+      posts: posts,
     },
   };
 };
