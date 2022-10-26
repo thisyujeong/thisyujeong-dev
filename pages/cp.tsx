@@ -1,8 +1,9 @@
+import React from 'react';
+import { NextSeo } from 'next-seo';
+import { allCPs, CP } from 'contentlayer/generated';
 import Container from 'components/Container';
 import CPSection from 'components/CP/CPSection';
-import { allCPs, CP } from 'contentlayer/generated';
-import { NextSeo } from 'next-seo';
-import React from 'react';
+import fs from 'fs';
 
 const cp = ({ posts }: { posts: CP[] }) => {
   const baekjoonPosts = posts.filter((post) => post.from == 'baekjoon');
@@ -20,9 +21,14 @@ const cp = ({ posts }: { posts: CP[] }) => {
 };
 
 export const getStaticProps = async () => {
+  const sortedPost = allCPs.sort((a, b) => {
+    const aTime = fs.statSync('./posts/' + a._raw.sourceFilePath).birthtime.getTime();
+    const bTime = fs.statSync('./posts/' + b._raw.sourceFilePath).birthtime.getTime();
+    return aTime - bTime;
+  });
   return {
     props: {
-      posts: allCPs,
+      posts: sortedPost,
     },
   };
 };
