@@ -65,16 +65,9 @@ export type TableOfContent = {
 };
 
 /* CP */
-
 export type Post = {
   post: CP;
 };
-
-export type PostWithBirth = CP & {
-  birthTime: number;
-};
-
-export type PostFrom = 'baekjoon' | 'programmers' | 'leetcode';
 
 export type CPSection = {
   posts: CP[];

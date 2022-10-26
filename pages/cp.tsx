@@ -1,54 +1,30 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { NextSeo } from 'next-seo';
-import { allCPs } from 'contentlayer/generated';
 import Container from 'components/Container';
 import CPSection from 'components/CP/CPSection';
-import fs from 'fs';
-import { PostFrom, PostWithBirth } from 'lib/types';
+import { allCPs, CP } from 'contentlayer/generated';
+import { NextSeo } from 'next-seo';
+import React from 'react';
 
-const CP = ({ posts }: { posts: PostWithBirth[] }) => {
-  const [baekjoonPosts, setBaekjoonPosts] = useState<PostWithBirth[] | null>(null);
-  const [programmersPosts, setProgrammersPosts] = useState<PostWithBirth[] | null>(null);
-  const [leetcodePosts, setLeetcodePosts] = useState<PostWithBirth[] | null>(null);
-
-  const sorting = useCallback(
-    (from: PostFrom) => {
-      const filter = posts.filter((post) => post.from == from);
-      const sorted = filter.sort((a, b) => a.birthTime - b.birthTime);
-      return sorted;
-    },
-    [posts]
-  );
-
-  useEffect(() => {
-    setBaekjoonPosts(sorting('baekjoon'));
-    setProgrammersPosts(sorting('programmers'));
-    setLeetcodePosts(sorting('leetcode'));
-  }, [posts, sorting]);
+const cp = ({ posts }: { posts: CP[] }) => {
+  const baekjoonPosts = posts.filter((post) => post.from == 'baekjoon');
+  const programmersPosts = posts.filter((post) => post.from == 'programmers');
+  const leetcodePosts = posts.filter((post) => post.from == 'leetcode');
 
   return (
     <Container>
       <NextSeo title={`CP`} description={`Competitive Programming Notes`} />
-      {baekjoonPosts && <CPSection posts={baekjoonPosts} title="baekjoon" />}
-      {programmersPosts && <CPSection posts={programmersPosts} title="baekjoon" />}
-      {leetcodePosts && <CPSection posts={leetcodePosts} title="baekjoon" />}
+      <CPSection posts={baekjoonPosts} title="baekjoon" />
+      <CPSection posts={programmersPosts} title="programmers" />
+      <CPSection posts={leetcodePosts} title="leetcode" />
     </Container>
   );
 };
 
 export const getStaticProps = async () => {
-  const posts = allCPs.map((cp) => {
-    return {
-      ...cp,
-      birthTime: fs.statSync('./posts/' + cp._raw.sourceFilePath).birthtime.getTime(),
-    };
-  });
-
   return {
     props: {
-      posts: posts,
+      posts: allCPs,
     },
   };
 };
 
-export default CP;
+export default cp;
