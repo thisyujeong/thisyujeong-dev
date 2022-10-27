@@ -6,6 +6,8 @@ from: baekjoon
 url: https://www.acmicpc.net/problem/1699
 ---
 
+## 문제 분석
+
 알고리즘: DP
 
 주어진 수에 대해 제곱수의 합으로 나타낼 수 있는 항의 최소 개수를 구하는 문제다.
@@ -36,18 +38,18 @@ url: https://www.acmicpc.net/problem/1699
 | 3   | 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup>                  | (3 - 1<sup>2</sup>) + 1               | 3         |
 | 4   | 2<sup>2</sup>                                                  | (4 - 2<sup>2</sup>) + 1               | 1         |
 | 5   | 2<sup>2</sup> + 1<sup>2</sup>                                  | (5 - 2<sup>2</sup>) + 1               | 2         |
-| 6   | 2<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup>                  | (6 - 2<sup>2</sup>) + 1<sup>2</sup>   | 3         |
-| 7   | 2 <sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> | (7 - 2<sup>2</sup>) + 1<sup>2</sup>   | 4         |
+| 6   | 2<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup>                  | (6 - 2<sup>2</sup>) + 1               | 3         |
+| 7   | 2 <sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> | (7 - 2<sup>2</sup>) + 1               | 4         |
 
 즉, 1부터 N까지의 수를 순환하면서 최소항의 개수를 메모제이션 하는 동적 프로그래밍 알고리즘을 이용할 수 있고 이를 점화식으로 나타내면 다음과 같다.
 
 여기서 `i ** 2` 는 i<sup>2</sup> 을 표현한다.
 
-```jsx
+```js
 DP[N] = Math.min(DP[N], DP[N - i ** 2] + 1);
 ```
 
-### 풀이
+## 풀이
 
 ```js
 const n = +require('fs').readFileSync('dev/stdin');

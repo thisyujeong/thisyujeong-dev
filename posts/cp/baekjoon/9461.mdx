@@ -1,0 +1,59 @@
+---
+title: 파도반 수열
+number: 9461
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/9461
+---
+
+## 문제 분석
+
+알고리즘: DP
+
+파도반 수열의 패턴만 파악하면 쉽게 해결할 수 있는 문제다.
+
+표로 패턴을 확인확인해보자.
+
+| DP[N]  | 패턴          | A   |
+| ------ | ------------- | --- |
+| DP[0]  | 0             |     |
+| DP[1]  | 1             | 1   |
+| DP[2]  | 1             | 1   |
+| DP[3]  | DP[0] + DP[1] | 1   |
+| DP[4]  | DP[1] + DP[2] | 2   |
+| DP[5]  | DP[2] + DP[3] | 2   |
+| DP[6]  | DP[3] + DP[4] | 3   |
+| DP[7]  | DP[4] + DP[5] | 4   |
+| DP[8]  | DP[5] + DP[6] | 5   |
+| DP[9]  | DP[6] + DP[7] | 7   |
+| DP[10] | DP[7] + DP[8] | 9   |
+
+점화식으로 나타내면 다음과 같다.
+
+```js
+DP[N] = DP[N - 5] + DP[N - 1];
+```
+
+## 풀이
+
+주어진 테스트 케이스를 두번 반복하지 않도록 테스트 케이스중 가장 큰 수 만큼 반복문을 실행하도록 했다.
+
+```js
+const [n, ...tc] = require('fs')
+  .readFileSync('./input.txt')
+  .toString()
+  .split('\n')
+  .map(Number);
+const max = Math.max(...tc);
+let dp = [];
+dp = [0, 1, 1];
+
+for (let i = 3; i <= max; i++) {
+  dp[i] = dp[i - 3] + dp[i - 2];
+}
+
+for (let i = 0; i < n; i++) {
+  console.log(dp[tc[i]]);
+}
+console.log(dp);
+```
