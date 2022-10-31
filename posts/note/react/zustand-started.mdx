@@ -1,0 +1,94 @@
+---
+title: 리액트(React) 상태관리 라이브러리 Zustand
+date: 2022-10-31
+tags: ['React', '리액트', 'zustand', '상태관리']
+---
+
+React에서 상태관리를 하는 방법은 다양하게 있다.
+
+다양한 방법들 가운데 가장 흔한 예로 리덕스(Redux)를 사용해 상태관리를 할 수 있는데, 리덕스를 사용하기 위해서는 사전 설정부터 복잡하고 문법까지 어렵게 느껴진다.
+
+상태관리 라이브러리 Zustand 를 사용하면 보다 간편하게 상태관리를 할 수 있게 된다.
+
+설치부터 사용 방법까지 알아보자.
+
+## Zustand를 찾아보게 된 배경
+
+직장에서 진행중인 프로젝트 중 상태관리를 위해 Zustand 라이브러리를 도입했다. 처음 듣는 상태관리 라이브러리 였기에 사용법을 자세히 알기 위해 찾아보게 되었다.
+
+## Zustand Install
+
+npm 또는 yarn 으로 설치
+
+```
+npm install zustand
+yarn install zustand
+```
+
+## How to use
+
+```jsx
+import './App.css';
+import create from 'zustand';
+
+function App() {
+  return (
+    <div className="App">
+      <p>Hello, zustand</p>
+    </div>
+  );
+}
+```
+
+## Store 생성
+
+리덕스와 같이 zustand 에서도 store를 생성해야 한다. (일종의 상태 저장소)
+
+```jsx
+import create from 'zustand';
+
+const useStore = create((set) => ({
+  count: 0,
+  increase() {
+    set((state) => ({ count: state.count + 1 }));
+  },
+}));
+```
+
+zustand 라이브러리의 create 함수를 불러와 import 하여 사용한다.
+count 변수와 count를 1씩 증가시키는 `increase()`함수를 선언해 다음과 같이 사용할 수 있다.
+
+## Store 사용
+
+store를 사용하는 것은 `useStore`로부터 변수나 함수를 꺼내 사용할 수 있다.
+
+```jsx
+function App() {
+  const { count, increase } = useStore();
+  return (
+    <div className="App">
+      <p>카운트: {count}</p>
+      <button onClick={() => increase()}>증가</button>
+      <Card />
+    </div>
+  );
+}
+```
+
+## 디버깅 툴 사용하기
+
+디버깅 툴 사용시 zustand 미들웨어인 `devtools`를 사용할 수 있다.
+
+```jsx
+import create from 'zustand';
+import { devtools } from 'zustand/middleware';
+
+const myStore = (set) => ({
+  count: 0,
+  increase() {
+    set((state) => ({ count: state.count + 1 }));
+  },
+});
+
+const useStore = create(devtools(myStore));
+```
