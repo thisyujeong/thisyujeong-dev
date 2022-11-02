@@ -1,0 +1,67 @@
+---
+title: DFS와 BFS
+number: 1260
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1260
+---
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split('\n');
+const [n, m, v] = input.shift().split(' ').map(Number);
+
+// Graph 생성
+let graph = [...Array(n + 1)].map((e) => []);
+input.forEach((str) => {
+  const [from, to] = str.split(' ').map(Number);
+  graph[from].push(to);
+  graph[to].push(from);
+});
+
+graph.forEach((el) => el.sort((a, b) => a - b));
+
+let visited = new Array(n + 1).fill(0);
+let answer_dfs = [];
+let answer_bfs = [];
+
+// DFS
+DFS(v);
+console.log(answer_dfs.join(' '));
+
+// BFS
+visited.fill(0);
+BFS(v);
+console.log(answer_bfs.join(' '));
+
+// DFS 재귀 활용
+function DFS(v) {
+  if (visited[v]) return;
+  visited[v] = 1;
+  answer_dfs.push(v);
+  for (let i = 0; i < graph[v].length; i++) {
+    let next = graph[v][i];
+    if (!visited[next]) DFS(next);
+  }
+}
+
+// BFS 큐 자료구조 활용
+function BFS(v) {
+  let queue = [v]; // 시작노드를 큐에 삽입
+
+  while (queue.length) {
+    // queue의 길이만큼
+    let x = queue.shift(); // 큐에서 첫번째 노드를 꺼냄
+    if (visited[x]) continue; // 방문한 적 있다면 다음 노드 탐색
+    visited[x] = 1; // 꺼낸 노드 방문 처리
+    answer_bfs.push(x); // 시작노드 방문 처리
+
+    for (let i = 0; i < graph[x].length; i++) {
+      let next = graph[x][i]; // 다음 방문할 노드
+      if (!visited[next]) {
+        // 다음 방문할 노드가 방문한적 없다면 실행
+        queue.push(next); // 다음에 방문할 노드 큐에 삽입
+      }
+    }
+  }
+}
+```
