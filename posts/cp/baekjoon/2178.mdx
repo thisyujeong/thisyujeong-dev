@@ -1,0 +1,48 @@
+---
+title: 트리의 부모 찾기
+number: 11725
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/11725
+---
+
+```jsx
+const input = require('fs').readFileSync('./input.txt').toString().trim().split('\n');
+const n = +input.shift();
+const graph = [...Array(n + 1)].map(() => []);
+
+// 양방향 인접 그래프 생성
+for (let i = 0; i < n - 1; i++) {
+  const [from, to] = input[i].split(' ').map(Number);
+  graph[from].push(to);
+  graph[to].push(from);
+}
+
+const visit = new Array(n + 1).fill(0); // 노드 방문처리를 위한 배열 0으로 초기화
+const parent = new Array(n + 1); // 부모 노드를 가지는 배열
+const queue = [1]; // 큐 사용, 루트 1로 시작
+
+// 큐에 쌓인 노드가 사라질 때까지 반복
+while (queue.length) {
+  let tmp = queue.shift();
+  for (let i of graph[tmp]) {
+    if (!visit[i]) {
+      visit[i] = 1;
+      parent[i] = tmp;
+      queue.push(i);
+    }
+  }
+}
+
+for (let i = 2; i < n + 1; i++) {
+  console.log(parent[i]);
+}
+```
+
+출력시 반복문을 사용하여 출력했더니 시간초과가 발생했다. 출력 코드를 다음과 같이 반복문이 아닌 slice와 join을 사용하여 출력해 시간을 줄였더니 통과했다.
+
+```js
+console.log(parent.slice(2).join('\n'));
+```
+
+자세한 설명은 주석으로 작성했다.

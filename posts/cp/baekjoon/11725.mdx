@@ -1,0 +1,57 @@
+---
+title: 미로 탐색
+number: 2178
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2178
+---
+
+이 문제는 최단 거리를 구하는 문제로 DFS보다 BFS가 적합한 알고리즘이다.
+
+```jsx
+const input = require('fs').readFileSync('./input.txt').toString().trim().split('\n');
+const [n, m] = input.shift().split(' ').map(Number);
+const map = input.map((v) => v.split('').map(Number));
+
+// 탐색중인 노드를 기준으로 상하좌우 탐색을 위한 좌표 배열
+const dx = [-1, 1, 0, 0];
+const dy = [0, 0, -1, 1];
+
+// 방문 처리를 위한 배열 생성 및 초기화
+const visit = [];
+for (let i = 0; i < n; i++) {
+  visit.push([...new Array(m).fill(0)]);
+}
+
+bfs(0, 0);
+console.log(visit[n - 1][m - 1]);
+
+// bfs
+function bfs(x, y) {
+  const queue = [x, y]; // 시작노드 큐 삽입
+  visit[x][y] = 1; // 시작노드 방문 처리
+
+  while (queue.length) {
+    // 큐의 길이만큼 반복
+    const x = queue.shift(); // 큐에서 x값을 꺼냄
+    const y = queue.shift(); // 큐에서 y값을 꺼냄
+
+    for (let i = 0; i < 4; i++) {
+      // 상하좌우 총 4번의 탐색을 위해 반복
+      const nx = x + dx[i]; // 현재 탐색중인 노드를 기준으로 상하좌우 x좌표
+      const ny = y + dy[i]; // 현재 탐색중인 노드를 기준으로 상하좌우 y좌표
+
+      if (nx >= 0 && ny >= 0 && nx < n && ny < m) {
+        // 맵을 벗어나지 않는 범위
+        if (!visit[nx][ny] && map[nx][ny]) {
+          // 다음 노드를 방문하지 않았으며 지날 수 있는 길이라면
+          visit[nx][ny] = visit[x][y] + 1; // 다음 노드를 현재 노드값에 1을 더한 값으로 변경
+          queue.push(nx, ny); // 큐에 다옴 노드 삽입
+        }
+      }
+    }
+  }
+}
+```
+
+자세한 설명은 주석으로 작성했다.
