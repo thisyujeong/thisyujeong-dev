@@ -1,0 +1,57 @@
+---
+title: 숫자 카드
+number: 10815
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/10815
+---
+
+## 시간초과 코드
+
+이 문제의 시간 제한은 2초다. 배열을 활용하여 Array.includes를 통해 문제를 풀었지만 시간초과가 발생했다.
+
+```jsx
+const input = require('fs').readFileSync('./input.txt').toString().trim().split('\n');
+
+const m = +input[2];
+const hasCards = input[1].split(' ').map(Number);
+const cards = input[3].split(' ').map(Number);
+const answer = [];
+
+for (let i = 0; i < m; i++) {
+  if (hasCards.includes(cards[i])) answer.push(1);
+  else answer.push(0);
+}
+
+console.log(answer.join(' '));
+```
+
+위 문제를 해결하기 위해 다른 사람들의 코드를 보고 Array.includes가 아닌 Set.has를 사용해야 한다는 것을 알 수 있었다.
+
+먼저, Array.includes는 해당 배열을 순회하면서 일치하는 원소를 찾는다. 때문에 시간복잡도는 O(n)이다.
+
+하지만 Set.has 가 Array.includes 보다 빠른 이유를 알 수 없어 찾아보았다.
+
+[이 게시글(Set.has와 Array.includes 의 시간복잡도)](https://velog.io/@sozero/TIL-220307-Set.has-와-Array.includes-시간복잡도)에 따르면 사람들은 Set.has가 O(1)의 시간복잡도를 갖는다고 말한다. 하지만 Set.has 가 O(1)의 시간복잡도를 갖는다고 규정한 곳은 없으며, O(1) 또는 O(log(n))의 시간 복잡도를 갖는다고 예상할 뿐이다.
+
+또, 링크에서 언급한 [스택 오버플로우](https://stackoverflow.com/questions/33611509/es6-map-and-set-complexity-v8-implementation?noredirect=1&lq=1)의 답변 중 v8 팀에서 말하는 바로는 Set은 해시 테이블을 사용한 구조라고 하여 일반적으로 Set의 시간복잡도는 O(1)라고 생각하면 된다고 이야기 한다.
+
+## 최종 풀이
+
+위 내용들을 토대로 Set을 활용하여 다시 작성해 제출했다.
+
+```jsx
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split('\n');
+
+const m = +input[2];
+const hasCards = new Set(input[1].split(' ').map(Number));
+const cards = input[3].split(' ').map(Number);
+const answer = [];
+
+for (let i = 0; i < m; i++) {
+  if (hasCards.has(cards[i])) answer.push(1);
+  else answer.push(0);
+}
+
+console.log(answer.join(' '));
+```

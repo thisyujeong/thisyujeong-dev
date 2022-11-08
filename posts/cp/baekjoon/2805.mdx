@@ -1,0 +1,84 @@
+---
+title: 나무 자르기
+number: 2805
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/2805
+---
+
+## 처음 제출한 코드
+
+```jsx
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split('\n');
+const [n, m] = input.shift().split(' ').map(Number);
+const trees = input[0]
+  .split(' ')
+  .map(Number)
+  .sort((a, b) => a - b);
+
+let min = 0;
+let max = trees[n - 1];
+let answer = 0;
+
+while (min <= max) {
+  const mid = Math.floor((min + max) / 2);
+  let cnt = 0;
+  for (let i = 0; i < n; i++) {
+    if (trees[i] > mid) cnt += trees[i] - mid;
+  }
+
+  if (cnt >= m) {
+    if (mid > answer) answer = mid;
+    min = mid + 1;
+  } else {
+    max = mid - 1;
+  }
+}
+
+console.log(answer);
+```
+
+로직 자체는 [1654 랜선 자르기](/cp/baekjoon/1654) 문제와 유사하다고 생각해 같은 로직을 활용했다.
+
+하지만 다른 사람들의 풀이에 비해 소요 시간이 약 1.5배나 차이가 난다.
+
+> 소요시간 992ms
+
+## 성능 개선 코드
+
+문제를 해결하고자 다른 사람들의 풀이와 비교해보았다.
+
+위 코드에서는 `sort` 를 사용하여 오름차순으로 정렬했고, `max` 값을 정렬한 배열의 가장 마지막 수로 초기화했다. 하지만 `sort` 가 전체소요시간의 많은 부분을 차지한 것이다.
+
+`sort` 함수를 사용하지 않고 `max` 값을 `Math.max` 를 사용하여 초기화했더니 소요시간이 1/3 이나 줄었다!
+
+> 소요시간 668ms
+
+```jsx
+const input = require('fs').readFileSync('./input.txt').toString().trim().split('\n');
+const [n, m] = input[0].split(' ').map(Number);
+const trees = input[1].split(' ').map(Number);
+
+let min = 0;
+let max = Math.max(...trees);
+let answer = 0;
+
+while (min <= max) {
+  const mid = Math.floor((min + max) / 2);
+  let cnt = 0;
+  for (let i = 0; i < n; i++) {
+    if (trees[i] > mid) cnt += trees[i] - mid;
+  }
+
+  if (cnt >= m) {
+    if (mid > answer) answer = mid;
+    min = mid + 1;
+  } else max = mid - 1;
+}
+
+console.log(answer);
+```
+
+문제점을 찾기 위해 제출한 기록들…
+
+<img src="/cps/baekjoon-2805.png" />
