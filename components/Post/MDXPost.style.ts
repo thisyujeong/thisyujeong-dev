@@ -130,7 +130,7 @@ export const MDXPostContainer = styled.div`
 
       * {
         font-size: 14px;
-        line-height: 1.57em;
+        line-height: 1.25em;
       }
     }
   }
@@ -272,7 +272,9 @@ export const MDXPostContainer = styled.div`
         color: #109a79;
       }
     }
-
+    .hljs-number {
+      color: orange;
+    }
     .hljs-doctag {
       color: #449bb4;
     }

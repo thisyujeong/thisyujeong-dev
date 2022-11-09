@@ -1,0 +1,103 @@
+---
+title: 숫자 카드 2
+number: 10816
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/10816
+---
+
+## 시간초과를 예상하고 제출한 코드
+
+[10815 숫자 카드](/cp/baekjoon/10815) 문제와 유사하지만, 이 문제는 주어진 카드 번호의 중복수까지 허용하고 그에 따른 개수를 구해야하는 문제로 **Set 자료형**을 사용할 수 없다. 또한 [10815 숫자카드](/cp/baekjoon/10815) 문제는 시간제한이 2초였으며, **Array 자료형**을 사용했을 때 시간초과가 발생했었다.
+
+그러나 이 문제는 시간제한이 1로 줄었다. 때문에 Array 자료형을 사용한 다음 코드 역시 시간초과가 발생할 것이라고 예상했고 이를 확인하고자 제출했보았다. 역시나 시간초과가 발생했다.
+
+```jsx
+// 시간초과를 얘상하고 제출한 코드
+const input = require('fs').readFileSync('./input.txt').toString().trim().split('\n');
+
+const n = +input[0];
+const m = +input[2];
+const hasCards = input[1].split(' ').map(Number);
+const cards = input[3].split(' ').map(Number);
+const answer = [];
+
+for (let i = 0; i < m; i++) {
+  let cnt = 0;
+  for (let j = 0; j < n; j++) {
+    if (cards[i] === hasCards[j]) cnt++;
+  }
+  answer.push(cnt);
+}
+
+console.log(answer.join(' '));
+```
+
+위를 해결하기 위한 방안이 생각나지 않아 다른 사람들의 코드를 찾아보았고, Map 자료형을 통해 문제를 해결했다. [10815 숫자카드](/cp/baekjoon/10815) 문제에서 사용한 Set 과 같이 Map 또한 자주 사용하지 않았던 자료형이라 쉽게 떠오르지 않았던 방안이다.
+
+Map 자료형은 `key - value` 형태로 사용할 수 있는데, 이는 객체와 유사하지만 set, get, has, … 등과 같은 메서드와 프로퍼티가 존재한다는 것에 차이가 있다. 문제 풀이 중점의 포스팅이므로 Map 자료형에 대한 자세한 문법은 생략하겠다. (공식문서 참고)
+
+## Map 자료형을 활용한 코드
+
+```jsx
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split('\n');
+
+const hasCards = input[1].split(' ').map(Number); // 상근이가 가지고 있는 숫자 카드
+const cards = input[3].split(' ').map(Number); // 비교해야할 숫자 카드
+const hasCardsMap = new Map();
+const answer = [];
+
+for (card of hasCards) {
+  if (hasCardsMap.has(card)) {
+    hasCardsMap.set(card, hasCardsMap.get(card) + 1);
+  } else {
+    hasCardsMap.set(card, 1);
+  }
+}
+```
+
+- 상근이가 가지고있는 숫자 카드를 순회한다.
+- 순회 대상으로하는 카드가 **Map**에 있다면 이미 **하나 이상 존재한다는 뜻**으로, 해당 카드의 개수(value)를 **+ 1** 해준다
+- 반대로 Map에 없다면 해당 카드를 Map에 추가하고 1로 초기화한다.
+- hasCardsMap을 출력해보면 다음과 같이 [key-value]로 구성된 것을 확인할 수 있다.
+  ```jsx
+  console.log(hasCardsMap);
+  // Map(6) { 6 => 1, 3 => 2, 2 => 1, 10 => 3, -10 => 2, 7 => 1 }
+  ```
+
+그리고 비교해야할 숫자 카드를 순회하면서 각 카드마다 몇개의 카드를 보유하고 있는지 has 메소드를 통해 확인 후 배열(`answer`)에 추가한다. 만약 Map에 없다면 보유하고 있지 않은 카드이므로 0 을 추가한다.
+
+```jsx
+for (card of cards) {
+  if (hasCardsMap.has(card)) answer.push(hasCardsMap.get(card));
+  else answer.push(0);
+}
+```
+
+## 전체 코드
+
+출력은 배열로 구성된 `answer` 를 `join` 메소드를 사용해 하나의 문자열로 만들어준다. 구분은 공백으로 한다.
+
+```jsx
+const input = require('fs').readFileSync('dev/stdin').toString().trim().split('\n');
+
+const hasCards = input[1].split(' ').map(Number);
+const cards = input[3].split(' ').map(Number);
+const hasCardsMap = new Map();
+const answer = [];
+
+for (card of hasCards) {
+  if (hasCardsMap.has(card)) {
+    hasCardsMap.set(card, hasCardsMap.get(card) + 1);
+  } else {
+    hasCardsMap.set(card, 1);
+  }
+}
+
+for (card of cards) {
+  if (hasCardsMap.has(card)) answer.push(hasCardsMap.get(card));
+  else answer.push(0);
+}
+
+console.log(answer.join(' '));
+```
