@@ -1,0 +1,55 @@
+---
+title: 쿼드트리
+number: 1992
+level: silver
+from: baekjoon
+url: https://www.acmicpc.net/problem/1992
+---
+
+문제를 보자마자 4분할로 반복 수행해야한다는 점에서 재귀를 이용할 수 있는 문제라는 것을 쉽게 알 수 있을 것이다.
+
+먼저 주어진 전체 스크린 또는 분할된 각 영역이 모두 0 으로 채워져있다면 0을 출력하고, 1로 채워져있다면 1로 채워야한다.
+
+```js
+const input = require('fs').readFileSync('dev/stdin').toString().split('\n');
+const n = +input.shift();
+const screen = input.map(v => v.split('').map(Number));
+let result = '';
+
+const quadTree = (n, x, y) => {
+  // 1
+  const start = screen[y][x];
+  let check = true;
+
+  // 2
+  for(let i = 0; i < n; i++) {
+    for(let j = 0; j < n; j++) {
+      if(screen[y+i][x+j] !== start) check = false;
+    }
+  }
+
+  // 3
+  if(check) {
+    result += start;
+    return;
+  }
+
+  // 4
+  const half = n / 2;
+  result += '(';
+  quadTree(half, x, y);
+  quadTree(half, x + half, y
+  quadTree(half, x, y + half);
+  quadTree(half, x + half, y + half);
+  result += ')';
+}
+
+quadTree(n, 0, 0);
+console.log(result);
+```
+
+1. `start` 변수를 사용해 스크린의 첫번째 값으로 초기화하고, 스크린이 모두 같은 수로 이루어져있는지 판별하기 위한 `check` 변수(true로 초기화)가 있다.
+2. 이중 반복문을 통해 스크린의 점들이 하나라도 다른 수로 이루어져 있다면 `check` 를 false로 변경했다.
+3. `check` 가 true 라면 스크린의 점들이 모두 일치하는 것이므로, `start` 변수를 그대로 `result`에 저장한다.
+4. `half` 변수는 화면을 분할할 때 사용할 변수다.
+   1. 분할된 4개의 각 영역을 분할된 화면이 같은 수로 이루어져있을 때 까지 재귀함수로 반복실행 하도록한다.
