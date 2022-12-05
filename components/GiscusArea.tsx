@@ -10,7 +10,7 @@ const GiscusArea = ({ slug }: { slug: string }) => {
         repoId={`${process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID}`}
         category={metadata.giscus.category}
         categoryId={`${process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID}`}
-        mapping="specific"
+        mapping="title"
         term={slug}
         inputPosition="top"
         reactionsEnabled="1"
