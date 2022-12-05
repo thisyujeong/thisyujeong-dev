@@ -26,7 +26,6 @@ export const PostCard = styled.div`
 
 export const PostTitle = styled.h2`
   position: relative;
-  font-size: 22px;
   line-height: 1.57;
   transition: 0.2s ease;
 
@@ -46,11 +45,11 @@ export const PostTitle = styled.h2`
   }
 
   ${mq({
-    fontSize: ['22px', '22px', '20px'],
+    fontSize: ['24px', '22px', '20px'],
   })}
 `;
 
 export const PostDesc = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   opacity: 0.6;
 `;

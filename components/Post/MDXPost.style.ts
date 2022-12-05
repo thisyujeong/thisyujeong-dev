@@ -14,8 +14,8 @@ export const MDXPostContainer = styled.div`
 
   * {
     color: var(--text-base);
-    font-size: 16px;
-    line-height: 1.75;
+    font-size: 17px;
+    line-height: 2;
 
     &::selection {
       background-color: #98b48d63;
@@ -87,7 +87,7 @@ export const MDXPostContainer = styled.div`
   }
 
   p {
-    margin: 0.75rem 0;
+    margin: 1rem 0;
     code {
       color: #109a79;
       color: var(--text-base-90);
@@ -177,7 +177,7 @@ export const MDXPostContainer = styled.div`
   }
 
   ul {
-    margin: 0.75rem 0;
+    margin: 1rem 0;
     padding-left: 24px;
 
     ul,
@@ -199,7 +199,7 @@ export const MDXPostContainer = styled.div`
 
   ol {
     padding-left: 24px;
-    margin: 0.75rem 0;
+    margin: 1rem 0;
 
     ul,
     ol {

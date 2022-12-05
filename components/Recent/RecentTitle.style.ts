@@ -16,7 +16,7 @@ export const RecentTitleText = styled.h2`
   font-weight: 500;
   text-transform: capitalize;
   ${mq({
-    fontSize: ['24px', '24px', '24px'],
+    fontSize: ['28px', '26px', '24px'],
   })}
 `;
 
