@@ -1,0 +1,66 @@
+---
+title: 프로젝트별 프리티어(prettier) 설정하기
+date: 2022-12-17
+tags: ['prettier']
+---
+
+프리티어는 코드를 깔끔하게 자동적으로 정리하기 위해 사용하는 VSCode 확장 프로그램이다. VSCode 내에서 모든 프로젝트에 대하여 일괄적으로 적용할 수 있으나, 프로젝트 별로 다른 설정을 하고 싶다면, 따로 설정이 필요하다.
+
+## .prettierignore 파일
+
+.prettierignore 파일은 prettier를 적용하지 않을 파일들을 지정하고 루트 경로에 생성한다.
+
+다음과 같이 작성할 수 있다. 이는 node_modules 폴더 내의 파일들과 public 폴더 내의 파일들을 정렬하지 않는다는 의미이다.
+
+```basic
+node_modules
+public
+```
+
+## .prettierrc 파일
+
+.prettierrc 파일은 프리티어 옵션을 설정하는 json 형태의 파일이다.
+
+다음과 같이 작성할 수 있다.
+
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2
+}
+```
+
+- `semi` - 세미콜론(;) 사용여부 설정
+- `singleQuote` - 쌍따옴표 대신 작은 따옴표 사용
+- `tabWidth` - 탭의 간격 설정
+
+이 외의 다양한 옵션들이 있으니 직접 찾아보도록 하자.
+
+## 명령어로 프리티어 포맷팅하기
+
+1. package.json 파일내 scripts를 추가한다.
+
+```json
+  "scripts": {
+    ...
+    "prettier-fix": "prettier --write ."
+  }
+```
+
+- `-—write` 옵션은 지정된 파일의 내용이 포맷팅된다.
+- `.` 대상 파일을 닷(.)으로 설정하면 모든 .prettierignoㄴe 에서 설정한 파일을 제외하고 모든 파일의 내용을 포맷팅한다.
+
+2. 터미널에서 다음 명령어로 prettier 패키지를 설치한다.
+
+```bash
+yarn add -D prettier
+```
+
+3. prettier 실행하기
+
+1번에서 작성한 스크립트를 실행하여 간편하게 포맷팅할 수 있다.
+
+```bash
+prettier-fix
+```
