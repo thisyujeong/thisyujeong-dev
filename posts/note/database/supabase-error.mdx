@@ -1,0 +1,35 @@
+---
+title: [문제해결]Supabase - new row violates row-level security policy for table “objects”
+date: 2022-12-17
+tags: ['Supabase']
+---
+
+## Supabase 업로드가 되지 않을 경우
+
+다음과 같이 공식문서에 따라 업로드 코드를 활용하여 생성했던 버킷에 업로드를 시도했지만. 업로드 되지 않는 현상이 발생했다.
+
+```java
+const upload = await supabase.storage.from(bucket).upload(key, blobk, {
+	cacheControl: '3600',
+});
+```
+
+위 코드를 콘솔 출력하여 다음 에러를 발견했다.
+
+<img src="/notes/database/supabase-error-1.png" alt="supabase 에러" />
+
+> new row violates row-level security policy for table “objects”
+
+위 에러는 스토리지 정책에서 액세스가 차단된 상태인데, 스토리지 정책을 수정하여 버킷에 대한 액세스를 허용해야 한다.
+
+따라서 Supabase > Storage > Configuration의 Policies 에 접속하여 정책을 수정한다.
+
+각 프로젝트에 따라 필요한 권한의 접근 권한을 허용해주었다.
+
+<img src="/notes/database/supabase-error-1.png" alt="supabase 접근권한 허용" />
+
+에러없이 업로드에 성공
+
+<img src="/notes/database/supabase-error-3.png" alt="supabase 업로드 성공" />
+
+정책에 관한 예제는 [여기](https://supabase.com/docs/guides/storage#allow-public-access-to-a-bucket)에서 확인할 수 있다.
