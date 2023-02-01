@@ -1,0 +1,17 @@
+---
+title: JS - Drag and Drop(드래그 앤 드롭), 무한 회전 슬라이드 구현
+date: 2023-02-02
+description: 자바스크립트로 구현하는 Drag & Drop(드래그 앤 드롭)과 무한 스크롤 (feat.GSAP)
+tags: ['infinity slider', 'drag and drop slider']
+---
+
+업무 중 직접 제작해야했던 **드래그 앤 드롭(Drag and Drop) + 무한 회전하는 슬라이더**를 구현했다.
+사용하던 환경에서는 Gsap 라이브러리를 사용하여 애니메이션을 작업하고 있었기에 슬라이더는 바닐라 자바스크립트에 Gsap를 살짝 얹어서 구현했다.
+
+`mousedown`을 하는 순간부터 마우스가 x축으로 이동하는 만큼의 거리를 계산하는 방식으로 회전하는 효과를 냈다. 코드는 그리 복잡하지 않아 어렵지 않게 이해할 수 있을 것이다.(주석 참고)
+
+<iframe
+  src="https://codepen.io/team/codepen/embed/preview/yLqQgeW"
+  width="100%"
+  height="450px"
+></iframe>
