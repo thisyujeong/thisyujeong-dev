@@ -1,0 +1,62 @@
+---
+title: React - Textarea auto resize
+date: 2022-10-31
+tags: ['React', '리액트', 'textarea', 'autoresize']
+---
+
+textarea의 텍스트 길이에 따라 overflow 되는 형태가 아닌, 자동으로 높이가 변경되는 형태로 구현
+
+## 1. ref 지정
+
+리액트 훅 `useRef`를 사용하여 textarea 태그에 ref를 지정
+
+```jsx
+import { useRef } from 'react';
+
+const Textarea = () => {
+  const textRef = useRef();
+  // ...
+
+  return (
+    <textarea ref={textRef}>
+  )
+}
+```
+
+## 2. 텍스트 입력 시 자동 높이 조절
+
+textarea 태그에 `onInput` 이벤트를 이용하여 텍스트가 변경될 때마다 textarea의 **scrollHeight 값**을 **textarea의 높이 값**으로 지정하여 텍스트 입력/삭제 시 높이가 자동적으로 조절된다.
+
+```jsx
+const TextareaAutoResize = useCallback(() => {
+  if (textRef.current) {
+    textRef.current.style.height = 'auto';
+    textRef.current.style.height = textRef.current.scrollHeight + 'px';
+  }
+}, []);
+```
+
+```jsx
+<textarea ref={textRef} onInput={TextareaAutoResize} ...>
+```
+
+## 전체 코드
+
+```jsx
+import { useRef } from 'react';
+
+const Textarea = () => {
+  const textRef = useRef();
+
+  const TextareaAutoResize = useCallback(() => {
+    if(textRef.current) {
+      textRef.current.style.height = 'auto';
+      textRef.current.style.height = textRef.current.scrollHeight + 'px';
+    }
+  }, [])
+
+  return (
+    <textarea ref={textRef} onInput={TextareaAutoResize} ...>
+  )
+}
+```
