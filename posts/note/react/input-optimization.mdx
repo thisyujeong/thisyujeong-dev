@@ -1,0 +1,80 @@
+---
+title: React - Input 상태관리 리렌더링 최적화
+date: 2023-04-17
+tags: ['React', '리액트']
+---
+
+## useState로 Input 상태 관리
+
+리액트에서 여러개의 인풋을 다룰 때, 흔히 하나의 콜백함수로 모든 인풋의 상태값을 관리하는 방법을 자주 사용할 것이다.
+따라서 다음과 같이 작성한다면 코드가 굉장히 깔끔해진다.
+
+```jsx
+import React, { useCallback, useState } from 'react';
+
+const index = () => {
+	const [inputs, setInputs] useState({
+		name: '',
+		password: '',
+		email: '',
+	});
+
+
+	const onChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, name } = evt.target;
+      setInputs({ ...inputs, [name]: value });
+    },
+    [inputs]
+  );
+
+  return (
+    <form>
+      <input type="text" onChange={onChange} />
+      <input type="password" onChange={onChange} />
+      <input type="email" onChange={onChange} />
+    </form>
+  );
+};
+
+export default index;
+```
+
+하지만 이 방법은 하나의 인풋값만 변경되어도 모든 input이 리렌더링되는데, 필자는 이게 너무 신경쓰이는 것이다..
+이 문제는 useRef를 사용하여 개선할 수 있었다.
+
+## useRef로 Input 상태관리 - 리렌더링 최적화
+
+useRef는 리렌더링이 필요한 요소에 사용하면 리렌더링이 되지 않으므로 꼭 리렌더링이 필요한 값에 사용해야한다.
+값에 대한 접근은 `ref.current` 로 접근할 수 있다.
+
+```jsx
+import React, { useCallback, useRef } from 'react';
+
+const index = () => {
+  const name = useRef('');
+  const password = useRef('');
+  const email = useRef('');
+
+  const onChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>, type: React.MutableRefObject<string>) => {
+      const value = e.target.value;
+      type.current = value;
+    },
+    [inputs]
+  );
+
+  return (
+    <form>
+      <input type="text" name="name" onChange={(e) => onChange(e, name)} />
+      <input type="password" name="password" onChange={(e) => onChange(e, password)} />
+      <input type="email" name="email" onChange={(e) => onChange(e, email)} />
+    </form>
+  );
+};
+
+export default index;
+```
+
+코드를 useRef로 최적화했다. onChange 함수의 인자로 ref를 함께 전달하여 ref.current으로 접근해 값을 저장한다.
+이제 인풋에 값을 입력할 때 모든 컴퍼넌트가 리렌더링되지 않는다. 마음이 편안하다.
