@@ -38,7 +38,7 @@ debouce와 throttle 를 간단하게 요약하자면 다음과 같다.
 
 다음 코드는 swr한 코드로, `input` 태그에 `onChange` 이벤트가 발생할 때마다 swr이 새로운 api 요청을 보내므로 성능에 좋지 않다.
 
-```tsx:src/components/search.tsx
+```tsx:src/components/Search.tsx
 import { useState } from 'react';
 import useSWR from 'swr';
 
@@ -52,7 +52,7 @@ export default function Search() {
       <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
     </form>
   );
-}
+};
 ```
 
 ## 디바운스로 검색기능 개선
@@ -83,7 +83,7 @@ value와 delay가 변경될 경우 `setTimeout` 실행하여 지정한 delay 시
 
 ### 2. useDebounce 사용
 
-```tsx:src/components/search.tsx
+```tsx:src/components/Search.tsx
 import { useState } from 'react';
 import useSWR from 'swr';
 import useDebounce from '@/hooks/debounce';
@@ -99,7 +99,7 @@ export default function Search() {
       <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
     </form>
   );
-}
+};
 ```
 
 리액트 훅처럼 사용 방법 또한 매우 간단하다.

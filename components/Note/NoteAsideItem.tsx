@@ -16,7 +16,7 @@ const NoteAsideItem = ({ item }: { item: TreeNode }) => {
 
   useEffect(() => {
     item.children.map((a) => router.asPath === a.urlPath && setIsItemsOpen(true));
-  }, []);
+  }, [item.children, router.asPath]);
 
   const onClickItem = () => {
     setIsItemsOpen(!isItemsOpen);
