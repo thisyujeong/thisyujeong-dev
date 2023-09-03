@@ -6,7 +6,7 @@ import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import Container from '../components/Container';
 
-const project = ({ projects }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Project = ({ projects }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Container>
       <NextSeo
@@ -31,4 +31,4 @@ export const getStaticProps = () => {
   };
 };
 
-export default project;
+export default Project;
