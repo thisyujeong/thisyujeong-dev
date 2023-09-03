@@ -8,10 +8,9 @@ const metadata = {
   author: 'thisyujeong',
   home: {
     name: 'Yujeong Lee',
-    description: '일단 시작하고 좋으면 계속한다는 말을 좋아합니다.',
-    // description: 'I experience it and if i like it, i continue.',
+    description: 'Nevertheless!',
     subDescription:
-      '웹 퍼블리셔로 일하고 있습니다. 프론트엔드 개발자가 되기 위해 공부하고 있습니다.',
+      '그럼에두 불구하고, 좋아하는 말입니다. 어떤 상황에도 그럼에도 불구하고 해낼 수 있다는 자신감과 마음가짐을 갖게 해주는 강력한 힘을 가진 일종의 주문 같아요.',
     image: '/home/thisyujeong.png',
   },
   social: {

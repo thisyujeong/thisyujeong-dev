@@ -4,7 +4,7 @@ import mq from 'styles/utils/mq';
 export const MDXPostContainer = styled.div`
   position: relative;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.75em;
   font-weight: 400;
 
@@ -14,7 +14,7 @@ export const MDXPostContainer = styled.div`
 
   * {
     color: var(--text-base);
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.75em;
 
     &::selection {
