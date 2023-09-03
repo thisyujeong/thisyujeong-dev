@@ -4,8 +4,8 @@ import mq from 'styles/utils/mq';
 export const MDXPostContainer = styled.div`
   position: relative;
   width: 100%;
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 18px;
+  line-height: 1.75em;
   font-weight: 400;
 
   ${mq({
@@ -14,11 +14,11 @@ export const MDXPostContainer = styled.div`
 
   * {
     color: var(--text-base);
-    font-size: 17px;
-    line-height: 2;
+    font-size: 18px;
+    line-height: 1.75em;
 
     &::selection {
-      background-color: #98b48d63;
+      background-color: #ff575736;
     }
   }
 
@@ -79,7 +79,8 @@ export const MDXPostContainer = styled.div`
   }
 
   strong {
-    font-weight: 600;
+    font-weight: 500;
+    color: var(--text-base-stress);
   }
 
   code {
@@ -87,12 +88,13 @@ export const MDXPostContainer = styled.div`
   }
 
   p {
-    margin: 1rem 0;
+    margin: 0.8em 0;
+    word-break: break-word;
+
     code {
-      color: #109a79;
       color: var(--text-base-90);
       padding: 3px 6px;
-      font-size: 14px;
+      font-size: 15px;
       margin: 0 2px;
       font-weight: 400;
       background-color: var(--code-block);
@@ -110,7 +112,7 @@ export const MDXPostContainer = styled.div`
     position: relative;
     font-size: 15px;
     font-weight: 500;
-    padding: 12px 14px;
+    padding: 12px 16px;
     border-radius: 8px;
     background-color: var(--code-block);
     margin: 0.85em 0;
@@ -126,11 +128,11 @@ export const MDXPostContainer = styled.div`
       overflow-x: auto;
       font-family: 'FiraMono';
       font-weight: 400;
-      font-size: 14px;
+      font-size: 15px;
 
       * {
-        font-size: 14px;
-        line-height: 1.25em;
+        font-size: 15px;
+        line-height: 1.5em;
       }
     }
   }
@@ -143,12 +145,12 @@ export const MDXPostContainer = styled.div`
     & p {
       font-size: 16px;
       display: inline;
-      color: var(--text-base-70);
+      color: var(--text-base-90);
       line-height: 1;
 
       * {
         font-size: 16px;
-        color: var(--text-base-70);
+        color: var(--text-base-90);
       }
 
       a {
@@ -296,7 +298,7 @@ export const MDXPostContainer = styled.div`
     .hljs-built_in,
     .hljs-function,
     .hljs-selector-class {
-      color: #e06c75;
+      color: #bd2864;
     }
 
     .hljs-string {
@@ -311,7 +313,7 @@ export const MDXPostContainer = styled.div`
     .hljs-name,
     .hljs-keyword,
     .hljs-selector-tag {
-      color: #e06c75;
+      color: #bd2864;
     }
 
     &.language-csharp {
@@ -323,10 +325,10 @@ export const MDXPostContainer = styled.div`
 
   .rehype-code-title {
     display: block;
-    padding: 2px 12px;
+    padding: 8px 16px 6px;
     margin-top: 4px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--text-base-90);
     font-family: 'FiraMono';
     border-top-left-radius: 8px;
