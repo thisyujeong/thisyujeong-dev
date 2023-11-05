@@ -3,7 +3,7 @@ import RSS from 'rss';
 
 // import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
 // import { allNotes } from '../.contentlayer/generated/allNotes.mjs';
-import { allBlogs, allNotes, allCPs } from '../.contentlayer/generated/index.mjs';
+import { allBlogs, allNotes } from '../.contentlayer/generated/index.mjs';
 
 async function generate() {
   const feed = new RSS({
