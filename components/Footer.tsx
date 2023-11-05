@@ -1,3 +1,4 @@
+'use client';
 import metadata from 'data/metadata';
 import {
   FooterContainer,

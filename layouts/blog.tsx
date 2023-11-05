@@ -1,3 +1,4 @@
+'use client';
 import GiscusArea from 'components/GiscusArea';
 import type { Blog } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
@@ -30,7 +31,7 @@ const BlogLayout = ({ post }: { post: Blog }) => {
       >
         <MDXComponent />
       </MDXPost>
-      <GiscusArea slug={post.slug} />
+      {/* <GiscusArea slug={post.slug} /> */}
     </Container>
   );
 };

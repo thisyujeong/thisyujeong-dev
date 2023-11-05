@@ -1,7 +1,7 @@
 import { TreeNode } from 'lib/types';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import {
   NoteAsideItemContainer,
   AsideItemTitle,
@@ -13,10 +13,6 @@ import {
 const NoteAsideItem = ({ item }: { item: TreeNode }) => {
   const router = useRouter();
   const [isItemsOpen, setIsItemsOpen] = useState(false);
-
-  useEffect(() => {
-    item.children.map((a) => router.asPath === a.urlPath && setIsItemsOpen(true));
-  }, [item.children, router.asPath]);
 
   const onClickItem = () => {
     setIsItemsOpen(!isItemsOpen);
@@ -49,9 +45,8 @@ const NoteAsideItem = ({ item }: { item: TreeNode }) => {
         <AsideItemList>
           {item.children.map((a) => (
             <Link key={a.title} href={a.urlPath} passHref>
-              <AsideItemAnchor data-selected={router.asPath === a.urlPath ? true : false}>
-                {a.title}
-              </AsideItemAnchor>
+              {/* <AsideItemAnchor data-selected={router.asPath === a.urlPath ? true : false}> */}
+              <AsideItemAnchor>{a.title}</AsideItemAnchor>
             </Link>
           ))}
         </AsideItemList>

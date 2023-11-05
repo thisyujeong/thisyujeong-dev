@@ -1,3 +1,4 @@
+'use client';
 import Container from 'components/Container';
 import GiscusArea from 'components/GiscusArea';
 import GoTop from 'components/GoTop';

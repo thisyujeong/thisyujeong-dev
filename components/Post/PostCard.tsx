@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { PostCardProps } from 'lib/types';
 import { PostCardContainer } from './PostCard.style';

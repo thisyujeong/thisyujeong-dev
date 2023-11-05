@@ -1,3 +1,4 @@
+'use client';
 import {
   MDXPostContainer,
   MDXPostHead,
@@ -23,7 +24,7 @@ const MDXPost = ({
   return (
     <MDXPostContainer>
       <MDXPostHead>
-        <Toc />
+        {/* <Toc /> */}
         {url && (
           <MDXPostURL>
             <a href={url} target="_blank" rel="noreferrer">

@@ -30,7 +30,7 @@ export const AsideItemList = styled.div`
   margin-left: 10px;
   border-left: 1px solid var(--border-color);
 `;
-export const AsideItemAnchor = styled.a`
+export const AsideItemAnchor = styled.span`
   display: block;
   padding: 4px 0 4px 10px;
   color: var(--text-base);

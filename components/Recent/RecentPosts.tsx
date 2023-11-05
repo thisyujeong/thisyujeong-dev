@@ -1,6 +1,7 @@
-import { Blog } from 'contentlayer/generated';
-import Link from 'next/link';
+'use client';
 import React from 'react';
+import Link from 'next/link';
+import { Blog } from 'contentlayer/generated';
 import { PostCard, PostTitle, PostDesc } from './RecentPosts.style';
 import RecentTitle from './RecentTitle';
 

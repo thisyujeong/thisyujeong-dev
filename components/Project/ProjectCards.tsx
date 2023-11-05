@@ -1,3 +1,5 @@
+'use client';
+
 import { Project } from 'lib/types';
 import Image from 'next/image';
 import {

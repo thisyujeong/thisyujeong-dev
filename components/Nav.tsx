@@ -1,25 +1,15 @@
 import { NavContainer, DropNavContainer } from './Nav.style';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import navLinks from '../data/navLinks';
 
-const Links = ({
-  setIsOpenMenu,
-}: {
-  setIsOpenMenu: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
-
+const Links = () => {
   return (
     <ul>
       {navLinks.map((link) => (
-        <li
-          key={link.title}
-          data-selected={router.pathname.includes(link.path) ? true : false}
-        >
+        <li key={link.title}>
           <Link href={link.link} passHref>
-            <a onClick={() => setIsOpenMenu(false)}>{link.title}</a>
+            {link.title}
           </Link>
         </li>
       ))}
@@ -33,7 +23,7 @@ const Nav = () => {
   return (
     <>
       <NavContainer>
-        <Links setIsOpenMenu={setIsOpenMenu} />
+        <Links />
         <svg
           className={isOpenMenu ? 'active' : ''}
           onClick={() => setIsOpenMenu(!isOpenMenu)}
@@ -51,7 +41,7 @@ const Nav = () => {
         </svg>
       </NavContainer>
       <DropNavContainer visible={isOpenMenu}>
-        <Links setIsOpenMenu={setIsOpenMenu} />
+        <Links />
       </DropNavContainer>
     </>
   );

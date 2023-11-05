@@ -9,7 +9,7 @@ const RecentTitle = ({ title, engTitle, path }: RecentTitleProps) => {
         <RecentTitleText>최신 {title}</RecentTitleText>
         <RecentMore>
           <Link href={path} passHref>
-            <a>all {engTitle}s</a>
+            {`all ${engTitle}s`}
           </Link>
         </RecentMore>
       </RecentTitleContainer>

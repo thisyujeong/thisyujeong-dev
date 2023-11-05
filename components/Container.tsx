@@ -17,14 +17,7 @@ const Container = ({
 }) => {
   return (
     <ContainerContainer>
-      <Head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-      </Head>
-      <Header />
-      <Main>
-        <div className={isAside ? 'contents is-aside' : 'contents'}>{children}</div>
-      </Main>
-      <Footer />
+      <div className={isAside ? 'contents is-aside' : 'contents'}>{children}</div>
     </ContainerContainer>
   );
 };
