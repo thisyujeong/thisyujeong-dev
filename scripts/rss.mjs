@@ -29,12 +29,12 @@ async function generate() {
     });
   });
 
-  allCPs.map((cp) => {
-    feed.item({
-      title: cp.title,
-      url: `https://thisyujeong.dev/${cp.url_path}`,
-    });
-  });
+  // allCPs.map((cp) => {
+  //   feed.item({
+  //     title: cp.title,
+  //     url: `https://thisyujeong.dev/${cp.url_path}`,
+  //   });
+  // });
 
   writeFileSync('./public/feed.xml', feed.xml({ indent: true }));
 }
