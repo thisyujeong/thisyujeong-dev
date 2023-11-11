@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import mq from 'styles/utils/mq';
+import mq from '@/styles/utils/mq';
 
 export const ThemeToggleContainer = styled.div`
   line-height: 0;
