@@ -9,17 +9,6 @@
   & + & {
     margin-left: 16px;
     padding-left: 16px;
-
-    &:before {
-      content: '';
-      height: 14px;
-      border-left: 1px solid $text-color;
-      position: absolute;
-      top: calc(50% + 2px);
-      left: 0;
-      transform: translateY(-50%);
-      opacity: 0.3;
-    }
   }
 
   a {
