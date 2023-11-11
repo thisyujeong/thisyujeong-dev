@@ -1,0 +1,16 @@
+.layout {
+  position: relative;
+  padding-top: 58px; // header height
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  height: calc(100vh - 58px);
+}
+
+.content {
+  margin-left: 300px;
+}

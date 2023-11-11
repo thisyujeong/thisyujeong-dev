@@ -16,6 +16,11 @@ export async function getNotesTree(
   return { note, tree };
 }
 
+export async function genNotesTree(): Promise<TreeNode[]> {
+  const tree = docTree(allNotes);
+  return tree;
+}
+
 const docTree = (notes: Note[], parentPathNames: string[] = []): TreeNode[] => {
   const level = parentPathNames.length;
   return notes
