@@ -1,16 +1,30 @@
 .layout {
   position: relative;
-  padding-top: 58px; // header height
+  padding-top: $header-height;
+  max-width: $container-max-width;
+  margin: 0 auto;
 }
 
 .sidebar {
   position: fixed;
-  left: 0;
+  left: max(0px, calc((100% - $container-max-width) / 2));
   bottom: 0;
-  width: 280px;
-  height: calc(100vh - 58px);
+  width: $sidebar-width;
+  height: calc(100vh - $header-height);
 }
 
 .content {
-  margin-left: 300px;
+  margin-left: $sidebar-width;
+  display: flex;
+  justify-content: space-between;
+
+  &_inner {
+    width: 100%;
+    max-width: 770px;
+  }
+
+  .toc_layer {
+    width: 100%;
+    max-width: $toc-width;
+  }
 }

@@ -1,0 +1,54 @@
+.toc_container {
+  position: fixed;
+  top: $header-height;
+  max-width: $toc-width;
+  width: 100%;
+  right: max(0px, calc((100% - $container-max-width) / 2));
+}
+
+.toc_inner {
+  padding-left: 16px;
+  width: 100%;
+}
+
+.toc_item {
+  padding: 4px 0;
+  padding-left: 12px;
+  border-left: 1px solid $border-color;
+
+  a {
+    display: block;
+    line-height: 1.5em;
+    color: var(--text-base) !important;
+    font-size: 15px;
+    opacity: 0.5;
+    transition: all 0.1s ease;
+    &:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+  }
+
+  &[data-depth='2'] {
+    padding-left: 30px;
+  }
+
+  &.active {
+    border-color: $primary-color;
+    a {
+      color: $primary-color !important;
+      opacity: 1;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &:first-of-type {
+    padding-top: 0px;
+  }
+
+  &:last-child {
+    padding-bottom: 0px;
+  }
+}

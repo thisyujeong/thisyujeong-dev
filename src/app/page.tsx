@@ -5,8 +5,8 @@ const Home = async () => {
   const posts = await getAllPosts();
 
   return (
-    <section className="content_section">
-      <div className="content_container">
+    <section className="section">
+      <div className="container">
         {posts.map((post, idx) => (
           <PostCard post={post} key={idx} slug={post.slug} />
         ))}

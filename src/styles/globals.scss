@@ -166,10 +166,12 @@ body {
 *:focus {
   outline: 0;
 }
-
-.content_container {
-  max-width: 840px;
-  margin: 0 auto;
+.section {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  max-width: $container-max-width;
 }
 
 /* variables */
