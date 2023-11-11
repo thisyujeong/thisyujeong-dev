@@ -5,9 +5,6 @@ const nextConfig = withContentlayer({
   env: {
     BASE_URL: process.env.BASE_URL,
   },
-  experimental: {
-    appDir: true,
-  },
 });
 
 module.exports = nextConfig;

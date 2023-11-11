@@ -1,6 +1,6 @@
 import NoteLayout from 'layouts/note';
 import React from 'react';
-import { getAllNotes, getNotesTree } from 'src/service/notes';
+import { getNotesTree } from 'src/service/notes';
 
 /* TODO: SEO */
 
