@@ -162,10 +162,18 @@ body {
   color: var(--text-base);
   box-sizing: border-box;
 }
+
 *:focus {
   outline: 0;
 }
 
+.content_section {
+}
+
+.content_container {
+  max-width: 840px;
+  margin: 0 auto;
+}
 /* variables */
 body {
   --bg: #fff;

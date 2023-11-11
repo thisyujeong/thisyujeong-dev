@@ -1,1 +1,6 @@
 $primary-color: #6b16ee;
+$secondary-color: #4b4e52;
+
+$text-color: $secondary-color;
+$text-color-80: rgba($secondary-color, 0.8);
+$border-color: rgba($secondary-color, 0.2);

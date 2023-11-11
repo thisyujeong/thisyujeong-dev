@@ -1,17 +1,17 @@
 'use client';
 import Link from 'next/link';
 import { PostCardProps } from 'lib/types';
-import { PostCardContainer } from './PostCard.style';
 import convertDateUs from 'lib/convertDateUs';
+import styles from './PostCard.module.scss';
 
 const PostCard = ({ post, slug }: PostCardProps) => {
   return (
     <Link href={`/blog/${slug}`} passHref>
-      <PostCardContainer>
+      <div className={styles.card_container}>
         <h1>{post.title}</h1>
         <p>{post.description}</p>
         <span>{convertDateUs(post.date)}</span>
-      </PostCardContainer>
+      </div>
     </Link>
   );
 };

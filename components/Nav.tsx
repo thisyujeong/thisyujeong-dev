@@ -8,7 +8,7 @@ const Nav = () => {
       <ul className={styles.nav_list}>
         {navLinks.map((link) => (
           <li className={styles.nav_item} key={link.title}>
-            <Link href={link.path} passHref>
+            <Link href={link.link} passHref>
               {link.title}
             </Link>
           </li>

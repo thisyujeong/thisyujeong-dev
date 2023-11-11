@@ -1,0 +1,28 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 100;
+}
+
+.header_logo {
+  a {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+
+    span {
+      color: $primary-color;
+    }
+  }
+}
+
+.header_inner {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 14px 16px;
+  height: 58px;
+}
