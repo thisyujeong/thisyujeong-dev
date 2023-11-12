@@ -159,13 +159,18 @@ body {
 * {
   font-size: inherit;
   line-height: 1.57em;
-  color: var(--text-base);
+  color: $text-color;
   box-sizing: border-box;
+
+  &::selection {
+    background-color: rgba($primary-color, 0.1);
+  }
 }
 
 *:focus {
   outline: 0;
 }
+
 .section {
   display: flex;
   justify-content: center;

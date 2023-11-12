@@ -14,7 +14,6 @@
 .toc_item {
   padding: 4px 0;
   padding-left: 12px;
-  border-left: 1px solid $border-color;
 
   a {
     display: block;
@@ -34,7 +33,7 @@
   }
 
   &.active {
-    border-color: $primary-color;
+    border-left: 1px solid $primary-color;
     a {
       color: $primary-color !important;
       opacity: 1;

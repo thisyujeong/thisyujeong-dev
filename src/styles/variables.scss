@@ -1,11 +1,14 @@
 $primary-color: #6b16ee;
+$primary-color-ligten: #8855d9;
 $secondary-color: #4b4e52;
 
-$accent-color: $primary-color;
 $text-color: $secondary-color;
+$text-color-90: rgba($secondary-color, 0.9);
 $text-color-80: rgba($secondary-color, 0.8);
 $text-color-60: rgba($secondary-color, 0.6);
+$text-accent-color: $primary-color-ligten;
 $border-color: rgba($secondary-color, 0.2);
+$link-color: $primary-color-ligten;
 
 $container-max-width: 1280px;
 $document-max-width: 770px;
@@ -14,3 +17,8 @@ $sidebar-width: 255px;
 $header-height: 58px;
 $header-offset: calc($header-height + 20px);
 $toc-width: 255px;
+
+/* mdx-formatter */
+$code-block: #eff2f694;
+$code-text: #2c3e5090;
+$code-inline-text: #6b16eeb0;

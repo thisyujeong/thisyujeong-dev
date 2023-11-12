@@ -27,7 +27,6 @@ export type PostCardProps = {
 export type MDXPostProps = {
   title: string;
   date?: string;
-  url?: string;
   path?: string;
 };
 

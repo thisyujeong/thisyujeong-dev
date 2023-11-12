@@ -343,12 +343,6 @@ export const MDXPostContainer = styled.div`
   }
 `;
 
-export const MDXPostSection = styled.section``;
-
-export const MDXPostHead = styled.div`
-  position: relative;
-`;
-
 export const ClipboardCopyBtn = styled.button`
   position: relative;
   display: block;
@@ -436,16 +430,4 @@ export const MDXPostURL = styled.div`
       opacity: 1;
     }
   }
-`;
-
-export const MDXPostDate = styled.div`
-  margin-bottom: 14px;
-  font-size: 14px;
-  text-align: center;
-  word-break: keep-all;
-  opacity: 0.5;
-`;
-
-export const MDXPostContent = styled.div`
-  margin-top: 36px;
 `;
