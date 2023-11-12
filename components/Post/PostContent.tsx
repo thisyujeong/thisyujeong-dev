@@ -4,11 +4,11 @@ import type { Blog } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import MDXPost from './MDXPost';
 import metadata from 'data/metadata';
-import GiscusArea from 'components/GiscusArea';
 
 type Props = {
   post: Blog;
 };
+
 const PostContent = ({ post }: Props) => {
   const MDXComponent = useMDXComponent(post.body.code);
 
@@ -35,8 +35,6 @@ const PostContent = ({ post }: Props) => {
         path={`${metadata.meta.url}/blog/${post.slug}`}
       >
         <MDXComponent />
-        {/* TODO: <GiscusArea slug={post.slug} /> */}
-        <GiscusArea slug={post.slug} />
       </MDXPost>
     </>
   );

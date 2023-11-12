@@ -7,16 +7,19 @@ const GiscusArea = ({ slug }: { slug: string }) => {
   return (
     <div className={styles.giscus_container}>
       <Giscus
+        id="comments"
         repo={`${metadata.giscus.id}/${metadata.giscus.repo}`}
-        repoId={`${process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID}`}
+        repoId={metadata.giscus.repoId}
         category={metadata.giscus.category}
-        categoryId={`${process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID}`}
-        mapping="title"
+        categoryId={metadata.giscus.categoryId}
         term={slug}
-        inputPosition="top"
+        mapping="specific"
         reactionsEnabled="1"
         emitMetadata="0"
-        theme="dark_dimmed"
+        inputPosition="top"
+        theme="light"
+        lang="en"
+        loading="lazy"
       />
     </div>
   );

@@ -20,7 +20,9 @@ const metadata = {
   giscus: {
     id: 'thisyujeong',
     repo: 'thisyujeong-dev',
+    repoId: 'R_kgDOHWZdyA',
     category: 'General',
+    categoryId: 'DIC_kwDOHWZdyM4CPV2R',
   },
   analytics: {
     google: 'G-PQ789NGS9J',
