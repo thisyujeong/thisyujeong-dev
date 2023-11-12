@@ -1,3 +1,4 @@
+'use client';
 import Giscus from '@giscus/react';
 import metadata from 'data/metadata';
 import styles from './GiscusArea.module.scss';

@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from 'react';
 import { MDXPostProps } from 'lib/types';
-import convertDateUs from 'lib/convertDateUs';
 import CopyButton from 'components/CopyButton';
+import GiscusArea from 'components/GiscusArea';
+import convertDateUs from 'lib/convertDateUs';
 import styles from './MDXPost.module.scss';
 import '@/styles/mdx-formatter.scss';
 

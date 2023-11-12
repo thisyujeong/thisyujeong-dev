@@ -1,10 +1,13 @@
+import Toc from 'components/Toc';
 import React from 'react';
 import styles from './layout.module.scss';
-import Toc from 'components/Toc';
 
+type Props = {
+  params: { slug: string };
+};
 /** TODO: SEO, GiscusArea */
 
-const BlogLayout = ({ children }: React.PropsWithChildren) => {
+const BlogLayout = ({ children, params: { slug } }: React.PropsWithChildren<Props>) => {
   return (
     <>
       {/* <NextSeo
@@ -22,10 +25,7 @@ const BlogLayout = ({ children }: React.PropsWithChildren) => {
       /> */}
       <div className={styles.layout}>
         <div className={styles.content}>
-          <div className={styles.content_inner}>
-            {children}
-            {/* <GiscusArea slug={post.slug} /> */}
-          </div>
+          <div className={styles.content_inner}>{children}</div>
           <div className={styles.toc_layer}>
             <Toc />
           </div>
