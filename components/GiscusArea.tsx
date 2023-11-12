@@ -1,10 +1,10 @@
 import Giscus from '@giscus/react';
 import metadata from 'data/metadata';
-import { GiscusContainer } from './GiscusArea.style';
+import styles from './GiscusArea.module.scss';
 
 const GiscusArea = ({ slug }: { slug: string }) => {
   return (
-    <GiscusContainer>
+    <div className={styles.giscus_container}>
       <Giscus
         repo={`${metadata.giscus.id}/${metadata.giscus.repo}`}
         repoId={`${process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID}`}
@@ -17,7 +17,7 @@ const GiscusArea = ({ slug }: { slug: string }) => {
         emitMetadata="0"
         theme="dark_dimmed"
       />
-    </GiscusContainer>
+    </div>
   );
 };
 
