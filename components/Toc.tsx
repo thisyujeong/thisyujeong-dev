@@ -1,11 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { getIntersectionObserver } from 'lib/observer';
 import styles from './Toc.module.scss';
 
 const Toc = () => {
-  const router = useRouter();
+  const pathname = usePathname();
   const [currentId, setCurrentId] = useState<string>('');
   const [headingEls, setHeadingEls] = useState<Element[]>([]);
 
@@ -17,7 +17,7 @@ const Toc = () => {
     headingElements.map((header) => {
       observer.observe(header);
     });
-  }, [router]);
+  }, [pathname]);
 
   return (
     <div className={styles.toc_container}>
@@ -45,11 +45,6 @@ const Toc = () => {
       </div>
     </div>
   );
-};
-
-const originPath = (asPath: string) => {
-  asPath.split('#');
-  return asPath[0];
 };
 
 export default Toc;
