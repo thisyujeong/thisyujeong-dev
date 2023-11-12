@@ -1,4 +1,5 @@
 import { getAllPosts } from '@/service/posts';
+import Footer from 'components/Footer';
 import PostCard from 'components/Post/PostCard';
 
 const Home = async () => {
@@ -11,6 +12,7 @@ const Home = async () => {
           <PostCard post={post} key={idx} slug={post.slug} />
         ))}
       </div>
+      <Footer />
     </section>
   );
 };

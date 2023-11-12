@@ -22,6 +22,11 @@
     width: 100%;
     max-width: $document-max-width;
     padding: $document-padding;
+    padding-bottom: 0;
+  }
+
+  &_footer {
+    margin-top: 50px;
   }
 
   .toc_layer {

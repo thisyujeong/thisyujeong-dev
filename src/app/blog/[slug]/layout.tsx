@@ -1,6 +1,7 @@
 import React from 'react';
 import Toc from 'components/Toc';
 import GiscusArea from 'components/GiscusArea';
+import Footer from 'components/Footer';
 import styles from './layout.module.scss';
 
 type Props = {
@@ -35,6 +36,7 @@ const BlogLayout = ({ children, params: { slug } }: React.PropsWithChildren<Prop
             <Toc />
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
