@@ -31,7 +31,7 @@
 
 .sidebar_root {
   position: relative;
-  padding: 6px 0 6px 6px;
+  padding: 6px 0;
   color: $text-color-80;
   font-weight: 600;
   text-transform: uppercase;
@@ -39,7 +39,7 @@
   &:after {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 12px;
     width: 7px;
     height: 7px;
     border-left: 1px solid $secondary-color;
@@ -52,16 +52,15 @@
 
 .sidebar_child {
   display: none;
-  margin-left: 4px;
   border-left: 1px solid $border-color;
 
   .child_item {
-    padding: 0 12px;
+    padding: 0 10px;
 
     a {
       display: block;
       padding: 3px 0;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.5;
       color: $text-color-80;
     }

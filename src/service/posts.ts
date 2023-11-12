@@ -1,10 +1,6 @@
 import { Blog, allBlogs } from 'contentlayer/generated';
 
 export async function getAllPosts(): Promise<Blog[]> {
-  return allBlogs;
-}
-
-export async function getRecentlyPosts(): Promise<Blog[]> {
   return allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 }
 

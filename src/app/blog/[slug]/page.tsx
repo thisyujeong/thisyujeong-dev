@@ -1,10 +1,11 @@
-import BlogLayout from 'layouts/blog';
-import { getPostData, getRecentlyPosts } from 'src/service/posts';
+import PostContent from 'components/Post/PostContent';
+import { getAllPosts, getPostData } from 'src/service/posts';
 
 type Props = {
   params: { slug: string };
 };
 
+// TODO:
 // export async function generateMetadata({ params: { slug } }: Props) {
 //   const { title, description } = await getPostData(slug);
 //   return {
@@ -15,11 +16,12 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
-  return <BlogLayout post={post} />;
+  return <PostContent post={post} />;
 }
 
+// 동적라우트 - 특정 페이지 미리 생성
 export async function generateStaticParams() {
-  const posts = await getRecentlyPosts();
+  const posts = await getAllPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));

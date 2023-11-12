@@ -4,7 +4,7 @@ import NoteSidebar from 'components/Note/NoteSidebar';
 import styles from './layout.module.scss';
 import Toc from 'components/Toc';
 
-const Layout = async ({ children }: { children: React.ReactNode }) => {
+const NoteLayout = async ({ children }: React.PropsWithChildren) => {
   const tree = await genNotesTree();
 
   return (
@@ -22,4 +22,4 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Layout;
+export default NoteLayout;

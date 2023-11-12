@@ -2,21 +2,14 @@
   position: relative;
   padding-top: $header-offset;
   max-width: $container-max-width;
+  width: 100%;
   margin: 0 auto;
-}
-
-.sidebar {
-  position: fixed;
-  left: max(0px, calc((100% - $container-max-width) / 2));
-  bottom: 0;
-  width: $sidebar-width;
-  height: calc(100vh - $header-height);
 }
 
 .content {
   display: flex;
-  justify-content: space-between;
-  margin-left: $sidebar-width;
+  justify-content: flex-end;
+  padding-left: $sidebar-width;
 
   &_inner {
     width: 100%;

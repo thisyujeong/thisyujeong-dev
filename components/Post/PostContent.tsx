@@ -1,17 +1,19 @@
-'use client';
-import GiscusArea from 'components/GiscusArea';
+import React from 'react';
 import type { Blog } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
-import { NextSeo } from 'next-seo';
-import Container from '../components/Container';
-import MDXPost from '../components/Post/MDXPost';
-import metadata from '../data/metadata';
+import MDXPost from './MDXPost';
+import metadata from 'data/metadata';
 
-const BlogLayout = ({ post }: { post: Blog }) => {
+type Props = {
+  post: Blog;
+};
+const PostContent = ({ post }: Props) => {
   const MDXComponent = useMDXComponent(post.body.code);
+
   return (
-    <Container>
-      <NextSeo
+    <>
+      {/* TODO:
+        <NextSeo
         title={`${post.title}`}
         description={post.description}
         canonical={`${metadata.meta.url}/blog/${post.slug}`}
@@ -23,17 +25,18 @@ const BlogLayout = ({ post }: { post: Blog }) => {
             tags: [...post.tags, 'frontend', 'develop'],
           },
         }}
-      />
+      /> */}
+
       <MDXPost
         title={post.title}
         date={post.date}
         path={`${metadata.meta.url}/blog/${post.slug}`}
       >
         <MDXComponent />
+        {/* TODO: <GiscusArea slug={post.slug} /> */}
       </MDXPost>
-      {/* <GiscusArea slug={post.slug} /> */}
-    </Container>
+    </>
   );
 };
 
-export default BlogLayout;
+export default PostContent;

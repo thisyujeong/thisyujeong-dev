@@ -169,9 +169,12 @@ body {
 .section {
   display: flex;
   justify-content: center;
+  padding-top: $header-offset;
 }
+
 .container {
-  max-width: $container-max-width;
+  max-width: $document-max-width;
+  width: 100%;
 }
 
 /* variables */
