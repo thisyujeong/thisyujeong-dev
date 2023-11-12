@@ -74,7 +74,7 @@
       padding: 0.1em 0.3em;
       color: $code-inline-text;
       font-size: 14px;
-      background-color: $code-block;
+      background-color: $code-inline-block;
       border-radius: 0.2em;
     }
   }
@@ -103,27 +103,6 @@
     display: block;
     max-width: 100%;
     margin: 0.5rem 0;
-  }
-
-  pre {
-    position: relative;
-    padding: 0.5em 1em;
-    border-radius: 8px;
-    background-color: $code-block;
-    font-size: 14px;
-    line-height: 1.5em;
-    overflow-x: auto;
-
-    * {
-      font-size: 14px;
-      line-height: 1.5em;
-    }
-
-    > code {
-      width: 100%;
-      display: block;
-      overflow-x: autohidden;
-    }
   }
 
   ul {
@@ -173,65 +152,6 @@
     font-size: 12px;
   }
 
-  /* mdx code block styles */
-  pre > code[class*='language-'] {
-    position: relative;
-    color: $code-text;
-
-    .hljs-title {
-      &.class_,
-      &.function_ {
-        color: #109a79;
-      }
-    }
-    .hljs-number {
-      color: orange;
-    }
-    .hljs-doctag {
-      color: #449bb4;
-    }
-
-    .hljs-type {
-      color: var(--text-base-70);
-    }
-
-    .hljs-variable {
-      &.language_ {
-        color: #109a79;
-      }
-      color: var(--text-base-70);
-      &.constant_ {
-        color: #3c8f99;
-      }
-    }
-
-    .hljs-built_in,
-    .hljs-function,
-    .hljs-selector-class {
-      color: #bd2864;
-    }
-
-    .hljs-string {
-      color: #e1954d;
-      color: #e7aa70;
-    }
-
-    .hljs-comment {
-      color: var(--text-base-70);
-      font-weight: 500;
-    }
-    .hljs-name,
-    .hljs-keyword,
-    .hljs-selector-tag {
-      color: #bd2864;
-    }
-    &.language-csharp {
-      * {
-        color: var(--text-base);
-      }
-    }
-  }
-
   table {
     width: auto;
     margin: 1em 0;
@@ -267,6 +187,8 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     background-color: $code-block;
+    border: 1px solid rgba($border-color, 0.1);
+
     &:before {
       display: inline-block;
       width: 6px;
@@ -279,10 +201,74 @@
       content: '';
     }
 
-    & + pre {
-      margin-top: 2px;
+    & + div[data-rehype-pretty-code-fragment] pre {
+      margin-top: 0;
+      border-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+    }
+  }
+
+  div[data-rehype-pretty-code-fragment] pre {
+    position: relative;
+    // padding: 0.5em 1em;
+    font-size: 14px;
+    line-height: 1.5em;
+    border-radius: 8px;
+    background-color: $code-block;
+    border: 1px solid rgba($border-color, 0.1);
+
+    code {
+      width: 100%;
+      display: block;
+      overflow-x: auto;
+      padding: 0.5em 0;
+
+      // 라인 넘버 노출: ex. showLineNumbers
+      &[data-line-numbers] {
+        counter-reset: line;
+
+        > span[data-line] {
+          &:before {
+            counter-increment: line;
+            content: counter(line);
+            display: inline-block;
+            width: 0.75rem;
+            margin-right: 1.25rem;
+            text-align: right;
+            color: $code-text;
+          }
+        }
+      }
+
+      > span {
+        position: relative;
+        padding: 0 1em;
+
+        // 라인 하이라이트: ex. {3-4}
+        &[data-highlighted-line] {
+          background: #eceff3;
+          &:after {
+            content: '';
+            position: absolute;
+            background-color: $primary-color;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+          }
+        }
+        // 단어 단위 하이라이트: ex. /keyword/1-4
+        > [data-highlighted-chars] {
+          font-weight: 600;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    * {
+      font-size: 14px;
+      line-height: 1.5em;
     }
   }
 }

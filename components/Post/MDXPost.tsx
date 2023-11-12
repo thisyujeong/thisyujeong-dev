@@ -1,4 +1,3 @@
-'use client';
 import type { PropsWithChildren } from 'react';
 import { MDXPostProps } from 'lib/types';
 import convertDateUs from 'lib/convertDateUs';
