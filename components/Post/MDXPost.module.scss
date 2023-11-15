@@ -21,6 +21,19 @@
   opacity: 0.5;
 }
 
-.mdx_copy {
+.mdx_additional {
   margin-top: 8px;
+  display: flex;
+}
+
+.mdx_reading_time {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  margin-right: 20px;
+
+  span {
+    color: $text-color;
+    margin-left: 4px;
+  }
 }

@@ -21,6 +21,7 @@
     "next-seo": "^5.4.0",
     "react": "latest",
     "react-dom": "latest",
+    "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-code-titles": "^1.2.0",
     "rehype-pretty-code": "^0.10.2",
@@ -32,13 +33,13 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.7",
-    "@types/react": "^18.2.30",
+    "@types/react": "18.2.37",
     "@types/react-dom": "18.0.4",
     "eslint": "8.15.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
-    "typescript": "^5.2.2"
+    "typescript": "5.2.2"
   }
 }

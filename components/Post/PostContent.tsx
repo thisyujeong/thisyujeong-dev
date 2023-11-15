@@ -33,6 +33,7 @@ const PostContent = ({ post }: Props) => {
         title={post.title}
         date={post.date}
         path={`${metadata.meta.url}/blog/${post.slug}`}
+        readingTime={post.readingTime.text}
       >
         <MDXComponent />
       </MDXPost>

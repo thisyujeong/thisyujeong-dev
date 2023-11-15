@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import styles from './CopyButton.module.scss';
+import Image from 'next/image';
 
 const CopyButton = ({ path }: { path: string }) => {
   const [copied, setCopied] = useState<boolean>(false);
@@ -22,14 +23,9 @@ const CopyButton = ({ path }: { path: string }) => {
       <div className={`${styles.copy} ${copied ? styles.copied : ''}`} onClick={onClick}>
         <button className={styles.copy_button}>
           <div className={styles.copy_icon}>
-            <svg width="32" height="32" viewBox="0 0 682.66669 682.66669">
-              <path
-                d="m565 640h-340c-41.359375 0-75-33.640625-75-75v-340c0-41.359375 33.640625-75 75-75h340c41.359375 0 75 33.640625 75 75v340c0 41.359375-33.640625 75-75 75zm-340-440c-13.785156 0-25 11.214844-25 25v340c0 13.785156 11.214844 25 25 25h340c13.785156 0 25-11.214844 25-25v-340c0-13.785156-11.214844-25-25-25zm-125 240h-25c-13.785156 0-25-11.214844-25-25v-340c0-13.785156 11.214844-25 25-25h340c13.785156 0 25 11.214844 25 25v23.75h50v-23.75c0-41.359375-33.640625-75-75-75h-340c-41.359375 0-75 33.640625-75 75v340c0 41.359375 33.640625 75 75 75h25zm0 0"
-                fill="#000000"
-              />
-            </svg>
+            <Image src="/static/link.svg" alt="reading time" width={16} height={16} />
           </div>
-          <div className={styles.copy_text}>URL 복사</div>
+          <div className={styles.copy_text}>Copy link</div>
         </button>
         {copied && (
           <div className={styles.copied_icon}>

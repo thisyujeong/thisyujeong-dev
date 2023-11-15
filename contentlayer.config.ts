@@ -1,10 +1,11 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import { DocumentGen } from 'contentlayer/core';
+import readingTime from 'reading-time';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
-import { DocumentGen } from 'contentlayer/core';
 
 export const urlFromFilePath = (doc: DocumentGen): string => {
   return doc._raw.flattenedPath.replace(/pages\/?/, '');
@@ -61,6 +62,7 @@ export const Blog = defineDocumentType(() => ({
     },
   },
   computedFields: {
+    readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
     slug: {
       type: 'string',
       resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, ''),
