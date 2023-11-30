@@ -6,7 +6,7 @@ const nextConfig = withContentlayer({
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-    prependData: `@import "@/styles/variables.scss";`,
+    prependData: `@import "@/styles/_variables.scss"; @import "@/styles/_mixin.scss";`,
   },
   env: {
     BASE_URL: process.env.BASE_URL,
