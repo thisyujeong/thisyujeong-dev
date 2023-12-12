@@ -3,7 +3,7 @@ import ProjectCards from 'components/Project/ProjectCards';
 import { getAllProjects } from 'src/service/projects';
 
 /* TODO: SEO */
-const Playground = async () => {
+const PlaygroundPage = async () => {
   const projects = await getAllProjects();
 
   return (
@@ -13,4 +13,4 @@ const Playground = async () => {
   );
 };
 
-export default Playground;
+export default PlaygroundPage;

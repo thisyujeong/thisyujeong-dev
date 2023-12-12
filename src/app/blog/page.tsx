@@ -4,7 +4,7 @@ import { getAllPosts } from 'src/service/posts';
 
 /* TODO: SEO */
 
-const Blog = async () => {
+const BlogPage = async () => {
   const posts = await getAllPosts();
 
   return (
@@ -27,4 +27,4 @@ const Blog = async () => {
   );
 };
 
-export default Blog;
+export default BlogPage;

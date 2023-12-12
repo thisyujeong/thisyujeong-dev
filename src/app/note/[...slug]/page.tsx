@@ -7,7 +7,7 @@ type Props = {
   params: { slug: string[] };
 };
 
-const Note = async ({ params: { slug } }: Props) => {
+const NoteDetailPage = async ({ params: { slug } }: Props) => {
   const { note } = await getNotesTree(slug);
   {
     /* <NextSeo
@@ -27,4 +27,4 @@ const Note = async ({ params: { slug } }: Props) => {
   return <NoteContent note={note} />;
 };
 
-export default Note;
+export default NoteDetailPage;
