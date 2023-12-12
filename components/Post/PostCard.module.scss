@@ -38,7 +38,7 @@
   @media screen and (min-width: 577px) {
     &:hover {
       opacity: 0.8;
-      background: var(--hover-base);
+      background: $card-hover-bg;
       h1 {
         color: $primary-color;
         padding-left: 28px;

@@ -1,0 +1,28 @@
+.note_item {
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  transition: padding 0.2s ease;
+
+  &:hover {
+    padding-left: 14px;
+    background-color: $card-hover-bg;
+
+    .note_title {
+      color: $primary-color;
+    }
+  }
+}
+
+.note_title {
+  font-size: 16px;
+}
+
+.note_date {
+  flex-shrink: 0;
+  margin-left: 10px;
+  font-size: 14px;
+  opacity: 0.4;
+}

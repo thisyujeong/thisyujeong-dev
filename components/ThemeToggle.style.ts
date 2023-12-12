@@ -11,7 +11,7 @@ export const ThemeToggleContainer = styled.div`
 
 export const ToggleButton = styled.button`
   position: relative;
-  background: var(--hover-base);
+  background: $card-hover-bg;
   background: var(--toggle-bg);
   padding: 8px;
   width: 36px;

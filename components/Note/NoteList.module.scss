@@ -1,0 +1,36 @@
+.note_list {
+  & + & {
+    margin-top: 30px;
+  }
+}
+
+.note_list_title {
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+
+  span {
+    position: relative;
+    display: inline-block;
+
+    &:before {
+      content: '#';
+      margin-right: 6px;
+      opacity: 0.3;
+    }
+
+    &:after {
+      content: '';
+      background-color: $primary-color;
+      width: 8px;
+      height: 3px;
+      position: absolute;
+      bottom: 8px;
+      right: -12px;
+    }
+  }
+}

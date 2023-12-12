@@ -5,7 +5,7 @@ export const SearchContainer = styled.div`
   margin-bottom: 24px;
   input {
     width: 100%;
-    background-color: var(--hover-base);
+    background-color: $card-hover-bg;
     border: 0;
     border-radius: 6px;
     font-size: 16px;
