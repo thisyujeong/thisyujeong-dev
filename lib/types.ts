@@ -31,6 +31,11 @@ export type MDXPostProps = {
   readingTime?: string;
 };
 
+export type PostNextAndPrevious = {
+  next: Blog;
+  prev: Blog;
+};
+
 /* Project */
 export type Project = {
   title: string;

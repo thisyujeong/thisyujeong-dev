@@ -1,5 +1,5 @@
 import PostContent from 'components/Post/PostContent';
-import { getAllPosts, getPostData } from 'src/service/posts';
+import { getAllPosts, getNextAndPreviousPost, getPostData } from 'src/service/posts';
 
 type Props = {
   params: { slug: string };
@@ -16,6 +16,8 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
+  const { next, prev } = await getNextAndPreviousPost(slug);
+
   return <PostContent post={post} />;
 }
 
