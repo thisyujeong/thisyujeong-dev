@@ -8,18 +8,18 @@
 
 .content {
   display: flex;
-  justify-content: flex-end;
-  padding-left: $sidebar-width;
+  justify-content: center;
 
   &_inner {
     width: 100%;
     max-width: $document-max-width;
     padding: $document-padding;
+    overflow: hidden;
   }
 
   .toc_layer {
-    flex-shrink: 0;
-    width: 100%;
-    max-width: $toc-width;
+    position: fixed;
+    width: $toc-width;
+    right: calc((100vw - $document-max-width) / 2 - $toc-width);
   }
 }

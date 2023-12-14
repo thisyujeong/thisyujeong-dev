@@ -7,23 +7,18 @@
 
 .content {
   display: flex;
-  justify-content: space-between;
-  margin-left: $sidebar-width;
+  justify-content: center;
 
   &_inner {
     width: 100%;
     max-width: $document-max-width;
     padding: $document-padding;
-    padding-bottom: 0;
     overflow: hidden;
   }
 
-  &_footer {
-    margin-top: 50px;
-  }
-
   .toc_layer {
-    width: 100%;
-    max-width: $toc-width;
+    position: fixed;
+    width: $toc-width;
+    right: calc((100vw - $document-max-width) / 2 - $toc-width);
   }
 }

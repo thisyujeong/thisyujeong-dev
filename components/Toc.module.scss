@@ -1,13 +1,13 @@
 .toc_container {
-  position: fixed;
-  top: $header-offset;
-  max-width: $toc-width;
-  width: 100%;
-  right: max(0px, calc((100% - $container-max-width) / 2));
+  position: relative;
+  // position: fixed;
+  // top: $header-offset;
+  // max-width: $toc-width;
+  // width: 100%;
+  // right: max(0px, calc((100% - $container-max-width) / 2));
 }
 
 .toc_inner {
-  padding-left: 16px;
   width: 100%;
 }
 

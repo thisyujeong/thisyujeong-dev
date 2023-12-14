@@ -27,7 +27,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <Header />
         <main>{children}</main>
         {/* <script dangerouslySetInnerHTML={{ __html: setThemeMode }} /> */}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );

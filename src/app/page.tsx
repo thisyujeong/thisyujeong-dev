@@ -12,7 +12,6 @@ const Home = async () => {
           <PostCard post={post} key={idx} slug={post.slug} />
         ))}
       </div>
-      <Footer />
     </section>
   );
 };
