@@ -32,8 +32,8 @@ export type MDXPostProps = {
 };
 
 export type PostNextAndPrevious = {
-  next: Blog;
-  prev: Blog;
+  next?: Blog;
+  prev?: Blog;
 };
 
 /* Project */
