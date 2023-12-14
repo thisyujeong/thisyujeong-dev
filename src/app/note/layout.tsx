@@ -1,18 +1,11 @@
 import React from 'react';
-import { genNotesTree } from '@/service/notes';
-import NoteSidebar from 'components/Note/NoteSidebar';
 import styles from './layout.module.scss';
 import Toc from 'components/Toc';
 import Footer from 'components/Footer';
 
 const NoteLayout = async ({ children }: React.PropsWithChildren) => {
-  const tree = await genNotesTree();
-
   return (
     <div className={styles.layout}>
-      <div className={styles.sidebar}>
-        <NoteSidebar tree={tree} />
-      </div>
       <div className={styles.content}>
         <div className={styles.content_inner}>
           {children}

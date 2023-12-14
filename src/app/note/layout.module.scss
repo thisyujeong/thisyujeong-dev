@@ -5,14 +5,6 @@
   margin: 0 auto;
 }
 
-.sidebar {
-  position: fixed;
-  left: max(0px, calc((100% - $container-max-width) / 2));
-  bottom: 0;
-  width: $sidebar-width;
-  height: calc(100vh - $header-height);
-}
-
 .content {
   display: flex;
   justify-content: space-between;
@@ -23,6 +15,7 @@
     max-width: $document-max-width;
     padding: $document-padding;
     padding-bottom: 0;
+    overflow: hidden;
   }
 
   &_footer {
