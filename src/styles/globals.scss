@@ -174,10 +174,10 @@ body {
 
 .section {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   padding-top: $header-offset;
+  min-height: calc(100vh - 112px);
 }
 
 .container {

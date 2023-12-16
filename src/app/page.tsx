@@ -1,16 +1,14 @@
-import { getAllPosts } from '@/service/posts';
-import Footer from 'components/Footer';
-import PostCard from 'components/Post/PostCard';
+import { getAllPosts, getSeriesList } from '@/service/posts';
+import PostList from 'components/Post/PostList';
 
 const Home = async () => {
   const posts = await getAllPosts();
+  const series = await getSeriesList();
 
   return (
     <section className="section">
       <div className="container">
-        {posts.map((post, idx) => (
-          <PostCard post={post} key={idx} slug={post.slug} />
-        ))}
+        <PostList posts={posts} series={series} />
       </div>
     </section>
   );
