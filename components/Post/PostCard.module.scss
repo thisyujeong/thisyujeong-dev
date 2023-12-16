@@ -1,4 +1,5 @@
 .card_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 10px 14px;
@@ -35,6 +36,7 @@
     font-size: 14px;
     opacity: 0.4;
   }
+
   @media screen and (min-width: 577px) {
     &:hover {
       opacity: 0.8;
@@ -53,4 +55,11 @@
       opacity: 1;
     }
   }
+}
+
+.card_series {
+  font-size: 13px;
+  color: $primary-color;
+  border-radius: 20px;
+  text-transform: capitalize;
 }

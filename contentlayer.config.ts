@@ -6,6 +6,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
+import { stringify } from 'querystring';
 
 export const urlFromFilePath = (doc: DocumentGen): string => {
   return doc._raw.flattenedPath.replace(/pages\/?/, '');
@@ -54,6 +55,7 @@ export const Blog = defineDocumentType(() => ({
     date: { type: 'string', required: true },
     description: { type: 'string', required: true },
     thumbnailUrl: { type: 'string', required: false },
+    series: { type: 'string' },
     tags: {
       type: 'list',
       required: true,
