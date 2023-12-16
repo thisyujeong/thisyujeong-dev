@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Blog } from 'contentlayer/generated';
 import PostCard from './PostCard';
 import SeriesTab from './SeriesTab';
@@ -14,17 +14,25 @@ const PostList = ({ posts, series }: Props) => {
   const data =
     selectSeries !== '' ? posts.filter((post) => post.series === selectSeries) : posts;
 
+  const onClickSeries = (series: string) => {
+    if (selectSeries === series) {
+      localStorage.removeItem('series');
+      setSelectSeries('');
+      return;
+    }
+
+    setSelectSeries(series);
+    localStorage.setItem('series', series);
+  };
+
+  useEffect(() => {
+    const localSeries = localStorage.getItem('series');
+    setSelectSeries(localSeries || '');
+  }, []);
+
   return (
     <>
-      {
-        <SeriesTab
-          series={series}
-          selected={selectSeries}
-          onClick={(series) => {
-            setSelectSeries(selectSeries === series ? '' : series);
-          }}
-        />
-      }
+      {<SeriesTab series={series} selected={selectSeries} onClick={onClickSeries} />}
       {data.map((post, idx) => (
         <PostCard post={post} key={idx} slug={post.slug} />
       ))}

@@ -5,7 +5,7 @@ import styles from './SeriesTab.module.scss';
 type Props = {
   series: string[];
   selected: string;
-  onClick?: (tab: string) => void;
+  onClick: (tab: string) => void;
 };
 
 const SeriesTab = ({ series, selected, onClick }: Props) => {
@@ -16,7 +16,7 @@ const SeriesTab = ({ series, selected, onClick }: Props) => {
         {series.map((item) => (
           <li
             key={item}
-            onClick={() => onClick?.(item)}
+            onClick={() => onClick(item)}
             className={`${styles.series_item} ${
               selected === item ? styles.selected : ''
             }`}
