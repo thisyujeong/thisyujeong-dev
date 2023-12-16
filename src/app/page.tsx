@@ -1,9 +1,9 @@
-import { getAllPosts, getSeriesList } from '@/service/posts';
+import { getAllPosts, getSeriesTags } from '@/service/posts';
 import PostList from 'components/Post/PostList';
 
 const Home = async () => {
   const posts = await getAllPosts();
-  const series = await getSeriesList();
+  const series = await getSeriesTags();
 
   return (
     <section className="section">

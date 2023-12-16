@@ -1,0 +1,58 @@
+.series {
+  position: relative;
+  margin-bottom: 32px;
+  background-color: $background-color;
+  border-radius: 6px;
+
+  &.collapse {
+    .series_body {
+      display: none;
+    }
+  }
+}
+
+.series_heading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px 8px 14px;
+
+  .series_title {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .series_toggle {
+    color: $text-color-60;
+    font-size: 13px;
+    &:hover {
+      color: $text-color;
+    }
+  }
+}
+
+.series_body {
+  padding: 0 6px 10px;
+
+  .series_list {
+    margin: 0 !important;
+    padding-left: 30px !important;
+  }
+
+  .series_item {
+    list-style: decimal;
+    a {
+      color: $text-color-80;
+      text-decoration: none;
+    }
+
+    &.active {
+      color: $primary-color;
+
+      a {
+        color: $primary-color;
+      }
+    }
+  }
+}

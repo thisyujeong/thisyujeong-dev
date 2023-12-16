@@ -8,7 +8,7 @@ export async function getAllPosts(): Promise<Blog[]> {
 /**
  * 시리즈 태그 가져오기
  */
-export async function getSeriesList(): Promise<string[]> {
+export async function getSeriesTags(): Promise<string[]> {
   const seriesPosts = allBlogs.filter((post) => post.series);
 
   const series = Array.from(
@@ -16,6 +16,15 @@ export async function getSeriesList(): Promise<string[]> {
   ) as string[];
 
   return series;
+}
+/**
+ * 시리즈 태그의 포스트 가져오기
+ * @param series 시리즈 태그
+ */
+export async function getSeriesPosts(series: string): Promise<Blog[]> {
+  return allBlogs
+    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+    .filter((post) => post.series === series);
 }
 
 /**
