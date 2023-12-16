@@ -6,7 +6,6 @@ import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
-import { stringify } from 'querystring';
 
 export const urlFromFilePath = (doc: DocumentGen): string => {
   return doc._raw.flattenedPath.replace(/pages\/?/, '');
@@ -81,7 +80,7 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       rehypeCodeTitles,
-      [rehypePrettyCode, { theme: 'material-theme-lighter', keepBackground: false }],
+      [rehypePrettyCode, { theme: 'material-theme-palenight', keepBackground: true }],
       [
         rehypeAutolinkHeadings,
         {

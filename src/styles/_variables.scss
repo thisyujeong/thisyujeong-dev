@@ -8,9 +8,10 @@ $text-color-90: rgba($secondary-color, 0.9);
 $text-color-80: rgba($secondary-color, 0.8);
 $text-color-60: rgba($secondary-color, 0.6);
 $text-accent-color: $primary-color-ligten;
+$text-selection-color: #9481bb2b;
+
 $border-color: rgba($secondary-color, 0.2);
 $link-color: $primary-color-ligten;
-
 $card-hover-bg: $background-color;
 
 $container-max-width: 1280px;
@@ -21,8 +22,9 @@ $header-offset: calc($header-height + 20px);
 $toc-width: 230px;
 
 /* mdx-formatter */
-$code-block: #eff2f66e;
-$code-text: #2c3e5090;
+$code-block: #1a1c26;
+$code-text: #b5b9cd;
+$code-block-border: #2d3043;
 $code-inline-block: #eff2f694;
 $code-inline-text: #6b16eeb0;
 

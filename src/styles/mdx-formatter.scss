@@ -178,7 +178,7 @@
 
   .rehype-code-title {
     display: block;
-    padding: 0.2em 1em;
+    padding: 0.25em 1em;
     margin-top: 0.5em;
     font-size: 14px;
     font-weight: 400;
@@ -187,19 +187,7 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     background-color: $code-block;
-    border: 1px solid rgba($border-color, 0.1);
-
-    &:before {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border: 1px solid $code-text;
-      transform: rotate(45deg);
-      margin-right: 0.8em;
-      border-bottom: 0;
-      border-left: 0;
-      content: '';
-    }
+    border-bottom: 1px solid #2d3043;
 
     & + div[data-rehype-pretty-code-fragment] pre {
       margin-top: 0;
