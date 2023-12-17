@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import mq from '@/styles/utils/mq';
 
 export const ProjectCardsContainer = styled.div`
   display: flex;
@@ -9,11 +8,6 @@ export const ProjectCardsContainer = styled.div`
     display: block;
     width: 33.3333%;
     padding: 12px 8px;
-
-    ${mq({
-      width: ['33.3333%', '33.3333%', '50%', '100%'],
-      padding: ['12px 8px', '12px 8px', '8px', '12px 8px'],
-    })}
   }
 `;
 
@@ -60,9 +54,6 @@ export const ProjectCardTitle = styled.h2`
   transition: all 0.2s ease;
   overflow: hidden;
   color: var(--text-base);
-  ${mq({
-    fontSize: ['16px', '16px', '18px'],
-  })};
 `;
 
 export const ProjectCardDesc = styled.p`
@@ -78,7 +69,4 @@ export const ProjectCardDesc = styled.p`
   -webkit-box-orient: vertical;
   transition: all 0.2s ease;
   color: var(--text-base);
-  ${mq({
-    fontSize: ['14px', '14px', '15px'],
-  })};
 `;

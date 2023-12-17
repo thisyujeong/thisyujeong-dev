@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import mq from '@/styles/utils/mq';
 
 export const ProfileContainer = styled.div`
   display: flex;
@@ -9,19 +8,11 @@ export const ProfileContainer = styled.div`
   margin-top: 24px;
   width: 100%;
   position: relative;
-
-  ${mq({
-    flexDirection: ['row', 'row', 'row', 'column-reverse'],
-    marginBottom: [0, 0, 0, '50px'],
-  })}
 `;
 
 export const ProfileDesc = styled.div`
   text-align: left;
   margin-right: 50px;
-  ${mq({
-    marginRight: ['50px', '50px', '50px', 0],
-  })}
 `;
 
 export const ProfileTitle = styled.div`
@@ -50,9 +41,6 @@ export const ProfileImage = styled.div`
   min-width: 180px;
   height: 180px;
   transform: rotateY(180deg);
-  ${mq({
-    marginBottom: [0, 0, 0, '20px'],
-  })}
 
   &:after {
     content: '';
@@ -68,11 +56,6 @@ export const ProfileImage = styled.div`
     z-index: 2;
     animation: cloud 1.5s infinite ease-in;
     animation-direction: alternate;
-
-    ${mq({
-      width: ['100px', '100px', '80px'],
-      height: ['100px', '100px', '80px'],
-    })}
   }
 
   &:before {
@@ -89,10 +72,6 @@ export const ProfileImage = styled.div`
     background-size: contain;
     animation: cloud 2s infinite ease-in;
     animation-direction: alternate;
-    ${mq({
-      width: ['80px', '80px', '60px'],
-      height: ['80px', '80px', '60px'],
-    })}
   }
 
   @keyframes cloud {
