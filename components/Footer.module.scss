@@ -1,13 +1,16 @@
 .footer {
-  height: 112px;
-  width: 100%;
+  height: $footer-height;
   margin: 0 auto;
-  border-top: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: $secondary-deep-color;
 
   &_inner {
-    padding: 24px 12px;
-    max-width: $document-max-width;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 12px;
+    max-width: $container-max-width;
   }
 }
 
@@ -21,7 +24,7 @@
     svg {
       width: 16px;
       height: 16px;
-      fill: $text-color;
+      fill: #fff;
     }
 
     &:hover {
@@ -32,14 +35,15 @@
 
 .footer_copyright {
   font-size: 12px;
-  color: $text-color;
+  color: #fff;
   opacity: 0.5;
 }
 
 .footer_info {
   font-size: 12px;
-  color: var(--text-base);
+  color: #fff;
   opacity: 0.5;
+
   &:hover {
     opacity: 0.7;
     text-decoration: underline;

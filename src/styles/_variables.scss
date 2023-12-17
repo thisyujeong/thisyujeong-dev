@@ -1,6 +1,7 @@
 $primary-color: #6b16ee;
 $primary-color-ligten: #8855d9;
 $secondary-color: #4b4e52;
+$secondary-deep-color: #292d3e;
 $background-color: #edf1f38a;
 
 $text-color: $secondary-color;
@@ -16,13 +17,14 @@ $card-hover-bg: $background-color;
 
 $container-max-width: 1280px;
 $document-max-width: 730px;
-$document-padding: 0 20px 50px;
+$document-padding: 0 20px;
 $header-height: 58px;
 $header-offset: calc($header-height + 20px);
 $toc-width: 230px;
+$footer-height: 120px;
 
 /* mdx-formatter */
-$code-block: #1a1c26;
+$code-block: #292d3e;
 $code-text: #b5b9cd;
 $code-block-border: #2d3043;
 $code-inline-block: #eff2f694;

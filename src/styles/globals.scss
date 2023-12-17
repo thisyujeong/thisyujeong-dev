@@ -172,11 +172,12 @@ body {
 }
 
 .section {
+  min-height: calc(100vh - $footer-height);
+  padding-top: $header-offset;
+  padding-bottom: 80px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: $header-offset;
-  min-height: calc(100vh - 112px);
 }
 
 .container {

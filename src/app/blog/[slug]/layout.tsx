@@ -25,17 +25,19 @@ const BlogLayout = ({ children, params: { slug } }: React.PropsWithChildren<Prop
           },
         }}
       /> */}
-      <div className={styles.layout}>
-        <div className={styles.content}>
-          <div className={styles.content_inner}>
-            {children}
-            <GiscusArea slug={slug} />
-          </div>
-          <div className={styles.toc_layer}>
-            <Toc />
+      <section className="section">
+        <div className={styles.layout}>
+          <div className={styles.content}>
+            <div className={styles.content_inner}>
+              {children}
+              <GiscusArea slug={slug} />
+            </div>
+            <div className={styles.toc_layer}>
+              <Toc />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

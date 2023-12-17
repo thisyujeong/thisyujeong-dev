@@ -4,11 +4,13 @@ import Toc from 'components/Toc';
 
 const NoteLayout = async ({ children }: React.PropsWithChildren) => {
   return (
-    <div className={styles.layout}>
-      <div className={styles.content}>
-        <div className={styles.content_inner}>{children}</div>
-        <div className={styles.toc_layer}>
-          <Toc />
+    <div className="section">
+      <div className={styles.layout}>
+        <div className={styles.content}>
+          <div className={styles.content_inner}>{children}</div>
+          <div className={styles.toc_layer}>
+            <Toc />
+          </div>
         </div>
       </div>
     </div>
