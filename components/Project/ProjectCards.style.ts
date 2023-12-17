@@ -40,13 +40,6 @@ export const ProjectCardImg = styled.div`
   }
 `;
 
-export const ProjectCardCopy = styled.div`
-  ${mq({
-    padding: ['12px 16px', '12px 16px', '12px 16px'],
-    marginBottom: [0, 0, '12px'],
-  })}
-`;
-
 export const ProjectCardTitle = styled.h2`
   margin-top: 4px;
   white-space: nowrap;
