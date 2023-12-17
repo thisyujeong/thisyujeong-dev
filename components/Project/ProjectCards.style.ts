@@ -40,6 +40,8 @@ export const ProjectCardImg = styled.div`
   }
 `;
 
+export const ProjectCardCopy = styled.div``;
+
 export const ProjectCardTitle = styled.h2`
   margin-top: 4px;
   white-space: nowrap;
