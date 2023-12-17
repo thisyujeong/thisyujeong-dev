@@ -1,0 +1,38 @@
+.search {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 0 8px;
+
+  input {
+    position: relative;
+    width: 100%;
+    padding: 10px 20px 10px 42px;
+    border: 0;
+    border-radius: 50px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: $background-color;
+    font-size: 18px;
+
+    &::placeholder {
+      opacity: 0.6;
+    }
+  }
+
+  .search_button {
+    position: absolute;
+    top: calc(50% + 1px);
+    left: 24px;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+  }
+
+  .search_icon {
+    opacity: 0.6;
+    line-height: 1;
+    path {
+      fill: $text-color;
+    }
+  }
+}

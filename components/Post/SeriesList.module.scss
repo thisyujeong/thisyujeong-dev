@@ -42,6 +42,7 @@
 
   .series_item {
     list-style: decimal;
+
     a {
       color: $text-color-80;
       text-decoration: none;
@@ -53,6 +54,10 @@
       a {
         color: $primary-color;
       }
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
