@@ -59,8 +59,8 @@
 
   strong,
   strong * {
-    color: #000;
-    font-weight: 600;
+    color: var(--primary-color);
+    font-weight: 500;
   }
 
   em {
@@ -103,6 +103,16 @@
     display: block;
     max-width: 100%;
     margin: 0.5rem 0;
+  }
+
+  img + em {
+    display: block;
+    font-size: 14px;
+    color: var(--text-color-80);
+    &:before {
+      content: '*';
+      margin-right: 4px;
+    }
   }
 
   ul {
