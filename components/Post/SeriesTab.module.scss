@@ -8,14 +8,14 @@
   position: relative;
   padding-right: 24px;
   margin-right: 24px;
-  color: $primary-color;
+  color: var(--primary-color);
   font-size: 18px;
   font-weight: 700;
   &:after {
     content: '';
     width: 2px;
     height: 20px;
-    background-color: $border-color;
+    background-color: var(--border-color);
     position: absolute;
     top: 50%;
     right: 0;
@@ -26,19 +26,19 @@
 .series_item {
   cursor: pointer;
   padding: 2px 10px;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   border-radius: 30px;
   text-transform: capitalize;
 
   &.selected {
     color: #fff;
-    border-color: $primary-color;
-    background-color: $primary-color;
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
   }
 
   &:hover {
     color: #fff;
-    border-color: $primary-color-ligten;
-    background-color: $primary-color-ligten;
+    border-color: var(--primary-color-lighten);
+    background-color: var(--primary-color-lighten);
   }
 }

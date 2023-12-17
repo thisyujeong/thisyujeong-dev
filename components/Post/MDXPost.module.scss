@@ -5,7 +5,7 @@
 
 .mdx_heading {
   position: relative;
-  border-bottom: 1px dashed $border-color;
+  border-bottom: 1px dashed var(--border-color);
   padding-bottom: 30px;
   margin-bottom: 30px;
 }
@@ -33,7 +33,15 @@
   margin-right: 20px;
 
   span {
-    color: $text-color;
+    color: var(--text-color);
     margin-left: 4px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    path {
+      fill: var(--icon-color);
+    }
   }
 }

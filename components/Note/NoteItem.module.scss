@@ -8,10 +8,10 @@
 
   &:hover {
     padding-left: 14px;
-    background-color: $card-hover-bg;
+    background-color: var(--bg-component-color);
 
     .note_title {
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 }

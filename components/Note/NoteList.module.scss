@@ -1,5 +1,5 @@
 .note_container {
-  background-color: $background-color;
+  background-color: var(--bg-component-color);
   border-radius: 6px;
   padding: 10px;
 
@@ -26,7 +26,7 @@
   .badge {
     line-height: 1;
     padding-bottom: 2px;
-    color: $primary-color;
+    color: var(--primary-color);
     font-size: 14px;
     margin-left: 8px;
   }

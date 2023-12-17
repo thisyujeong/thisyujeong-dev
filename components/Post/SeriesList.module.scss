@@ -1,7 +1,7 @@
 .series {
   position: relative;
   margin-bottom: 32px;
-  background-color: $background-color;
+  background-color: var(--bg-component-color);
   border-radius: 6px;
 
   &.collapse {
@@ -24,10 +24,10 @@
   }
 
   .series_toggle {
-    color: $text-color-60;
+    color: var(--text-color-60);
     font-size: 13px;
     &:hover {
-      color: $text-color;
+      color: var(--text-color);
     }
   }
 }
@@ -44,15 +44,15 @@
     list-style: decimal;
 
     a {
-      color: $text-color-80;
+      color: var(--text-color-60);
       text-decoration: none;
     }
 
     &.active {
-      color: $primary-color;
+      color: var(--primary-color);
 
       a {
-        color: $primary-color;
+        color: var(--primary-color);
       }
     }
 

@@ -18,7 +18,7 @@
   a {
     display: block;
     line-height: 1.5em;
-    color: $text-color !important;
+    color: var(--text-color) !important;
     font-size: 14px;
     opacity: 0.5;
     transition: all 0.1s ease;
@@ -33,9 +33,9 @@
   }
 
   &.active {
-    border-left: 1px solid $primary-color;
+    border-left: 1px solid var(--primary-color);
     a {
-      color: $primary-color !important;
+      color: var(--primary-color) !important;
       opacity: 1;
       &:hover {
         opacity: 0.8;

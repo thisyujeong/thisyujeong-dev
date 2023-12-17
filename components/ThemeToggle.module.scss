@@ -1,0 +1,26 @@
+.toggle {
+  line-height: 0;
+  margin-left: 18px;
+}
+
+.toggle_button {
+  position: relative;
+  padding: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  line-height: 1;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    transition: all 0.2s ease;
+    fill: #ff9a00;
+  }
+
+  &:hover {
+    background: var(--bg-component-color);
+  }
+}

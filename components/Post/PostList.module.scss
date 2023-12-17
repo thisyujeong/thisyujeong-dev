@@ -6,13 +6,13 @@
   height: 200px;
 
   &_text {
-    color: $text-color;
+    color: var(--text-color);
     font-size: 18px;
   }
 
   &_sub_text {
     opacity: 0.6;
-    color: $primary-color;
+    color: var(--primary-color);
     margin-bottom: 6px;
   }
 }

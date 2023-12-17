@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { ThemeToggleContainer, ToggleButton } from './ThemeToggle.style';
+import styles from './ThemeToggle.module.scss';
 
 const ThemeToggle = () => {
   const [themeMode, setThemeMode] = useState<string>(document.body.dataset.theme!);
@@ -15,8 +15,11 @@ const ThemeToggle = () => {
   };
 
   return (
-    <ThemeToggleContainer>
-      <ToggleButton className={themeMode} onClick={themeModeHandle}>
+    <div className={styles.toggle}>
+      <button
+        className={`${styles.toggle_button} ${themeMode}`}
+        onClick={themeModeHandle}
+      >
         {themeMode === 'dark' ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +47,8 @@ const ThemeToggle = () => {
             <path d="M12.231,12.231c0.862-0.862,0.862-2.259,0-3.121L9.734,6.614c-0.862-0.862-2.259-0.862-3.121,0      c-0.862,0.861-0.862,2.259,0,3.12l2.497,2.497C9.972,13.094,11.369,13.094,12.231,12.231z"></path>
           </svg>
         )}
-      </ToggleButton>
-    </ThemeToggleContainer>
+      </button>
+    </div>
   );
 };
 

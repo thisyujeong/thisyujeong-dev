@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: #fff;
+  background-color: var(--bg-base-color);
   z-index: 100;
 }
 
@@ -12,9 +12,10 @@
     font-size: 18px;
     font-weight: 600;
     line-height: 1.5;
+    color: var(--text-color);
 
     span {
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 }
@@ -26,4 +27,9 @@
   padding: 14px 16px;
   height: $header-height;
   max-width: $container-max-width;
+}
+
+.header_nav {
+  display: flex;
+  align-items: center;
 }

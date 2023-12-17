@@ -10,7 +10,7 @@
 
   &:hover {
     .copy_text {
-      color: $text-color;
+      color: var(--text-color);
       text-decoration: underline;
     }
 
@@ -30,14 +30,15 @@
   svg {
     width: 100%;
     height: 100%;
+
     path {
-      fill: $text-color;
+      fill: var(--icon-color);
     }
   }
 }
 
 .copy_text {
-  color: $text-color-60;
+  color: var(--text-color-60);
 }
 
 .copied_icon {
@@ -53,7 +54,7 @@
     height: 100%;
 
     path {
-      fill: $primary-color;
+      fill: var(--primary-color);
     }
   }
 

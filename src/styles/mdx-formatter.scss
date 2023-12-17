@@ -1,13 +1,13 @@
 .mdx-formatter {
   position: relative;
   width: 100%;
-  color: $text-color;
-  font-size: 16px;
+  color: var(--text-color);
+  font-size: 17px;
   line-height: 2;
   word-break: break-all;
 
   * {
-    color: $text-color;
+    color: var(--text-color);
     line-height: 1.8em;
     font-weight: 400;
   }
@@ -46,11 +46,11 @@
   hr {
     border: 0;
     height: 2px;
-    background-color: rgba($border-color, 0.1);
+    background-color: var(--border-color-lighten);
   }
 
   a {
-    color: $link-color;
+    color: var(--link-color);
     text-decoration: underline;
     &:hover {
       text-decoration: underline;
@@ -72,9 +72,9 @@
 
     code {
       padding: 0.1em 0.3em;
-      color: $code-inline-text;
+      color: var(--code-inline-text);
       font-size: 14px;
-      background-color: $code-inline-block;
+      background-color: var(--code-inline-block);
       border-radius: 0.2em;
     }
   }
@@ -88,14 +88,14 @@
     margin: 0;
     padding: 0 0.8em;
     font-style: italic;
-    border-left: 3px solid rgba($secondary-color, 0.2);
+    border-left: 3px solid var(--border-color);
 
     code {
       padding: 0.1rem 0.3rem;
       font-size: 14px;
       border-radius: 0.2em;
-      color: $code-inline-text;
-      background-color: $code-inline-block;
+      color: var(--code-inline-text);
+      background-color: var(--code-inline-block);
     }
   }
 
@@ -163,14 +163,14 @@
         font-size: 14px;
         line-height: 1.8;
         padding: 0.2em 0.8em;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
       }
       th {
         font-size: 14px;
         line-height: 1.8;
         padding: 0.2em 0.8em;
         font-weight: 500;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         background: #d9d9d94d;
       }
     }
@@ -182,12 +182,12 @@
     margin-top: 0.5em;
     font-size: 14px;
     font-weight: 400;
-    color: $code-text;
+    color: var(--code-block-text);
     font-family: var(--font-roboto-mono);
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    background-color: $code-block;
-    border-bottom: 1px solid #2d3043;
+    background-color: var(--code-block-title);
+    border-bottom: 1px solid var(--code-block-border);
 
     & + div[data-rehype-pretty-code-fragment] pre {
       margin-top: 0;
@@ -203,7 +203,7 @@
     font-size: 14px;
     line-height: 1.5em;
     border-radius: 8px;
-    background-color: $code-block;
+    background-color: var(--code-block);
 
     code {
       width: 100%;
@@ -223,7 +223,7 @@
             width: 0.75rem;
             margin-right: 1.25rem;
             text-align: right;
-            color: $code-text;
+            color: var(--code-text);
           }
         }
       }

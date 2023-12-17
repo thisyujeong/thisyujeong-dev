@@ -13,10 +13,10 @@
 
   a {
     font-size: 16px;
-    color: $text-color;
+    color: var(--text-color);
   }
 
   &:hover a {
-    color: $primary-color;
+    color: var(--primary-color);
   }
 }
