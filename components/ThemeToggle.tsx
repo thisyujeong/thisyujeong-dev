@@ -15,6 +15,10 @@ const ThemeToggle = () => {
         window.localStorage.setItem('theme', 'light');
       }
     }
+
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: darkTheme ? 'dark' : 'light' })
+    );
   }, [darkTheme]);
 
   useEffect(() => {
