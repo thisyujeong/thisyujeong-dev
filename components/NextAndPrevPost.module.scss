@@ -14,6 +14,7 @@
   border-radius: 10px;
   border: 1px solid var(--bg-component-color);
   background-color: var(--bg-component-color);
+  transition: 0.3s ease;
   overflow: hidden;
   cursor: pointer;
 
@@ -102,6 +103,7 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      transition: 0.3s ease;
     }
 
     .post_label {

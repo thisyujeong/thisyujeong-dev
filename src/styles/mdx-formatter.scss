@@ -76,6 +76,7 @@
       font-size: 14px;
       background-color: var(--code-inline-block);
       border-radius: 0.2em;
+      transition: 0.3s ease;
     }
   }
 
@@ -96,6 +97,7 @@
       border-radius: 0.2em;
       color: var(--code-inline-text);
       background-color: var(--code-inline-block);
+      transition: 0.3s ease;
     }
   }
 
@@ -198,6 +200,7 @@
     border-top-right-radius: 6px;
     background-color: var(--code-block-title);
     border-bottom: 1px solid var(--code-block-border);
+    transition: 0.3s ease;
 
     & + div[data-rehype-pretty-code-fragment] pre {
       margin-top: 0;

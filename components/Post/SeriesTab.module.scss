@@ -13,13 +13,14 @@
   font-weight: 700;
   &:after {
     content: '';
-    width: 2px;
-    height: 20px;
-    background-color: var(--border-color);
     position: absolute;
     top: 50%;
     right: 0;
+    width: 2px;
+    height: 20px;
+    background-color: var(--border-color);
     transform: translateY(-50%);
+    transition: 0.3s ease;
   }
 }
 
@@ -29,6 +30,7 @@
   border: 1px solid var(--border-color);
   border-radius: 30px;
   text-transform: capitalize;
+  transition: 0.3s ease;
 
   &.selected {
     color: #fff;

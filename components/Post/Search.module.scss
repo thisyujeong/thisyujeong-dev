@@ -13,6 +13,7 @@
     -webkit-appearance: none;
     background-color: var(--bg-component-color);
     font-size: 18px;
+    transition: 0.3s ease;
 
     &::placeholder {
       opacity: 0.6;
@@ -33,6 +34,7 @@
     line-height: 1;
     path {
       fill: var(--text-color);
+      transition: 0.3s ease;
     }
   }
 }

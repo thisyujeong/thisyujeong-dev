@@ -23,7 +23,7 @@
       border-right: 2px solid var(--primary-color);
       border-bottom: 2px solid var(--primary-color);
       margin-right: 10px;
-      transition: 0.2s ease;
+      transition: 0.3s ease;
       transform: translateY(-50%) rotate(-45deg);
       opacity: 0;
     }
@@ -32,12 +32,14 @@
   p {
     font-size: 16px;
     color: var(--text-color);
+    transition: 0.3s ease;
     opacity: 0.6;
   }
 
   span {
     margin-top: 4px;
     color: var(--text-color);
+    transition: 0.3s ease;
     font-size: 14px;
     opacity: 0.4;
   }
@@ -63,8 +65,9 @@
 }
 
 .card_series {
-  font-size: 13px;
   color: var(--primary-color);
-  border-radius: 20px;
+  font-size: 13px;
   text-transform: capitalize;
+  border-radius: 20px;
+  transition: 0.3s ease;
 }
