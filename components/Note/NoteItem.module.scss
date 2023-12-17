@@ -2,7 +2,7 @@
   padding: 4px 8px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   border-radius: 4px;
   transition: padding 0.2s ease;
 
@@ -21,6 +21,7 @@
 }
 
 .note_date {
+  margin-top: 3px;
   flex-shrink: 0;
   margin-left: 10px;
   font-size: 14px;

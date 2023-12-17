@@ -9,7 +9,6 @@ type Props = {
 };
 
 const NoteItem = ({ item }: Props) => {
-  console.log(item.urlPath);
   return (
     <Link href={item.urlPath} passHref className={styles.note_item}>
       <div className={styles.note_title}>{item.title}</div>
