@@ -3,24 +3,31 @@ import { useEffect, useState } from 'react';
 import styles from './ThemeToggle.module.scss';
 
 const ThemeToggle = () => {
-  const [themeMode, setThemeMode] = useState<string>(document.body.dataset.theme!);
+  const [darkTheme, setDarkTheme] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
-    document.body.dataset.theme = themeMode;
-    window.localStorage.setItem('theme', themeMode);
-  }, [themeMode]);
+    if (darkTheme !== undefined) {
+      if (darkTheme) {
+        document.body.setAttribute('data-theme', 'dark');
+        window.localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.removeAttribute('data-theme');
+        window.localStorage.setItem('theme', 'light');
+      }
+    }
+  }, [darkTheme]);
 
-  const themeModeHandle = () => {
-    setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
-  };
+  useEffect(() => {
+    setDarkTheme(localStorage.getItem('theme') === 'dark');
+  }, []);
 
   return (
     <div className={styles.toggle}>
       <button
-        className={`${styles.toggle_button} ${themeMode}`}
-        onClick={themeModeHandle}
+        className={`${styles.toggle_button} ${darkTheme ? 'dark' : 'light'}`}
+        onClick={() => setDarkTheme(!darkTheme)}
       >
-        {themeMode === 'dark' ? (
+        {darkTheme ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

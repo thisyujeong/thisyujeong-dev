@@ -13,20 +13,21 @@ const roboto_mono = Roboto_Mono({
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   /* TODO: dark, light theme toggle */
-  // const setThemeMode = `
-  //   function getThemeMode() {
-  //       const theme = window.localStorage.getItem('theme')
-  //       return theme ? theme : 'dark'
-  //   }
-  //   document.body.dataset.theme = getThemeMode()
-  // `;
+  const setThemeMode = `
+    function getThemeMode() {
+        const theme = window.localStorage.getItem('theme')
+        return theme ? theme : 'dark'
+    }
+    document.body.dataset.theme = getThemeMode()
+  `;
+
   return (
     <html lang="ko" className={`${sans.className} ${roboto_mono.variable}`}>
       <head>{/* <script dangerouslySetInnerHTML={{ __html: setThemeMode }} /> */}</head>
       <body>
         <Header />
         <main>{children}</main>
-        {/* <script dangerouslySetInnerHTML={{ __html: setThemeMode }} /> */}
+        <script dangerouslySetInnerHTML={{ __html: setThemeMode }} />
         <Footer />
       </body>
     </html>
