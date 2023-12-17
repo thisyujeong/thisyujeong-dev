@@ -43,7 +43,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 
 export default function Search() {
-  const [keyword, setKeyword] = useStat<string>('');
+  const [keyword, setKeyword] = useState<string>('');
 
   const { data } = useSWR(`/api/search/${keyword}`);
 
@@ -89,7 +89,7 @@ import useSWR from 'swr';
 import useDebounce from '@/hooks/debounce';
 
 export default function Search() {
-  const [value, setValue] = useStat<string>('');
+  const [keyword, setKeyword] = useState<string>('');
   const debouncedValue = useDebounce(value);
 
   const { data } = useSWR(`/api/search/${debouncedValue}`);
