@@ -26,7 +26,7 @@ const Footer = () => {
           )}
         </div>
         <p className={styles.footer_copyright}>
-          Copyright © {new Date().getFullYear()} {metadata.author}
+          Copyright © {new Date().getFullYear()} {metadata.meta.author}
         </p>
         <Link href={metadata.repo} className={styles.footer_info} target="_blank">
           thisyujeong.dev
