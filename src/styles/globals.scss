@@ -172,6 +172,10 @@ body {
   outline: 0;
 }
 
+:target {
+  scroll-margin-block: $header-height;
+}
+
 .section {
   min-height: calc(100vh - $footer-height);
   padding-top: $header-offset;

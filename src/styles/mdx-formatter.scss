@@ -69,36 +69,25 @@
 
   p {
     margin: 0.4em 0;
-
-    code {
-      padding: 0.1em 0.3em;
-      color: var(--code-inline-text);
-      font-size: 14px;
-      background-color: var(--code-inline-block);
-      border-radius: 0.2em;
-      transition: 0.3s ease;
-    }
   }
 
   code {
+    padding: 0.1em 0.3em;
+    color: var(--code-inline-text);
+    font-size: 14px;
     font-family: var(--font-roboto-mono);
+    border-radius: 0.2em;
+    background-color: var(--code-inline-block);
+    transition: 0.3s ease;
   }
 
   blockquote {
     position: relative;
-    margin: 0;
-    padding: 0 0.8em;
+    margin: 0.5em 0;
+    padding: 0.2em 0.8em 0.2em 1.2em;
     font-style: italic;
-    border-left: 3px solid var(--border-color);
-
-    code {
-      padding: 0.1rem 0.3rem;
-      font-size: 14px;
-      border-radius: 0.2em;
-      color: var(--code-inline-text);
-      background-color: var(--code-inline-block);
-      transition: 0.3s ease;
-    }
+    border-left: 3px solid var(--primary-color);
+    background-color: var(--bg-component-color);
   }
 
   img {
@@ -107,6 +96,7 @@
     margin: 0.5rem 0;
   }
 
+  // image caption
   img + em {
     display: block;
     font-size: 14px;
@@ -137,6 +127,11 @@
     ol {
       margin: 0;
     }
+
+    blockquote {
+      border-color: $border-color;
+      padding: 0.1em 0.8em 0.1em 1.2em;
+    }
   }
 
   ol {
@@ -156,6 +151,11 @@
           list-style: lower-roman;
         }
       }
+    }
+
+    blockquote {
+      border-color: $border-color;
+      padding: 0.1em 0.8em 0.1em 1.2em;
     }
   }
 
@@ -188,6 +188,7 @@
     }
   }
 
+  // rehype
   .rehype-code-title {
     display: block;
     padding: 0.25em 1em;
@@ -223,6 +224,7 @@
       display: block;
       overflow-x: auto;
       padding: 0.5em 0;
+      background-color: transparent;
 
       // 라인 넘버 노출: ex. showLineNumbers
       &[data-line-numbers] {
