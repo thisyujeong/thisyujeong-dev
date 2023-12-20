@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectCards from 'components/Project/ProjectCards';
+import ProjectList from 'components/Project/ProjectList';
 import { getAllProjects } from 'src/service/projects';
 
 /* TODO: SEO */
@@ -8,7 +8,7 @@ const PlaygroundPage = async () => {
 
   return (
     <section>
-      <ProjectCards projects={projects} />
+      <ProjectList projects={projects} />
     </section>
   );
 };

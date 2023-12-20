@@ -1,6 +1,4 @@
-import styled from '@emotion/styled';
-
-export const ProjectCardsContainer = styled.div`
+.product_list {
   display: flex;
   flex-wrap: wrap;
   margin: -8px;
@@ -9,9 +7,9 @@ export const ProjectCardsContainer = styled.div`
     width: 33.3333%;
     padding: 12px 8px;
   }
-`;
+}
 
-export const ProjectCard = styled.div`
+.project_item {
   position: relative;
   background: var(--card-bg);
   box-shadow: 0px 6px 14px var(--shadow);
@@ -28,9 +26,9 @@ export const ProjectCard = styled.div`
       opacity: 1;
     }
   }
-`;
+}
 
-export const ProjectCardImg = styled.div`
+.project_preview {
   position: relative;
   padding-bottom: 64%;
   overflow: hidden;
@@ -38,20 +36,18 @@ export const ProjectCardImg = styled.div`
     position: absolute;
     height: 100%;
   }
-`;
+}
 
-export const ProjectCardCopy = styled.div``;
-
-export const ProjectCardTitle = styled.h2`
+.project_title {
   margin-top: 4px;
   white-space: nowrap;
   text-overflow: ellipsis;
   transition: all 0.2s ease;
   overflow: hidden;
   color: var(--text-base);
-`;
+}
 
-export const ProjectCardDesc = styled.p`
+.project_desc {
   opacity: 0.5;
   height: 3.14em;
   font-size: 13px;
@@ -64,4 +60,4 @@ export const ProjectCardDesc = styled.p`
   -webkit-box-orient: vertical;
   transition: all 0.2s ease;
   color: var(--text-base);
-`;
+}

@@ -10,11 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
     "@giscus/react": "^2.3.0",
     "contentlayer": "^0.3.4",
-    "facepaint": "^1.2.1",
     "globby": "^13.1.1",
     "next": "latest",
     "next-contentlayer": "^0.3.4",
