@@ -2,7 +2,6 @@ import { Note } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import MDXPost from 'components/Post/MDXPost';
 
-/* TODO: NextSEO */
 type Props = {
   note: Note;
 };

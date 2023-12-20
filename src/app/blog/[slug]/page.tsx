@@ -1,5 +1,6 @@
 import NextAndPrevPost from 'components/NextAndPrevPost';
 import PostContent from 'components/Post/PostContent';
+import metadata from 'data/metadata';
 import {
   getAllPosts,
   getNextAndPreviousPost,
@@ -11,14 +12,20 @@ type Props = {
   params: { slug: string };
 };
 
-// TODO:
-// export async function generateMetadata({ params: { slug } }: Props) {
-//   const { title, description } = await getPostData(slug);
-//   return {
-//     title,
-//     description,
-//   };
-// }
+export async function generateMetadata({ params: { slug } }: Props) {
+  const { title, description, tags } = await getPostData(slug);
+  return {
+    title,
+    description,
+    keywords: [...tags, ...metadata.meta.keywords],
+    openGraph: {
+      ...metadata.meta.openGraph,
+      title: title,
+      description: description,
+      url: `${metadata.meta.url}/blog/${slug}`,
+    },
+  };
+}
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);

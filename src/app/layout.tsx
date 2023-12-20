@@ -1,8 +1,28 @@
 import React from 'react';
-import '@/styles/globals.scss';
+import type { Metadata } from 'next';
+import _metadata from 'data/metadata';
 import { Open_Sans, Roboto_Mono } from 'next/font/google';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import '@/styles/globals.scss';
+
+const { meta } = _metadata;
+
+export const metadata: Metadata = {
+  title: {
+    template: `%s | ${meta.author}`,
+    default: meta.title,
+  },
+  description: meta.description,
+  authors: [{ name: meta.author, url: meta.url }],
+  keywords: meta.keywords,
+  robots: meta.url,
+  icons: { icon: meta.icon },
+  openGraph: {
+    ...meta.openGraph,
+    siteName: meta.title,
+  },
+};
 
 const sans = Open_Sans({ subsets: ['latin'] });
 const roboto_mono = Roboto_Mono({
@@ -12,7 +32,6 @@ const roboto_mono = Roboto_Mono({
 });
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  /* TODO: dark, light theme toggle */
   const setThemeMode = `
     function getThemeMode() {
         const theme = window.localStorage.getItem('theme')
@@ -23,7 +42,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <html lang="ko" className={`${sans.className} ${roboto_mono.variable}`}>
-      <head>{/* <script dangerouslySetInnerHTML={{ __html: setThemeMode }} /> */}</head>
       <body>
         <Header />
         <main>{children}</main>

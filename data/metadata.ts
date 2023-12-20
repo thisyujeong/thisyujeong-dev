@@ -2,10 +2,28 @@ const metadata = {
   repo: 'https://github.com/thisyujeong/thisyujeong-dev',
   meta: {
     url: 'https://thisyujeong.dev',
-    title: 'Thisyujeong | Frontend Developer',
-    description: 'I experience it and if i like it, i continue.',
+    title: 'thisyujeong.dev',
+    description: '웹 개발자 이유정의 기술 블로그 #Web #Frontend #Developer',
+    author: 'thisyujeong',
+    keywords: ['nextjs blog', 'tech blog', 'frontend', 'developer', 'web'],
+    icon: '/favicon.ico',
+    openGraph: {
+      type: 'website',
+      title: 'thisyujeong.dev',
+      siteName: 'thisyujeong.dev',
+      description: '웹 개발자 이유정의 기술 블로그 #Web #Frontend #Developer',
+      locale: 'ko_KR',
+      url: 'https://thisyujeong.dev',
+      images: [
+        {
+          url: 'https://thisyujeong.dev/static/opengraph-image.png',
+          width: 850,
+          height: 650,
+          alt: 'thisyujeong.dev',
+        },
+      ],
+    },
   },
-  author: 'thisyujeong',
   home: {
     name: 'Yujeong Lee',
     description: 'Nevertheless!',

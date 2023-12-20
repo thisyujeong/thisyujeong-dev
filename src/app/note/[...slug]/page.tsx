@@ -1,29 +1,29 @@
 import { getNotesTree } from 'src/service/notes';
 import NoteContent from 'components/Note/NoteContent';
-
-/* TODO: SEO */
+import metadata from 'data/metadata';
 
 type Props = {
   params: { slug: string[] };
 };
 
+export async function generateMetadata({ params: { slug } }: Props) {
+  const { note } = await getNotesTree(slug);
+
+  return {
+    title: note.title,
+    description: note.title,
+    keywords: [...note.tags, ...metadata.meta.keywords],
+    openGraph: {
+      ...metadata.meta.openGraph,
+      title: note.title,
+      description: note.title,
+      url: `${metadata.meta.url}/note/${slug.join('/')}`,
+    },
+  };
+}
+
 const NoteDetailPage = async ({ params: { slug } }: Props) => {
   const { note } = await getNotesTree(slug);
-  {
-    /* <NextSeo
-        title={`${note.title}`}
-        description={'Code Snippets, Notes'}
-        canonical={`${metadata.meta.url}/${note.url_path}`}
-        openGraph={{
-          type: 'article',
-          url: `${metadata.meta.url}/${note.url_path}`,
-          article: {
-            publishedTime: new Date(note.date).toISOString(),
-            tags: [...note.tags, 'frontend', 'develop'],
-          },
-        }}
-      /> */
-  }
   return <NoteContent note={note} />;
 };
 
