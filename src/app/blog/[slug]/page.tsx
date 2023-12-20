@@ -27,7 +27,7 @@ export async function generateMetadata({ params: { slug } }: Props) {
   };
 }
 
-export default async function PostPage({ params: { slug } }: Props) {
+export default async function PostDetailPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
   const series = post.series ? await getSeriesPosts(post.series) : undefined;
   const { next, prev } = await getNextAndPreviousPost(slug);

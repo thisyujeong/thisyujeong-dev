@@ -1,7 +1,7 @@
 import { getAllPosts, getSeriesTags } from '@/service/posts';
 import PostList from 'components/Post/PostList';
 
-const Home = async () => {
+const HomePage = async () => {
   const posts = await getAllPosts();
   const series = await getSeriesTags();
 
@@ -14,4 +14,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default HomePage;
