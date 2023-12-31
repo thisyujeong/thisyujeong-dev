@@ -1,0 +1,246 @@
+/* default */
+@charset "utf-8";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'NotoSansKR', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+p,
+button,
+iframe,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+  font-weight: normal;
+}
+img,
+fieldset,
+iframe,
+button {
+  border: 0 none;
+}
+li {
+  list-style: none;
+}
+i,
+em,
+u,
+cite {
+  font-style: normal;
+}
+a {
+  color: #000;
+  text-decoration: none;
+  outline-offset: -1px;
+  box-sizing: border-box;
+}
+.chrome a,
+.safari a {
+  outline-offset: -3px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+legend {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+select,
+input,
+textarea {
+  outline: 0;
+}
+select,
+input,
+label {
+  vertical-align: middle;
+}
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+button {
+  border: 0 none;
+  cursor: pointer;
+  background: none;
+}
+select::-ms-expand {
+  display: none;
+}
+select::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+html,
+body {
+  height: 100%;
+  font-size: 14px;
+  line-height: 0;
+}
+body {
+  width: 100%;
+  overflow-x: hidden;
+  word-break: keep-all;
+  word-wrap: break-word;
+  background: var(--bg-base-color);
+  transition: 0.3s ease;
+}
+* {
+  font-size: inherit;
+  line-height: 1.57em;
+  color: var(--text-color);
+  box-sizing: border-box;
+
+  &::selection {
+    background-color: var(--text-selection-color);
+  }
+}
+
+*:focus {
+  outline: 0;
+}
+
+:target {
+  scroll-margin-block: $header-height;
+}
+
+.section {
+  min-height: calc(100vh - $footer-height);
+  padding-top: $header-offset;
+  padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  max-width: $document-max-width;
+  width: 100%;
+}
+
+/* theme color */
+body {
+  --primary-color: #{$primary-color};
+  --primary-color-lighten: #{$primary-color-lighten};
+  --secondary-color: #{$secondary-color};
+  --bg-base-color: #{$bg-base-color};
+  --bg-component-color: #{$bg-component-color};
+
+  --text-color: #{$text-color};
+  --text-color-90: #{$text-color-90};
+  --text-color-80: #{$text-color-80};
+  --text-color-60: #{$text-color-60};
+  --text-selection-color: #{$text-selection-color};
+
+  --border-color: #{$border-color};
+  --border-color-lighten: #{$border-color-lighten};
+  --link-color: #{$link-color};
+  --icon-color: #{$icon-color};
+  --footer-color: #{$footer-color};
+
+  // code block
+  --code-block: #{$code-block};
+  --code-block-title: #{$code-block-title};
+  --code-block-border: #{$code-block-border};
+  --code-block-text: #{$code-block-text};
+  --code-inline-block: #{$code-inline-block};
+  --code-inline-text: #{$code-inline-text};
+}
+
+body[data-theme='dark'] {
+  --primary-color: #{$primary-dark-color};
+  --primary-color-lighten: #{$primary-dark-color-lighten};
+  --secondary-color: #{$secondary-dark-color};
+  --bg-base-color: #{$bg-base-dark-color};
+  --bg-component-color: #{$bg-component-dark-color};
+
+  --text-color: #{$text-dark-color};
+  --text-color-90: #{$text-dark-color-90};
+  --text-color-80: #{$text-dark-color-80};
+  --text-color-60: #{$text-dark-color-60};
+
+  --border-color: #{$border-dark-color};
+  --border-color-lighten: #{$border-dark-color-lighten};
+  --icon-color: #{$icon-dark-color};
+  --link-color: #{$link-dark-color};
+
+  // code block
+  --code-block: #{$code-block-dark};
+  --code-block-title: #{$code-block-title-dark};
+  --code-block-border: #{$code-block-border-dark};
+  --code-block-text: #{$code-block-text-dark};
+  --code-inline-block: #{$code-inline-block-dark};
+  --code-inline-text: #{$code-inline-text-dark};
+}

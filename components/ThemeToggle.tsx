@@ -1,22 +1,37 @@
+'use client';
 import { useEffect, useState } from 'react';
-import { ThemeToggleContainer, ToggleButton } from './ThemeToggle.style';
+import styles from './ThemeToggle.module.scss';
 
 const ThemeToggle = () => {
-  const [themeMode, setThemeMode] = useState<string>(document.body.dataset.theme!);
+  const [darkTheme, setDarkTheme] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
-    document.body.dataset.theme = themeMode;
-    window.localStorage.setItem('theme', themeMode);
-  }, [themeMode]);
+    if (darkTheme !== undefined) {
+      if (darkTheme) {
+        document.body.setAttribute('data-theme', 'dark');
+        window.localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.removeAttribute('data-theme');
+        window.localStorage.setItem('theme', 'light');
+      }
+    }
 
-  const themeModeHandle = () => {
-    setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
-  };
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: darkTheme ? 'dark' : 'light' })
+    );
+  }, [darkTheme]);
+
+  useEffect(() => {
+    setDarkTheme(localStorage.getItem('theme') === 'dark');
+  }, []);
 
   return (
-    <ThemeToggleContainer>
-      <ToggleButton className={themeMode} onClick={themeModeHandle}>
-        {themeMode === 'dark' ? (
+    <div className={styles.toggle}>
+      <button
+        className={`${styles.toggle_button} ${darkTheme ? 'dark' : 'light'}`}
+        onClick={() => setDarkTheme(!darkTheme)}
+      >
+        {darkTheme ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -43,8 +58,8 @@ const ThemeToggle = () => {
             <path d="M12.231,12.231c0.862-0.862,0.862-2.259,0-3.121L9.734,6.614c-0.862-0.862-2.259-0.862-3.121,0      c-0.862,0.861-0.862,2.259,0,3.12l2.497,2.497C9.972,13.094,11.369,13.094,12.231,12.231z"></path>
           </svg>
         )}
-      </ToggleButton>
-    </ThemeToggleContainer>
+      </button>
+    </div>
   );
 };
 

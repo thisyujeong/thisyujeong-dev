@@ -1,59 +1,85 @@
-import { NavContainer, DropNavContainer } from './Nav.style';
-import { useRouter } from 'next/router';
+'use client';
 import Link from 'next/link';
-import React, { Dispatch, SetStateAction, useState } from 'react';
 import navLinks from '../data/navLinks';
-
-const Links = ({
-  setIsOpenMenu,
-}: {
-  setIsOpenMenu: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
-
-  return (
-    <ul>
-      {navLinks.map((link) => (
-        <li
-          key={link.title}
-          data-selected={router.pathname.includes(link.path) ? true : false}
-        >
-          <Link href={link.link} passHref>
-            <a onClick={() => setIsOpenMenu(false)}>{link.title}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-};
+import styles from './Nav.module.scss';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const Nav = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [hamburgerToggle, setHamburgerToggle] = useState<boolean>(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setHamburgerToggle(false);
+  }, [pathname]);
 
   return (
-    <>
-      <NavContainer>
-        <Links setIsOpenMenu={setIsOpenMenu} />
-        <svg
-          className={isOpenMenu ? 'active' : ''}
-          onClick={() => setIsOpenMenu(!isOpenMenu)}
-          xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
-          viewBox="0 0 20 20"
-        >
-          <g transform="matrix(-1,0,0,1,20,0)">
-            <path
-              xmlns="http://www.w3.org/2000/svg"
-              d="m3 5c0-.26522.10536-.51957.29289-.70711.18754-.18753.44189-.29289.70711-.29289h12c.2652 0 .5196.10536.7071.29289.1875.18754.2929.44189.2929.70711s-.1054.51957-.2929.70711c-.1875.18753-.4419.29289-.7071.29289h-12c-.26522 0-.51957-.10536-.70711-.29289-.18753-.18754-.29289-.44189-.29289-.70711zm0 5c0-.26522.10536-.51957.29289-.70711.18754-.18753.44189-.29289.70711-.29289h6c.2652 0 .5196.10536.7071.29289.1875.18754.2929.44189.2929.70711 0 .2652-.1054.5196-.2929.7071s-.4419.2929-.7071.2929h-6c-.26522 0-.51957-.1054-.70711-.2929-.18753-.1875-.29289-.4419-.29289-.7071zm0 5c0-.2652.10536-.5196.29289-.7071.18754-.1875.44189-.2929.70711-.2929h12c.2652 0 .5196.1054.7071.2929s.2929.4419.2929.7071-.1054.5196-.2929.7071-.4419.2929-.7071.2929h-12c-.26522 0-.51957-.1054-.70711-.2929-.18753-.1875-.29289-.4419-.29289-.7071z"
-            ></path>
+    <div className={styles.nav}>
+      {/* PC, Tabletl Nav */}
+      <ul className={styles.nav_list}>
+        {navLinks.map((link) => (
+          <li
+            className={`
+            ${styles.nav_item}
+            ${
+              link.link === pathname || (link.link === '/' && pathname.includes('/blog'))
+                ? styles.active
+                : link.link !== '/' && pathname.includes(link.link)
+                ? styles.active
+                : ''
+            }
+          `}
+            key={link.title}
+          >
+            <Link href={link.link} passHref>
+              {link.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      {/* Mobile Nav */}
+      {hamburgerToggle && (
+        <div className={styles.m_nav_container}>
+          <ul className={styles.m_nav_list}>
+            {navLinks.map((link) => (
+              <li
+                className={`
+                  ${styles.m_nav_item} 
+                  ${
+                    link.link === pathname ||
+                    (link.link === '/' && pathname.includes('/blog'))
+                      ? styles.active
+                      : link.link !== '/' && pathname.includes(link.link)
+                      ? styles.active
+                      : ''
+                  }
+                `}
+                key={link.title}
+              >
+                <Link href={link.link} passHref>
+                  {link.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Mobile Hamburder Button */}
+      <button
+        className={styles.hamburger}
+        onClick={() => setHamburgerToggle(!hamburgerToggle)}
+      >
+        <svg id="Layer_1" viewBox="0 0 64 64">
+          <g id="Navicon" transform="translate(330.000000, 232.000000)">
+            <polygon points="-321.8,-219 -274.3,-219 -274.3,-212.7 -321.8,-212.7    " />
+            <polygon points="-321.8,-203.2 -274.3,-203.2 -274.3,-196.8 -321.8,-196.8    " />
+            <polygon points="-321.8,-187.3 -274.3,-187.3 -274.3,-181 -321.8,-181    " />
           </g>
         </svg>
-      </NavContainer>
-      <DropNavContainer visible={isOpenMenu}>
-        <Links setIsOpenMenu={setIsOpenMenu} />
-      </DropNavContainer>
-    </>
+      </button>
+    </div>
   );
 };
 

@@ -1,0 +1,283 @@
+.mdx-formatter {
+  position: relative;
+  width: 100%;
+  color: var(--text-color);
+  font-size: 17px;
+  line-height: 2;
+  word-break: break-all;
+
+  * {
+    color: var(--text-color);
+    line-height: 1.8em;
+    font-weight: 400;
+  }
+
+  h1 {
+    margin: 0.4em 0 0;
+    font-size: 1.764em;
+    font-weight: 500;
+  }
+  h2 {
+    margin: 0.4em 0 0;
+    font-size: 1.529em;
+    font-weight: 500;
+  }
+  h3 {
+    margin: 0.4em 0 0;
+    font-size: 1.294em;
+    font-weight: 500;
+  }
+  h4 {
+    margin: 0.4em 0 0;
+    font-size: 1.176em;
+    font-weight: 500;
+  }
+  h5 {
+    margin: 0.4em 0 0;
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+  h6 {
+    margin: 0.4em 0 0;
+    font-size: 1em;
+    font-weight: 500;
+  }
+
+  hr {
+    border: 0;
+    height: 2px;
+    background-color: var(--border-color-lighten);
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  strong,
+  strong * {
+    color: var(--primary-color);
+    font-weight: 500;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p {
+    margin: 0.4em 0;
+  }
+
+  code {
+    padding: 0.1em 0.3em;
+    color: var(--code-inline-text);
+    font-size: 14px;
+    font-family: var(--font-roboto-mono);
+    border-radius: 0.2em;
+    background-color: var(--code-inline-block);
+    transition: 0.3s ease;
+  }
+
+  blockquote {
+    position: relative;
+    margin: 0.5em 0;
+    padding: 0.2em 0.8em 0.2em 1.2em;
+    font-style: italic;
+    border-left: 3px solid var(--primary-color);
+    background-color: var(--bg-component-color);
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  // image caption
+  img + em {
+    display: block;
+    font-size: 14px;
+    color: var(--text-color-80);
+    &:before {
+      content: '*';
+      margin-right: 4px;
+    }
+  }
+
+  ul {
+    margin: 0.4em 0;
+    padding-left: 1.4em;
+
+    > li {
+      list-style: disc;
+
+      > ul > li {
+        list-style: circle;
+
+        > ul > li {
+          list-style: square;
+        }
+      }
+    }
+
+    ul,
+    ol {
+      margin: 0;
+    }
+
+    blockquote {
+      border-color: $border-color;
+      padding: 0.1em 0.8em 0.1em 1.2em;
+    }
+  }
+
+  ol {
+    margin: 0.4em 0;
+    padding-left: 1.4em;
+
+    ul,
+    ol {
+      margin: 0;
+    }
+
+    > li {
+      list-style: decimal;
+      > ol > li {
+        list-style: lower-alpha;
+        > ol > li {
+          list-style: lower-roman;
+        }
+      }
+    }
+
+    blockquote {
+      border-color: $border-color;
+      padding: 0.1em 0.8em 0.1em 1.2em;
+    }
+  }
+
+  sub,
+  sup {
+    font-size: 12px;
+  }
+
+  table {
+    width: auto;
+    margin: 1em 0;
+    border-collapse: collapse;
+
+    thead,
+    tbody {
+      td {
+        font-size: 14px;
+        line-height: 1.8;
+        padding: 0.2em 0.8em;
+        border: 1px solid var(--border-color);
+      }
+      th {
+        font-size: 14px;
+        line-height: 1.8;
+        padding: 0.2em 0.8em;
+        font-weight: 500;
+        border: 1px solid var(--border-color);
+        background: #d9d9d94d;
+      }
+    }
+  }
+
+  // rehype
+  .rehype-code-title {
+    display: block;
+    padding: 0.25em 1em;
+    margin-top: 0.5em;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--code-block-text);
+    font-family: var(--font-roboto-mono);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: var(--code-block-title);
+    border-bottom: 1px solid var(--code-block-border);
+    transition: 0.3s ease;
+
+    & + div[data-rehype-pretty-code-fragment] pre {
+      margin-top: 0;
+      border-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  div[data-rehype-pretty-code-fragment] pre {
+    position: relative;
+    // padding: 0.5em 1em;
+    font-size: 14px;
+    line-height: 1.5em;
+    border-radius: 8px;
+    background-color: var(--code-block);
+
+    code {
+      width: 100%;
+      display: block;
+      overflow-x: auto;
+      padding: 0.5em 0;
+      background-color: transparent;
+
+      // 라인 넘버 노출: ex. showLineNumbers
+      &[data-line-numbers] {
+        counter-reset: line;
+
+        > span[data-line] {
+          &:before {
+            counter-increment: line;
+            content: counter(line);
+            display: inline-block;
+            width: 0.75rem;
+            margin-right: 1.25rem;
+            text-align: right;
+            color: var(--code-text);
+          }
+        }
+      }
+
+      > span {
+        position: relative;
+        padding: 0 1em;
+
+        // 라인 하이라이트: ex. {3-4}
+        &[data-highlighted-line] {
+          // background: #eceff3;
+          background: #1a1c26;
+          &:after {
+            content: '';
+            position: absolute;
+            background-color: rgb(255, 203, 107);
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            border-left: 2px solid #ff9504;
+          }
+        }
+        // 단어 단위 하이라이트: ex. /keyword/1-4
+        > [data-highlighted-chars] {
+          font-weight: 600;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    * {
+      font-size: 14px;
+      line-height: 1.5em;
+    }
+  }
+
+  /* mobile */
+  @include mobile {
+    font-size: 16px;
+  }
+}

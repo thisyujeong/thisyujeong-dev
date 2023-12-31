@@ -3,7 +3,7 @@ import RSS from 'rss';
 
 // import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
 // import { allNotes } from '../.contentlayer/generated/allNotes.mjs';
-import { allBlogs, allNotes, allCPs } from '../.contentlayer/generated/index.mjs';
+import { allBlogs, allNotes } from '../.contentlayer/generated/index.mjs';
 
 async function generate() {
   const feed = new RSS({
@@ -29,12 +29,12 @@ async function generate() {
     });
   });
 
-  allCPs.map((cp) => {
-    feed.item({
-      title: cp.title,
-      url: `https://thisyujeong.dev/${cp.url_path}`,
-    });
-  });
+  // allCPs.map((cp) => {
+  //   feed.item({
+  //     title: cp.title,
+  //     url: `https://thisyujeong.dev/${cp.url_path}`,
+  //   });
+  // });
 
   writeFileSync('./public/feed.xml', feed.xml({ indent: true }));
 }

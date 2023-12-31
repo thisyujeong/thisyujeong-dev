@@ -1,0 +1,66 @@
+$primary-color: #6b16ee;
+$primary-color-lighten: #8855d9;
+$secondary-color: #4b4e52;
+$bg-base-color: #ffffff;
+$bg-component-color: #edf1f38a;
+
+$text-color: $secondary-color;
+$text-color-90: rgba($secondary-color, 0.9);
+$text-color-80: rgba($secondary-color, 0.8);
+$text-color-60: rgba($secondary-color, 0.6);
+$text-selection-color: #9481bb2b;
+
+$border-color: rgba($secondary-color, 0.2);
+$border-color-lighten: rgba($secondary-color, 0.1);
+$link-color: $primary-color-lighten;
+$icon-color: rgba($secondary-color, 0.9);
+$footer-color: #292d3e;
+
+/* mdx-formatter */
+$code-block: #292d3e;
+$code-block-title: #1e212e;
+$code-block-border: #2d3043;
+$code-block-text: #b5b9cd;
+$code-inline-block: #efe7ff94;
+$code-inline-text: #6b16eeb0;
+
+/* ************ dark ************ */
+
+$primary-dark-color: #8d43ff;
+$primary-dark-color-lighten: #9d5ffb;
+$secondary-dark-color: #c0bcca;
+$bg-base-dark-color: #1e212b;
+$bg-component-dark-color: #1413158a;
+
+$text-dark-color: $secondary-dark-color;
+$text-dark-color-90: rgba($secondary-dark-color, 0.9);
+$text-dark-color-80: rgba($secondary-dark-color, 0.8);
+$text-dark-color-60: rgba($secondary-dark-color, 0.6);
+
+$border-dark-color: rgba($secondary-dark-color, 0.2);
+$border-dark-color-lighten: rgba($secondary-dark-color, 0.1);
+$link-dark-color: $primary-dark-color-lighten;
+$icon-dark-color: rgba($secondary-dark-color, 0.9);
+
+/* mdx-formatter */
+$code-block-dark: #292d3e;
+$code-block-title-dark: #383e56;
+$code-block-border-dark: #42465f;
+$code-block-text-dark: #a7aab9;
+$code-inline-block-dark: #14161c;
+$code-inline-text-dark: $primary-color-lighten;
+
+/* ****************************** */
+
+/* layout */
+$container-max-width: 1280px;
+$document-max-width: 730px;
+$document-padding: 0 20px;
+$header-height: 58px;
+$header-offset: calc($header-height + 20px);
+$toc-width: 230px;
+$footer-height: 120px;
+
+/* Break points */
+$breakpoint-mobile: 576px;
+$breakpoint-tablet: 1220px;

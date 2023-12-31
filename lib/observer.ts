@@ -1,27 +1,27 @@
 import { Dispatch, SetStateAction } from 'react';
 
 const observerOption = {
-  threshold: 0.4,
-  rootMargin: '-76px 0px 0px 0px',
+  threshold: 1,
+  rootMargin: '-120px 0px 0px 0px',
 };
 
 export const getIntersectionObserver = (setState: Dispatch<SetStateAction<string>>) => {
-  let direction = '';
-  let prevYposition = 0;
+  let direction = 'down';
+  let lastScrollY = 0;
 
-  // scroll 방향 check function
-  const checkScrollDirection = (prevY: number) => {
-    if (window.scrollY === 0 && prevY === 0) return;
-    else if (window.scrollY > prevY) direction = 'down';
-    else direction = 'up';
+  // scroll direction check
+  const checkDirection = (prevY: number) => {
+    const scrollY = window.scrollY;
+    if (!(prevY && scrollY)) return;
 
-    prevYposition = window.scrollY;
+    direction = scrollY > lastScrollY ? 'down' : 'up'; // 이전의 스크롤 위치와 비교하기
+    lastScrollY = scrollY; // 현재의 스크롤 값을 저장
   };
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      checkScrollDirection(prevYposition);
+    checkDirection(lastScrollY);
 
+    entries.forEach((entry) => {
       if (
         (direction === 'down' && !entry.isIntersecting) ||
         (direction === 'up' && entry.isIntersecting)

@@ -1,0 +1,24 @@
+.layout {
+  position: relative;
+  max-width: $container-max-width;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+
+  &_inner {
+    width: 100%;
+    max-width: $document-max-width;
+    padding: $document-padding;
+    overflow: hidden;
+  }
+
+  .toc_layer {
+    position: fixed;
+    width: $toc-width;
+    right: calc((100vw - $document-max-width) / 2 - $toc-width);
+  }
+}

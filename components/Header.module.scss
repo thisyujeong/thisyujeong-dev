@@ -1,0 +1,42 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-base-color);
+  transition: 0.3s ease;
+  z-index: 100;
+}
+
+.header_logo {
+  a {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text-color);
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.header_inner {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 14px 16px;
+  height: $header-height;
+  max-width: $container-max-width;
+}
+
+.header_nav {
+  display: flex;
+  align-items: center;
+}
+
+@include mobile {
+  .header_nav {
+    flex-direction: row-reverse;
+  }
+}

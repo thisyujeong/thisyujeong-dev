@@ -1,0 +1,72 @@
+.copy {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+
+.copy_button {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    .copy_text {
+      color: var(--text-color);
+      text-decoration: underline;
+    }
+
+    .copy_icon {
+      opacity: 1;
+    }
+  }
+}
+
+.copy_icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  line-height: 1;
+  opacity: 0.6;
+
+  svg {
+    width: 100%;
+    height: 100%;
+
+    path {
+      fill: var(--icon-color);
+    }
+  }
+}
+
+.copy_text {
+  color: var(--text-color-60);
+}
+
+.copied_icon {
+  margin-left: 8px;
+  width: 14px;
+  height: 14px;
+  line-height: 1;
+  transition: 0.3s ease;
+  animation: scale 0.2s alternate;
+
+  svg {
+    width: 100%;
+    height: 100%;
+
+    path {
+      fill: var(--primary-color);
+    }
+  }
+
+  @keyframes scale {
+    0% {
+      transform: scale(0);
+    }
+    60% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}

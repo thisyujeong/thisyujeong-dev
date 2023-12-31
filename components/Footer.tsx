@@ -1,17 +1,13 @@
+'use client';
+import Link from 'next/link';
 import metadata from 'data/metadata';
-import {
-  FooterContainer,
-  FooterInner,
-  SocialContainer,
-  Copyright,
-  BlogInfo,
-} from './Footer.style';
+import styles from './Footer.module.scss';
 
 const Footer = () => {
   return (
-    <FooterContainer>
-      <FooterInner>
-        <SocialContainer>
+    <footer className={styles.footer}>
+      <div className={styles.footer_inner}>
+        <div className={styles.footer_social}>
           {metadata.social.github && (
             <a href={metadata.social.github} target="_blank" rel="noreferrer">
               <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -28,15 +24,15 @@ const Footer = () => {
               </svg>
             </a>
           )}
-        </SocialContainer>
-        <Copyright>
-          Copyright © {new Date().getFullYear()} {metadata.author}
-        </Copyright>
-        <BlogInfo href={metadata.repo} rel="noreferrer">
+        </div>
+        <p className={styles.footer_copyright}>
+          Copyright © {new Date().getFullYear()} {metadata.meta.author}
+        </p>
+        <Link href={metadata.repo} className={styles.footer_info} target="_blank">
           thisyujeong.dev
-        </BlogInfo>
-      </FooterInner>
-    </FooterContainer>
+        </Link>
+      </div>
+    </footer>
   );
 };
 

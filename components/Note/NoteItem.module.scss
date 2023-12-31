@@ -1,0 +1,45 @@
+.note_item {
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 4px;
+  transition: padding 0.2s ease;
+
+  &:hover {
+    padding-left: 14px;
+    background-color: var(--bg-component-color);
+
+    .note_title {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.note_title {
+  font-size: 16px;
+}
+
+.note_date {
+  margin-top: 3px;
+  flex-shrink: 0;
+  margin-left: 10px;
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+@include mobile {
+  .note_item {
+    padding: 4px 0;
+    flex-direction: column;
+    &:hover {
+      padding: 4px 0;
+      background-color: transparent;
+    }
+  }
+
+  .note_date {
+    margin: 0;
+    font-size: 12px;
+  }
+}

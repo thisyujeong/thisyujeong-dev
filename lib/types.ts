@@ -1,6 +1,6 @@
 import type { Blog } from 'contentlayer/generated';
 import type { Note } from 'contentlayer/generated';
-import type { CP } from 'contentlayer/generated';
+// import type { CP } from 'contentlayer/generated';
 
 /* Recet Title */
 export type RecentTitleProps = {
@@ -27,8 +27,13 @@ export type PostCardProps = {
 export type MDXPostProps = {
   title: string;
   date?: string;
-  url?: string;
   path?: string;
+  readingTime?: string;
+};
+
+export type PostNextAndPrevious = {
+  next?: Blog;
+  prev?: Blog;
 };
 
 /* Project */
@@ -64,12 +69,12 @@ export type TableOfContent = {
   offsetTop: number;
 };
 
-/* CP */
-export type Post = {
-  post: CP;
-};
+// /* CP */
+// export type Post = {
+//   post: CP;
+// };
 
-export type CPSection = {
-  posts: CP[];
-  title: string;
-};
+// export type CPSection = {
+//   posts: CP[];
+//   title: string;
+// };
