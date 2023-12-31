@@ -11,7 +11,9 @@ const NoteList = ({ notes }: Props) => {
   return (
     <div className={styles.note_container}>
       <h4 id={notes.title} className={styles.note_head}>
-        <span className={styles.title}>{notes.title}</span>
+        <span id={notes.title} className={styles.title}>
+          {notes.title}
+        </span>
         <span className={styles.badge}>{`(${notes.children.length})`}</span>
         {/* <span className={styles.badge}>{notes.children.length}</span> */}
       </h4>
