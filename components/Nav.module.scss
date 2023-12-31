@@ -40,6 +40,7 @@
   background-color: var(--bg-base-color);
   padding: 20px 16px 16px;
   transition: 0.3s ease;
+  display: none;
 }
 
 .m_nav_list {
@@ -93,6 +94,10 @@
 }
 
 @include mobile {
+  .m_nav_container {
+    display: block;
+  }
+
   .nav_list {
     display: none;
   }

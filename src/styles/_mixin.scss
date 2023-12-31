@@ -7,7 +7,7 @@
 }
 
 @mixin tablet {
-  @media (min-width: #{$breakpoint-mobile + 1px}) and (max-width: #{$breakpoint-table}) {
+  @media (max-width: #{$breakpoint-tablet}) {
     @content;
   }
 }

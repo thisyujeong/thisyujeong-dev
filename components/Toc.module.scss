@@ -51,3 +51,9 @@
     padding-bottom: 0px;
   }
 }
+
+@include tablet {
+  .toc_container {
+    display: none;
+  }
+}

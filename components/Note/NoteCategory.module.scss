@@ -52,3 +52,17 @@
     text-decoration: underline;
   }
 }
+
+@include mobile {
+  .category_container {
+    flex-direction: column;
+  }
+
+  .category_title {
+    width: 100%;
+    margin-bottom: 10px;
+    &:after {
+      display: none;
+    }
+  }
+}

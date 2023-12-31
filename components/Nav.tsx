@@ -3,13 +3,9 @@ import Link from 'next/link';
 import navLinks from '../data/navLinks';
 import styles from './Nav.module.scss';
 import { useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-type Props = {
-  params: { slug: string };
-};
-
-const Nav = ({ params }: Props) => {
+const Nav = () => {
   const [hamburgerToggle, setHamburgerToggle] = useState<boolean>(false);
   const pathname = usePathname();
 
@@ -17,7 +13,6 @@ const Nav = ({ params }: Props) => {
     setHamburgerToggle(false);
   }, [pathname]);
 
-  console.log('pathname', pathname);
   return (
     <div className={styles.nav}>
       {/* PC, Tabletl Nav */}

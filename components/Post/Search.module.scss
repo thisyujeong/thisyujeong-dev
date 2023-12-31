@@ -38,3 +38,10 @@
     }
   }
 }
+
+/* mobile */
+@include mobile {
+  .search {
+    padding: 0 18px;
+  }
+}

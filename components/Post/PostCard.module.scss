@@ -44,23 +44,21 @@
     opacity: 0.4;
   }
 
-  @media screen and (min-width: 577px) {
-    &:hover {
-      opacity: 0.8;
-      background: var(--bg-component-color);
-      h1 {
+  &:hover {
+    opacity: 0.8;
+    background: var(--bg-component-color);
+    h1 {
+      color: var(--primary-color);
+      padding-left: 28px;
+      &:before {
+        opacity: 1;
         color: var(--primary-color);
-        padding-left: 28px;
-        &:before {
-          opacity: 1;
-          color: var(--primary-color);
-        }
       }
     }
+  }
 
-    &:active {
-      opacity: 1;
-    }
+  &:active {
+    opacity: 1;
   }
 }
 
@@ -70,4 +68,10 @@
   text-transform: capitalize;
   border-radius: 20px;
   transition: 0.3s ease;
+}
+
+@include mobile {
+  .card_container {
+    padding: 10px 18px;
+  }
 }

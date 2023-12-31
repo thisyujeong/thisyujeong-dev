@@ -77,8 +77,6 @@
     }
   }
 
-  //
-
   .post_null {
     width: 100%;
     height: 100%;
@@ -143,5 +141,13 @@
         right: 6px;
       }
     }
+  }
+}
+
+@include mobile {
+  .post_cards {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
   }
 }
