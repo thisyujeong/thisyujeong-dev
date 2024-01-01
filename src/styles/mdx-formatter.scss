@@ -4,7 +4,7 @@
   color: var(--text-color);
   font-size: 17px;
   line-height: 2;
-  word-break: break-all;
+  word-break: keep-all;
 
   * {
     color: var(--text-color);
@@ -249,17 +249,17 @@
 
         // 라인 하이라이트: ex. {3-4}
         &[data-highlighted-line] {
-          // background: #eceff3;
           background: #1a1c26;
+
           &:after {
             content: '';
             position: absolute;
             background-color: rgb(255, 203, 107);
+            background-color: var(--primary-color-lighten);
             left: 0;
             top: 0;
-            width: 2px;
+            width: 3px;
             height: 100%;
-            border-left: 2px solid #ff9504;
           }
         }
         // 단어 단위 하이라이트: ex. /keyword/1-4

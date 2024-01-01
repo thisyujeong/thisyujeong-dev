@@ -1,0 +1,434 @@
+---
+title: Next.js 블로그 마이그레이션하기 (1)
+date: 2024-01-01 21:13:57
+description: 12버전에서 14버전이 되기까지
+tags: [next.js, blog, migration, renewal, blog]
+series: 마이그레이션
+---
+
+> 1편은 주로 Next 14 버전에 따라 블로그 프로젝트에서 변경되어야했던 문법에 대해 다룹니다.
+
+## 들어가며
+
+안녕하세요, 유정입니다. 2023년이 무척 빠르게 지나가고 어느새 2024년 푸른 용의 해, 새해가 밝았습니다.
+여러분들은 2023년에 계획한 일을 얼마나 이루어내셨나요? 저는 블로그 마이그레이션 하는 것이 하나의 계획이었습니다.
+비록 기간 내에 마무리하지 못해 2024년 첫 글을 쓰고 있지만요. 이정도는 이룬걸로 해주기로 합시다. 🙄
+
+잡담은 여기까지하고 본론으로 넘어가보면,
+이번 포스팅은 22년 5월에 시작해 한 달이 안 되는 기간동안 작업했던 이 블로그를 Next.js 새 버전이 릴리즈됨에 따라 블로그도 발맞춰 조금 늦은... 마이그레이션을 하면서 알게된 개념과 수정했던 사항들을 정리해보려 합니다.
+
+## 1. App Routing
+
+아마 가장 크게 변화한 것을 꼽자면 라우팅 방식인 것 같습니다. 앱 라우팅 방식이 변경되면서 구조 뿐만 아니라 함께 변경해야 하는 부분들이 많았습니다.
+
+- **12 버전** - pages 폴더 내에 index.\* 파일을 생성하는 방식
+- **13 버전 이후** - app 폴더에서 라우팅하는 방식
+  - 동시에 페이지 컴포넌트 또한 index.\* 파일이 아닌 page.\* 파일로 변경
+
+### 1.1 정적 라우팅
+
+**app/dashboard/page.tsx** 경로의 페이지는 브라우저 상에서 **/dashboard** 의 경로가 됩니다.
+
+```
+|-- page.tsx
+|-- dashboard
+    |-- page.tsx
+```
+
+### 1.2 동적 라우팅
+
+폴더명을 `[slug]` 형태로 사용하여 동적 라우팅을 사용할 수 있습니다. 일반적으로 slug 라는 이름으로 많이 사용하지만, 입맛에 따라 원하는 이름으로 변경하여 사용합니다. `[...slug]` 처럼 spread 형태로 사용한다면 하위 페이지까지 동적으로 생성할 수 있습니다. (12 버전과 동일)
+
+```
+app
+|-- page.tsx
+|-- dashboard
+    |-- [slug]
+        |-- page.tsx
+```
+
+| Route                              | URL            | params               |
+| ---------------------------------- | -------------- | -------------------- |
+| app/dashboard/**[slug]**/page.tsx  | /dashboard/a   | `{slug: 'a'}`        |
+| app/dashboard/**[…slug]**/page.tsx | /dashboard/a   | `{slug: ['a']}`      |
+| app/dashboard/**[…slug]**/page.tsx | /dashboard/a/b | `{slug: ['a', 'b']}` |
+
+### 1.3. 페이지 미리생성
+
+동적 라우팅을 사용하면서 원하는 경로에 한하여 특정 페이지를 미리 생성하고 싶은 경우가 있다면, `generateStaticParams` 함수를 사용할 수 있습니다.
+포소트 목록에 대하여 페이지를 미리 생성하도록 수정해주었습니다. 이 함수는 Next.js 에서 정의한 규격사항이므로 함수명을 변경할 수 없습니다.
+
+다음 예시코드는 dashboard/dashboard1 페이지와 dashboard/dashboard2 페이지를 미리 생성하는 코드입니다.
+`generateStaticParams` 함수에서 prop 형태로 객체를 리턴해 전달합니다.
+
+```tsx:src/app/dashboard/[slug].tsx showLineNumbers {10-15}
+type Props = {
+  params: { slug: string };
+};
+
+export default function DashboardPage({ params }: Props) {
+  return <h1>{dashboard.slug} Dashboard Page</h1>;
+}
+
+/* 페이지 미리 생성 */
+export function generateStaticParams() {
+  const products = ['dashboard1', 'dashboard2'];
+  return products.map((product) => ({
+    slug: product,
+  }));
+}
+```
+
+### 1.4 404 Not Found
+
+> https://nextjs.org/docs/app/api-reference/file-conventions/not-found
+
+13.3 버전 이후로 pages/404.\* 경로를 만들 필요가 없어졌습니다. 매칭되지 않는 URL 경로를 입력할 경우, app/not-foud.\* 파일이 자동으로 렌더링됩니다. 각 경로 별 404 페이지를 설정하는 것도 가능합니다. - ex. app/about/not-found.tsx
+
+## 2. 공통 Layout 정의
+
+여러 페이지에서 공통적으로 사용되는 레이아웃을 정의할 수 있습니다. 기존 pages 폴더의 하위에 \_app.\* 파일과 \_document.\* 파일의 역할을 합니다.
+
+레이아웃으로 정의된 요소는 상태를 유지할 수 있고 리렌더링되지 않습니다. layout.\*에 정의만 해준다면 별도의 설정 없이도 pages.\* 의 구성요소들을 `children`으로 받아 렌더링할 수 있습니다.
+
+```showLineNumbers
+app
+|-- layout.tsx
+|-- dashboard
+    |-- page.tsx
+    |-- layout.tsx
+```
+
+```tsx:app/dashboard/layout.tsx
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <section>
+      {children}
+    </section>
+  )
+}
+```
+
+### 2.1 RooteLayout(필수)
+
+app 폴더 내 최상위 위치의 루트 레이아웃은 필수 사항입니다. 최상위 레이아웃에서는 서버에서 반환된 초기 HTML을 수정할 수 있습니다.
+
+예를들어 Header, Footer와 같은 컴포넌트는 RootLayout에 배치하기 적합합니다.
+
+```jsx:app/layout.tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
+```
+
+### 2.2 Nesting Layout (중첩 레이아웃)
+
+레이아웃은 중첩되도록 정의할 수도 있습니다. 다음 예시와 같이 정의한다면,
+/dashboard 페이지에는 app/layout.tsx 파일 과 app/dashboard/layout.js 파일이 모두 적용됩니다.
+
+```showLineNumbers /layout.tsx/
+app
+|-- layout.tsx
+|-- dashboard
+    |-- page.tsx
+    |-- layout.tsx
+```
+
+## 3. Rendering
+
+### 3.1 서버 컴포넌트
+
+13 버전 이후부터 서버컴포넌트와 클라이언트 컴포넌트로 분리되었습니다.
+
+서버 컴포넌트는 말 그대로 **서버에서 실행되는 컴포넌트**를 말합니다. 별도의 처리를 하지 않는다면 기본적으로 모든 컴포넌트는 서버 컴포넌트로 동작하게 됩니다. 즉, 서버 컴포넌트는 브라우저에서 제공하는 API, 이벤트, 상태관리, Hooks 등을 사용할 수 없습니다.
+
+다음 예제는 로그를 출력하더라도 웹 브라우저의 콘솔 창에서 확인할 수 없고, 터미널에서 확인할 수 있습니다.
+
+```tsx
+export default function Home() {
+  console.log('Hello');
+  return <h1>HomePage</h1>;
+}
+```
+
+또 다른 예로, 서버 컴포넌트에서 상태관리를 위해 `useState` 훅을 사용한다면 서버 에러가
+발생합니다.
+
+> ReactServerComponentsError:  
+> You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+> Learn more: https://nextjs.org/docs/getting-started/react-essentials
+
+```tsx
+import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+Next.js 공식 홈페이지에 따르면 서버 컴포넌트를 사용하면 다음과 같은 장점이 있다고 합니다.
+
+- **성능 향상**
+  - 클라이언트로 자바스크립트 코드를 전송하지 않는다.
+  - 전송되는 데이터의 양을 줄여 클라이언트의 부하가 줄고, 초기 페이지 로드 속도를 향상
+- **보안**
+  - 클라이언트에 토큰, API Key 와 같은 민감한 정보를 전송(노출)하지 않는다.
+- **Data Fetching**
+
+  - 서버와 데이터베이스가 가까운 위치에서 작동한다.
+  - 빠른 속도로 필요한 데이터에 접근 가능
+
+  이 블로그에서는 마크다운 파일을 사용한 정적 블로그이기 때문에 API 서버와 직접적으로 통신하여 데이터를 받아오는 일은 없지만, 마크다운 문서 관리를 용이하게 해주는 contentlayer 라이브러리를 사용하기 때문에 포스트에 대한 데이터 패칭이 필요했습니다.
+
+  다음 코드는 실제 작업한 코드입니다. 서비스를 담당하는 파일을 분리하여 컴포넌트 내부에서 바로 데이터 패칭 함수를 호출합니다.
+
+  ```tsx:src/service/posts.ts
+  import { Blog, allBlogs } from 'contentlayer/generated';
+
+  export async function getAllPosts(): Promise<Blog[]> {
+    return allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+  }
+
+  export async function getPostData(fileName: string): Promise<Blog> {
+    const post = allBlogs.find((post) => post.slug === fileName);
+    if (!post) throw new Error(`${fileName}에 해당하는 포스트를 찾을 수 없음`);
+    return post;
+  }
+  ```
+
+  ```tsx:src/app/blog/page.tsx
+  import { getAllPosts } from 'src/service/posts';
+
+  const Blog = async () => {
+    const posts = await getAllPosts();
+
+    return (
+      <section>
+        {posts.map((post, idx) => (
+          <PostCard post={post} key={idx} slug={post.slug} />
+        ))}
+      </section>
+    );
+  };
+
+  export default Blog;
+  ```
+
+### 3.2 클라이언트 컴포넌트
+
+클라이언트 컴포넌트는 위의 서버 에러 메시지에서 제시한대로 클라이언트 컴포넌트임을 선언하는 `‘use client'` 지시어를 파일의 최상단에 명시해주면 끝입니다.
+
+### 3.3 서버와 클라이언트 컴포넌트는 언제 사용할까?
+
+> https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#when-to-use-server-and-client-components
+
+그렇다면 각각 어느 상황에 사용해야하는지 감이 오시나요? 확신이 서지 않는다면, 공식문서에서 친절하게 알려주고 있는 표를 살펴봅시다.
+
+<img src="/posts/blog-migration-1.png" alt="When to use Server and Client Components?" />
+<em>Next.js - When to use Server and Client Components?</em>
+
+## 4. 최적화
+
+### 4.1 폰트 최적화
+
+어떤 페이지에 폰트를 추가하게 되면 폰트가 다운로드 되기 이전에는 브라우저 기본 폰트가 보여지게 됩니다. 그 후에, 지정한 폰트를 요청해서 다운로드가 완료되면 페이지에 적용되고 리렌더링이 되면서 적용된 폰트를 볼 수 있게 됩니다. 문제는 기본 폰트와 추가한 폰트마다 굵기와 크기가 다른 특징 때문에 레이아웃 쉬프트가 발생하게 됩니다.
+
+또 다른 문제는, 다른 서버에 있는 폰트(구글 폰트)를 사용하는 프로젝트를 배포했을 경우 사용자가 페이지를 다운로드 받으면 구글폰트를 해당 서버에 요청하고, 폰트를 다운로드하고, 적용해야 하는 과정이 필요합니다.
+
+Next.js 에서는 폰트를 최적화 할 수 있는 @next/font 를 도입했는데요, 이는 외부 네트워크에 있는 폰트를 직접적으로 사용하는 것이 아니고, 웹 애플리케이션 사용하는 폰트를 우리의 서버에서 자체적으로 호스팅할 수 있도록 하고 레이아웃 쉬프트가 발생하지 않도록 최적화 해줍니다. 이게 가능한 이유는 next.js에서는 css의 [size-adjust](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust) 속성을 사용하고 있기 때문이라고 합니다.
+
+#### 4.1.1 구글 폰트 적용하기
+
+13 이상의 버전에서는 Google 폰트를 자체 호스팅합니다. Next.js 에서는 Variable font(가변폰트) 사용을 권정하고 있습니다. 가변 폰트는 하나의 폰트 파일로 다양한 스타일을 사용할 수 있는 폰트를 말합니다. 예를 들어 font-weight 400, 500, 600 등을 하나의 파일로 모두 사용할 수 있습니다.
+
+폰트는 최상위 경로 layout 에서 사용하는 것이 좋습니다.
+
+1. 원하는 폰트를 `next/font/google` 에서 import하고 폰트에 대한 속성을 정의합니다.
+
+```tsx
+import { Open_Sans, Nanum_Gothic } from 'next/font/google';
+
+const sans = Open_Sans({ subsets: ['latin'] });
+
+// 나눔고딕, 가변 폰트가 아니므로 weight를 지정
+const gothic = Nanum_Gothic({
+  weight: ['400', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+});
+```
+
+2. DOM 요소에 `className={[폰트변수].className}` 형태로 폰트를 지정합니다. 폰트는 종속 속성이기 때문에 최상위 노드에만 지정해줘도 되지만, 특정요소에 지정하고 싶다면 해당 태그에 같은 형태로 작성할 수 있습니다.
+
+```tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={sans.className}>
+      <body>
+        <h1 className={gothic.className}></h1>
+        <div classNames={styles.contents}>{children}</div>
+      </body>
+    </html>
+  );
+}
+```
+
+#### 4.1.2 로컬 폰트 적용하기
+
+로컬 폰트 파일은 next/font/local 을 임포트하여 설정할 수 있습니다.
+
+```tsx
+import localFont from 'next/font/local';
+
+// Font files can be colocated inside of `app`
+const roboto = localFont({
+  src: './my-font.woff2',
+  display: 'swap',
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={roboto.className}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+여러 폰트를 사용할 경우 배열형태로 작성합니다.
+
+```tsx
+const roboto = localFont({
+  src: [
+    {
+      path: './Roboto-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './Roboto-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+});
+```
+
+### 4.2 메타데이터 최적화
+
+메타데이터를 정의하는 데 사용할 수 있는 API 로는 정적 메타데이터와 동적 메타데이터가 있습니다.
+이 두가지 옵션을 사용하면 Next.js가 HTML의 head에 자동으로 삽입해줍니다.
+
+> 기본 메타데이터 참고
+> https://nextjs.org/docs/app/api-reference/functions/generate-metadata#basic-fields
+
+#### 4.2.1 정적 메타데이터
+
+```tsx
+mport type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '...',
+  description: '...',
+}
+
+export default function Page() {}
+```
+
+#### 4.2.2 정적 메타데이터
+
+```tsx
+import { type Metadata } from 'next';
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> => {
+  const page = await getPage(params.id);
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      images: 'https://example.com/example.png',
+      url: `https://example.com/posts/${page.id}`,
+    },
+  };
+};
+```
+
+#### 4.2.4 템플릿 사용
+
+메타데이터를 템플릿 형태로 정의할 수 있습니다. 최상위 경로에서 기본적인 템플릿을 정의합니다.
+
+```tsx: app/layout.tsx
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | thisyujeong',
+    default: 'thisyujeong', // a default is required when creating a template
+  },
+}
+```
+
+하위 경로에서 아무런 타이틀도 지정하지 않으면 기본적으로 설정한 default 값을 타이틀로 지정됩니다. 반대로 하위경로에서 타이틀을 새로 지정한다면 템플릿으로 설정한 양식에 따라 `About | thisyujeong` 가 타이틀로 지정된다.
+
+```tsx:app/about/page.tsx
+import { Metadata } from 'next';
+
+// Output: <title>About | thisyujeong</title>
+export const metadata: Metadata = {
+  title: 'About',
+};
+```
+
+이외에도 파일을 기반으로 메타데이터를 지정할 수도 있습니다.
+
+> 각 파일에 대한 형식은 공식 문서 참고  
+> https://nextjs.org/docs/app/api-reference/file-conventions/metadata
+
+- favicon.ico, apple-icon.jpg, icon.jpg
+- opengraph-image.jpg, twitter-image.jpg
+- robots.txt
+- sitemap.xml
+
+### 4.3 Link 최적화
+
+기존 Link 태그는 하위에 수동으로 a 태그를 추가해줘야 했지만, 13 버전에서는 더이상 `<a/>` 태그를 추가하지 않아도 됩니다. `<Link/>` 를 사용하면 기본적으로 하위에 `<a/>` 태그가 렌더링 되고 `<a/>` 태그에서 기본적으로 사용하는 속성을 그대로 `props` 로 전달할 수 있습니다.
+
+```tsx
+import Link from 'next/link';
+
+export default function Page() {
+  return <Link href="/dashboard">Dashboard</Link>;
+}
+```
+
+> 추가로 Next.js에서 제공하는 Link 태그는 viewport 상에 보일 때, 해당 링크에 대한 정보를 [pre-fetching](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#1-prefetching) 해오기 때문에 링크 이동 시 별도의 네트워크 요청을 하지 않습니다!(production 환경에서 확인 가능)
+
+`<a/>` 태그 대신 Next.js 에서 제공하는 `<Link/>` 태그를 사용하면 `<Link/>` 태그가 viewport 상에 보일 때, 해당 링크에 대한 정보를 [pre-fetching](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#1-prefetching) 해오기 때문에 링크 이동 시 별도의 네트워크 요청을 하지 않습니다. ( production 환경에서 확인할 수 있으며 dev 환경에서는 확인할 수 없음)
+
+## 마무리
+
+처음에 말했듯이, 이번 1편은 14버전에 도입된 모든 문법을 다룬 것이 아닌 마이그레이션을 하는 데에 있어 필요했던,
+변경되어야 했던 부분을 중점으로 다루었습니다. 이어지는 2편에서는 Next 문법 중심이 아니라 블로그에 어떤 기능을 추가했고, 무엇을 삭제/변경했는지에 대하여 다룰 예정입니다.
+
+아마 이번 시리즈는 현재까지 작성했던 모든 포스팅 중 가장 긴 글이 될 것 같습니다. 긴 글 읽어주신 분들이 계신다면 감사드리며 마무리하겠습니다!
+
+Happy New Year!
