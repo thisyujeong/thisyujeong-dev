@@ -1,21 +1,29 @@
 .note_container {
-  background-color: var(--bg-component-color);
-  border-radius: 6px;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 12px;
+  align-items: flex-start;
 
   & + & {
     margin-top: 30px;
+    .note_head {
+      margin-top: 38px;
+    }
+
+    .note_list {
+      padding-top: 30px;
+      border-top: 1px solid var(--border-color);
+    }
   }
 }
 
 .note_head {
   position: relative;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 8px 8px 16px;
-  text-transform: capitalize;
   display: flex;
   align-items: flex-end;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: capitalize;
 
   .title {
     line-height: 1;
@@ -32,15 +40,28 @@
   }
 }
 
+.note_list {
+  width: 100%;
+}
+
 @include mobile {
   .note_container {
-    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
     background-color: transparent;
-    border-top: 1px solid var(--border-color);
     border-radius: 0;
 
     & + & {
-      margin-top: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      .note_head {
+        margin-top: 0;
+      }
+      .note_list {
+        border: 0;
+        padding-top: 0;
+      }
     }
   }
 

@@ -1,7 +1,10 @@
 .category_container {
   display: flex;
-  padding: 10px 0;
-  margin-bottom: 12px;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 0 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .category_title {
@@ -12,18 +15,7 @@
   color: var(--primary-color);
   font-size: 18px;
   font-weight: 700;
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: 2px;
-    height: 20px;
-    background-color: var(--border-color);
-    transform: translateY(-50%);
-    transition: 0.3s ease;
-  }
+  margin-bottom: 10px;
 }
 
 .category_list {
@@ -55,14 +47,13 @@
 
 @include mobile {
   .category_container {
-    flex-direction: column;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
   }
 
-  .category_title {
-    width: 100%;
-    margin-bottom: 10px;
-    &:after {
-      display: none;
+  .category_item {
+    &:hover {
+      text-decoration: unset;
     }
   }
 }

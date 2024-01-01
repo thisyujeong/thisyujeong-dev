@@ -60,4 +60,16 @@
     padding-right: 18px;
     margin-right: 12px;
   }
+  .series_item {
+    &:hover {
+      color: inherit;
+      background-color: transparent;
+      border-color: var(--border-color);
+    }
+    &.selected {
+      color: #fff;
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+    }
+  }
 }

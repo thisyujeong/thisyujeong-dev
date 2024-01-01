@@ -10,6 +10,7 @@ const Search = ({ onChange }: Props) => {
   return (
     <div className={styles.search}>
       <input
+        className={styles.search_input}
         type="text"
         placeholder="포스트를 검색하세요."
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
