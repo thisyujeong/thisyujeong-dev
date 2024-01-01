@@ -60,18 +60,33 @@
   &:active {
     opacity: 1;
   }
-}
 
-.card_series {
-  color: var(--primary-color);
-  font-size: 13px;
-  text-transform: capitalize;
-  border-radius: 20px;
-  transition: 0.3s ease;
+  .card_series {
+    color: var(--primary-color);
+    font-size: 13px;
+    text-transform: capitalize;
+    border-radius: 20px;
+    transition: 0.3s ease;
+  }
 }
 
 @include mobile {
   .card_container {
     padding: 10px 18px;
+
+    &:hover {
+      opacity: 1;
+      background: transparent;
+
+      h1 {
+        color: var(--text-color);
+        padding-left: 0;
+
+        &:before {
+          opacity: 0;
+          color: var(--text-color);
+        }
+      }
+    }
   }
 }

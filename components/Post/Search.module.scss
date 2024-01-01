@@ -3,7 +3,7 @@
   margin-bottom: 24px;
   padding: 0 8px;
 
-  input {
+  &_input {
     position: relative;
     width: 100%;
     padding: 10px 20px 10px 42px;
@@ -20,7 +20,7 @@
     }
   }
 
-  .search_button {
+  &_button {
     position: absolute;
     top: calc(50% + 1px);
     left: 24px;
@@ -29,7 +29,7 @@
     transform: translateY(-50%);
   }
 
-  .search_icon {
+  &_icon {
     opacity: 0.6;
     line-height: 1;
     path {
@@ -43,5 +43,15 @@
 @include mobile {
   .search {
     padding: 0 18px;
+
+    &_input {
+      padding: 6px 20px 6px 42px;
+    }
+
+    &_button {
+      width: 16px;
+      height: 16px;
+      left: 33px;
+    }
   }
 }

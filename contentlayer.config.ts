@@ -53,7 +53,6 @@ export const Blog = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     date: { type: 'string', required: true },
     description: { type: 'string', required: true },
-    thumbnailUrl: { type: 'string', required: false },
     series: { type: 'string' },
     tags: {
       type: 'list',

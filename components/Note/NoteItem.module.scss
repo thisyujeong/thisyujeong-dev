@@ -35,6 +35,10 @@
     &:hover {
       padding: 4px 0;
       background-color: transparent;
+
+      .note_title {
+        color: inherit;
+      }
     }
   }
 
