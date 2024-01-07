@@ -23,7 +23,7 @@ export async function getSeriesTags(): Promise<string[]> {
  */
 export async function getSeriesPosts(series: string): Promise<Blog[]> {
   return allBlogs
-    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+    .sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)))
     .filter((post) => post.series === series);
 }
 

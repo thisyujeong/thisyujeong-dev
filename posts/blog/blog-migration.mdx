@@ -56,7 +56,7 @@ app
 ### 1.3. 페이지 미리생성
 
 동적 라우팅을 사용하면서 원하는 경로에 한하여 특정 페이지를 미리 생성하고 싶은 경우가 있다면, `generateStaticParams` 함수를 사용할 수 있습니다.
-포소트 목록에 대하여 페이지를 미리 생성하도록 수정해주었습니다. 이 함수는 Next.js 에서 정의한 규격사항이므로 함수명을 변경할 수 없습니다.
+스트 목록에 대하여 페이지를 미리 생성하도록 수정해주었습니다. 이 함수는 Next.js 에서 정의한 규격사항이므로 함수명을 변경할 수 없습니다.
 
 다음 예시코드는 dashboard/dashboard1 페이지와 dashboard/dashboard2 페이지를 미리 생성하는 코드입니다.
 `generateStaticParams` 함수에서 prop 형태로 객체를 리턴해 전달합니다.
@@ -83,7 +83,7 @@ export function generateStaticParams() {
 
 > https://nextjs.org/docs/app/api-reference/file-conventions/not-found
 
-13.3 버전 이후로 pages/404.\* 경로를 만들 필요가 없어졌습니다. 매칭되지 않는 URL 경로를 입력할 경우, app/not-foud.\* 파일이 자동으로 렌더링됩니다. 각 경로 별 404 페이지를 설정하는 것도 가능합니다. - ex. app/about/not-found.tsx
+13.3 버전 이후로 pages/404.\* 파일을 만들 필요가 없어졌습니다. 매칭되지 않는 URL 경로를 입력할 경우, app/not-found.\* 파일이 자동으로 렌더링됩니다. 각 경로 별 404 페이지를 설정하는 것도 가능합니다. - ex. app/about/not-found.tsx
 
 ## 2. 공통 Layout 정의
 
@@ -249,7 +249,7 @@ Next.js 공식 홈페이지에 따르면 서버 컴포넌트를 사용하면 다
 
 또 다른 문제는, 다른 서버에 있는 폰트(구글 폰트)를 사용하는 프로젝트를 배포했을 경우 사용자가 페이지를 다운로드 받으면 구글폰트를 해당 서버에 요청하고, 폰트를 다운로드하고, 적용해야 하는 과정이 필요합니다.
 
-Next.js 에서는 폰트를 최적화 할 수 있는 @next/font 를 도입했는데요, 이는 외부 네트워크에 있는 폰트를 직접적으로 사용하는 것이 아니고, 웹 애플리케이션 사용하는 폰트를 우리의 서버에서 자체적으로 호스팅할 수 있도록 하고 레이아웃 쉬프트가 발생하지 않도록 최적화 해줍니다. 이게 가능한 이유는 next.js에서는 css의 [size-adjust](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust) 속성을 사용하고 있기 때문이라고 합니다.
+Next.js 에서는 폰트를 최적화 할 수 있는 @next/font 를 도입했는데요, 이는 외부 네트워크에 있는 폰트를 직접적으로 사용하는 것이 아니고, 웹 애플리케이션에서 사용하는 폰트를 우리의 서버에서 자체적으로 호스팅할 수 있도록 하고 레이아웃 쉬프트가 발생하지 않도록 최적화 해줍니다. 이게 가능한 이유는 next.js에서는 css의 [size-adjust](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust) 속성을 사용하고 있기 때문이라고 합니다.
 
 #### 4.1.1 구글 폰트 적용하기
 
@@ -349,7 +349,7 @@ export const metadata: Metadata = {
 export default function Page() {}
 ```
 
-#### 4.2.2 정적 메타데이터
+#### 4.2.2 동적 메타데이터
 
 ```tsx
 import { type Metadata } from 'next';
