@@ -1,0 +1,409 @@
+---
+title: Next.js 블로그 마이그레이션하기(2)
+date: 2024-01-07 20:05:25
+description: 마이그레이션 그리고 리뉴얼, 기능 추가하기
+tags:
+  [
+    next.js,
+    next 14,
+    blog,
+    migration,
+    reading time,
+    rehype,
+    vscode,
+    custom snippet,
+    markdown caption,
+  ]
+series: 마이그레이션
+---
+
+## 들어가며
+
+지난 1편에서는 Next 버전에 따른 변경사항을 위주로 마이그레이션을 진행했습니다. 이번 2편에서는 IA, UI/UX를 개편하고, 그간 추가하고 싶었던 기능 등의 작업하는 과정을 공유하고, 아직 해결하지 못한 이슈에 대하여 작성했습니다.
+
+## 1. IA 그리고 UI/UX 개편
+
+---
+
+### 1.1 불필요한 페이지를 제거하자
+
+구조를 개편하기로 마음먹었던 이유 중 가장 많은 부분을 차지했었던 것은 큰 메뉴의 구성입니다.
+
+개편 전의 메뉴 구성은 다음과 같이 총 5개로 구성되어 있었는데요.
+
+> - 메인 페이지 - 간단한 소개문구, 최신 포스트와 최신 프로젝트
+> - 블로그 페이지 - 기술/지식 또는 경험을 공유하는 포스트 목록
+> - 프로젝트 페이지 - 사이드/토이 프로젝츠 목록
+> - 메모 페이지 - 간단한 지식과 개념, Code snippet 등 기록
+> - 알고리즘 풀이 페이지
+
+1년이 넘는 기간동안 블로그를 사용하다보니 은근히 사용하지 않는 페이지도 생기고, 굳이 필요한가? 고민하게 되는 페이지가 있었습니다.
+
+먼저 메인 페이지의 경우는 블로그 페이지로 변경되었습니다. 즉, 블로그에 진입하자마자 포스트 목록을 볼 수 있게 되었는데요, 기존의 메인 페이지에서는 간단한 소개 문구가 컨텐츠 채우기 이상의 역할을 하지 않는다고 느꼈습니다. 최신 글 목록 또한 작은 규모의 블로그에서는 없는 것과 큰 차이를 느끼지 못했습니다.
+
+두번째로 프로젝트 페이지는 블로그 개설 이후 업데이트되지 않아 삭제했습니다.
+
+마지막으로 알고리즘 페이지는 문제 풀이를 할 때마다 마크다운으로 작성하여 업로드하는 과정이 상당히 번잡했기 때문에 이 페이지를 삭제하고 [깃허브 저장소](https://github.com/thisyujeong/ps)에서 관리하는 것으로 변경했습니다. (관련된 코드를 모두 제거하니 코드의 양이 상당히 줄어들었다)
+
+정리하면 다음과 같이 두개의 메뉴로 단축시켰습니다.
+
+> - 메인 페이지 - 블로그 페이지로 변경
+> - 노트 페이지 - 기존 메모 페이지의 네이밍을 변경
+
+메뉴가 많으면 많아질 수록 사용하지 않는 메뉴도 늘어나고 제대로 활용하지 못하는 것이 내내 찝찝했던 부분이었는데, 구성을 최소화했더니 마음이 편안해해지고 적극적으로 활용할 수 있을 거라는 생각이 들었습니다.
+
+### 1.2 레이아웃을 개선하자
+
+레이아웃이 가장 많이 변화한 페이지는 바로 노트 페이지입니다. 기존에는 노트의 목록을 제공하는 페이지 없이 사이드 네비게이션을
+제공하여 목록과 내용을 동시에 확인할 수 있었지만, 사이드 네비와 우측의 Toc 목차까지 더해져 상당히 복잡한하게 느껴졌습니다.
+또한 태블릿 사이즈로 확인할 경우 컨텐츠의 영역이 다소 좁아져 가독성이 좋지 않았습니다.
+
+(우클릭 후 새 탭으로 이미지 열기를 선택하면 이미지를 크게 확인할 수 있습니다.)
+
+<img src="/posts/blog-migration-renewal-1.png" alt="리뉴얼 전 노트 페이지 레이아웃" />
+<em>리뉴얼 전 노트 페이지 레이아웃</em>
+
+<img src="/posts/blog-migration-renewal-2.png" alt="리뉴얼 후 노트 페이지 레이아웃" />
+<em>리뉴얼 후 노트 페이지 레이아웃</em>
+
+노트 목록과 컨텐츠 페이지를 분리하여 확실히 좀 더 깔끔한 페이지를 볼 수 있게 되었습니다.
+이 외에도 자잘하게 컬러, 여러 디자인이 변경되었습니다.
+
+## 2. Reading-time 추가
+
+---
+
+여러 기술블로그에서 해당 포스트를 완독하기까지의 추정 시간을 표기한 것을 여러번 봐오면서 개편하게되면 꼭 넣어야겠다고 생각하고 있었던 거라 이번 기회에 추가했습니다.
+
+<img src="/posts/blog-migration-renewal-0.png" alt="reading time" />
+<em>reading time</em>
+
+[reading-time](https://github.com/ngryman/reading-time) 라이브러리를 사용해 포스트 정보 영역에 추가했고, 사용하려면 mdx에 대한 스키마를 설정해야합니다. 설정파일에서 `computedFields` 속성에 `readingTime`을 추가해줍니다. `computedFields`는 계산된 작업을 처리하는 속성입니다.
+
+```ts:contentlayer.config.ts
+import readingTime from 'reading-time';
+
+export const Blog = defineDocumentType(() => ({
+  name: 'Blog',
+  filePathPattern: 'blog/*.mdx',
+  contentType: 'mdx',
+  fields: { ... }
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, ''),
+    }
+    readingTime: {
+      type: 'json',
+      resolve: (doc) => readingTime(doc.body.raw),
+    }
+  }
+}));
+```
+
+contentlayer의 `useMDXComponent`훅으로 받아오는 포스트 mdx 데이터에서 readingTime이 추가된 것을 확인할 수 있습니다.
+
+```ts:components/Post/PostContent.tsx
+import MDXPost from './MDXPost';
+
+const PostContent = ({}: Props) => {
+  const MDXComponent = useMDXComponent(post.body.code);
+  return (
+    <MDXPost>
+      <MDXComponent
+        title={post.title}
+        date={post.data}
+        readingTime={post.readingTime.text}
+      />
+    <MDXPost/>
+  )
+}
+```
+
+- `readingTime.text` - ‘5 min read’ 형식의 문자열을 제공
+- `readingTime.minutes` - 4.56 와 같은 초 단위로 제공
+- `readingTIme.time` - ms 초 단위로 제공
+- `readingTime.words` - 단어 개수를 제공
+
+## 3. 마크다운 코드블럭 플러그인 변경
+
+기존에 사용하던 rehypeHighlight 플러그인을 제거하고 `rehypePrettyCode` 로 변경했습니다.
+
+변경한 이유는 기존 플러그인에서 코드블럭에 대하여 클래스, 속성 등을 지원해주지만 CSS를 별도로 지정해줘야해서 완벽한 문법의 하이라이팅이 어려웠습니다. 즉 가독성이 낮은 코드 블럭을 사용하고 있었어요.
+
+반면, `rehypePrettyCode`는 다음과 같은 이유로 선택하게 되었습니다.
+
+1. VSCode의 테마를 지원한다.
+2. 문법 하이라이트가 완벽하다.
+3. 코드 블록 확장 기능을 제공한다.
+   - 코드 블록의 라인 번호 표시가 가능하다.
+   - 코드 블록의 라인 하이라이트가 가능하다.
+   - 코드블록의 단어 하이라이트가 가능하다.
+   - 인라인 코드블록 문법 하이라이트가 가능하다.
+
+3번의 라인 번호 표시, 라인 하이라이트가 된다는 점이 가장 마음에 들었습니다.
+
+rehypeHighlight도 contentlayer 설정파일에서 설정할 수 있습니다.
+
+```ts:contentlayer.config.ts showLineNumbers {1, 8-20}
+import rehypePrettyCode from 'rehype-pretty-code';
+
+export default makeSource({
+  contentDirPath: 'posts',
+  documentTypes: [Blog, Note],
+  mdx: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      rehypeSlug,
+      rehypeCodeTitles,
+      [rehypePrettyCode, { theme: 'material-theme-lighter', keepBackground: false }],
+      [
+        rehypeAutolinkHeadings,
+        {
+          properties: {
+            className: ['anchor'],
+          },
+        },
+      ],
+    ],
+  },
+});
+```
+
+> 테마 목록 https://unpkg.com/browse/shiki@0.14.2/themes/  
+> 참고 포스트 https://kilee.dev/blog/next-js-blog-codeblock-styling
+
+코드블럭에 대한 마크다운 문법은 위의 참고 포스트에서 정말 자세하게 설명하고 있습니다.
+
+## 4. CSS 라이브러리 변경
+
+---
+
+기존에는 **emotion/styled** 라이브러리르 사용중이었으나 불편한 점이 많았습니다.
+
+- CSS 컴포넌트로 사용하는 방식이 오히려 직관적이지 않다고 느꼈다.
+  - 실제 tsx 컴포넌트와 스타일 컴포넌트가 한 눈이 구분되지 않음
+- styled-component가 재사용성이 용이하다는 것은 알지만..
+  - 블로그 프로젝트 특성상 규모가 작고 재사용되는 컴포넌트가 적어 효율성을 못 느낌
+  - 오히려 작성해야하는 코드가 많아져 작업 효율이 떨어진다고 느낌
+- 결정적으로 emotion의 미디어 쿼리 방식이 불편했다.
+
+  - emotion 에서 미디어 쿼리를 사용하려면 별도 라이브러리도 설치해줘야 함 https://emotion.sh/docs/media-queries
+
+        ```jsx:src/styles/utils/mq.js
+        import facepaint from 'facepaint';
+
+        const breakpoints = [1280, 750, 576];
+        const mq = facepaint(
+          breakpoints.map((bp) => `@media (max-width: ${bp}px)`),
+          { overlap: false }
+        );
+
+        export default mq;
+        ```
+
+        ```jsx
+        import styled from '@emotion/styled';
+        import mq from '../styles/utils/mq';
+
+        export const HeaderContainer = styled.header`
+          ${mq({
+            height: ['56px', '56px', '50px'],
+          })}
+        `;
+        ```
+
+<br />
+반면에 SCSS는 믹스인, 변수를 활용할 수 있다는 점에서 평소 편리하다고 느꼈습니다.
+
+- 반응형을 위한 break-point, 각 테마에 테마에 따른 변수 등을 정의해서 사용하기 용이
+- 믹스인을 통해 반응형 미디어 쿼리를 작성 가능
+
+  ```scss:src/styles/_mixin.scss
+  @import './variables';
+
+  @mixin mobile {
+    @media (max-width: #{$breakpoint-mobile}) {
+      @content;
+    }
+  }
+
+  @mixin tablet {
+    @media (max-width: #{$breakpoint-tablet}) {
+      @content;
+    }
+  }
+
+  @mixin desktop {
+    @media (min-width: #{$breakpoint-tablet + 1px}) {
+      @content;
+    }
+  }
+  ```
+
+  ```scss
+  .header_nav {
+    display: flex;
+    align-items: center;
+  }
+
+  @include mobile {
+    .header_nav {
+      flex-direction: row-reverse;
+    }
+  }
+  ```
+
+## 5. 이전, 다음 포스트 페이지네이션
+
+---
+
+이전과 다음 포스트로 유도할 수 있도록 페이지네이션을 추가했습니다.
+
+현재 slug 경로를 기반으로 next, prev 포스트의 정보를 받아올 수 있는 서비스 api 를 추가하여 사용했습니다.
+
+<img src="/posts/blog-migration-renewal-3.png" alt="이전, 다음 포스트 페이지네이션" />
+<em>이전, 다음 포스트 페이지네이션</em>
+
+```ts:src/service/posts.ts
+export async function getNextAndPreviousPost(slug: string): Promise<PostNextAndPrevious> {
+  const sortedBlogs = allBlogs //
+    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+  const currentIndex = sortedBlogs.findIndex((blog) => blog.slug === slug);
+
+  return {
+    next: sortedBlogs[currentIndex - 1],
+    prev: sortedBlogs[currentIndex + 1],
+  };
+}
+```
+
+## 6. 블로그 시리즈 기능 도입
+
+---
+
+같은 주제의 포스트를 그룹핑하고 한눈에 볼 수 있도록 시리즈 기능을 도입했습니다!
+포스트 목록에 시리즈 필터를 추가해, 한 번 클릭하면 해당하는 시리즈의 목록만 보여지고, 다시 클릭하면 해제됩니다.
+
+<img src="/posts/blog-migration-renewal-4.png" alt="포스트 목록의 시리즈 필터" />
+<em>포스트 목록의 시리즈 필터</em>
+
+포스트 내 컨텐츠에서도 같은 시리즈의 목록을 확인할 수 있습니다.
+
+<img src="/posts/blog-migration-renewal-5.png" alt="포스트 내 시리즈 리스트" />
+<em>포스트 내 시리즈 리스트</em>
+
+## 7. 마크다운에서 이미지 캡션 넣기
+
+---
+
+사실 아직까지는 마크다운에서 캡션 넣는 기능을 지원하지 않습니다. 대신 약간의 우회방법으로 캡션처럼 흉내낼 수는 있지 않을까요?
+그래서 검색해보다가 [한 블로그](https://62che.com/blog/vuepress/%EC%9D%B4%EB%AF%B8%EC%A7%80%EC%97%90-%EC%BA%A1%EC%85%98-%EB%8B%AC%EA%B8%B0.html#%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%86%E1%85%A9%E1%84%8B%E1%85%A3%E1%86%BC)의 글을 보게됩니다.
+
+잘 사용하지 않는 em 태그를 img 태그 뒤에 연달아 사용하여 하나의 세트로 묶어주는 방법입니다.
+
+mdx 확장파일에서는 문법이 달라 각자 환경에 맞게 사용해주시면 되는데요. 저는 렌더링되는 html 구조와 문법이 약간 다르기 때문에 변형하여 작성했습니다.
+
+```markdown:blog-migration-renewal.mdx
+<img src="/posts/blog-migration-renewal-5.png" alt="포스트 내 시리즈 리스트" />
+<em>포스트 내 시리즈 리스트</em>
+```
+
+css의 `+` 선택자를 통해 em 태그를 캡션처럼 보이도록 꾸며줬습니다.
+
+```scss
+// image caption
+img + em {
+  display: block;
+  font-size: 14px;
+  color: var(--text-color-80);
+  &:before {
+    content: '*';
+    margin-right: 4px;
+  }
+}
+```
+
+## 8. 나만의 Snippet으로 효율성 높이기
+
+---
+
+정적 블로그에서는 다음 코드처럼 마크다운 파일에서 포스트에 대한 정보를 적어줘야 합니다.
+
+```markdown
+---
+title: Next.js 블로그 마이그레이션하기(2)
+date: 2024-01-07 16:09:41
+description: 마이그레이션 그리고 리뉴얼, 기능 추가하기
+tags: []
+series: 마이그레이션
+---
+```
+
+이를 front-matter 라고 부르는데요, 글을 작성할때마다 front-matter를 새로 작성하는 것은 매우 번거로운 일입니다.
+기존에는 다른 파일에서 복사/붙여넣기해서 정보만 변경해줬지만, 커스텀 Snippet을 사용하고 이런 번거로움을 해결했습니다.
+
+### 7.1. Customize Snippets
+
+front-matter로 사용할 snippets를 추가합니다.
+
+VSCode를 켜고 메뉴바에서 **Code > Configure User Snippets > mdx.json** 으로 진입합니다. 또는 Cmd + P (윈도우: Ctrl + P) 단축키를 입력하고 '> snippets'를 입력하면 Configure User Snippets 를 찾을 수 있습니다.
+
+<img src="/posts/blog-migration-renewal-6.png" alt="VSCode - Configure User Snippets" />
+<em>VSCode - Configure User Snippets 찾기</em>
+
+```json
+{
+  "Post Matter": {
+    "prefix": "pm", // post matter
+    "description": "Output a file header with the file name and date",
+    "body": [
+      "---",
+      "title: $1",
+      "date:  $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+      "description: $2",
+      "tags: [$3]",
+      "---"
+    ],
+    "scope": "mdx"
+  }
+}
+```
+
+- `"Post Matter"` 부분은 snippets의 이름 (본인의 용도에 맞게 이름을 변경하여 사용하세요)
+- `prefix`는 snippets을 사용할 단축어
+- `description`은 snippets을 설명하는 항목
+- `body`는 해당 snippets 을 사용할 때 작성될 내용
+  - 배열로 설정하면 각 원소사이에 Enter가 입력됩니다.
+  - $1, $2, .. 는 Tab 시 커서의 위치.
+- `scope`는 해당 snippets아 사용될 파일의 범위.
+
+VSCode에서 제공하는 다양한 문법을 활용하여 날짜가 자동으로 입력될 수 있도록 설정했습니다.
+
+추가로, 저는 글을 작성하다보면 처음 작성하던 시간과 작성이 완료된 시간이 다른 경우가 있어서 시간을 갱신하기 위해 시간만 자동완성해주는 snippet도 추가하여 사용하고 있습니다.
+
+이 외에도 VSCode 문서에 다양한 문법이 소개되어있으니 확인해보세요!
+
+> VSCode - Snippets (Snippet Syntax)  
+> https://code.visualstudio.com/docs/editor/userdefinedsnippets#_snippet-syntax
+
+### 7.2. Use Custom Snippets
+
+snippets 파일에서 정의했던 prefix를 입력하고 엔터를 누르면 자동완성됩니다.
+
+<img src="/posts/blog-migration-renewal-7.gif" alt="Custom Snippet 사용" />
+<em>Custom Snippet 사용</em>
+
+## 해결해야할 문제
+
+---
+
+모바일에서 오버플로우가 발생해 가로스크롤이 생기는 경우 폰트 사이즈가 과도하게 커지는 현상이 발생하고 있습니다.
+
+<img src="/posts/blog-migration-renewal-8.png" alt="모바일에서 발생하는 코드블럭 버그" />
+<em>모바일에서 발생하는 코드블럭 버그</em>
+
+우측의 화면은 오버플로우가 발생하지 않아 정상적인 모습으로 보여지고,
+좌측의 화면은 오버플로우가 발생하면서 폰트 사이즈가 과도하게 커진 화면입니다.
+
+모바일에서 개발자용으로 확인해도 원인을 찾지 못하고 있는 상황인데요, 이 현상의 해결 방법을 아시는 분들의 댓글을 기다립니다...

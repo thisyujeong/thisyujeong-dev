@@ -226,6 +226,10 @@
       padding: 0.5em 0;
       background-color: transparent;
 
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
       // 라인 넘버 노출: ex. showLineNumbers
       &[data-line-numbers] {
         counter-reset: line;
