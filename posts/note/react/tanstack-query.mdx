@@ -1,0 +1,173 @@
+---
+title: Tanstack Query v5 (React Query)
+date: 2024-02-15 18:59:13
+tags: [react, tanstack query, react query, 리액트, 상태관리]
+---
+
+## 1. Query Client
+
+> 모든 쿼리에 대한 상태 및 캐시를 가지고 있는 클래스  
+> react query를 사용하기 위해 필수적으로 생성해야 한다.
+
+```jsx
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Todos />
+    </QueryClientProvider>
+  );
+}
+```
+
+### 1.2. 전역 옵션 설정
+
+QueryClient의 defaultOptions을 통해서 queries와 mutations에 대한 옵션을 설정
+
+```jsx
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60,
+      retry: 1,
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
+```
+
+## 2. Queries
+
+---
+
+> 비동기적 데이터의 선언적 의존성  
+> 즉, 서버에서 데이터를 받아올 때 사용하는 기능
+
+```jsx
+import { useQuery } from '@tanstack/react-query';
+const query = useQuery({
+  queryKey: ['todo'],
+  queryFn: fetchTodo,
+});
+```
+
+유의: v5 버전 이휴 useQuery의 인자를 객체 형태로 전달해줘야 한다.
+
+```jsx
+useQuery({ queryKey, queryFn, ...options });
+```
+
+### 2.1. queryKey
+
+- 캐시를 관리하기 위한 키값으로 배열형태로 사용
+- Type: `ReadonlyArray<unknown>`
+- string 형태로 해쉬해 key와 data를 mapping 시켜 관리
+
+### 2.2. queryFn
+
+- **promise**를 반환하는 함수 (fetch, axios 등)
+- data를 resolve하고 error를 던짐
+  ```jsx
+  // 할일 목록 조회
+  export const fetchTodo = asnyc () => {
+  	const data = await fetchTodoResponse();
+  	return data;
+  }
+  ```
+
+### 2.3. Queries 주요 옵션
+
+- enabled: 자동으로 query를 실행할지에 대한 여부(default: true)
+- retry: query 동작 실패 시, 자동으로 몇 번 만큼 retry를 시도할지 결정하는 옵션 (default: 3)
+- select: response 값에서 필요한 값만을 추출할 수 있도록 하는 옵션
+  ```jsx
+  {select: data => {id: data.id, data: data.data}}
+  ```
+- refetchInterval: 주기적으로 refetch 하는 간격을 설정하는 옵션
+- throwOnError: error boundary로 에러를 전파할 지 결정하는 옵션
+
+### 2.4. Queries 반환값
+
+- data: 마지막으로 resolved된 데이터
+- error: 에러가 발생했을 때 반환하는 에러 객체
+- isLoading: 최초 fetch가 실행될 때 true 값을 반환
+  - 캐시가 존재하는가? → YES / No
+- isFetching: fetch가 실행될 때마다 true 값을 반환
+  - 캐시가 존재하는가? → YES
+
+## 3. Mutations
+
+---
+
+> CRUD 중 RUD에 해당하는 기능. 즉, 서버의 데이터를 수정할 때 사용  
+> useMutation 함수를 선언함으로써 Mutations 기능 사용 가능
+
+이 함수의 필수값에는 queries와 달리 key값이 들어가지 않는다.
+
+```jsx
+import { useMutation } from '@tanstack/react-query';
+
+const query = useMutation({
+  queryFn: fetchTodo,
+});
+```
+
+### 3.1. Mutations 주요 옵션
+
+- onMutate: mutaete 함수가 실행되기 전에 실행되는 함수
+  - optimistic update에 유용 (좋아요 기능 등)
+
+### 3.2. Mutations 반환값
+
+- mutate: mutation 함수를 실행시키는 함수
+
+## 4. useSuspenseQuery
+
+> React의 **\*Suspense** for Data Fetching API 를 사용하기 위한 hook  
+> \* Suspence for Data Fetching API: 데이터를 불러오는 동안 fallback UI를 대신 보여주는 기능
+
+기존에는 suspense 옵션을 적용함으로써 사용! 했는데
+
+```jsx
+const { data } = useQuery({
+  queryKey,
+  queryFn,
+  suspense: true, // v5 이전
+});
+```
+
+data 값은 항상 성공하는데 undefined도 같이 반환되는 문제점이 있었다.
+
+v5 에 도입된 useSuspenseQuery를 사용함으로써 **데이터 타입을 보장**할 수 있게 되었다.
+
+```jsx
+const query = useSuspenseQuery({...});
+```
+
+suspense 기능을 사용하는 것 외에는 동일, enabled, placeholderData 옵션을 사용할 수 없다.
+
+또한 throwOnError 값을 기본으로 임의 저장할 수 없다는 차이점이 있다.
+
+```jsx
+throwOnError: (error, query) => typeof query.state.data === 'undefined';
+```
+
+반환되는 데이터가 없을 경우 자동으로 error boundery로 error를 전파한다.
+
+## 5. React Query는 어떻게 데이터를 저장할까?
+
+어떻게 데이터를 저장하길래 전역적으로 사용하지? → context를 사용
+
+```jsx
+export const QueryClientContext =
+	React.createContext<QueryClient | undefined>(undefined,);
+```
+
+useClientProvider 하위에 써놓은 query들을 서로 공유해서 사용할 수 있다.
+
+1. useQuery가 실행되면 생성된 Query 인스턴스와 함께 key값으로 mapping 시키는 과정을 거친다.
+2. fetch된 데이터를 query 객체 내부에 저장함으로써 캐시를 관리하게 된다.
+3. context를 사용했기 때문에 저장된 캐시값은 다른 컴포넌트에서도 사용할 수 있다.
