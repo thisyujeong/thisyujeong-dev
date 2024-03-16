@@ -1,0 +1,266 @@
+---
+title: iOS Safari 브라우저 Input 트러블슈팅
+date: 2024-03-17 00:48:44
+description: Fixed DOM, Viewport, 그리고 가상 키보드...
+tags: ['ios', 'safari', 'virtual keyboard', 'input']
+---
+
+<img src="/posts/ios-trouble-shooting-0.png" alt="iOS Safari Logo" />
+
+## 서론
+
+본 포스트는 프로젝트를 진행하면서 iOS의 기본 브라우저인 Safari(사파리)에서 발생했던 Input과 관련된 이슈를 정리하고, 해결과정을 공유하기 위해 작성되었습니다.
+
+해당 프로젝트는 Flutter + WebView (React) 형태의 하이브리드 앱 서비스입니다. 따라서 iOS는 Safari(사파리)를, Android는 Chrome(크롬) 브라우저 환경에서 제작되었습니다.
+
+## 1. 이슈 발생과 재연
+
+웹 또는 앱 프로젝트를 진행하다보면 input이 화면의 하단에 고정된 화면을 작업해야하는 경우가 종종 발생합니다. 따라서 하단의 input 영역은 다음 화면과 같이 `position:fixed;` 상태로 고정하게 하게됩니다. 그리고 우리는 이 input이 가상 키보드 위에 위치한 모습을 기대하게 될텐데요. 여기까지만 보면 아무 문제가 없어보입니다.
+
+<img src="/posts/ios-trouble-shooting-1.png" alt="이슈 발생 환경" />
+
+그럼 예제를 실행해보겠습니다.
+
+> 이슈 재연을 위해 간단한 예제를 제작했습니다.
+>
+> 1. 컨텐츠 전체를 감싸고 있는 컨테이너로, 디바이스의 뷰포트 높이만큼 풀로 채워지는 영역 **(페이지 위 레이어형으로 띄워진 팝업)**
+> 2. 디바이스의 뷰포트 영역에서 헤더를 제외한 나머지 영역으로, overflow 시 스크롤이 생성되는 영역
+> 3. 화면 하단에 고정되어야하는 인풋 박스 **(fixed)**
+
+<img src="/posts/ios-trouble-shooting-2.gif" alt="이슈 발생 화면" width="300" />
+
+실행결과 iOS 에서는 인풋에 포커스될 때 크게 두 가지 문제가 발생하는 것을 확인할 수 있습니다.
+
+1. 가상키보드가 생성되면서 화면이 밀려올라가고, 강제로 스크롤 위치가 변경됩니다.
+2. 스크롤 시 fixed 상태로 고정되어있어야 할 `(2)input` 영역이 키보드 뒤로 가려집니다. 동시에 하단에 불필요한 여백이 생기면서 실제 컨텐츠보다 많은 스크롤이 발생했습니다.
+
+이렇게 OS마다 실행 결과가 다른것은 각 브라우저들이 사용자의 편의성 등을 위해 내부적으로 어떠한 동작을 수행하도록 구성되어있기 때문입니다. 또한 이를 수행하는 방식이 브라우저마다 다르다는 것인데요. 이 문제를 해결하기 위해서는 이슈가 발생한 iOS의 Safari에서는 어떤 동작이 수행되고 원인이 무엇인지 살펴볼 필요가 있습니다.
+
+## 2. 이슈 원인 분석
+
+이를 해결하기 위해 여러 포스트들을 참고했으며 참고한 글들은 본 포스트의 최하단에서 확인해주세요.
+
+### 2.1. 스크롤의 위치가 변경되는 기준
+
+이전에도 input 요소가 fixed 형태로 설계된 화면을 작업하는 일은 여러번 있었습니다. 하지만 이러한 이슈를 경험한 것은 처음이었고, 대체 이전 작업과 어떤 차이점이 있기에 다른 결과를 보이는지 고민했습니다.
+
+짐작대로라면 차이점은 딱 하나였습니다. 이전 작업들은 주로 검색을 위한 용도로 input이 상단에 위치했습니다. 반면 이 프로젝트는 채팅, 댓글 등의 커뮤니케이션 용도로 사용되어 주로 하단에 위치한 형태로 설계된 것입니다.
+
+다음 예제를 실행해 input의 위치에 따라 포커스 될 경우 어떻게 반응하는지 확인해봤습니다 상단, 중앙, 하단에 input을 배치했습니다.
+
+<img
+  src="/posts/ios-trouble-shooting-3.gif"
+  alt="Input 위치별 스크롤 반응 비교"
+  width="300"
+/>
+
+가상 키보드가 펼쳐졌을 때 각 케이스의 위치를 기준으로 강제 스크롤 발생 여부가 결정되는 것이 확실해 졌습니다.
+
+- **Top Input**: 밀려올라가거나 스크롤 위치가 변경되지 않습니다.
+- **Center / Bottom Input**: 밀려올라가면서 강제로 스크롤 위치가 변경됩니다.
+
+정리하자면 **1) 강제 스크롤을 수행할 필요가 없는 영역** 과 **2) 강제 스크롤이 수행되는 영역**으로 나눌 수 있습니다.
+
+<img src="/posts/ios-trouble-shooting-4.png" alt="Input 위치별 스크롤 반응 비교 분석" />
+
+- **Screen Top** - 강제 스크롤을 수행할 필요가 없는 영역
+- **Screen Bottom**, **Keyboard** - 강제 스크롤이 수행되는 영역
+
+이는 사용자의 편의성을 위해 인풋이 화면의 중앙에 위치하도록 동작하는 것이라고 추측하고 있습니다.
+
+> 여기서 화면의 중앙이란, 키보드를 제외한 나머지 영역의 중앙을 말합니다. (Visual Viewport)
+
+### 2.2. iOS Safari 브라우저의 viewport 설정 방식
+
+<img
+  src="/posts/ios-trouble-shooting-5.png"
+  alt="iOS Safari 브라우저의 viewport 설정 방식"
+/>
+
+Android 화면의 viewport는 키보드가 노출되면 키보드의 영역을 제외한 영역을 viewport로 재설정합니다. 반면 iOS에서는 키보드가 노출되더라도 viewport를 재설정하지 않으며, 하단에 가상의 영역을 생성하게 됩니다.
+
+<img
+  src="/posts/ios-trouble-shooting-6.png"
+  alt="iOS Safari 브라우저의 viewport 설정 방식"
+/>
+
+즉, 기존의 Document가 키보드에 가려져 탐색하지 못하는 상황을 방지하기 위해 키보드가 차지하는 높이만큼 추가적으로 스크롤할 수 있도록 Document를 확장하는 역할을 합니다. 간단히 말해, 페이지 전체를 누락없이 모두 탐색할 수 있게 된다는 것인데요.
+
+**2.1**번과 **2.2**번은 사용자의 입장에서 보면 편리한 기능인 것은 사실입니다. 하지만 컨테이너가 레이어로 띄워진 팝업과 같은 형태라면 반드시 Input 영역은 반드시 고정되어야 하고, 컨텐츠 영역은 정상적인 스크롤이 가능해야 합니다. 따라서 이 이슈들의 해결 방안을 고안해야합니다.
+
+## 3. 해결 방안 찾기
+
+### 3.1. Input 포커스 시 화면이 위로 밀리는 현상
+
+키보드가 노출되었을 때 우리가 기대하는 화면은 Header와 Input이 각각 상단, 하단에 위치하고 강제 스크롤이 발생하지 않아야합니다. 즉, Case1과 같아야 합니다. 그러나 현재 Input이 하단에 위치해 있기 때문에 Case2, 3처럼 강제 스크롤 동작으로 인해 화면이 위로 밀리는 현상이 발생합니다.
+
+이를 해결하기 위해서 가상의 Input을 사용해 일종의 눈속임을 하는 방식을 활용했습니다.
+
+- `<RealInput/>` 을 상단에 위치하면서 화면 밖에 위치하도록 배치합니다.
+- `<VirtualInput/>` 을 하단에 배치합니다. 이때 가상 인풋은 input 요소가 아닌 div로, input과 동일한 UI를 갖습니다.
+
+<img
+  src="/posts/ios-trouble-shooting-7.png"
+  alt="input 포커스 시 위로 밀리는 현상 우회 방법"
+/>
+
+1. `<VirtualInput/>` 를 클릭하면 `<RealInput/>`에 focus함수를 실행합니다.
+2. `<RealInput/>` 이 포커스 상태가 되면 화면의 하단으로 위치를 변경합니다.
+3. 동시에 `<VirtualInput/>` 은 `display: none;` 처리해 숨겨줍니다.
+
+<img
+  src="/posts/ios-trouble-shooting-8.gif"
+  alt="input 포커스 시 위로 밀리는 현상 우회 결과"
+  width="300"
+/>
+
+이제 포커스가 되어도 화면이 밀리지 않는 것처럼 보입니다!
+
+그런데 한가지 눈에 걸리는게 있습니다. 이미 눈치채신 분들도 계실 것 같은데요, 보시다시피 input과 컨텐츠가 키보드 뒤로 감춰지고 있습니다. 위에서 언급했듯 iOS에서는 키보드가 노출되어도 viewport가 재조정되지 않기 때문입니다.
+
+따라서 키보드의 높이를 측정해 컨텐츠의 하단에 여백을 추가해주는 작업이 필요합니다.
+
+### 3.2. Input 포커스 시 컨텐츠가 키보드 뒤로 가려지는 현상
+
+키보드가 노출되어도 viewport가 재조정되지 않는다는 건, document 자체의 높이 변화가 없다는 의미입니다. 따라서 **키보드의 높이를 감지**를하여 컨텐츠 영역 하단에 여백을 추가하는 작업이 이루어져야 합니다.
+
+<img src="/posts/ios-trouble-shooting-9.png" alt="가상 키보드 높이 측정" />
+
+키보드 높이를 감지하는 것은 window 객체에 내장된 **window.innerHeight** 와 **window.visualViewport API**를 이용할 수 있습니다.
+
+- `window.innerHeight` - 브라우저의 화면 전체 높이
+- `window.visualViewport.height` - 브라우저에서 시각적인 뷰포트 높이
+
+위 두 값을 이용해 키보드의 높이을 계산합니다. 키보드 높이는 컨텐츠 하단의 여백이 됩니다.
+
+> **keyboardHeight** = window.innerHeight - window.visualViewport.height
+
+**키보드의 높이를 감지하는 것**은 window.visualViewport 의 resize 이벤트를 활용할 수 있습니다.
+
+```tsx
+const Popup = () => {
+...
+const [viewportHeight, setViewportHeight] = useState<number>(0); // visual viewport height
+const [keyboardHeight, setKeyboardHeight] = useState<number>(0); // virtual keyboard height
+
+/* 키보드 높이 적용 */
+useEffect(() => {
+  if (viewportHeight > 0 && window.innerHeight > viewportHeight) {
+    setKeyboardHeight(window.innerHeight - viewportHeight);
+  } else {
+    setKeyboardHeight(0);
+  }
+}, [viewportHeight]);
+
+/* Keyboard On/Off 뷰포트 리사이즈 감지 */
+useEffect(() => {
+  const onResize = () => {
+    if (window.visualViewport) {
+      setViewportHeight(window.visualViewport.height);
+    }
+  };
+  window.visualViewport?.addEventListener('resize', onResize);
+  return () => { // resize 이벤트 종료
+    window.visualViewport?.removeEventListener('resize', onResize);
+  };
+}, []);
+
+  return (
+    <div className={s.popup}>
+      <div className={s.popup_container}>
+    	   <div className={s.header}>...</div>
+	      {/* 컨텐츠 내부에 하단 패딩 keyboardHeight 추가 */}
+        <div className={s.content} style={{ paddingBottom: keyboardHeight }}>
+          <div className={s.content_inner}>...</div>
+          <div className={`${s.input_box} ${s.real} ${focused && s.focused}`}>...</div>
+          <div className={`${s.input_box} ${s.virtual} ${focused && s.hide}`}>...</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Popup;
+```
+
+이제 화면에 고정되어야 하는 `Header` 와 `Input` 영역을 `position:sticky`로 설정해, 여백을 제외한 컨텐츠 영역 내부에 고정되어 보일 수 있도록 합니다.
+
+```html
+<div className={s.popup}>
+  <div className={s.popup_container}>
+    <div className={s.header}>...</div>
+    <!-- 컨텐츠 내부에 하단 패딩 keyboardHeight 추가 -->
+    <div className={s.content} tyle={{ paddingBottom: keyboardHeight }}>
+      <div className={s.content_inner}>...</div>
+      <div className={`${s.input_box} ${s.real} ${focused && s.focused}`}>...</div>
+      <div className={`${s.input_box} ${s.virtual} ${focused && s.hide}`}>...</div>
+    </div>
+  </div>
+</div>
+```
+
+input 영역은 fixed 상태에서 focus됨과 동시에 sticky로 처리했습니다.
+
+```scss
+.popup_header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  ...
+}
+
+.input_box {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  ...
+
+  &.real {
+    top: 0;
+    left: -9999px;
+    right: auto;
+    bottom: auto;
+
+    &.focused {
+      position: sticky;
+      top: auto;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+  }
+
+  &.virtual.hide {
+      display: none;
+    }
+  }
+}
+
+```
+
+## 4. 최종 화면
+
+<img src="/posts/ios-trouble-shooting-10.gif" alt="트러블슈팅 최종 화면" width="300" />
+
+드디어 처음에 기대했던 모습이 완성되었습니다!
+
+다만 아쉬운 것은 키보드가 완전히 올라온 후 input의 위치가 조정된다는 것입니다. 그래서 실제 사용할 때에는 키보드를 오픈한 순간에 키보드의 높이 값을 저장해두고 다음엔 저장해둔 값을 사용해 여백을 주는 방식을 선택했습니다.
+
+## 5. 번외, 오버스크롤 바운스 막기
+
+<img src="/posts/ios-trouble-shooting-11.gif" alt="오버스크롤 바운스 현상" width="300" />
+
+추가로 모바일 iOS 사파리에서는 스크롤의 최상단, 최하단에 오버스크롤하면 바운스되는 현상이 있습니다. fixed 같은 고정적인 요소를 사용하게되면 오버스크롤 될 때 경계가 보이기 때문에 시각적으로.. 좋지 않습니다. scrollable 한 영역에 `overscroll-behavior-y: none;` 속성을 사용하면 바운스 효과를 막을 수 있습니다.
+
+---
+
+## 끝으로
+
+체감상 길고 길었던 트러블슈팅 경험을 정리해봤습니다. 이게 완벽한 해결법이라고 할 순 없지만 현재로썬 최선의 해결법이었다고 생각해요. 더 좋은 개선방법이 생겨났으면 더 좋겠지만요.
+
+덕분에 다양한 OS를 대응하고, 크로스브라우징하는 과정이 굉장히 값진 경험으로 남았습니다. 또 크로스브라우징에 대한 경험이 많이 부족하다는 것을 뼈저리게 느꼈습니다 😂. 앞으로도 이 글처럼 트러블슈팅 경험이 생기면 또 공유하러 오겠습니다.
+
+긴 글 읽어주셔서 감사합니다.
