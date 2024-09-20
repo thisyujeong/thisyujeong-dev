@@ -7,7 +7,7 @@ import Toc from 'components/Toc';
 export const metadata: Metadata = {
   title: {
     template: `%s | ${_metadata.meta.title}`,
-    default: 'Note',
+    default: 'Playground',
   },
   description: '이유정의 개인 프로젝트',
   openGraph: {
