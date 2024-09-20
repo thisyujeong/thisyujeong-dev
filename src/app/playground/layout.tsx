@@ -7,14 +7,14 @@ import Toc from 'components/Toc';
 export const metadata: Metadata = {
   title: {
     template: `%s | ${_metadata.meta.title}`,
-    default: 'Note',
+    default: 'Playground',
   },
-  description: '배움을 기록하는 노트',
+  description: '이유정의 개인 프로젝트',
   openGraph: {
     ..._metadata.meta.openGraph,
-    title: `Note | ${_metadata.meta.title}`,
-    description: '배움을 기록하는 노트',
-    url: `${_metadata.meta.url}/note`,
+    title: `Playground | ${_metadata.meta.title}`,
+    description: '이유정의 개인 프로젝트',
+    url: `${_metadata.meta.url}/playground`,
   },
 };
 
@@ -24,9 +24,6 @@ const NoteLayout = async ({ children }: React.PropsWithChildren) => {
       <div className={styles.layout}>
         <div className={styles.content}>
           <div className={styles.content_inner}>{children}</div>
-          <div className={styles.toc_layer}>
-            <Toc />
-          </div>
         </div>
       </div>
     </div>

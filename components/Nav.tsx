@@ -15,7 +15,7 @@ const Nav = () => {
 
   return (
     <div className={styles.nav}>
-      {/* PC, Tabletl Nav */}
+      {/* PC, Tablet Nav */}
       <ul className={styles.nav_list}>
         {navLinks.map((link) => (
           <li
