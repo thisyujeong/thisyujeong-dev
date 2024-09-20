@@ -25,7 +25,7 @@
   padding-bottom: 45%;
   border-radius: 0.6em;
   overflow: hidden;
-  border: 1px solid rgba($secondary-color, 0.1);
+  border: 1px solid rgba(var(--secondary-color), 0.1);
   img {
     object-fit: cover;
     position: absolute;
@@ -36,7 +36,7 @@
 
 .project_title {
   margin-top: 4px;
-  color: $text-color;
+  color: var(--text-color);
   font-size: 18px;
   font-weight: 500;
   white-space: nowrap;
@@ -46,7 +46,7 @@
 }
 
 .project_desc {
-  color: $text-color;
+  color: var(--text-color);
   font-size: 14px;
   max-height: 3.12em;
   overflow: hidden;
