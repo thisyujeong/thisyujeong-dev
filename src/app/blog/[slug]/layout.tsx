@@ -1,7 +1,7 @@
 import React from 'react';
 import Toc from 'components/Toc';
 import GiscusArea from 'components/GiscusArea';
-import styles from './layout.module.scss';
+import styles from '../../layout.module.scss';
 
 type Props = {
   params: { slug: string };

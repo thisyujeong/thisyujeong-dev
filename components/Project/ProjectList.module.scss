@@ -1,26 +1,18 @@
-.product_list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -8px;
+.project_list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
   a {
     display: block;
-    width: 33.3333%;
-    padding: 12px 8px;
   }
 }
 
 .project_item {
   position: relative;
-  background: var(--card-bg);
-  box-shadow: 0px 6px 14px var(--shadow);
-  border-radius: 0.6em;
   overflow: hidden;
-
   &:hover {
-    transform: scale(1.01);
-    transition: all 0.2s ease;
-    h2 {
-      color: var(--accent);
+    .project_preview img {
+      transform: scale(1.05);
     }
     p {
       opacity: 1;
@@ -30,34 +22,39 @@
 
 .project_preview {
   position: relative;
-  padding-bottom: 64%;
+  padding-bottom: 45%;
+  border-radius: 0.6em;
   overflow: hidden;
+  border: 1px solid rgba($secondary-color, 0.1);
   img {
+    object-fit: cover;
     position: absolute;
     height: 100%;
+    transition: all 0.2s ease;
   }
 }
 
 .project_title {
   margin-top: 4px;
+  color: $text-color;
+  font-size: 18px;
+  font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
   transition: all 0.2s ease;
   overflow: hidden;
-  color: var(--text-base);
 }
 
 .project_desc {
-  opacity: 0.5;
-  height: 3.14em;
-  font-size: 13px;
-  height: 4.68em;
+  color: $text-color;
+  font-size: 14px;
+  max-height: 3.12em;
   overflow: hidden;
   word-break: break-word;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   transition: all 0.2s ease;
-  color: var(--text-base);
+  opacity: 0.5;
 }
