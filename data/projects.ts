@@ -15,7 +15,7 @@ const projects: Project[] = [
     title: 'Wave Plane',
     description: 'React Three Fiber(three.js) + GSAP 를 활용한 인터랙티브 웹(2)',
     image: '/projects/wave-plane.png',
-    url: `${process.env.NEXT_PUBLIC_PROJECT_WAVE_PLANE}`,
+    url: 'https://wave-plane-threejs.vercel.app',
   },
   {
     title: 'thisyujeong.dev',
