@@ -279,9 +279,11 @@
       line-height: 1.5em;
     }
   }
+}
 
-  /* mobile */
-  @include mobile {
-    font-size: 16px;
+/* mobile */
+@include mobile {
+  .mdx-formatter div[data-rehype-pretty-code-fragment] pre * {
+    -webkit-text-size-adjust: none;
   }
 }
