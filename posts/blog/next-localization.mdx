@@ -1,0 +1,449 @@
+---
+title: Next.js 에서 i18next 다국어 처리하기
+date: 2025-01-05 02:20:33
+description: App router 기반의 국제화
+tags: [next, next 14, app router, i18next, react-i18next, localization, 다국어, 국제화]
+---
+
+<img src="/posts/next14-localization.gif" alt="다국어처리 실행 화면 미리보기" />
+<em>다국어처리 실행 화면 미리보기</em>
+
+## 1. i18next 패키지 설치
+
+i18next는 자바스크립트로 작성된 국제화 프레임워크입니다.
+
+```bash
+yarn add i18next react-i18next i18next-resources-to-backend i18next-browser-languagedetector
+```
+
+다음 두 플러그인은 i18next와 함께 사용합니다.
+
+- **i18next-resources-to-backend**: 동적 리소스 로딩을 쉽게 처리할 수 있도록 도와주는 플러그인입니다.
+  기존에 JSON 파일이나 정적으로 정의된 리소스 객체를 사용하는 대신, 동적으로 리소스를 가져오는 방식을 지원합니다.
+  클라이언트 내부에 포함된 번역 리소스를 먼저 로드하여 초기 로딩시간을 단축하고, 네트워크 요청을 최소화할 수 있습니다.
+- **i18next-browser-languagedetector**: 브라우저 환경에서 사용자의 언어를 자동으로 감지하여 i18next 초기화 시 적절한 언어로 설정할 수 있도록 도와주는 플러그인입니다.
+
+<br />
+## 2. localization 설정 파일 작성
+
+### 초기화 설정 파일
+
+초기화 옵션을 설정하는 파일을 만들어줍니다. 저는 `utils/localization` 폴더를 생성하고 **setting.ts** 파일에 작성해주었습니다. 앞으로 다국어 처리와 관련된 모든 파일은 이 폴더 안에서 작업해주겠습니다.
+
+```tsx:utils/localization/setting.ts
+
+import { InitOptions } from 'i18next';
+
+export const fallbackLng = 'en';
+export const locales = [fallbackLng, 'ko'] as const;
+export type LocaleTypes = (typeof locales)[number];
+export const defaultNS = 'common';
+
+export function getOptions(lang = fallbackLng, ns = defaultNS): InitOptions {
+  return {
+    // debug: true, // Set to true to see console logs
+    supportedLngs: locales, // 지원하는 언어 목록 설정
+    fallbackLng, // 기본 언어(대체 언어) 설정
+    lng: lang, // 현재 사용할 언어
+    fallbackNS: defaultNS, // 기본 네임스페이스 설정
+    defaultNS, // 네임스페이스 기본 값 설정
+    ns, // 사용할 네임스페이스
+  };
+}
+```
+
+- **fallbackLng**: 기본 언어를 설정합니다. 지정된 언어가 없을 경우 설정된 언어를 따릅니다.
+- **locales**: 지원하는 언어 목록을 지정합니다. 이 코드에서는 en(영어), ko(한국어)를 지정합니다.
+- **LocaleTypes**: locales 배열에서 가능한 값들을 타입으로 정의합니다. 위 코드에서는 `‘en’` 또는 `‘ko’` 만 가능한 타입이 됩니다.
+- **defaultNS**: 기본 네임스페이스로 ‘common’을 설정합니다. 네임스페이스는 다국어 번역 파일을 구분할 때 사용합니다. 저는 ‘common.json’ 다국어 번역 파일을 기본으로 사용할 예정입니다.
+- **getOption 함수**: i18next 초기화 옵션 객체를 반환합니다.
+
+### 서버 설정 파일
+
+리액트 환경에서 다국어 지원을 위해 필요한 번역 리소스를 동적으로 로드하고, 주어진 언어와 네임스페이스에 따라서 번역 기능 사용할 수 있도록 구성합니다.
+
+```tsx:utils/localization/locales/server.ts
+import { createInstance } from 'i18next';
+import resourcesToBackend from 'i18next-resources-to-backend';
+import { initReactI18next } from 'react-i18next/initReactI18next';
+import { getOptions, LocaleTypes } from './setting';
+
+const initI18next = async (lang: LocaleTypes, ns: string) => {
+  const i18nInstance = createInstance();
+  await i18nInstance
+    .use(initReactI18next)
+    .use(
+      resourcesToBackend(
+        (language: string, namespace: typeof ns) =>
+          import(`./locales/${language}/${namespace}.json}`)
+      )
+    )
+    .init(getOptions(lang, ns));
+
+  return i18nInstance;
+};
+```
+
+- 새로운 i18next 인스턴스를 생성하고,
+- **initReactI18next**를 연결하여 리액트 환경에서 사용할 수 있도록 설정합니다.
+- **resourcesToBackend**를 사용하여 동적으로 번역 리소스 파일을 불러옵니다.
+  - 여기서 파일 경로는 `./locales/en/common.json` 형식으로 지정됩니다
+- 사전에 setting.ts 파일에 정의했던 `getOptions(lang, ns)`를 호출해 언어와 네임스페이스에 맞는 초기화 옵션을 설정합니다.
+
+이제 translation 함수를 호출해 번역할 수 있도록 작성해줍니다.
+
+```tsx
+export async function translation(language: LocaleTypes, ns: string) {
+  const i18nextInstance = await initI18next(language, ns);
+  return {
+    t: i18nextInstance.getFixedT(language, ns),
+    i18n: i18nextInstance, // 초기화된 인스턴스
+  };
+}
+
+/* 사용예시 */
+const { t } = await translation(locale, 'common');
+console.log(t('hello')); // ko: '안녕하세요', en: 'hello' 출력
+```
+
+`t`는 번역 함수입니다.
+
+`getFixedT` 메서드는 고정된 언어와 네임스페이스에 맞는 번역 함수를 반환합니다. 이 함수는 번역 키를 전달받아 해당 언어로 번역된 문자열을 반환합니다.
+
+### 클라이언트 설정 파일
+
+먼저 서버 설정 파일에서 초기화했듯이 클라이언트 설정 파일에서도 환경에 맞춰 i18next를 초기화합니다. 서버 설정파일과 유사하지만 조금 다릅니다.
+
+```tsx:utils/localization/client.ts
+
+'use client';
+
+import { initReactI18next } from 'react-i18next';
+import { getOptions, locales, type LocaleTypes } from './setting';
+import i18next from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import resourcesToBackend from 'i18next-resources-to-backend';
+
+const runsOnServerSide = typeof window === 'undefined';
+
+i18next
+  .use(initReactI18next) // React와 i18next 연결
+  .use(LanguageDetector) // 언어 자동 감지 기능 활성화
+  .use(
+    resourcesToBackend((language: LocaleTypes, namespace: string) => {
+      return import(`./locales/${language}/${namespace}.json`);
+    })
+  ) // 백엔드에서 언어 리소스 동적으로 불러오기
+  .init({
+    ...getOptions(),
+    lng: undefined, // 클러이언트에서 언어를 감지하도록 설정
+    detection: { order: ['path'] }, // 언어 감지 순서 설정
+    preload: runsOnServerSide ? locales : [], // 서버에서 미리 로드할 언어 설정
+  });
+```
+
+- **runOnServerSide**: 실행환경이 서버 측인지, 클라이언트 측인지 판별합니다. 서버측에서만 참이 됩니다.
+- **lng**: 클라이언트 측에서 사용자 언어를 자동으로 감지하여 설정되도록 할거예요. undefined로 설정합니다.
+- **detection**: 언어 감지 순지 순서를 설정합니다. `/en` 와 `/ko` 경로로 접근하도록 설정할 것이기 때문에 path를 우선으로 설정합니다.
+- **preload**: 서버환경이라면 `locales` 배열에 있는 언어들을 미리 로드하도록 설정합니다.
+
+이제 서버 설정 파일과 같이 useTranslation 함수를 호출해서 사용할 수 있도록 추가해주도록 합니다.
+
+```tsx:utils/localization/client.ts
+
+import { useEffect } from 'react';
+import { initReactI18next, useTranslation as useTransAlias } from 'react-i18next';
+
+export function useTranslation(lng: LocaleTypes, ns: string) {
+  const translator = useTransAlias(ns);
+  const { i18n } = translator;
+
+  if (runsOnServerSide && lng) {
+    i18n.changeLanguage(lng);
+  } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (!lng || i18n.resolvedLanguage === lng) return;
+      i18n.changeLanguage(lng); // 언어가 변경될 때 i18n의 설정언어를 변경합니다.
+    }, [lng, i18n]);
+  }
+  return translator;
+}
+```
+
+부분적으로 뜯어볼게요.
+
+- 이 부분은 서버사이드에서 언어가 주어지면 즉시 주어진 언어에 따라 i18next의 언어셋을 변경합니다.
+  ```tsx
+  if (runsOnServerSide && lng) {
+    i18n.changeLanguage(lng);
+  }
+  ```
+- 서버 환경이 아니라면, 클라이언트에서 useEffect Hook을 사용하여 언어가 변경될 때마다 i18next의 언어셋도 변경합니다. `i18n.resolvedLanguage` 는 이미 언어가 변경되었는지 확인합니다.
+  ```tsx
+  else {
+      useEffect(() => {
+        if (!lng || i18n.resolvedLanguage === lng) return;
+        i18n.changeLanguage(lng); // 클라이언트 사이드에서 언어 변경
+      }, [lng, i18n]);
+    }
+  ```
+
+<br />
+## 3. 페이지 구성
+
+URL로 접근할 수 있도록 동적 라우팅으로 app 폴더 내의 최상위에 생성합니다.
+
+```
+app
+|-- [locale]
+    |-- layout.tsx
+    |-- page.tsx
+    |-- page.module.scss
+```
+
+<br />
+## 4. 미들웨어 설정
+
+마지막으로 미들웨어를 연결해줘야 합니다.
+
+미들웨어가 없는 상태에서는 최상위 경로 `/` 에 접근하면 404 에러가 뜨기 때문에 미들웨어를 연결하여 설정한 언어 페이지로 리다이렉트 해줍니다. 해당 파일은 `[locale]` 파일과 동일한 레벨에 생성해주세요.
+
+```tsx:src/middleware.ts
+import { NextResponse, NextRequest } from 'next/server';
+import { fallbackLng, locales } from '@/utils/localization/setting';
+
+export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname; // 현재 경로
+
+  // 기본 언어가 경로에 포함되어 있는지 확인
+  if (pathname.startsWith(`/${fallbackLng}/`) || pathname === `/${fallbackLng}`) {
+    // ex. /en/about 요청이 들어오면 /about 경로로 리다이렉트
+    return NextResponse.redirect(
+      new URL(
+        pathname.replace(`/${fallbackLng}`, pathname === `/${fallbackLng}` ? '/' : ''),
+        request.url
+      )
+    );
+  }
+
+  /* 경로에서 기본 언어가 없는 경우 기본언어 추가 */
+  const pathnameIsMissingLocale = locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  );
+
+  if (pathnameIsMissingLocale) {
+    // 요청 경로에 지원하는 언어가 포함되어 있지 않다면 기본 언어를 추가한 경로로 rewrite
+    // ex. /about 요청이 들어오면 Next.js가 /en/about처럼 처리하도록 알림
+    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}`, request.url));
+  }
+}
+
+export const config = {
+  // 다음 경로에서는 미들웨어가 실행되지 않도록 설정합니다.
+  matcher: [
+    '/((?!api|.*\\..*|_next/static|_next/image|manifest.json|assets|favicon.ico).*)',
+  ],
+};
+```
+
+<br />
+## 5. 번역 리소스 생성하기
+
+마지막으로 번역에 사용되는 리소스 파일이 필요합니다. `src/localization/locales/[lng]` 형태로 적절한 언어 폴더에 json 파일을 생성합니다.
+
+위에서 i18next 설정하면서 계속 등장했던 `namespace`가 이 json 파일의 이름이 됩니다. 프로젝트에 맞게 적절히 변경해주세요.
+
+```tsx
+// localization/locales/en/common.json
+{
+  "hello": "Hello 2025",
+  "lang_change": "Change Language"
+}
+
+// localization/locales/ko/common.json
+{
+  "hello": "안녕 2025",
+  "lang_change":"언어 변경"
+}
+```
+
+<br />
+## 6. 사용 예시
+
+사용 환경이 서버 컴포넌트인지 클라이언트 컴포넌트인지에 따라 사용 방식이 다릅니다.
+
+```tsx
+const { t } = await translation(locale, 'common'); // server
+const { t } = useTranslation(locale, 'common'); // client
+```
+
+### 서버 컴포넌트
+
+```tsx
+import { translation } from '@/utils/localization/server';
+import { LocaleTypes } from '@/utils/localization/setting';
+
+interface PageProps {
+  params: { locale: LocaleTypes };
+}
+
+export default async function Home({ params: { locale } }: PageProps) {
+  const { t } = await translation(locale, 'common');
+  return <h1>{t('hello'}</h1>;
+}
+```
+
+### 클라이언트 컴포넌트
+
+```tsx
+'use client';
+
+import React from 'react';
+import styles from './Button.module.scss';
+import { useParams } from 'next/navigation';
+import { useTranslation } from '@/utils/localization/client';
+import { LocaleTypes } from '@/utils/localization/setting';
+
+const Button = () => {
+  const locale = useParams()?.locale as LocaleTypes;
+  const { t } = useTranslation(locale, 'common');
+  return <button className={styles.button}>{t('change_lang')}</button>;
+};
+
+export default Button;
+```
+
+<br />
+## 7. 다중 네임스페이스 사용하기
+
+사용하다보면 여러 네임스페이스에서 번역 리소스를 사용해야할 때가 있어, 다음 코드처럼 사용하기 위해 코드를 일부 수정했습니다. 자료가 없어서 지피티의 도움을 받았습니다.
+
+```tsx
+const { t } = await translation(locale, ['common', 'about']); // server
+const { t } = useTranslation(locale, 'common', 'about'); // client
+```
+
+### 수정 사항
+
+```tsx:utils/localization/setting.ts showLineNumbers {3}
+export function getOptions(
+  lang = fallbackLng,
+  ns: string | string[] = defaultNS
+): InitOptions {
+  //...
+}
+```
+
+```tsx:utils/localization/server.ts showLineNumbers {1, 4-26, 31}
+const initI18next = async (lang: LocaleTypes, ns: string | string[]) => {
+  const i18nInstance = createInstance();
+
+  // 단일 네임스페이스 혹은 다중 네임스페이스 처리
+  const namespaces = Array.isArray(ns) ? ns : [ns];
+
+  // 네임스페이스 데이터를 동적으로 로드하는 함수
+  const loadNamespaceData = async (
+    language: string,
+    namespace: string
+  ): Promise<object> => {
+    return import(`./locales/${language}/${namespace}.json`);
+  };
+
+  // resourcesToBackend를 다중 네임스페이스와 통합
+  await i18nInstance
+    .use(initReactI18next)
+    .use(
+      resourcesToBackend(async (language: string, namespace: string) => {
+        if (namespaces.includes(namespace)) {
+          return await loadNamespaceData(language, namespace);
+        }
+        throw new Error(`Namespace ${namespace} not found`);
+      })
+    )
+    .init(getOptions(lang, namespaces));
+
+  return i18nInstance;
+};
+
+export async function translation(lang: LocaleTypes, ns: string | string[]) {
+  // ...
+}
+```
+
+```tsx showLineNumbers {1-3}
+export function useTranslation(lng: LocaleTypes, ns: string | string[]) {
+  const namespaceArray = Array.isArray(ns) ? ns : [ns]; // 배열로 통일
+  const translator = useTransAlias(namespaceArray);
+  // ...
+}
+```
+
+<br />
+## 8. 언어 변경 토글
+
+```tsx
+'use client';
+
+import React from 'react';
+import styles from './ChangeLocale.module.scss';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { fallbackLng, LocaleTypes } from '@/utils/localization/setting';
+import { useTranslation } from '@/utils/localization/client';
+
+const ChangeLocale = ({}) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const locale = useParams()?.locale as LocaleTypes;
+  const { t, i18n } = useTranslation(locale, 'common');
+
+  const segmentsPath = pathname.slice(1).split('/');
+  const withoutLocalePath = locale === fallbackLng ? segmentsPath : segmentsPath.slice(1);
+
+  const changeLanguage = (locale: LocaleTypes) => {
+    i18n.changeLanguage(locale); // 클라이언트 측 언어 변경
+    router.push(`/${locale}/${withoutLocalePath.join('/')}`); // URL에 언어 반영
+  };
+
+  return (
+    <div>
+      <button
+        className={`${styles.button} ${i18n.language === 'ko' && styles.active}`}
+        onClick={() => changeLanguage('ko')}
+      >
+        {t('ko')}
+      </button>
+      <button
+        className={`${styles.button} ${i18n.language === 'en' && styles.active}`}
+        onClick={() => changeLanguage('en')}
+      >
+        {t('en')}
+      </button>
+    </div>
+  );
+};
+
+export default ChangeLocale;
+```
+
+미들웨어에서 locale를 제거한 URL로 리다이렉트 시켜주기 때문에 pathname을 출력하면 기본언어의 경우 `/about` 으로 출력되지만 다른 언어는 `/en/about` 으로 출력됩니다.
+
+어떤 경로든 모두 언어 부분을 제거해 라우터를 변경할 때 직접 언어를 지정해주도록 했습니다.
+
+여기까지 Next에서 App router기반 다국어 처리하는 과정이었습니다 끝!
+
+<br />
+전체 코드는 [github.com/thisyujeong/next-localization](https://github.com/thisyujeong/next-localization)
+에서 확인하세요!
+
+<br />
+
+---
+
+참고
+
+- https://i18next.com, https://www.i18next.com/
+- https://github.com/i18next/next-app-dir-i18next-example/tree/main
+- https://github.com/hotsunchip/nextjs-app-router/tree/W-13_Localization
+- https://github.com/falsy/blog-post-example/tree/master/i18next-react-next
+- https://hotsunchip.tistory.com/13
