@@ -150,7 +150,6 @@ i18next
 이제 서버 설정 파일과 같이 useTranslation 함수를 호출해서 사용할 수 있도록 추가해주도록 합니다.
 
 ```tsx:utils/localization/client.ts
-
 import { useEffect } from 'react';
 import { initReactI18next, useTranslation as useTransAlias } from 'react-i18next';
 
@@ -321,7 +320,11 @@ export default Button;
 
 ```tsx
 const { t } = await translation(locale, ['common', 'about']); // server
-const { t } = useTranslation(locale, 'common', 'about'); // client
+const { t } = useTranslation(locale, ['common', 'about']); // client
+
+// usage
+<h1>{t('hello')}<h1>
+<p>{t('about:description')}</p>
 ```
 
 ### 수정 사항
@@ -371,7 +374,7 @@ export async function translation(lang: LocaleTypes, ns: string | string[]) {
 }
 ```
 
-```tsx showLineNumbers {1-3}
+```tsx:utils/localization/client.ts showLineNumbers {1-3}
 export function useTranslation(lng: LocaleTypes, ns: string | string[]) {
   const namespaceArray = Array.isArray(ns) ? ns : [ns]; // 배열로 통일
   const translator = useTransAlias(namespaceArray);
