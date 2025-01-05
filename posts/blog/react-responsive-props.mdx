@@ -96,7 +96,7 @@ useEffect(() => {
 
 **전체코드**
 
-```tsx
+```tsx showLineNumbers
 import { useEffect, useState } from 'react';
 
 export type ResponsiveSizeType = 'wide' | 'desktop' | 'tablet' | 'mobile';
@@ -175,7 +175,7 @@ normalizeSize(['large', 'medium', 'small', 'xsmall']); // output: ["large", "med
 
 따라서 normalizeSize 함수 안에서는 주어진 값이 다중 사이즈인지, 단일 사이즈인지 판단하고, 허용 사이즈에 존재하는 사이즈인지 유효성을 체크합니다. 끝으로 표준화된 사이즈를 반환합니다.
 
-```tsx
+```tsx showLineNumbers {6-24}
 export const getResponsiveSize = (
   size: SizeType | SizeType[], breakpoint: ResponsiveSizeType
 ) = {
@@ -207,7 +207,7 @@ export const getResponsiveSize = (
 
 마지막으로 브레이크 포인트에 따라 인덱스를 매핑합니다.
 
-```tsx
+```ts showLineNumbers {12-20}
 export const getResponsiveSize = (
   size: SizeType | SizeType[], breakpoint: ResponsiveSizeType
 ) = {
@@ -221,7 +221,10 @@ export const getResponsiveSize = (
 
   // breakpoint에 적절한 사이즈 반환
   const indexMap: Record<ResponsiveSizeType, number> = {
-    wide: 0, desktop: 1, tablet: 2, mobile: 3,
+    wide: 0,
+    desktop: 1,
+    tablet: 2,
+    mobile: 3,
   };
 
   return normalizedSize[indexMap[breakpoint]];
@@ -233,7 +236,7 @@ export const getResponsiveSize = (
 
 **전체 코드**
 
-```tsx
+```tsx showLineNumbers
 import { ResponsiveSizeType, SizeType } from '@/hooks/useResponsive';
 
 export const getResponsiveSize = (
@@ -273,7 +276,7 @@ export const getResponsiveSize = (
 
 어떤 컴포넌트에서는 medium, small 사이즈만 필요한 컴포넌트가 있을 수 있습니다. getResponsieveSize 함수를 일부 수정하여 options 값을 통해 허용 사이즈를 변경할 수 있도록 합니다.
 
-```ts
+```ts showLineNumbers {6, 8-9}
 import { ResponsiveSizeType, SizeType } from '@/hooks/useResponsive';
 
 export const getResponsiveSize = (
@@ -313,7 +316,7 @@ export const getResponsiveSize = (
 
 ## 4. 사용 예제
 
-```tsx
+```tsx showLineNumbers {6, 10-11}
 import useResponsive, { SizeType } from '@/hooks/useResponsive';
 import { getResponsiveSize } from '@/utils/getResponsivSize';
 import styles from './Button.module.scss';
@@ -334,7 +337,7 @@ const Button = ({ size = 'medium' }: ButtonProps) => {
 export default Button;
 ```
 
-```tsx
+```tsx showLineNumbers
 // 특정 컴포넌트에서 허용 사이즈를 변경할 경우
 export type ButtonSizeType = 'medium' | 'small';
 
