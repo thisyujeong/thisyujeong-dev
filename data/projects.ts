@@ -6,6 +6,12 @@ import { Project } from 'lib/types';
 
 const projects: Project[] = [
   {
+    title: 'Flippix',
+    description: 'Svelte5를 학습하며 제작한 디지털 플립시계 프로젝트 ',
+    url: 'https://flippix-clock.vercel.app',
+    image: '/projects/flippix.png',
+  },
+  {
     title: 'Particle Morphing',
     description: 'Three.js + GSAP 를 활용한 인터랙티브 웹(1)',
     url: 'https://particle-morphing-threejs.vercel.app',
