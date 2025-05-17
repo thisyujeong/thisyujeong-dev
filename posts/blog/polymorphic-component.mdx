@@ -1,0 +1,370 @@
+---
+title: 컴포넌트를 더 유연하게 만드는 방법 (Polymorphic Component)
+date: 2025-05-18 05:37:14
+description: forwardRef 부터 타입 추론까지, 타입 안전한 다형성 컴포넌트 설계의 모든 것
+tags: [React, Typescript, Polymorphic Component, forwardRef, Type safe]
+---
+
+> Polymorphic: 다형성;
+
+사전적 의미를 통해 짐작할 수 있듯이, **Polymorphic 컴포넌트**는 하나의 컴포넌트로 다양한 HTML 요소나 다른 리액트 컴포넌트로 렌더링할 수 있도록 설계된 컴포넌트를 말합니다.
+
+우리는 어떤 제품이든, 공통 컴포넌트를 개발 하는 상황을 빈번히 마주하게 되는데요. 공통 컴포넌트를 구현하는 과정을 가장 기본이 되는 Button 컴포넌트를 예로 들어보겠습니다.
+
+먼저 확장성을 고려하지 않고 버튼을 구현한다면 대게는 다음과 유사한 코드를 작성하게 됩니다.
+
+```tsx
+interface ButtonProps {}
+
+export const Button = ({ children }: React.PropsWithChildren<ButtonProps>) => {
+  return <button>{children}</button>;
+};
+```
+
+좀 더 확장성을 고려한다면 `button` 태그의 고유 속성들을 그대로 사용할 수 있도록 타입을 수정해줄 수 있죠.
+
+```tsx
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export const Button = ({ children, ...props }: ButtonProps) => {
+  return <button {...props}>{children}</button>;
+};
+```
+
+지금의 Button 컴포넌트도 충분히 확장성이 있다고 볼 수 있을 것 같습니다. 하지만 Button 컴포넌트를 링크 버튼으로 사용해야 한다면 어떻게 해야할까요?
+
+Link 전용 컴포넌트를 새로 만들거나, `a` 태그로 감싸는 방법, 혹은 컴포넌트 내부에서 분기처리를 해주는 것도 방법이 될 수 있겠지만 이러한 처리는 다양한 변형을 제공해야 할 때마다 중복 로직이 증가하면서 유지보수가 어려워집니다. 또한 접근성(A11y)을 위배할 수도 있고, 이벤트의 충돌로 인해 예기치 못한 동작을 유발할 수도 있죠.
+
+이 문제점들을 해결할 수 있는 것이 바로 **Polymorphic 컴포넌트** 입니다.
+
+<br />
+## Polymorphic 컴포넌트
+
+---
+
+`as` 속성을 통해 Button 컴포넌트 내부의 `button` 태그 대신 `a` 태그를 외부에서 변경할 수 있다면 어떨까요?
+
+```tsx
+<Button as="a" href="#;">
+  Link Button
+</Button>
+```
+
+별도의 컴포넌트를 생성하지 않고도 시멘틱 마크업에 위배되지 않으면서 유연하고 확장성이 높은 컴포넌트로 활용할 수 있게 되었습니다.
+
+이처럼 실제로 확장성 높이기 위해 Polymorphic 컴포넌트를 도입한 여러 디자인 시스템도 있습니다. 대표적으로 [Radix UI](https://www.radix-ui.com/themes/docs/components/box), [MUI](https://mui.com/material-ui/api/box/), [Mantine](https://mantine.dev/guides/polymorphic/), [Chakra](https://v2.chakra-ui.com/community/recipes/as-prop) 에서 찾아볼 수 있습니다. 오픈소스로 공개 되어 있으니 소스코드도 참고해보면 좋을 것 같습니다.
+
+MUI와 Mantine은 `component`라는 속성을, Radix UI, Chakra는 `as`라는 속성을 사용하여 컴포넌트의 HTML 엘리먼트를 변경할 수 있는 것을 확인할 수 있습니다.
+
+<br />
+## Polymorhipc 컴포넌트 구현 (Type-Safe)
+
+---
+
+타입스크립트를 통해 직접 Polymorphic 컴포넌트를 봅시다.
+
+구현하기에 앞서 다음의 타입에 대해 알고 있다면 이해가 좀 더 쉽습니다.
+
+- `React.ElementType`:  
+  `div`, `button`, `a`, .. 와 같은 리액트 요소의 타입을 대표하는 유니언 타입입니다.
+- `React.ComponentPropsWithRef<T>`:  
+  `T` 타입의 컴포넌트(또는 HTML 요소)가 받을 수 있는 **모든 props + ref까지 포함한 타입**을 추론합니다.
+- `React.ComponentPropsWithoutRef<T>`:  
+  React.ComponentPropsWithRef\<T>와 거의 유사하지만 **ref를 제외한 props만 추론**합니다.
+
+<br />
+### Polymorhipc 타입 정의
+
+polymorphic 타입을 한 곳에 정리하기 위해 ts 파일을 생성하고, `as` prop 의 타입을 정의합니다.
+
+타입스크립트에서 Generic의 **extends**는 ‘확장’의 의미보다, ‘제한’의 의미에 가깝습니다. 즉 T 타입을 `ElementType` 으로 제한한다는 의미와 같아요. 컴포넌트를 어떤 태그나 컴포넌트로 렌더링할지를 나타냅니다.
+
+```tsx
+type AsProp<T extends React.ElementType> = {
+  as?: T;
+};
+```
+
+<br />
+
+이제 Polymorphic 컴포넌트의 Props를 정의합니다.
+
+AsProps와 같이 동일하게 컴포넌트의 ElementType을 Generic을 통해 주입받습니다.
+
+- `Props` : 컴포넌트에서 사용자가 정의한 추가적인 props 타입을 받아요. 기본값을 `object`로 둡니다.
+- `ComponentProps<T>` : 주입받은 리액트 컴포넌트나 HTML태그가 받을 수 있는 기본 Props 입니다.
+
+```tsx
+type PolymorphicComponentProps<T extends React.ElementType>, Props = object>
+  = Props & AsProp<C> & React.ComponentProps<C>;
+```
+
+<br />
+
+하지만 `ComponentProps<T>`에 `Props`, `AsProps<T>` 와 중복되는 타입이 있을 수 있습니다. 중복 props를 방지하기 위해 유틸리티 타입을 정의해 줍니다.
+
+- `keyof` : 합쳐진 객체의 모든 key들의 **union**을 추출합니다.
+
+```tsx
+type OverlapProps<T extends React.ElementType, Props> = keyof (AsProp<T> & Props);
+```
+
+이 유틸타입을 `Omit` 을 사용하여 중복 props를 제거하는 과정을 거치면 `PolymorphicComponentProps`가 완성됩니다.
+
+```tsx
+type PolymorphicComponentProps<T extends React.ElementType, Props = object> = (Props & AsProps<T>) &
+  Omit<React.ComponentProps<T>, OverlapProps<T, Props>>;
+```
+
+<br />
+
+여기까지 정의한 타입들을 정리하면 다음과 같습니다.
+
+```tsx
+type AsProp<T extends React.ElementType> = {
+  as?: C;
+};
+
+type OverlapProps<T extends React.ElementType, Props> = keyof (AsProp<T> & Props);
+
+type PolymorphicComponentProps<T extends React.ElementType, Props = object> = (Props & AsProps<T>) &
+  Omit<React.ComponentProps<T>, OverlapProps<T, Props>>;
+```
+
+<br />
+이를 토대로 Button 컴포넌트를 구현하면 다음과 같이 작성할 수 있습니다.
+
+`ButtonComponent` 타입으로 제네릭을 통해 `as` 요소의 타입에 따라 해당하는 Props 타입을 자동으로 추론할 수 있게 되었습니다.
+
+```tsx
+// 사용자 정의 추가 Props
+type _ButtonProps = {
+  variant?: 'primary' | 'secondary';
+};
+
+type ButtonProps<T extends ElementType> = PolymorphicComponentProps<T, _ButtonProps>;
+
+type ButtonComponent = <T extends React.ElementType = 'button'>(props: ButtonProps<T>) => React.ReactElement | null;
+
+export const Button: ButtonComponent = ({ as, variant = 'primary', children, ...props }) => {
+  const Component = as || 'button';
+  return (
+    <Component data-variant={variant} {...props}>
+      {children}
+    </Component>
+  );
+};
+```
+
+<br />
+
+### React.forwardRef 지원
+
+끝난 줄 알았으나.. 여기서 끝이 아닙니다. `forwardRef`를 통해 부모 컴포넌트에서 해당 컴포넌트 요소에 접근이 가능하도록 수정이 필요합니다.
+
+이를 위해 ref 포워딩을 지원하는 타입과 지원하지 않는 타입으로 나누어 주겠습니다. 먼저 기존의 `PolymorphicComponentProps` 타입을 수정하여 지원하지 않는 타입으로 변경해줍니다.
+
+- `React.ComponentProps` → `React.ComponentWithoutRef` 로 변경
+
+```tsx
+type PolymorphicComponentProps<T extends React.ElementType, props = object> = (Props & AsProps<T>) &
+  Omit<ComponentPropsWithoutRef<T>, OverlapProps<T, Props>>;
+```
+
+<br />
+
+ref 를 지원하는 타입을 위해 ref에 대한 타입을 정의하고 ref 포워딩을 지원하는 타입도 추가해줍니다.
+
+1. `ComponentPropsWithRef` 를 통해 ref 타입을 간단히 추출할 수 있습니다.
+2. `PolymorphicRef`를 활용해 ref를 지원하는 Props 타입을 정의합니다.
+
+```tsx
+type PolymorphicRef<C extends React.ElementType> = React.ComponentPropsWithRef<T>['ref'];
+
+type PolymorphicComponentWithRef<C extends React.ElementType, Props = object> = PolymorphicComponentProps<T, Props> & {
+  ref: PolymorphicRef<T>;
+};
+```
+
+<br />
+
+여기까지 작성된 Polymorphic 타입을 정리하면 다음과 같습니다.
+
+```tsx
+type AsProp<T extends React.ElementType> = {
+  as?: T;
+};
+
+type OverlapProps<T extends React.ElementType, Props> = keyof (AsProp<T> & Props);
+
+type PolymorphicComponentProps<T extends React.ElementType, Props = object> = (Props & AsProps<T>) &
+  Omit<React.ComponentPropsWithoutRef<T>, OverlapProps<T, Props>>;
+
+type PolymorphicRef<T extends React.ElementType> = React.ComponentPropsWithRef<T>['ref'];
+
+type PolymorphicComponentWithRef<T extends React.ElementType, Props = object> = PolymorphicComponentProps<T, Props> & {
+  ref: PolymorphicRef<T>;
+};
+```
+
+<br />
+
+### 컴포넌트에 적용해보면…
+
+```tsx
+type _ButtonProps = {
+  variant: 'primary' | 'secondary';
+};
+
+type ButtonProps<T extends ElementType> = PolymorphicComponentPropsWithRef<T, _ButtonProps>;
+
+type ButtonType = <T extends React.ElementType = 'button'>(props: ButtonProps<T>) => React.ReactElement | null;
+
+const Button: ButtonType = forwardRef(
+  <T extends React.ElementType = 'div'>(
+    { as, variant = 'primary', ...props }: ButtonProps<T>,
+    ref: PolymorphicRef<T>['ref']
+  ) => {
+    const Component = as || 'div';
+
+    return <Component ref={ref} data-variant={variant} {...props} />;
+  }
+);
+
+export default Button;
+```
+
+에러가 발생합니다...
+
+> Type 'ForwardRefExoticComponent\<Omit\<ButtonProps\<ElementType\<any, keyof IntrinsicElements>>, "ref"> & RefAttributes\<unknown>>' is not assignable to type 'ButtonType'.
+> Type 'ReactNode' is not assignable to type 'ReactElement\<unknown, string | JSXElementConstructor\<any>> | null'.
+> Type 'undefined' is not assignable to type 'ReactElement\<unknown, string | JSXElementConstructor\<any>> | null'.
+
+제가 참고한 여러 아티클들 또한 위 코드와 유사하게 작성되었고, 같은 에러를 찾기엔 자료가 너무 부족했습니다. 그러다 관련 포스팅 하나를 찾을 수 있었습니다.
+
+https://blog.sjoleee.info/posts/polymorphic-components
+
+해당 포스팅에 따르면 **@types/react 18.3.5 버전**부터 forwardRef 의 타입이 바뀌었다고 합니다. 리서치하면서 보았던 다수의 아티클들은 18.3.5 이전의 버전으로 작성된 글이었어요. 저는 19버전을 사용하고 있었습니다.
+
+19버전에서 `forwardRef` 는 ref를 props 바깥에서 받아야 한다는 타입 제약이 생겨 정확한 DOM 타입을 요구하고 있습니다. 지금까지 작성한 코드에서 `props`에 `ref`가 포함되어 있기 때문에, 이 구조와 충돌하면서 타입 에러가 발생하게 됩니다.
+
+```tsx
+// @types/react의 forwardRef
+function forwardRef<T, P>(
+  render: (props: P, ref: Ref<T>) => ReactNode
+): ForwardRefExoticComponent<P & RefAttributes<T>>;
+
+// 내가 작성한 PolymorphicRef 타입은..🤔
+export type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>['ref'];
+```
+
+**@types/react** 의 forwardRef와 비교해보면, `PolymorphicRef<T>` 에서 `ref: Ref<unkown>` 처럼 추론되어 `forwardRef<T, P>` 에서의 T가 `unkown`이 되어버리는 문제 생긴것을 확인할 수 있습니다.
+
+**결론은 `forwardRef`는 Generic render 함수 자체를 받을 수 없고, `ref`의 구체적인 타입이 명시되어야 한다는 것.**
+
+<br />
+
+### Factory Pattern 추상화
+
+해결 방안은 **Type-Safe한 Polymorphic 컴포넌트 팩토리 함수를** 통해 추상화하는 방법입니다.
+
+타입 오류를 회피하면서도 안전한 타입 추론을 위해 컴포넌트는 forwardRef의 외부에서 래핑(facade)하는 방식을 사용해야 합니다.
+
+함수의 이름은 `withPolymorphicComponent` 로 정의했습니다.
+
+- `DefaultTag`: 기본 HTML 렌더링 태그(예: `'div'`, `'button'` 등)
+- `ExtraProps`: 해당 컴포넌트만의 추가 사용자 정의 props (예: `variant`, `size` 등
+
+```tsx
+/**
+ * Polymorpic 컴포넌트를 위한 Factory 함수
+ * @param render 실제 JSX를 반환하는 함수
+ * @template DefaultTag - 기본 HTML 렌더링 태그(예: `'div'`, `'button'` 등)
+ * @template ExtraProps - 해당 컴포넌트만의 추가 사용자 정의 props (예: `variant`, `size` 등)
+ * @returns
+ */
+export function withPolymorphicComponent<DefaultTag extends ElementType, ExtraProps = {}>(
+  render: (
+    props: PolymorphicComponentProps<DefaultTag, ExtraProps>,
+    ref: ComponentPropsWithRef<DefaultTag>['ref']
+  ) => ReactElement | null
+) {
+  type BaseProps = PolymorphicComponentPropsWithRef<DefaultTag, ExtraProps>;
+
+  // 컴포넌트 반환타입
+  type ComponentType = ForwardRefExoticComponent<BaseProps & RefAttributes<any>> & {
+    <T extends ElementType = DefaultTag>(props: PolymorphicComponentPropsWithRef<T, ExtraProps>): ReactElement | null;
+  };
+
+  // forwardRef는 ref가 props 밖에 있어야 한다고 타입이 정의되어 있기 때문에
+  // 매개변수로 전달받은 render를 바로 넘기면 오류 발생.
+  // props 의 ref를 제외하기 위헤 PropsWitoutRef<T>를 사용
+  const Component = forwardRef(
+    render as (
+      props: PropsWithoutRef<PolymorphicComponentProps<DefaultTag, ExtraProps>>,
+      ref: ComponentPropsWithRef<DefaultTag>['ref']
+    ) => ReactElement | null
+  ) as unknown as ComponentType;
+
+  return Component;
+}
+```
+
+- `render` 함수 전달: 실제 JSX를 반환하는 함수 (as, ref, props…)
+- `forwardRef` 로 감쌈: ref 전달이 가능해짐
+- 타입 단언(as): `PropsWithoutRef<T>`를 이용해 props에서 ref를 제거하여 타입 충돌 방지
+- 반환형 확장: `ComponentType`을 통해 `as="a"` 등으로 사용할 수 있도록 Generic 시그니처 추가
+
+<br />
+
+이제 추상화한 팩토리 함수로 실제 Polymorphic 컴포넌트를 만들 수 있게 되었습니다!👏👏
+
+```tsx
+import { PolymorphicComponentPropsWithRef, withPolymorphicComponent } from '../../types/polymorphic';
+
+type _ButtonProps = {
+  variant?: 'default' | 'primary' | 'secondary';
+};
+
+export type ButtonComponent = <C extends React.ElementType = 'button'>(
+  props: PolymorphicComponentPropsWithRef<C, _ButtonProps>
+) => React.ReactElement | null;
+
+const Button = withPolymorphicComponent<'div', _ButtonProps>(({ as, variant = 'primary', ...props }, ref) => {
+  const Component = (as || 'div') as React.ElementType;
+
+  return <Component ref={ref} data-variant={variant} {...props} />;
+}) as ButtonComponent;
+
+export default Button;
+```
+
+마지막으로 외부에서 해당 컴포넌트의 Props 타입을 임포트하여 사용할 수 있도록 Props도 정의해주었습니다.
+
+```tsx
+export type ButtonProps<T extends React.ElementType = 'button'> = PolymorphicComponentPropsWithRef<T, _BoxProps>;
+```
+
+<br />
+여기까지 Polymorphic Component를 구현하는 과정이었고, 구현하면서 Generic에 대해 깊게 이해할 수 있는 좋은 경험이 된 것 같습니다
+😀
+
+<br />
+
+전체 코드는 추후 정리하여 깃 소스코드로 올릴 예정입니다.
+
+긴 글 읽어주셔서 감사합니다.🙇🏻‍♀️
+
+<br />
+
+**참고 자료**
+
+---
+
+[headless 디자인 시스템을 위한, Polymorphic Component](https://www.jeong-min.com/79-polymorphic-component/)
+
+[Type-Safe하게 다형성 지원하기](https://f-lab.kr/blog/polymorphism-with-type-safe)
+
+[Polymorphic한 React 컴포넌트 만들기](https://kciter.so/posts/polymorphic-react-component/)
+
+[다형성 컴포넌트 구현에 문제가 있나요?](https://blog.sjoleee.info/posts/polymorphic-components)
