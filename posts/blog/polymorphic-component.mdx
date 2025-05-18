@@ -61,7 +61,7 @@ MUI와 Mantine은 `component`라는 속성을, Radix UI, Chakra는 `as`라는 �
 
 ---
 
-타입스크립트를 통해 직접 Polymorphic 컴포넌트를 봅시다.
+타입스크립트를 통해 직접 Polymorphic 컴포넌트를 구현해 봅시다.
 
 구현하기에 앞서 다음의 타입에 대해 알고 있다면 이해가 좀 더 쉽습니다.
 
@@ -73,7 +73,7 @@ MUI와 Mantine은 `component`라는 속성을, Radix UI, Chakra는 `as`라는 �
   React.ComponentPropsWithRef\<T>와 거의 유사하지만 **ref를 제외한 props만 추론**합니다.
 
 <br />
-### Polymorhipc 타입 정의
+### Polymorphic 타입 정의
 
 polymorphic 타입을 한 곳에 정리하기 위해 ts 파일을 생성하고, `as` prop 의 타입을 정의합니다.
 
@@ -96,7 +96,7 @@ AsProps와 같이 동일하게 컴포넌트의 ElementType을 Generic을 통해 
 
 ```tsx
 type PolymorphicComponentProps<T extends React.ElementType>, Props = object>
-  = Props & AsProp<C> & React.ComponentProps<C>;
+  = Props & AsProp<T> & React.ComponentProps<T>;
 ```
 
 <br />
@@ -122,7 +122,7 @@ type PolymorphicComponentProps<T extends React.ElementType, Props = object> = (P
 
 ```tsx
 type AsProp<T extends React.ElementType> = {
-  as?: C;
+  as?: T;
 };
 
 type OverlapProps<T extends React.ElementType, Props> = keyof (AsProp<T> & Props);
@@ -179,9 +179,9 @@ ref 를 지원하는 타입을 위해 ref에 대한 타입을 정의하고 ref �
 2. `PolymorphicRef`를 활용해 ref를 지원하는 Props 타입을 정의합니다.
 
 ```tsx
-type PolymorphicRef<C extends React.ElementType> = React.ComponentPropsWithRef<T>['ref'];
+type PolymorphicRef<T extends React.ElementType> = React.ComponentPropsWithRef<T>['ref'];
 
-type PolymorphicComponentWithRef<C extends React.ElementType, Props = object> = PolymorphicComponentProps<T, Props> & {
+type PolymorphicComponentWithRef<T extends React.ElementType, Props = object> = PolymorphicComponentProps<T, Props> & {
   ref: PolymorphicRef<T>;
 };
 ```
@@ -255,10 +255,10 @@ function forwardRef<T, P>(
 ): ForwardRefExoticComponent<P & RefAttributes<T>>;
 
 // 내가 작성한 PolymorphicRef 타입은..🤔
-export type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>['ref'];
+export type PolymorphicRef<T extends ElementType> = ComponentPropsWithRef<T>['ref'];
 ```
 
-**@types/react** 의 forwardRef와 비교해보면, `PolymorphicRef<T>` 에서 `ref: Ref<unkown>` 처럼 추론되어 `forwardRef<T, P>` 에서의 T가 `unkown`이 되어버리는 문제 생긴것을 확인할 수 있습니다.
+**@types/react** 의 forwardRef와 비교해보면, `PolymorphicRef<T>` 에서 `ref: Ref<unkown>` 처럼 추론되어 `forwardRef<T, P>` 에서의 T가 `unkown`이 되어버리는 문제가 생긴것을 확인할 수 있습니다.
 
 **결론은 `forwardRef`는 Generic render 함수 자체를 받을 수 없고, `ref`의 구체적인 타입이 명시되어야 한다는 것.**
 
@@ -273,7 +273,7 @@ export type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>['re
 함수의 이름은 `withPolymorphicComponent` 로 정의했습니다.
 
 - `DefaultTag`: 기본 HTML 렌더링 태그(예: `'div'`, `'button'` 등)
-- `ExtraProps`: 해당 컴포넌트만의 추가 사용자 정의 props (예: `variant`, `size` 등
+- `ExtraProps`: 해당 컴포넌트만의 추가 사용자 정의 props (예: `variant`, `size` 등)
 
 ```tsx
 /**
@@ -326,12 +326,12 @@ type _ButtonProps = {
   variant?: 'default' | 'primary' | 'secondary';
 };
 
-export type ButtonComponent = <C extends React.ElementType = 'button'>(
-  props: PolymorphicComponentPropsWithRef<C, _ButtonProps>
+export type ButtonComponent = <T extends React.ElementType = 'button'>(
+  props: PolymorphicComponentPropsWithRef<T, _ButtonProps>
 ) => React.ReactElement | null;
 
-const Button = withPolymorphicComponent<'div', _ButtonProps>(({ as, variant = 'primary', ...props }, ref) => {
-  const Component = (as || 'div') as React.ElementType;
+const Button = withPolymorphicComponent<'button', _ButtonProps>(({ as, variant = 'primary', ...props }, ref) => {
+  const Component = (as || 'button') as React.ElementType;
 
   return <Component ref={ref} data-variant={variant} {...props} />;
 }) as ButtonComponent;
