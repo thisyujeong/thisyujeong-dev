@@ -1,0 +1,430 @@
+---
+title: TypeScript 딥다이브 ― 안정성을 보장하는 코드 설계
+date: 2025-07-16 20:35:42
+description: TS 기초 개념과 실전에서 탄탄한 컴포넌트 만들기
+tags:
+  [
+    typescript,
+    Type Inference,
+    Type Assertion,
+    type guard,
+    Type Narrowing,
+    Type Predicate,
+    Discriminated Union,
+    타입 추론,
+    타입 단언,
+    타입 가드,
+    타입 프레디케이트,
+  ]
+---
+
+최근 TypeScript 와 관련된 아티클을 읽다 ‘타입 가드’라는 용어를 보고, 기존에 익숙했던 타입 추론과는 어떻게 다른지 궁금해졌습니다. 용어를 듣고 대충 유추는 가능합니다. 타입 유형에 따라서 안전하게 접근할 수 있도록 한다는 의미이겠거니..
+
+그래도 모르는 것보다 대충 아는 게 더 무섭다고, 리서치하는 김에 타입 개념들을 딥다이브 해보기로 했습니다.
+
+> 🤔 타입 추론, 타입 단언, 타입 가드, Type Narrowing, Type Predicate, … ?
+
+익숙한 용어지만 개념을 좀 더 다지고 싶은 용어와 정말 초면인 용어 위주로 정리해보았습니다.
+
+<br />
+
+## 타입 추론(Type Inference)
+
+TypeScript를 사용한다면 가장 자주 접하게 되는 개념 중 하나입니다. 타입 추론은 TypeScript가 컴파일러를 명시적 타입이 없더라도 **코드의 흐름과 초기값**을 보고 타입을 자동으로 유추하는 동작을 말합니다.
+
+예를 들어, 다음 예시에서 `str1` 은 초기값이 문자열이었으므로, `string` 타입으로 추론됩니다.
+
+```tsx
+let str1 = 'hello'; // string 타입 추론
+const str2 = 'world'; // 문자열 리터럴 타입 추론
+```
+
+하지만 `const` 키워드로 선언된 상수는 변경되지 않는 값이죠. 따라서 이 `str2`의 타입은 리터럴 타입이라고 할 수 있습니다. 즉 `str2`는 더 구체적인 값(리터럴)인 `world`라는 **문자열 리터럴 타입**으로 추론됩니다.
+
+객체 리터럴의 경우에는 기본적으로 프로퍼티 타입을 넓게 추론합니다. 하지만 `as const` 키워드로 타입 단언을 하게되면, 리터럴 타입을 고정하게 됩니다.
+
+```tsx
+// { age: number, name: string } 타입 추론
+const user1 = { age: 20, name: 'Chalri' };
+
+// { age: 20, name: 'Chalri' } 타입으로 고정
+const user2 = { age: 20, name: 'Chalri' } as const;
+```
+
+### **타입 추론이 불가능한 경우** ― **`any`**
+
+> 반대로 타입 추론이 불가능한 대표적인 사례
+
+1. 변수에 초기값이 없는 경우 `const foo;`
+2. 함수 매개변수나 반환값에 타입이 정의되지 않은 경우 `const fn = x => x * 2`
+
+   매개변수에 기본값을 설정한다면 추론될 수 있음 `const fn = (x = 1) => x * 2`
+
+3. 구조분해에서 타입을 명시하지 않은 경우 ― 참조된 함수에 반환 타입이 없음
+
+```tsx
+function fetchData() {
+  return { id: 1, name: 'A' };
+}
+
+// id: any, name: any (반환 타입이 없으면 any)
+const { id, name } = fetchData();
+```
+
+<br />
+
+## 타입 단언(Type Assertion)
+
+컴파일러에게 “**이** 값이 이 타입임을 확신하니, 직접 단언한 타입으로 타입을 유추해줘”라고 **명시적으로 요청**하는 구문입니다. 컴파일러가 타입을 추론하지 못하거나 잘못된 타입으로 추론하는 상황, 코드를 작성하는 개발자가 어떤 타입인지 더 잘 알고 있는 경우에 사용합니다.
+
+예를 들어, 다음 코드처럼 버튼 DOM 요소를 가져온다고 해봅시다.
+
+```tsx
+// type: HTMLElement | null
+const buttonEl = document.getElementById('button');
+```
+
+DOM 요소를 가져오는 `getElementById` 메서드는 `HTMLElement | null` 타입으로 반환됩니다. 하지만 우리는 이 엘리먼트가 Button임을 명확히 알고 있기 때문에 구체적인 `HTMLButtonElement` 타입으로 단언할 수 있습니다.
+
+```tsx
+// 타입 단언
+const buttonEl = document.getElementById('button') as HTMLButtonElement;
+```
+
+타입 단언은 특히 외부 라이브러리 API, JSON 데이터 등 컴파일러가 타입을 알 수 없는 값에 자주 활용됩니다.
+
+```tsx
+interface User {
+  id: number;
+  name: string;
+}
+
+const data = JSON.parse(jsonStr) as User[];
+```
+
+### 주의사항
+
+확실한 방법인 만큼 주의할 점도 있습니다.
+
+타입 단언은 컴파일러를 속일 뿐, 실제 값이 단언한 타입과 일치하는지 검증하지 않습니다. **잘못된 타입 단언은 런타임 에러로 이어질 수 있습니다.** 타입스크립트의 장점을 이용하려는 본래의 목적과 다르게 오히려 타입스크립트의 이점을 누리기 어려워지고, 코드의 안정성을 보장할 수 없습니다.
+
+> 가능한 한 **타입 가드**나 정의된 인터페이스로 검증 후, **확신이 있을 경우에만 타입 단언을 사용하자**
+
+<br />
+## Type Guard 와 Type Narrowing
+
+타입 가드는 런타임 검증으로 변수의 타입을 좁히고, 코드에서 그 타입에 안전하게 접근할 수 있도록 돕는 패턴입니다.
+
+예를 들어, TypeScript에서 유니온 타입 만났다고 가정할 때, 조건문과 타입을 검사하여 자동으로 타입을 좁혀 가능한 한 타입 단언 없이 타입을 명확히 하는 방식인데요. 이렇게 타입을 더 구체적인 타입으로 좁히는 과정을 **Type Narrowing** 이라고 하고, 이는 Type Guard의 핵심 로직이 됩니다.
+
+## 내장 타입 가드
+
+내장 타입 가드는 내장 연산자 `typeof`, `instanceof`, `in` 이 있습니다.
+
+### typeof
+
+원시 타입을 검사할때 사용
+
+```tsx
+// 유니온 타입 매개변수 x
+function fn(x: string | number) {
+  if (typeof x === 'string') {
+    console.log(x);
+  } else {
+    // ...
+  }
+}
+```
+
+### instanceof
+
+클래스 인스턴스를 구분할 때 사용
+
+```tsx
+class Person {
+  age = 20;
+  name = 'Chalri';
+}
+
+class Animal {
+  kind = 'cat';
+  name = '나비';
+}
+
+function check(arg: Person | Animal) {
+  if (arg instanceof Person) {
+    console.log('Person', obj.name); // Person Chalri
+  }
+  if (arg instanceof Animal) {
+    console.log('Animal', obj.name); // Animal 나비
+  }
+}
+```
+
+### in
+
+객체에 특정 property가 존재하는지 검사해 타입가드로 활용
+
+```tsx
+type Person { walk(): void }
+type Bird { fly(): void }
+
+function move(arg: Person | Bird) {
+  if ('walk' in arg) {
+    arg.walk();
+  } else {
+    arg.fly();
+  }
+}
+```
+
+## 리터럴 Type Guard
+
+리터럴 값인 경우 비교 연산자(`===`, `==`, `!==`, `!=`)를 사용하여 타입을 구분할 수 있습니다.
+
+```tsx
+type AnimalType = 'dog' | 'cat' | 'bird';
+
+function kindOfAnimal(animal: AnimalType) {
+  if (animal === 'dog') console.log('dog');
+  if (animal === 'cat') console.log('cat');
+  if (animal === 'bird') console.log('bird');
+}
+```
+
+## 사용자 정의 Type Guard
+
+내장 타입 가드만으로 판별하기 어려운 복잡한 객체, 외부 데이터(API 응답, JSON데이터)의 **타입 검증 방법을 직접 정의하고 재사용 가능한 검사 로직으로 함수로 분리**하여 사용할 수 있습니다.
+
+사용자 정의 TypeGuard 함수는 전달받은 인자가 어떠한 타입인지 리턴하는 함수입니다.
+
+```tsx
+interface Cat {
+  meow(): void;
+  name: string;
+}
+interface Dog {
+  bark(): void;
+  name: string;
+}
+
+// 런타임 타입 검증
+function isCat(pet: Cat | Dog): pet is Cat {
+  return pet.meow() !== 'function';
+}
+
+function play(pet: Cat | Dog) {
+  if (isCat(pet)) {
+    pet.meow();
+  } else {
+    pet.bark();
+  }
+}
+```
+
+## Type Predicate
+
+사용자 정의 Type Guard 예제에서 `function isCat(…): pet is Cat` 부분을 **Type Predicate(타입 프레디케이트)라고 합니다.** Type Predicate는 타입스크립트에서 특정 타입에 대하여 동적으로 체크를 수행하는 함수입니다.
+
+```
+{파라미터명} is {타입}
+```
+
+이 가드 함수 내부에서는 입력된 값과 조건을 검사해 불리언으로 반환합니다. 호출 지점에서 컴파일러가 타입을 좁히도록 ‘**이 분기에서는 \{파라미터명\}은 이 \{타입\}이다’**라는 것을 약속하는 역할을 합니다. 즉 런타임에 변수의 타입을 검사를 수행할 수 있습니다.
+
+## **Discriminated Union 패턴**
+
+TypeScript의 Discriminated Union은 각 객체 타입별로 **공통된 구별자(discriminator)를 프로퍼티**를 두어, 간단한 분기 처리(`if`, `switch`)만으로도 타입을 좁힐 수 있는 기법입니다.
+
+사용자 정의 타입 가드 함수 없이 비교 연산자 만으로도 쉽게 타입을 구분할 수 있게 되는 것이죠.
+
+```tsx
+type Circle = { kind: 'circle'; radius: number };
+type Square = { kind: 'square'; size: number };
+
+type Shape = Circle | Square;
+
+function figureArea(shape: Shape) {
+  if (shape.kind === 'circle') {
+    return Math.PI * radius ** 2;
+  }
+  if (shape.kind === 'square') {
+    return shape.size ** 2;
+  }
+}
+```
+
+이 에제에서는 두 타입 Circle과 Square의 구별자(discriminator)를 `kind`라는 프로퍼티로 사용했습니다.
+
+<br />
+
+## Type Narrowing + Discriminated Union 적용
+
+최근에 [이 패턴을 활용한 컴포넌트 구현에 대한 글](https://velog.io/@rewq5991/react-component-type-guard-button)을 보게 되었습니다. 이 문제는 저도 자주 고민했던 문제라 인상깊게 읽은 글이었어요. 예를 들어, 다음의 디자인 요구사항을 전달받았다고 가정보겠습니다.
+
+- 버튼은 Solid, Outlined, Ghost, Text 4가지 타입을 제공한다.
+- **Solid Button** - Primary, Secondary, subtle, muted 4가지 variant 제공
+- **Outlined Button** - Primary, Secondary, subtle 3가지 variant 제공
+- **Ghost Button** - Primary, Secondary, muted 3가지 variant 제공
+- **Text Button** - Primary, Secondary 2가지 variant 제공
+
+이렇게 버튼 타입마다 지원하는 스타일이 모두 다르다면 어떻게 설계하실 건가요?
+
+```tsx
+type ButtonType = 'solid' | 'outlined' | 'ghost' | 'text';
+type ButtonVariant = 'primary' | 'secondary' | 'subtle' | 'muted';
+
+interface ButtonProps {
+  children: React.ReactNode;
+  type?: ButtonType; // 허용값을 제한하지만, 조합에 대한 제약이 없음
+  variant?: ButtonVariant; // 모든 variant가 모든 type에 허용됨
+}
+
+export function Button({ type = 'solid', variant = 'primary', children }: ButtonProps) {
+  // 잘못된 type/variant 조합이 컴파일을 통과함
+  const classes = ['btn', `btn-${type}`, `btn-${variant}`, `btn-${size}`].join(' ');
+
+  // if, switch 분기처리
+
+  return <button>{children}</button>;
+}
+```
+
+단순하게 처리하면 ButtonType, ButtonVariant의 타입만 정의하고 작업할 수 있지만, 이 코드에는 다음과 같은 문제가 있습니다.
+
+1. **명확한 타입(조합) 보장 불가**
+
+   ― type, variant를 각각 허용값만 제한했을 뿐, 두 값의 조합의 유효성 여부는 검증하지 못해 코드의 안정성이 낮아짐
+
+2. **모든 variant를 모든 타입에 허용**
+
+   ― Text 버튼에 의도하지 않은 variant(subtle, muted)가 넘어와도 컴파일러는 막아주지 못함
+
+3. **코드의 복잡성**
+
+   ― 모든 조합을 `if`, `switch`문 분기처리로 가독성이 저하 가능성 있음
+
+4. **확장성·유지보수성 저하**
+
+   ― 새로운 버튼 타입이나 variant를 추가할 때마다, 런타임 로직의 조건문을 일일이 수정해야 함
+
+5. **TypeScript 이점을 누리지 X**
+   ― 컴파일 타임에 조합 오류를 잡아낼 수 있는 타입 시스템을 활용하지 못하고, 오류는 런타임까지 미뤄집니다.
+
+이때 이 문제들을 **Type Narrowing + Discriminated Union**으로 해결할 수 있습니다.
+
+### 1. **Discriminated Union 적용**
+
+```tsx
+type BaseButtonProps = {
+  children: React.ReactNode;
+  ...
+}
+
+/* kind 타입을 구별자(discriminator)로 사용 */
+type SolidButtonProps = {
+  kind: 'solid';
+  variant: 'primary' | 'secondary' | 'subtle' | 'muted';
+}
+
+type OutlinedButtonProps = {
+  kind: 'outlined';
+  variant: 'primary' | 'secondary' | 'subtle';
+}
+
+type GhostButtonProps = {
+  kind: 'ghost';
+  variant: 'primary' | 'secondary' | 'muted';
+}
+
+type TextButtonProps = {
+  kind: 'text';
+  variant: 'primary' | 'secondary';
+}
+
+/* Discriminator Union */
+type ButtonProps =
+  (BaseButtonProps & SolidButtonProps)
+  | (BaseButtonProps & OutlinedButtonProps)
+  | (BaseButtonProps & GhostButtonProps)
+  | (BaseButtonProps & TextButtonProps)
+```
+
+또는 VariantMap 타입을 따로 분리하여 관리하는 것도 괜찮은 방법인 것 같습니다.
+
+```tsx
+interface VariantMap {
+  solid:   "primary" | "secondary" | "subtle" | "muted";
+  outlined:"primary" | "secondary" | "subtle";
+  ghost:   "primary" | "secondary" | "muted";
+  text:    "primary" | "secondary";
+}
+
+type SolidButtonProps = {
+  kind: 'solid';
+  variant: VariantMap['solid'];
+}
+
+...
+```
+
+### 2. **Type Narrowing 적용**
+
+```tsx
+/src/components/
+  ├ Button.tsx           ← wrapper: kind 분기만 담당
+  ├ SolidButton.tsx      ← solid 전용 스타일·로직
+  ├ OutlinedButton.tsx   ← outlined 전용 스타일·로직
+  ├ GhostButton.tsx      ← ghost 전용 스타일·로직
+  └ TextButton.tsx       ← text 전용 스타일·로직
+```
+
+```tsx
+const Button = ({ kind }: ButtonProps) => {
+  if (kind === 'outlined') {
+    return <OutlinedButton {...props} />;
+  }
+  if (kind === 'ghost') {
+    return <TextButton {...props} />;
+  }
+  if (kind === 'text') {
+    return <GhostButton {...props} />;
+  }
+  return <SolidButton {...props} />;
+};
+```
+
+### 3. 컴포넌트 사용 예제
+
+```tsx
+export function Example() {
+  return (
+    <>
+      {/* 올바른 조합 */}
+      <Button kind="solid" variant="subtle">
+        Solid Subtle
+      </Button>
+      <Button kind="text" variant="secondary">
+        Text Secondary
+      </Button>
+
+      {/* 잘못된 조합 (컴파일 에러) */}
+      {/* <Button kind="text" variant="muted">Text Muted</Button> */}
+    </>
+  );
+}
+```
+
+### 장점 요약
+
+- **유지보수 · 확장성 향상** - 독립적인 파일만 수정하거나, 추가하면 됨
+- **코드 가독성 향상** - `if문`이 덕지덕지 붙은 분기처리 없이 구별자(예제기준 `kind`)만으로도 깔끔한 분기처리가 가능
+- **타입 안정성 향상** - 잘못된 조합을 컴파일 타임에 즉시 확인할 수 있음
+
+<br />
+
+## 마무리
+
+타입 추론, 타입 단언, Type Guard, Type Narrowing, Type Predicate, Discriminated Union 패턴..
+
+처음 듣는 용어도 있고 알고있지만 완벽히 알지 못한 개념도 많았지만, 이 기회에 찐 타입 안정성에 대해 다시 생각해보는 좋은 기회였습니다. 모두 안정적인 타입스크립트 설계에 많은 도움이 되었으면 좋겠습니다 🙏
