@@ -224,17 +224,17 @@ function play(pet: Cat | Dog) {
 
 ## Type Predicate
 
-사용자 정의 Type Guard 예제에서 `function isCat(…): pet is Cat` 부분을 **Type Predicate(타입 프레디케이트)라고 합니다.** Type Predicate는 타입스크립트에서 특정 타입에 대하여 동적으로 체크를 수행하는 함수입니다.
+사용자 정의 Type Guard 예제에서 `function isCat(…): pet is Cat` 부분을 **Type Predicate**라고 합니다. Type Predicate는 타입스크립트에서 특정 타입에 대하여 동적으로 체크를 수행하는 함수입니다.
 
 ```
 {파라미터명} is {타입}
 ```
 
-이 가드 함수 내부에서는 입력된 값과 조건을 검사해 불리언으로 반환합니다. 호출 지점에서 컴파일러가 타입을 좁히도록 ‘**이 분기에서는 \{파라미터명\}은 이 \{타입\}이다’**라는 것을 약속하는 역할을 합니다. 즉 런타임에 변수의 타입을 검사를 수행할 수 있습니다.
+이 가드 함수 내부에서는 입력된 값과 조건을 검사해 불리언으로 반환합니다. 호출 지점에서 컴파일러가 타입을 좁히도록 **‘이 분기에서는 \{파라미터명\}은 이 \{타입\}이다’**라는 것을 약속하는 역할을 합니다. 즉 런타임에 변수의 타입을 검사를 수행할 수 있습니다.
 
 ## **Discriminated Union 패턴**
 
-TypeScript의 Discriminated Union은 각 객체 타입별로 **공통된 구별자(discriminator)를 프로퍼티**를 두어, 간단한 분기 처리(`if`, `switch`)만으로도 타입을 좁힐 수 있는 기법입니다.
+TypeScript의 Discriminated Union은 각 객체 타입별로 **공통된 구별자(discriminator)를 프로퍼티**로 두어, 간단한 분기 처리(`if`, `switch`)만으로도 타입을 좁힐 수 있는 기법입니다.
 
 사용자 정의 타입 가드 함수 없이 비교 연산자 만으로도 쉽게 타입을 구분할 수 있게 되는 것이죠.
 
@@ -309,7 +309,8 @@ export function Button({ type = 'solid', variant = 'primary', children }: Button
    ― 새로운 버튼 타입이나 variant를 추가할 때마다, 런타임 로직의 조건문을 일일이 수정해야 함
 
 5. **TypeScript 이점을 누리지 X**
-   ― 컴파일 타임에 조합 오류를 잡아낼 수 있는 타입 시스템을 활용하지 못하고, 오류는 런타임까지 미뤄집니다.
+
+   ― 컴파일 타임에 조합 오류를 잡아낼 수 있는 타입 시스템을 활용하지 못하고, 오류는 런타임까 미뤄짐
 
 이때 이 문제들을 **Type Narrowing + Discriminated Union**으로 해결할 수 있습니다.
 
